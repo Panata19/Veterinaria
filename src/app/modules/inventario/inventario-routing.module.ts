@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { BodegaComponent } from './bodega/bodega.component';
 import { ProductoComponent } from './producto/producto.component';
 import { SuministrosComponent } from './suministros/suministros.component';
+import { TemplateComponent } from './template/template.component';
 
 const routes: Routes = [
   {
     path: '',
+    component: TemplateComponent,
     children: [
       {
         path: 'bodega',

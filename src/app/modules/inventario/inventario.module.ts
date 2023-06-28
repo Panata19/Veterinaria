@@ -6,6 +6,8 @@ import { BodegaComponent } from './bodega/bodega.component';
 import { SuministrosComponent } from './suministros/suministros.component';
 
 import { InventarioRoutingModule } from './inventario-routing.module';
+import { TemplateComponent } from './template/template.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -13,11 +15,13 @@ import { InventarioRoutingModule } from './inventario-routing.module';
   declarations: [
     ProductoComponent,
     BodegaComponent,
-    SuministrosComponent
+    SuministrosComponent,
+    TemplateComponent
 ],
   imports: [
     CommonModule,
-    InventarioRoutingModule
+    InventarioRoutingModule,
+    SharedModule
   ]
 })
 export class InventarioModule { }

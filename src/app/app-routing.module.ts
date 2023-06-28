@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Error404Component } from './error/404/404.component';
+
 
 const routes: Routes = [
   {
@@ -12,12 +12,12 @@ const routes: Routes = [
     loadChildren: () => import('./modules/tienda/tienda.module').then( m => m.TiendaModule)
   },
   {
-    path: '404',
+    path: 'error',
     loadChildren: () => import('./error/error.module').then(m => m.ErrorModule)
   },
   {
     path: '**',
-    redirectTo: '404'
+    redirectTo: 'error'
   }
 ];
 
