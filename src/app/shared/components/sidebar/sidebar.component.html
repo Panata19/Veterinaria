@@ -92,8 +92,7 @@
   <!-- Heading -->
   <div class="sidebar-heading">Addons</div>
   
-  
-  <li class="nav-item active"> <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item "> <!-- Nav Item - Inventario Collapse Menu -->
     <a
       class="nav-link"
       href="#"
@@ -114,16 +113,45 @@
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Inventario Screens:</h6>
         <a 
-          class="collapse-item {{rutaActive === 'bodega'? 'active' : ''}}" 
-          routerLink="./bodega"
+          class="collapse-item " 
+          routerLink="/inventario/bodega"
         >Bodega</a>
         <a 
           class="collapse-item active" 
-          routerLink="./productos"
+          routerLink="/inventario/productos"
         >Producto</a>
         <a class="collapse-item active"
-          routerLink="./suministros"
+          routerLink="/inventario/suministros"
         >Suministros</a>
+        <div class="collapse-divider"></div>
+      </div>
+    </div>
+  </li>
+
+  <li class="nav-item "> <!-- Nav Item - Tienda Collapse Menu -->
+    <a
+      class="nav-link"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapseTienda"
+      aria-expanded="true"
+      aria-controls="collapseTienda"
+    >
+      <i class="fas fa-fw fa-folder"></i>
+      <span>Tienda</span>
+    </a>
+    <div
+      id="collapseTienda"
+      class="collapse"
+      aria-labelledby="headingPages"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Tienda Screens:</h6>
+        <a 
+          class="collapse-item " 
+          routerLink="/tienda"
+        >Tienda</a>
         <div class="collapse-divider"></div>
       </div>
     </div>
