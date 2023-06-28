@@ -10,9 +10,12 @@ declare var jQuery: any;
 })
 export class SidebarComponent implements OnInit {
 
+  rutaActive: string = '';
+
   constructor() { }
 
   ngOnInit(): void {
+    
     this.initializeSidebar();
   }
 

@@ -9,11 +9,29 @@
       
       <div id="content"> <!-- Main Content -->
         
-        <app-navbar></app-navbar> <!-- Topbar -->
+        <app-navbar>
+          <a 
+            class="collapse-item" 
+            routerLink="./bodega"
+          >Bodega</a>
+        </app-navbar> <!-- Topbar -->
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-          <router-outlet></router-outlet> 
+          <router-outlet></router-outlet>
+          <a 
+            class="collapse-item" 
+            routerLink="./bodega"
+          >Bodega</a>
+          <a 
+            class="collapse-item active" 
+            routerLink="./productos"
+          >Producto</a>
+          <a 
+            class="collapse-item active"
+            routerLink="./suministros"
+          >Suministros</a>
+          <div class="collapse-divider"></div> 
         </div> <!-- /.container-fluid -->
 
       </div> <!-- End of Main Content -->

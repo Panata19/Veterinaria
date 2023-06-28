@@ -89,12 +89,47 @@
 
   <!-- Divider -->
   <hr class="sidebar-divider" />
-
   <!-- Heading -->
   <div class="sidebar-heading">Addons</div>
+  
+  
+  <li class="nav-item active"> <!-- Nav Item - Pages Collapse Menu -->
+    <a
+      class="nav-link"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapseInventario"
+      aria-expanded="true"
+      aria-controls="collapseInventario"
+    >
+      <i class="fas fa-fw fa-folder"></i>
+      <span>Inventario</span>
+    </a>
+    <div
+      id="collapseInventario"
+      class="collapse show"
+      aria-labelledby="headingPages"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Inventario Screens:</h6>
+        <a 
+          class="collapse-item {{rutaActive === 'bodega'? 'active' : ''}}" 
+          routerLink="./bodega"
+        >Bodega</a>
+        <a 
+          class="collapse-item active" 
+          routerLink="./productos"
+        >Producto</a>
+        <a class="collapse-item active"
+          routerLink="./suministros"
+        >Suministros</a>
+        <div class="collapse-divider"></div>
+      </div>
+    </div>
+  </li>
 
-  <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item active">
+  <li class="nav-item"> <!-- Nav Item - Pages Collapse Menu -->
     <a
       class="nav-link"
       href="#"
@@ -108,7 +143,7 @@
     </a>
     <div
       id="collapsePages"
-      class="collapse show"
+      class="collapse"
       aria-labelledby="headingPages"
       data-parent="#accordionSidebar"
     >

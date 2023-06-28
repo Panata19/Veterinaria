@@ -15,7 +15,7 @@ const routes: Routes = [
         component: BodegaComponent
       },
       {
-        path: 'producto',
+        path: 'productos',
         component: ProductoComponent
       },
       {
