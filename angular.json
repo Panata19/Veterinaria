@@ -27,9 +27,16 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/template/css/sb-admin-2.min.css",
+              "src/template/vendor/fontawesome-free/css/all.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/template/vendor/jquery/jquery.min.js",
+              "src/template/vendor/bootstrap/js/bootstrap.bundle.min.js",
+              "src/template/vendor/jquery-easing/jquery.easing.min.js",
+              "src/template/js/sb-admin-2.js"
+            ]
           },
           "configurations": {
             "production": {
