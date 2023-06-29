@@ -31,7 +31,8 @@
               "src/template/css/sb-admin-2.min.css",
               "src/template/vendor/fontawesome-free/css/all.min.css",
               "src/template/vendor/datatables/Bootstrap-4-4.6.0/css/bootstrap.min.css",
-              "src/template/vendor/datatables/datatables.min.css"
+              "node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css",
+              "node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
             ],
             "scripts": [
               "src/template/vendor/jquery/jquery.min.js",
@@ -39,7 +40,10 @@
               "src/template/vendor/jquery-easing/jquery.easing.min.js",
               "src/template/js/sb-admin-2.js",
               "src/template/vendor/datatables/Bootstrap-4-4.6.0/js/bootstrap.min.js",
-              "src/template/vendor/datatables/datatables.min.js"
+              "node_modules/datatables.net/js/jquery.dataTables.min.js",
+              "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js",
+              "node_modules/datatables.net-responsive/js/dataTables.responsive.min.js",
+              "node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"
             ]
           },
           "configurations": {
