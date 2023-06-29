@@ -92,9 +92,9 @@
   <!-- Heading -->
   <div class="sidebar-heading">Addons</div>
   
-  <li class="nav-item "> <!-- Nav Item - Inventario Collapse Menu -->
+  <li class="nav-item {{URL.includes('inventario')?'active':''}}"> <!-- Nav Item - Inventario Collapse Menu -->
     <a
-      class="nav-link"
+      class="nav-link {{URL.includes('inventario')?'':'collapsed'}}"
       href="#"
       data-toggle="collapse"
       data-target="#collapseInventario"
@@ -106,21 +106,21 @@
     </a>
     <div
       id="collapseInventario"
-      class="collapse show"
+      class="collapse {{URL.includes('inventario')?'show':''}}"
       aria-labelledby="headingPages"
       data-parent="#accordionSidebar"
     >
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Inventario Screens:</h6>
         <a 
-          class="collapse-item " 
+          class="collapse-item {{URL.includes('bodega')?'active':''}}" 
           routerLink="/inventario/bodega"
         >Bodega</a>
         <a 
-          class="collapse-item active" 
+          class="collapse-item {{URL.includes('productos')?'active':''}}" 
           routerLink="/inventario/productos"
         >Producto</a>
-        <a class="collapse-item active"
+        <a class="collapse-item {{URL.includes('suministros')?'active':''}}"
           routerLink="/inventario/suministros"
         >Suministros</a>
         <div class="collapse-divider"></div>
@@ -128,9 +128,9 @@
     </div>
   </li>
 
-  <li class="nav-item "> <!-- Nav Item - Tienda Collapse Menu -->
+  <li class="nav-item {{URL.includes('tienda')?'active':''}}"> <!-- Nav Item - Tienda Collapse Menu -->
     <a
-      class="nav-link"
+      class="nav-link {{URL.includes('tienda')?'':'collapsed'}}"
       href="#"
       data-toggle="collapse"
       data-target="#collapseTienda"
@@ -142,14 +142,14 @@
     </a>
     <div
       id="collapseTienda"
-      class="collapse"
+      class="collapse {{URL.includes('tienda')?'show':''}}"
       aria-labelledby="headingPages"
       data-parent="#accordionSidebar"
     >
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Tienda Screens:</h6>
         <a 
-          class="collapse-item " 
+          class="collapse-item {{URL.includes('tienda')?'active':''}}" 
           routerLink="/tienda"
         >Tienda</a>
         <div class="collapse-divider"></div>

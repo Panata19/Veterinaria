@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 declare var jQuery: any;
 
@@ -9,12 +11,36 @@ declare var jQuery: any;
   ]
 })
 export class SidebarComponent implements OnInit {
+  URL: string = ''
 
-  constructor() { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      const currentRoute = this.activatedRoute.root;
+      const url = this.parseRoute(currentRoute);
+      this.URL = url;
+    });
+  }
 
   ngOnInit(): void {
+
     
     this.initializeSidebar();
+  }
+
+  parseRoute(route: ActivatedRoute): string {
+    let url = '';
+    route.children.forEach(child => {
+      url += '/' + child.snapshot.url.map(segment => segment.path).join('/');
+      url = this.parseRoute(child) + url;
+    });
+    return url;
+  }
+  
+  getCurrentRoute() {
+    const currentRoute = this.router.routerState.snapshot.url;
+    console.log(currentRoute);
   }
 
   initializeSidebar() {
