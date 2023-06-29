@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FacturacionComponent } from './facturacion/pages/content/facturacion.component';
+import { FacturacionComponent } from './facturacion/pages/main/facturacion.component';
 import { TemplateComponent } from './template/template.component';
 
 
