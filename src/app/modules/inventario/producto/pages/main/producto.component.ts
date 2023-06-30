@@ -1,119 +1,81 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SelectionModel, DataSource } from '@angular/cdk/collections';
 
-import UserData from '../../interfaces/UserData';
-
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
+import ProductoData from '../../interfaces/ProductData';
+import { ProductsService } from '../../services/products.service';
+import { Observable, ReplaySubject} from 'rxjs';
 
 @Component({
   selector: 'app-producto',
   templateUrl: './producto.component.html',
-  styles: [`
-    .shade{
-      box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-    }
-    .shade:active{
-      box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
-    }
-    .btn-morado {
-      color: #fff;
-      background-color: #A855F7;
-      border-color: #A855F7;
-    }
-    .btn-morado:hover{
-      background: #9333EA;
-      color: #ffffff;
-      border-color: #9333EA;
-    }
-    .btn-green{
-      color: #fff;
-      background-color: #28A745;
-      border-color: #28A745;
-    }
-    .btn-green:hover{
-      color: #fff;
-      background-color: #218838;
-      border-color: #1e7e34;
-    }
-    .btn-red{
-      color: #ffffff;
-      background: #EF4444;
-      border-color: #EF4444;
-    }
-    .btn-red:hover{
-      background: #DC2626;
-      color: #ffffff;
-      border-color: #DC2626;
-    }
-    button:active .text-white-50 {
-      color: rgba(255,255,255,1) !important;
-    }
-    button span:nth-child(2){
-      padding-left: 10px;
-    }
-
-    table {
-      width: 100%;
-    }
-    .mat-mdc-form-field {
-      font-size: 14px;
-      width: 100%;
-    }
-    td, th {
-      width: 25%;
-    }
-  `]
+  styleUrls: ['./producto.component.css']
 })
 export class ProductoComponent implements OnInit, AfterViewInit  {
   
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource: MatTableDataSource<UserData>;
-
+  displayedColumns: string[] = ['select','id', 'name', 'progress', 'fruit'];
+  dataSource: MatTableDataSource<ProductoData>;
+  selection: SelectionModel<ProductoData>;
+  users!:ProductoData[];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  
+  constructor(private ProductsService: ProductsService) {
 
-  constructor() {
     // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-
+    this.users = Array.from({length: 100}, (_, k) => this.ProductsService.createNewUser(k + 1));
+    //const users:ProductoData[] = []
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+    this.dataSource = new MatTableDataSource(this.users);
+    this.selection = new SelectionModel<ProductoData>(true, []);
   }
   
-  ngOnInit(): void {
+  ngOnInit(): void { }
+  
+  addProduct(){
+    this.users.push({id: '89', name: 'Prueba', progress: 'Yes', fruit: 'Siu'});
+    this.dataSource = new MatTableDataSource(this.users);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  removeProduct(){
+    this.users.pop();
+    this.dataSource = new MatTableDataSource(this.users);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    //console.log(this.selection.isMultipleSelection());
+    //console.log(this.selection.isSelected(this.dataSource.data[3]));
+    let selecteds:ProductoData[] = this.selection.selected;
+    console.log(selecteds);
+    selecteds.forEach( (index) => {
+      this.selection.deselect(index)
+    });
+  }
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+    this.selection.select(...this.dataSource.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: ProductoData): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
   }
 
   ngAfterViewInit() {
@@ -131,18 +93,47 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   }
 }
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
 
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
+class ExampleDataSource extends DataSource<ProductoData> {
+  private _dataStream = new ReplaySubject<ProductoData[]>();
+
+  constructor(initialData: ProductoData[]) {
+    super();
+    this.setData(initialData);
+  }
+
+  connect(): Observable<ProductoData[]> {
+    return this._dataStream;
+  }
+
+  disconnect() {}
+
+  setData(data: ProductoData[]) {
+    this._dataStream.next(data);
+  }
+}
+
+
+export class CustomPaginatorIntl extends MatPaginatorIntl {
+  override itemsPerPageLabel = 'Elementos por página:';
+  override nextPageLabel = 'Siguiente';
+  override previousPageLabel = 'Anterior';
+  override firstPageLabel = 'Primera página';
+  override lastPageLabel = 'Última página';
+
+  override getRangeLabel = (page: number, pageSize: number, length: number) => {
+    if (length === 0 || pageSize === 0) {
+      return `0 de ${length}`;
+    }
+
+    length = Math.max(length, 0);
+
+    const startIndex = page * pageSize;
+
+    const endIndex = startIndex < length ?
+      Math.min(startIndex + pageSize, length) :
+      startIndex + pageSize;
+
+    return `${startIndex + 1} - ${endIndex} de ${length}`;
   };
 }
