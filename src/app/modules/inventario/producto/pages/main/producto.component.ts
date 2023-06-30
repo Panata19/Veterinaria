@@ -15,7 +15,7 @@ import { Observable, ReplaySubject} from 'rxjs';
 })
 export class ProductoComponent implements OnInit, AfterViewInit  {
   
-  displayedColumns: string[] = ['select','id', 'name', 'progress', 'fruit'];
+  displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'status'];
   dataSource: MatTableDataSource<ProductoData>;
   selection: SelectionModel<ProductoData>;
   users!:ProductoData[];
@@ -35,7 +35,7 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   ngOnInit(): void { }
   
   addProduct(){
-    this.users.push({id: '89', name: 'Prueba', progress: 'Yes', fruit: 'Siu'});
+    this.users.push({id: '89', name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK'});
     this.dataSource = new MatTableDataSource(this.users);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

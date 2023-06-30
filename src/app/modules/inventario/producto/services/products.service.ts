@@ -52,8 +52,11 @@ export class ProductsService {
     return {
       id: id.toString(),
       name: name,
-      progress: Math.round(Math.random() * 100).toString(),
-      fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
+      image: name+'.jpg',
+      price: Math.round(Math.random() * 100),
+      category: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
+      quantitys: Math.round(Math.random() * 100),
+      status: 'INSTOCK'
     };
   }
 }
