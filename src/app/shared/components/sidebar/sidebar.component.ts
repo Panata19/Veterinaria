@@ -7,8 +7,9 @@ declare var jQuery: any;
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styles: [
-  ]
+  styles: [`
+  
+  `]
 })
 export class SidebarComponent implements OnInit {
   URL: string = ''

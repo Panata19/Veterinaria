@@ -8,6 +8,7 @@ import { SuministrosComponent } from './suministros/pages/main/suministros.compo
 import { InventarioRoutingModule } from './inventario-routing.module';
 import { TemplateComponent } from './template/template.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -21,7 +22,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     InventarioRoutingModule,
-    SharedModule
+    SharedModule,
+    MaterialModule
   ]
 })
 export class InventarioModule { }
