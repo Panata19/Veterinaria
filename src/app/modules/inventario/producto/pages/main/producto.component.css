@@ -55,12 +55,13 @@ td, th {
 td.mat-row.cdk-row.ng-star-inserted mat-checkbox.mat-checkbox.mat-accent label.mat-checkbox-layout{
   margin: 0px !important;
 }
-.mat-checkbox-layout{
-  margin: 0px !important;
-}
 
 .table-bordered {
   border-collapse: collapse;
+}
+
+.mat-checkbox-layout{
+  margin: 0px !important;
 }
 
 .mat-column-select {
@@ -69,12 +70,48 @@ td.mat-row.cdk-row.ng-star-inserted mat-checkbox.mat-checkbox.mat-accent label.m
   padding-right: 24px;
   text-align: center;
 }
+
 .mat-column-id {
+  width: 4rem;
+  max-width: 7rem;
+  min-width: 4rem;
   padding-left: 16px;
 }
-.mat-sort-header-container{
-  
-  justify-content: space-around;
-  font-weight: bold;
+
+.mat-column-image{
+  width: 15rem;
+  max-width: 20rem;
+  min-width: 10rem;
+  padding: 0 15px;
 }
 
+.mat-column-name,
+.mat-column-category{
+  width: 10rem;
+  max-width: 15rem;
+  min-width: 10rem;
+  padding: 0 15px;
+}
+
+/* Column Widths  */
+.mat-column-price,
+.mat-column-quantitys{
+  width: 6rem;
+  max-width: 10rem;
+  min-width: 6rem;
+  padding: 0 15px;
+  
+}
+
+.mat-column-status{
+  padding: 0 15px; 
+}
+
+.overflow-scroll{
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+.container-fluid{
+  margin-bottom: 20px;
+}

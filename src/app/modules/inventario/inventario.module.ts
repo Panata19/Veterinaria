@@ -11,13 +11,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { StatusPipe } from './pipes/status.pipe';
 
 @NgModule({
   declarations: [
     ProductoComponent,
     BodegaComponent,
     SuministrosComponent,
-    TemplateComponent
+    TemplateComponent,
+    StatusPipe
 ],
   imports: [
     CommonModule,
