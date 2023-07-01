@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CustomPaginatorIntl, ProductoComponent } from './producto/pages/main/producto.component';
+import { ProductoComponent } from './producto/pages/main/producto.component';
 import { BodegaComponent } from './bodega/pages/main/bodega.component';
 import { SuministrosComponent } from './suministros/pages/main/suministros.component';
 
@@ -12,6 +12,7 @@ import { MaterialModule } from '../material/material.module';
 
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { StatusPipe } from './pipes/status.pipe';
+import { CustomPaginatorIntl } from 'src/app/shared/components/custom-paginator-intl/custom-paginator-intl';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { StatusPipe } from './pipes/status.pipe';
     BodegaComponent,
     SuministrosComponent,
     TemplateComponent,
-    StatusPipe
+    StatusPipe,
 ],
   imports: [
     CommonModule,

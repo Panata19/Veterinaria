@@ -56,7 +56,8 @@ export class ProductsService {
       price: Math.round(Math.random() * 100),
       category: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
       quantitys: Math.round(Math.random() * 100),
-      status: ''
+      status: '',
+      buttons: true,
     };
   }
 }

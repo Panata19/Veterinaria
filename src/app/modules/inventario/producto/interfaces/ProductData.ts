@@ -6,5 +6,6 @@ export default interface ProductoData {
   category: string;
   quantitys: number;
   status: string;
+  buttons: boolean;
 }
 

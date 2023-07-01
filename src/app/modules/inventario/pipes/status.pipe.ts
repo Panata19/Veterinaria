@@ -15,7 +15,7 @@ export class StatusPipe implements PipeTransform {
         badge = "badge-success";
         message = 'IN STOCK';
         break;
-      case status.quantitys > 0 && status.quantitys < 10:
+      case status.quantitys > 0 && status.quantitys <= 10:
         badge = "badge-warning";
         message = "LOW STOCK";
         break;

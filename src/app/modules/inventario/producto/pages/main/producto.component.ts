@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Injectable } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,7 +15,7 @@ import { Observable, ReplaySubject} from 'rxjs';
 })
 export class ProductoComponent implements OnInit, AfterViewInit  {
   
-  displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'status'];
+  displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'status','buttons'];
   dataSource: MatTableDataSource<ProductoData>;
   selection: SelectionModel<ProductoData>;
   users!:ProductoData[];
@@ -35,12 +35,14 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   ngOnInit(): void { }
   
   addProduct(){
-    this.users.push({id: '89', name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK'});
+    this.users.push({id: '89', name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK', buttons: true});
     this.dataSource = new MatTableDataSource(this.users);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
+  removeButton(){
+    return  this.selection.selected.length === 0;
+  }
   removeProduct(){
     this.users.pop();
     this.dataSource = new MatTableDataSource(this.users);
@@ -111,29 +113,4 @@ class ExampleDataSource extends DataSource<ProductoData> {
   setData(data: ProductoData[]) {
     this._dataStream.next(data);
   }
-}
-
-
-export class CustomPaginatorIntl extends MatPaginatorIntl {
-  override itemsPerPageLabel = 'Elementos por página:';
-  override nextPageLabel = 'Siguiente';
-  override previousPageLabel = 'Anterior';
-  override firstPageLabel = 'Primera página';
-  override lastPageLabel = 'Última página';
-
-  override getRangeLabel = (page: number, pageSize: number, length: number) => {
-    if (length === 0 || pageSize === 0) {
-      return `0 de ${length}`;
-    }
-
-    length = Math.max(length, 0);
-
-    const startIndex = page * pageSize;
-
-    const endIndex = startIndex < length ?
-      Math.min(startIndex + pageSize, length) :
-      startIndex + pageSize;
-
-    return `${startIndex + 1} - ${endIndex} de ${length}`;
-  };
 }
