@@ -6,11 +6,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
 
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-delete-modal.component';
 
 import ProductoData from '../../interfaces/ProductData';
 import { ProductsService } from '../../services/products.service';
 import { Observable, ReplaySubject} from 'rxjs';
-import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-delete-modal.component';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   
-  constructor(private ProductsService: ProductsService, public dialog: MatDialog) {
+  constructor(private ProductsService: ProductsService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
 
     //** Get Data **/
     this.users = this.ProductsService.getProducts();
@@ -70,15 +71,28 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
           });
         }else{
           this.ProductsService.deleteProduct(product!);
-        }  
+        }
+        this.snackbar('Operación Cancelada','success');
+      }else{
+        //** Abre Snackbar **//
+        this.snackbar('Operación Cancelada','danger');
       }
+      
       
       this.ngAfterViewInit();
     });
     
     
   }
-
+  //** Crea SnackBar con estilos **//
+  snackbar(label: string, style: string){
+    this._snackBar.open(label, 'Cerrar', {
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      duration: 2000,
+      panelClass: `snackbar-custom-${style}`
+    });
+  }
   //** Valida Si el número de elementos seleccionados coincide con el número total de filas. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;

@@ -58,21 +58,36 @@ export class ProductsService {
 
   /** Builds and returns a new User. */
   private createNewUser(id: number): ProductoData { 
-    let name =
+    let name:string =
       NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
       ' ' +
       NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
       '.';
-    let image = IMAGE[Math.round(Math.random() * (IMAGE.length - 1))];
-
+    let image:string = IMAGE[Math.round(Math.random() * (IMAGE.length - 1))];
+    let status: string;
+    let quantitys:number = Math.round(Math.random() * 100);
+    switch (true) {
+      case quantitys > 10:
+        status = 'IN STOCK';
+        break;
+      case quantitys > 0 && quantitys <= 10:
+        status = "LOW STOCK";
+        break;
+      case quantitys === 0:
+        status = "OUT OF STOCK"
+        break;
+      default:
+        status = "UNKNOWN"
+        break;
+    }
     return {
       id: id.toString(),
       name: name,
       image: '../../../../../../assets/img/'+image,
       price: Math.round(Math.random() * 100),
       category: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-      quantitys: Math.round(Math.random() * 100),
-      status: '',
+      quantitys: quantitys,
+      status: status,
       buttons: true,
     };
   }
