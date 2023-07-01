@@ -57,7 +57,7 @@ export class ProductsService {
   constructor() {}
 
   /** Builds and returns a new User. */
-  private createNewUser(id: number): ProductoData {
+  private createNewUser(id: number): ProductoData { 
     let name =
       NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
       ' ' +
