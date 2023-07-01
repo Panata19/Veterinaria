@@ -34,30 +34,60 @@ const NAMES: string[] = [
   'Elizabeth',
 ];
 
+const IMAGE: string[] = [
+  'bamboo-watch.jpg',
+  'black-watch.jpg',
+  'bracelet.jpg',
+  'blue-t-shirt.jpg',
+  'blue-band.jpg',
+  'brown-purse.jpg',
+  'galaxy-earrings.jpg',
+  'game-controller.jpg',
+  'gaming-set.jpg',
+  'green-earbuds.jpg',
+  'painted-phone-case.jpg'
+]
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  constructor() { }
+  productsDB = Array.from({length: 100}, (_, k) => this.createNewUser(k + 1))
+  constructor() {}
 
   /** Builds and returns a new User. */
-  createNewUser(id: number): ProductoData {
-    const name =
+  private createNewUser(id: number): ProductoData {
+    let name =
       NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
       ' ' +
       NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
       '.';
+    let image = IMAGE[Math.round(Math.random() * (IMAGE.length - 1))];
 
     return {
       id: id.toString(),
       name: name,
-      image: name+'.jpg',
+      image: '../../../../../../assets/img/'+image,
       price: Math.round(Math.random() * 100),
       category: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
       quantitys: Math.round(Math.random() * 100),
       status: '',
       buttons: true,
     };
+  }
+
+  getProducts():ProductoData[] {
+    return this.productsDB;
+  }
+
+  deleteProduct(product:ProductoData){
+    console.log(product);
+    this.productsDB.pop();
+  }
+
+  addProduct(newProduct: ProductoData){
+    this.productsDB.push(this.createNewUser(this.productsDB.length+1));
+    //this.productsDB.push(newProduct);
   }
 }

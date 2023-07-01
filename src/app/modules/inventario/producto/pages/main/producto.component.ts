@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Injectable } from '@angular/core';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
@@ -25,36 +25,35 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   constructor(private ProductsService: ProductsService) {
 
     // Create 100 users
-    this.users = Array.from({length: 100}, (_, k) => this.ProductsService.createNewUser(k + 1));
+    this.users = this.ProductsService.getProducts();
     //const users:ProductoData[] = []
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.users);
     this.selection = new SelectionModel<ProductoData>(true, []);
   }
   
-  ngOnInit(): void { }
+  ngOnInit(): void {}
   
   addProduct(){
-    this.users.push({id: '89', name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK', buttons: true});
-    this.dataSource = new MatTableDataSource(this.users);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.ProductsService.addProduct({id: '89', name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK', buttons: true});
+    this.ngAfterViewInit();
   }
   removeButton(){
     return  this.selection.selected.length === 0;
   }
-  removeProduct(){
-    this.users.pop();
-    this.dataSource = new MatTableDataSource(this.users);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    //console.log(this.selection.isMultipleSelection());
-    //console.log(this.selection.isSelected(this.dataSource.data[3]));
+  removeProduct(product?:ProductoData){
     let selecteds:ProductoData[] = this.selection.selected;
     console.log(selecteds);
-    selecteds.forEach( (index) => {
-      this.selection.deselect(index)
-    });
+    if(product===undefined){
+      selecteds.forEach( (index) => {
+        this.selection.deselect(index);
+        this.ProductsService.deleteProduct(index);
+      });
+    }else{
+      this.ProductsService.deleteProduct(product);
+    }
+    
+    this.ngAfterViewInit();
   }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
