@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{ data.label }}</h1>
+<div mat-dialog-content></div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No</button>
+  <button
+    matRipple
+    type="button"
+    class="btn btn-red btn-danger shade"
+    [mat-dialog-close]="data.confirmation"
+    cdkFocusInitial
+  >
+    Si
+  </button>
+</div>

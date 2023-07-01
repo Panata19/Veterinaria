@@ -21,12 +21,12 @@
   color: #ffffff;
   border-color: #9333EA;
 }
-.btn-green{
+.btn-success{
   color: #fff;
   background-color: #28A745;
   border-color: #28A745;
 }
-.btn-green:hover{
+.btn-success:hover{
   color: #fff;
   background-color: #218838;
   border-color: #1e7e34;
@@ -41,6 +41,7 @@
   color: #ffffff;
   border-color: #DC2626;
 }
+
 button:active .text-white-50 {
   color: rgba(255,255,255,1) !important;
 }

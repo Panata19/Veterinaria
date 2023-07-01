@@ -1,12 +1,17 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
 
+import { MatDialog } from '@angular/material/dialog';
+
 import ProductoData from '../../interfaces/ProductData';
 import { ProductsService } from '../../services/products.service';
 import { Observable, ReplaySubject} from 'rxjs';
+import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-delete-modal.component';
+
 
 @Component({
   selector: 'app-producto',
@@ -22,12 +27,12 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   
-  constructor(private ProductsService: ProductsService) {
+  constructor(private ProductsService: ProductsService, public dialog: MatDialog) {
 
-    // Create 100 users
+    //** Get Data **/
     this.users = this.ProductsService.getProducts();
-    //const users:ProductoData[] = []
-    // Assign the data to the data source for the table to render
+
+    //** Assign the data to the data source for the table to render  **/
     this.dataSource = new MatTableDataSource(this.users);
     this.selection = new SelectionModel<ProductoData>(true, []);
   }
@@ -38,31 +43,50 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
     this.ProductsService.addProduct({id: '89', name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK', buttons: true});
     this.ngAfterViewInit();
   }
-  removeButton(){
-    return  this.selection.selected.length === 0;
-  }
+  //** Validación para eliminar en Masa **//
+  removeButton(){ return  this.selection.selected.length === 0; }
   removeProduct(product?:ProductoData){
-    let selecteds:ProductoData[] = this.selection.selected;
-    console.log(selecteds);
-    if(product===undefined){
-      selecteds.forEach( (index) => {
-        this.selection.deselect(index);
-        this.ProductsService.deleteProduct(index);
-      });
-    }else{
-      this.ProductsService.deleteProduct(product);
-    }
     
-    this.ngAfterViewInit();
+    //** Logica Del Modal **/
+    let confirmation: boolean = false;
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      data: {
+        label: '¿Estas seguro de querer eliminar este Producto?', 
+        confirmation: confirmation 
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      confirmation = result;
+
+      //** Logica Para Eliminar **/
+      if(confirmation){
+        let selecteds:ProductoData[] = this.selection.selected;    
+        if(product===undefined){
+          selecteds.forEach( (index) => {
+            this.selection.deselect(index);
+            this.ProductsService.deleteProduct(index);
+          });
+        }else{
+          this.ProductsService.deleteProduct(product!);
+        }  
+      }
+      
+      this.ngAfterViewInit();
+    });
+    
+    
   }
-  /** Whether the number of selected elements matches the total number of rows. */
+
+  //** Valida Si el número de elementos seleccionados coincide con el número total de filas. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  //** Selecciona todas las filas si no están todas seleccionadas; en caso contrario, borra la selección. */
   toggleAllRows() {
     if (this.isAllSelected()) {
       this.selection.clear();
@@ -71,14 +95,14 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
     this.selection.select(...this.dataSource.data);
   }
 
-  /** The label for the checkbox on the passed row */
+  //** La etiqueta de la casilla de verificación de la fila pasada */
   checkboxLabel(row?: ProductoData): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
   }
-
+ //** Actualiza la vista de la tabla con los cambios actuales de la DB **/
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

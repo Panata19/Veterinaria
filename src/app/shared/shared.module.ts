@@ -5,6 +5,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LogoutModalComponent } from './components/logout-modal/logout-modal.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { InventarioRoutingModule } from '../modules/inventario/inventario-routing.module';
+import { MaterialModule } from '../modules/material/material.module';
 
 
 
@@ -18,7 +19,8 @@ import { InventarioRoutingModule } from '../modules/inventario/inventario-routin
   ],
   imports: [
     CommonModule,
-    InventarioRoutingModule
+    InventarioRoutingModule,
+    MaterialModule
   ],
   exports: [
     SidebarComponent,

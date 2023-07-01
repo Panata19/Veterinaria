@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { ProductoComponent } from './producto/pages/main/producto.component';
 import { BodegaComponent } from './bodega/pages/main/bodega.component';
@@ -13,6 +14,8 @@ import { MaterialModule } from '../material/material.module';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { StatusPipe } from './pipes/status.pipe';
 import { CustomPaginatorIntl } from 'src/app/shared/components/custom-paginator-intl/custom-paginator-intl';
+import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-delete-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -20,10 +23,12 @@ import { CustomPaginatorIntl } from 'src/app/shared/components/custom-paginator-
     BodegaComponent,
     SuministrosComponent,
     TemplateComponent,
+    ConfirmationModalComponent,
     StatusPipe,
 ],
   imports: [
     CommonModule,
+    FormsModule,
     InventarioRoutingModule,
     SharedModule,
     MaterialModule

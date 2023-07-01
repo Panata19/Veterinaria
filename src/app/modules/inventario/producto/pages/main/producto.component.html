@@ -6,7 +6,7 @@
         <button
           matRipple
           type="button"
-          class="btn btn-green shade btn-icon-split"
+          class="btn btn-success shade btn-icon-split"
           (click)="addProduct()"
         >
           <span class="icon text-white-50">
@@ -18,7 +18,7 @@
           matRipple
           type="button"
           [disabled]="removeButton()"
-          class="btn btn-red shade"
+          class="btn btn-red btn-danger shade"
           (click)="removeProduct()"
         >
           <span class="icon text-white-50">
@@ -154,7 +154,7 @@
             type="button"
             matTooltip="Eliminar"
             (click)="removeProduct(row)"
-            class="btn btn-red rounded-circle shade"
+            class="btn btn-red btn-danger rounded-circle shade"
           >
             <span class="icon text-white-50">
               <i class="fas fa-trash-alt"></i>

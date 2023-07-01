@@ -11,7 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip'; 
-
+import { MatDialogModule } from '@angular/material/dialog'; 
 
 @NgModule({
   exports: [
@@ -26,7 +26,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDividerModule,
     MatIconModule,
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ],
 })
 export class MaterialModule {}
