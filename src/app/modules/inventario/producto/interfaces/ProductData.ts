@@ -1,5 +1,5 @@
 export default interface ProductoData {
-  id: string;
+  id: number;
   name: string,
   image: string;
   price: number;

@@ -41,7 +41,7 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   ngOnInit(): void {}
   
   addProduct(){
-    this.ProductsService.addProduct({id: '89', name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK', buttons: true});
+    this.ProductsService.addProduct({id: 89, name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK', buttons: true});
     this.ngAfterViewInit();
   }
   //** Validación para eliminar en Masa **//
@@ -68,10 +68,12 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
         if(product===undefined){
           selecteds.forEach( (index) => {
             this.selection.deselect(index);
-            this.ProductsService.deleteProduct(index);
+            let newData = this.ProductsService.deleteProduct(index);
+            this.dataSource = new MatTableDataSource(newData);
           });
         }else{
-          this.ProductsService.deleteProduct(product!);
+          let newData = this.ProductsService.deleteProduct(product!);
+          this.dataSource = new MatTableDataSource(newData);
         }
         this.snackbar('¡Eliminado con Exito!','success');
       }else{

@@ -85,7 +85,7 @@ export class ProductsService {
         break;
     }
     return {
-      id: id.toString(),
+      id: id,
       name: name,
       image: '../../../../../../assets/img/'+image,
       price: Math.round(Math.random() * 100),
@@ -108,9 +108,9 @@ export class ProductsService {
   * TODO: Metodo Improvisado para Eliminar Datos - Se Debe Refactorizar con la DB
   * @param product: envia el producto completo para eliminarlo de la DB
   **/
-  deleteProduct(producto:ProductoData){
-    console.log(producto);
-    this.productsDB.pop();
+  deleteProduct(productoEliminar:ProductoData){
+    this.productsDB = this.productsDB.filter(item => item.id !== productoEliminar.id );
+    return this.productsDB;
   }
 
   /**
