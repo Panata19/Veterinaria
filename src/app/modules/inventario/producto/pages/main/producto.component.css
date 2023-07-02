@@ -72,6 +72,7 @@ td.mat-row.cdk-row.ng-star-inserted mat-checkbox.mat-checkbox.mat-accent label.m
   margin: 0px !important;
 }
 
+
 .mat-column-select {
   width: 32px;
   border-right: 1px solid #DEE2E6;
@@ -80,42 +81,44 @@ td.mat-row.cdk-row.ng-star-inserted mat-checkbox.mat-checkbox.mat-accent label.m
 }
 
 .mat-column-id {
-  width: 4rem;
-  max-width: 7rem;
-  min-width: 4rem;
-  padding-left: 16px;
+  width: 4vw;  
+  min-width: 4vw;
+  padding-left: 1.5vw;
 }
 
 .mat-column-image{
-  width: 15rem;
-  max-width: 20rem;
-  min-width: 10rem;
-  padding: 0 15px;
+  width: 11vw;
+  max-width: 15vw;
+  min-width: 11vw;
+  padding: 0 1.5vw;
 }
 
-.mat-column-name,
-.mat-column-category{
-  width: 10rem;
-  max-width: 15rem;
-  min-width: 10rem;
-  padding: 0 15px;
+.mat-column-category,
+.mat-column-name{
+  width: 12vw;
+  max-width: 15vw;
+  min-width: 12vw;
+  padding: 0 1.5vw;
 }
 
 /* Column Widths  */
 .mat-column-price,
 .mat-column-quantitys{
-  width: 6rem;
-  max-width: 10rem;
-  min-width: 6rem;
-  padding: 0 15px;
+  width: 7vw;
+  max-width: 10vw;
+  min-width: 7vw;
+  padding: 0 1.5vw;
   
-}
-.shadow-4 {
-  box-shadow: 0 1px 10px #0000001f,0 4px 5px #00000024,0 2px 4px -1px #0003 !important;
 }
 
 .mat-column-status{
-  padding: 0 15px; 
+  width: 7vw;
+  min-width: 8vw;
+  padding: 0 1.5vw; 
+}
+
+.shadow-4 {
+  box-shadow: 0 1px 10px #0000001f,0 4px 5px #00000024,0 2px 4px -1px #0003 !important;
 }
 
 .overflow-scroll{
