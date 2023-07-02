@@ -46,8 +46,9 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   }
   //** Validación para eliminar en Masa **//
   removeButton(){ return  this.selection.selected.length === 0; }
+  
+  //** Validación para eliminar en Masa **/
   removeProduct(product?:ProductoData){
-    
     //** Logica Del Modal **/
     let confirmation: boolean = false;
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
@@ -72,10 +73,10 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
         }else{
           this.ProductsService.deleteProduct(product!);
         }
-        this.snackbar('Operación Cancelada','success');
+        this.snackbar('¡Eliminado con Exito!','success');
       }else{
         //** Abre Snackbar **//
-        this.snackbar('Operación Cancelada','danger');
+        this.snackbar('¡Operación Cancelada!','danger');
       }
       
       
