@@ -61,6 +61,7 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if( result!==undefined ){
         id = result.id;
         name = result.name;

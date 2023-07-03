@@ -44,8 +44,9 @@ export class AddProductModalComponent implements OnInit {
   ];
   selectedType = this.Types[2].value;
 
+  categorys: string[] = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness'];
+
   compruebaUrl(): void{
-    console.log(this.data.image)
     if(this.data.image !== undefined){
       this.comprobandoUrl = this.data.image.endsWith(".png") || this.data.image.endsWith(".jpg");
     }

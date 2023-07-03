@@ -47,6 +47,7 @@ const IMAGE: string[] = [
   'green-earbuds.jpg',
   'painted-phone-case.jpg'
 ]
+const CATEGORYS = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness'];
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +70,10 @@ export class ProductsService {
       '.';
     let image:string = IMAGE[Math.round(Math.random() * (IMAGE.length - 1))];
     let status: string;
+    let price: number = Math.round(Math.random() * 100);
     let quantitys:number = Math.round(Math.random() * 100);
+    let category: string = CATEGORYS[Math.round(Math.random() * (CATEGORYS.length - 1))];
+
     switch (true) {
       case quantitys > 10:
         status = 'IN STOCK';
@@ -88,8 +92,8 @@ export class ProductsService {
       id: id,
       name: name,
       image: '../../../../../../assets/img/'+image,
-      price: Math.round(Math.random() * 100),
-      category: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
+      price: price,
+      category: category,
       quantitys: quantitys,
       status: status,
       buttons: true,
