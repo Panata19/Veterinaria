@@ -41,6 +41,7 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   
   ngOnInit(): void {}
   
+  //** Logica Añadir Nuevo Producto **//
   addProduct(){
     this.ProductsService.addProduct({id: 89, name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK', buttons: true});
     let id: number, price: number, quantitys: number;
@@ -61,9 +62,7 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if( result !== undefined ){
-
         this.ProductsService.addProduct(result);
         
         this.snackbar('¡Producto Agregado con Exito!','success');
@@ -75,12 +74,12 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
     this.ngAfterViewInit();
   }
 
-  //** Validación para eliminar en Masa **//
+  //** Validación para permitir usar eliminar en Masa **//
   removeButton(){ return  this.selection.selected.length === 0; }
   
   //** Validación para eliminar en Masa **/
   removeProduct(product?:ProductoData){
-    //** Logica Del Modal **/
+    //** Logica Del Modal de confirmación **/
     let confirmation: boolean = false;
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       data: {
@@ -89,9 +88,9 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
       },
     });
 
+    //** Una vez se cierra el modal **//
     dialogRef.afterClosed().subscribe(result => {
       confirmation = result;
-
       //** Logica Para Eliminar **/
       if(confirmation){
         let selecteds:ProductoData[] = this.selection.selected;    
