@@ -1,19 +1,6 @@
 <h1 mat-dialog-title>Agregar Producto</h1>
 <div mat-dialog-content>
   <form [formGroup]="myForm" (ngSubmit)="submit()">
-    <mat-form-field class="w-100" appearance="outline"><!-- ID -->
-      <mat-label>ID:</mat-label>
-      <input 
-        matInput 
-        placeholder="#124" 
-        
-        (change)="consol()"
-        formControlName="id"
-        required
-      >
-    </mat-form-field>
-    <button mat-button type="submit" [disabled]="!id!.valid" cdkFocusInitial>Ok</button>
-  
     <p>Detalles del Producto</p>
   
     <div class="container vw-60">
@@ -24,7 +11,7 @@
             <input 
               matInput 
               placeholder="#124" 
-              [(ngModel)]="data.id"
+              formControlName="id"
               required
             >
           </mat-form-field>
@@ -37,10 +24,10 @@
               required
               type="text" 
               placeholder="Reloj Negro metalico" 
-              [(ngModel)]="data.name"
+              formControlName="name"
             >
             <button 
-              *ngIf="data.name" 
+              *ngIf="name"
               matSuffix 
               mat-icon-button 
               aria-label="Clear" 
@@ -76,7 +63,8 @@
               matInput
               required
               type="url"
-              placeholder="www.url.com/img/1.jpg" [(ngModel)]="data.image"
+              placeholder="www.url.com/img/1.jpg" 
+              formControlName="image"
               (change)="compruebaUrl()"
             >
           </mat-form-field>
@@ -87,7 +75,10 @@
         <div class="col-sm-12 w-100">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Estatus:</mat-label>
-            <mat-select [(value)]="data.status" required>
+            <mat-select 
+              [(value)]="data.status" required
+              formControlName="status"
+            >
               <mat-select-trigger>
                 <div [innerHTML]="data.status | badges"></div>
               </mat-select-trigger>
@@ -105,7 +96,8 @@
           <mat-radio-group
             aria-labelledby="radio-group-of-Category"
             class="row  row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2"
-            [(ngModel)]="data.category">
+            formControlName="category"
+          >
             <mat-radio-button class="my-2 col" *ngFor="let category of categorys" [value]="category">
               {{category}}
             </mat-radio-button>
@@ -121,8 +113,8 @@
               matInput
               required
               type="number" 
-              placeholder="150" 
-              [(ngModel)]="data.price" 
+              placeholder="150"
+              formControlName="price"
               min="0"
             >
             <button *ngIf="data.price" matSuffix mat-icon-button aria-label="Clear" (click)="data.price=0">
@@ -139,7 +131,8 @@
               required
               type="number" 
               placeholder="21" 
-              [(ngModel)]="data.quantitys"
+              formControlName="quantitys"
+              
               (change)="checkCantidadxEstatus()"
               min="0"
             >
@@ -155,6 +148,7 @@
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button type="submit" [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="datos()">Prueba</button>
+  <button mat-button type="submit" [disabled]="comprueba" [mat-dialog-close]="data">Ok</button>
 </mat-dialog-actions>
 

@@ -32,7 +32,13 @@ export class AddProductModalComponent implements OnInit {
   public comprobandoUrl: boolean = false;
 
   public myForm: FormGroup = this.form.group({
-    id: ['', Validators.required]
+    id: ['', Validators.required],
+    name: ['', Validators.required],
+    image: ['', Validators.required],
+    status: ['', Validators.required],
+    category: ['', Validators.required],
+    price: ['', Validators.required],
+    quantitys: ['', Validators.required],
   })
 
   constructor(
@@ -52,16 +58,37 @@ export class AddProductModalComponent implements OnInit {
 
   categorys: string[] = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness'];
   
-  get id() {
-    return this.myForm.get('id');
-  }
-
   consol(){
     if(this.myForm!.get('id')){
       let co = this.myForm.get('id')!.value ||'es nulo';
       console.log(co);
+      /** Agregar Data lo de myForm **/
     }
-    
+  }
+
+  get id() {  return this.myForm.get('id');  }
+  get name() { 
+    let name = this.myForm.get('name');
+    console.log(name?.status);
+    switch (name?.status) {
+      case 'VALID':
+        return true;
+        
+      case 'INVALID':
+        return false;
+        
+      default:
+        return false;    
+    }
+  }
+
+  get comprueba(){
+    return !this.id!.valid
+  }
+
+  datos(){
+    let formValues = this.myForm.value;
+    console.log(formValues);
   }
 
   checkCantidadxEstatus(){
