@@ -6,7 +6,7 @@ import { LogoutModalComponent } from './components/logout-modal/logout-modal.com
 import { FooterComponent } from './components/footer/footer.component';
 import { InventarioRoutingModule } from '../modules/inventario/inventario-routing.module';
 import { MaterialModule } from '../modules/material/material.module';
-
+import { TitleCardComponent } from './cards/title-card/title-card.component';
 
 
 
@@ -16,6 +16,7 @@ import { MaterialModule } from '../modules/material/material.module';
     NavbarComponent,
     LogoutModalComponent,
     FooterComponent,
+    TitleCardComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +28,7 @@ import { MaterialModule } from '../modules/material/material.module';
     NavbarComponent,
     LogoutModalComponent,
     FooterComponent,
-  ]
+    TitleCardComponent
+  ],
 })
 export class SharedModule { }
