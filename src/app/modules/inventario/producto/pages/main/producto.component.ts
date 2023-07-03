@@ -12,6 +12,7 @@ import { ConfirmationModalComponent } from 'src/app/shared/components/confirmati
 import ProductoData from '../../interfaces/ProductData';
 import { ProductsService } from '../../services/products.service';
 import { Observable, ReplaySubject} from 'rxjs';
+import { AddProductModalComponent } from '../../components/add-product-modal/add-product-modal.component';
 
 
 @Component({
@@ -42,8 +43,42 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   
   addProduct(){
     this.ProductsService.addProduct({id: 89, name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK', buttons: true});
+    let id: number, price: number, quantitys: number;
+    let name: string, image: string, category: string, status:string;
+    let buttons: boolean = false;
+
+    const dialogRef = this.dialog.open(AddProductModalComponent, {
+      data: {
+        id: id!,
+        name: name!,
+        image: image!,
+        price: price!,
+        category: category!,
+        quantitys: quantitys!,
+        status: status!,
+        buttons: buttons
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if( result!==undefined ){
+        id = result.id;
+        name = result.name;
+        image = result.image;
+        price = result.price;
+        category = result.category;
+        quantitys = result.quantitys;
+        status = result.status;
+
+        this.snackbar('¡Producto Agregado con Exito!','success');
+      } else {
+        this.snackbar('¡Producto NO Agregado!','danger');
+      }
+    });
+    
     this.ngAfterViewInit();
   }
+
   //** Validación para eliminar en Masa **//
   removeButton(){ return  this.selection.selected.length === 0; }
   
@@ -59,7 +94,6 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       confirmation = result;
 
       //** Logica Para Eliminar **/
@@ -80,7 +114,6 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
         //** Abre Snackbar **//
         this.snackbar('¡Operación Cancelada!','danger');
       }
-      
       
       this.ngAfterViewInit();
     });

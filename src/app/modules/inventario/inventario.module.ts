@@ -15,6 +15,7 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { StatusPipe } from './pipes/status.pipe';
 import { CustomPaginatorIntl } from 'src/app/shared/components/custom-paginator-intl/custom-paginator-intl';
 import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-delete-modal.component';
+import { AddProductModalComponent } from './producto/components/add-product-modal/add-product-modal.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ConfirmationModalComponent } from 'src/app/shared/components/confirmati
     TemplateComponent,
     ConfirmationModalComponent,
     StatusPipe,
+    AddProductModalComponent,
 ],
   imports: [
     CommonModule,
