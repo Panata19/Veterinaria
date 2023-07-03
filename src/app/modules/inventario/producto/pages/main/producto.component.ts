@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-delete-modal.component';
 
-import ProductoData from '../../interfaces/ProductData';
+import { ProductoTable } from '../../interfaces/ProductData';
 import { ProductsService } from '../../services/products.service';
 import { Observable, ReplaySubject} from 'rxjs';
 import { AddProductModalComponent } from '../../components/add-product-modal/add-product-modal.component';
@@ -23,9 +23,9 @@ import { AddProductModalComponent } from '../../components/add-product-modal/add
 export class ProductoComponent implements OnInit, AfterViewInit  {
   
   displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'status','buttons'];
-  dataSource: MatTableDataSource<ProductoData>;
-  selection: SelectionModel<ProductoData>;
-  users!:ProductoData[];
+  dataSource: MatTableDataSource<ProductoTable>;
+  selection: SelectionModel<ProductoTable>;
+  users!:ProductoTable[];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   
@@ -36,14 +36,14 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
 
     //** Assign the data to the data source for the table to render  **/
     this.dataSource = new MatTableDataSource(this.users);
-    this.selection = new SelectionModel<ProductoData>(true, []);
+    this.selection = new SelectionModel<ProductoTable>(true, []);
   }
   
   ngOnInit(): void {}
   
   //** Logica Añadir Nuevo Producto **//
   addProduct(){
-    this.ProductsService.addProduct({id: 89, name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK', buttons: true});
+    this.ProductsService.addProduct({ id: 89, name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK' });
     let id: number, price: number, quantitys: number;
     let name: string, image: string, category: string, status:string;
     let buttons: boolean = false;
@@ -78,7 +78,7 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   removeButton(){ return  this.selection.selected.length === 0; }
   
   //** Validación para eliminar en Masa **/
-  removeProduct(product?:ProductoData){
+  removeProduct(product?:ProductoTable){
     //** Logica Del Modal de confirmación **/
     let confirmation: boolean = false;
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
@@ -93,7 +93,7 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
       confirmation = result;
       //** Logica Para Eliminar **/
       if(confirmation){
-        let selecteds:ProductoData[] = this.selection.selected;    
+        let selecteds:ProductoTable[] = this.selection.selected;    
         if(product===undefined){
           selecteds.forEach( (index) => {
             this.selection.deselect(index);
@@ -141,7 +141,7 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   }
 
   //** La etiqueta de la casilla de verificación de la fila pasada */
-  checkboxLabel(row?: ProductoData): string {
+  checkboxLabel(row?: ProductoTable): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -164,21 +164,21 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
 }
 
 
-class ExampleDataSource extends DataSource<ProductoData> {
-  private _dataStream = new ReplaySubject<ProductoData[]>();
+class ExampleDataSource extends DataSource<ProductoTable> {
+  private _dataStream = new ReplaySubject<ProductoTable[]>();
 
-  constructor(initialData: ProductoData[]) {
+  constructor(initialData: ProductoTable[]) {
     super();
     this.setData(initialData);
   }
 
-  connect(): Observable<ProductoData[]> {
+  connect(): Observable<ProductoTable[]> {
     return this._dataStream;
   }
 
   disconnect() {}
 
-  setData(data: ProductoData[]) {
+  setData(data: ProductoTable[]) {
     this._dataStream.next(data);
   }
 }

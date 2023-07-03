@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import ProductoData from '../producto/interfaces/ProductData';
+import { ProductoData } from '../producto/interfaces/ProductData';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Pipe({

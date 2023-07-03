@@ -10,10 +10,21 @@
             <mat-label>ID:</mat-label>
             <input 
               matInput 
+              required
+              type="number"
               placeholder="#124" 
               formControlName="id"
-              required
+              (change)="checkID()"
             >
+            <button 
+              *ngIf="checkData.id"
+              matSuffix 
+              mat-icon-button 
+              aria-label="Clear" 
+              (click)="clearID()"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
           </mat-form-field>
         </div>
         <div class="col-sm-7">
@@ -25,13 +36,14 @@
               type="text" 
               placeholder="Reloj Negro metalico" 
               formControlName="name"
+              (change)="checkName()"
             >
             <button 
-              *ngIf="name"
+              *ngIf="checkData.name"
               matSuffix 
               mat-icon-button 
               aria-label="Clear" 
-              (click)="data.name=''"
+              (click)="clearName()"
             >
               <mat-icon>close</mat-icon>
             </button>
@@ -65,8 +77,17 @@
               type="url"
               placeholder="www.url.com/img/1.jpg" 
               formControlName="image"
-              (change)="compruebaUrl()"
+              (change)="checkImage()"
             >
+            <button 
+              *ngIf="checkData.image"
+              matSuffix 
+              mat-icon-button 
+              aria-label="Clear" 
+              (click)="clearImage()"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
           </mat-form-field>
         </div>
       </div>
@@ -76,11 +97,11 @@
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Estatus:</mat-label>
             <mat-select 
-              [(value)]="data.status" required
+              required
               formControlName="status"
             >
               <mat-select-trigger>
-                <div [innerHTML]="data.status | badges"></div>
+                <div [innerHTML]="myForm.get('status')!.value||'' | badges"></div>
               </mat-select-trigger>
               <mat-option selec [value]="option.value" *ngFor="let option of Types">
                 <div [innerHTML]="option.viewValue | badges"></div>
@@ -112,12 +133,18 @@
             <input 
               matInput
               required
+              min="0"
               type="number" 
               placeholder="150"
               formControlName="price"
-              min="0"
+              (change)="checkPrice()"
             >
-            <button *ngIf="data.price" matSuffix mat-icon-button aria-label="Clear" (click)="data.price=0">
+            <button 
+              *ngIf="checkData.price" 
+              matSuffix mat-icon-button 
+              aria-label="Clear" 
+              (click)="clearPrice()"
+            >
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
@@ -129,14 +156,18 @@
             <input 
               matInput
               required
+              min="0"
               type="number" 
               placeholder="21" 
               formControlName="quantitys"
-              
-              (change)="checkCantidadxEstatus()"
-              min="0"
+              (change)="checkQuantitys()"
             >
-            <button *ngIf="data.quantitys" matSuffix mat-icon-button aria-label="Clear" (click)="data.quantitys=0">
+            <button 
+              *ngIf="checkData.quantitys" 
+              matSuffix mat-icon-button 
+              aria-label="Clear" 
+              (click)="clearQuantitys()"
+            >
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
@@ -148,7 +179,14 @@
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button (click)="datos()">Prueba</button>
-  <button mat-button type="submit" [disabled]="comprueba" [mat-dialog-close]="data">Ok</button>
+  <button 
+    mat-button 
+    type="submit" 
+    [disabled]="!comprueba"
+    (click)="submit()"
+    [mat-dialog-close]="data"
+  >
+    Ok
+  </button>
 </mat-dialog-actions>
 

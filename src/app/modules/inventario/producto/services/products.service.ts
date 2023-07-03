@@ -1,17 +1,8 @@
 import { Injectable } from '@angular/core';
-import ProductoData from '../interfaces/ProductData';
+import { ProductoData, ProductoTable } from '../interfaces/ProductData';
 
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
+
+//** Datos Quemados **//
 const NAMES: string[] = [
   'Maia',
   'Asher',
@@ -54,8 +45,8 @@ const CATEGORYS = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness'];
 })
 export class ProductsService {
 
-  productsDB = Array.from({length: 100}, (_, k) => this.createNewProduct(k + 1))
-  constructor() {}
+  productsDB = Array.from({length: 100}, (_, k) => this.convertToData(k + 1))
+  //constructor() {}
 
   /**
   * *createNewProduct
@@ -97,15 +88,24 @@ export class ProductsService {
       category: category,
       quantitys: quantitys,
       status: status,
-      buttons: true,
     };
   }
+
+  convertToData(index: number): ProductoTable{
+    let NewDatos = { 
+      ...this.createNewProduct(index),
+      buttons: true
+    };
+    
+    return NewDatos;
+  }
+
   /**
   * *getProducts
   * TODO: Metodo Improvisado para llamar a TODOS los Productos - Se Debe Refactorizar con la DB
   **/
 
-  getProducts():ProductoData[] {
+  getProducts():ProductoTable[] {
     return this.productsDB;
   }
 
@@ -125,6 +125,10 @@ export class ProductsService {
   * @param newProduct: es el nuevo producto para agregarlo a la DB
   **/
   addProduct(newProduct: ProductoData){
-    this.productsDB.push(newProduct);
+    let ListoXTabla = { 
+      ...newProduct,
+      buttons: true
+    };
+    this.productsDB.push(ListoXTabla);
   }
 }

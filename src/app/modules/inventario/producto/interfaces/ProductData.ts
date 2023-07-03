@@ -1,4 +1,14 @@
-export default interface ProductoData {
+export interface ProductoData {
+  id: number;
+  name: string,
+  image: string;
+  price: number;
+  category: string;
+  quantitys: number;
+  status: string;
+}
+
+export interface ProductoTable {
   id: number;
   name: string,
   image: string;
@@ -8,4 +18,3 @@ export default interface ProductoData {
   status: string;
   buttons: boolean;
 }
-
