@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ProductoComponent } from './producto/pages/main/producto.component';
 import { BodegaComponent } from './bodega/pages/main/bodega.component';
@@ -37,7 +37,8 @@ import { BadgesPipe } from './pipes/badges.pipe';
     FormsModule,
     InventarioRoutingModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }

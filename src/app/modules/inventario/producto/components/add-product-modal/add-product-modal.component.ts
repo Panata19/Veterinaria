@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import ProductoData from '../../interfaces/ProductData';
 import { SelectTypes } from '../interfaces/selected.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -30,9 +31,14 @@ export class AddProductModalComponent implements OnInit {
   
   public comprobandoUrl: boolean = false;
 
+  public myForm: FormGroup = this.form.group({
+    id: ['', Validators.required]
+  })
+
   constructor(
     public dialogRef: MatDialogRef<AddProductModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProductoData,
+    private form: FormBuilder
   ) {
     data.buttons = true;
   }
@@ -45,6 +51,18 @@ export class AddProductModalComponent implements OnInit {
   selectedType = this.Types[2].value;
 
   categorys: string[] = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness'];
+  
+  get id() {
+    return this.myForm.get('id');
+  }
+
+  consol(){
+    if(this.myForm!.get('id')){
+      let co = this.myForm.get('id')!.value ||'es nulo';
+      console.log(co);
+    }
+    
+  }
 
   checkCantidadxEstatus(){
     switch (true) {
