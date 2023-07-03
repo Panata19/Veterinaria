@@ -1,0 +1,34 @@
+<div id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+  
+      <app-sidebar></app-sidebar> <!-- Sidebar -->
+  
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        
+        <div id="content"> <!-- Main Content -->
+          
+          <app-navbar></app-navbar> <!-- Topbar -->
+  
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <router-outlet></router-outlet>
+          </div> <!-- /.container-fluid -->
+  
+        </div> <!-- End of Main Content -->
+        
+        <app-footer></app-footer> <!-- Footer -->
+      </div> <!-- End of Content Wrapper -->
+    </div> <!-- End of Page Wrapper -->
+    
+  
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+  
+    <app-logout-modal></app-logout-modal> <!-- Logout Modal-->
+    
+  </div>
+  

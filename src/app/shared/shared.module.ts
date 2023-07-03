@@ -7,6 +7,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { InventarioRoutingModule } from '../modules/inventario/inventario-routing.module';
 import { MaterialModule } from '../modules/material/material.module';
 import { TitleCardComponent } from './cards/title-card/title-card.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 
 
@@ -16,7 +17,8 @@ import { TitleCardComponent } from './cards/title-card/title-card.component';
     NavbarComponent,
     LogoutModalComponent,
     FooterComponent,
-    TitleCardComponent
+    TitleCardComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,
