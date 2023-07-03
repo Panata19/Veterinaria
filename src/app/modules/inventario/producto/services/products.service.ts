@@ -88,6 +88,7 @@ export class ProductsService {
         status = "UNKNOWN"
         break;
     }
+
     return {
       id: id,
       name: name,
@@ -103,6 +104,7 @@ export class ProductsService {
   * *getProducts
   * TODO: Metodo Improvisado para llamar a TODOS los Productos - Se Debe Refactorizar con la DB
   **/
+
   getProducts():ProductoData[] {
     return this.productsDB;
   }
@@ -123,6 +125,6 @@ export class ProductsService {
   * @param newProduct: es el nuevo producto para agregarlo a la DB
   **/
   addProduct(newProduct: ProductoData){
-    this.productsDB.push(this.createNewProduct(this.productsDB.length+1));
+    this.productsDB.push(newProduct);
   }
 }

@@ -46,6 +46,20 @@ export class AddProductModalComponent implements OnInit {
 
   categorys: string[] = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness'];
 
+  checkCantidadxEstatus(){
+    switch (true) {
+      case this.data.quantitys > 10:
+        this.data.status = 'IN STOCK';
+        break;
+      case this.data.quantitys > 0 && this.data.quantitys <= 10:
+        this.data.status = "LOW STOCK";
+        break;
+      case this.data.quantitys === 0:
+        this.data.status = "OUT OF STOCK"
+        break;
+    }
+  }
+
   compruebaUrl(): void{
     if(this.data.image !== undefined){
       this.comprobandoUrl = this.data.image.endsWith(".png") || this.data.image.endsWith(".jpg");
@@ -57,6 +71,10 @@ export class AddProductModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+  }
+
+  submit(){
     
   }
 }

@@ -62,15 +62,10 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      if( result!==undefined ){
-        id = result.id;
-        name = result.name;
-        image = result.image;
-        price = result.price;
-        category = result.category;
-        quantitys = result.quantitys;
-        status = result.status;
+      if( result !== undefined ){
 
+        this.ProductsService.addProduct(result);
+        
         this.snackbar('¡Producto Agregado con Exito!','success');
       } else {
         this.snackbar('¡Producto NO Agregado!','danger');

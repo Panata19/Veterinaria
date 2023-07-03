@@ -2,125 +2,143 @@
 <div mat-dialog-content>
   <p>Detalles del Producto</p>
   
-  <div class="container vw-60">
-    <div class="row">
-      <div class="col-sm-5">
-        <mat-form-field class="w-100" appearance="outline"><!-- ID -->
-          <mat-label>ID:</mat-label>
-          <input matInput placeholder="#124" [(ngModel)]="data.id">
-        </mat-form-field>
-      </div>
-      <div class="col-sm-7">
-        <mat-form-field class="w-100" appearance="outline"><!-- Name -->
-          <mat-label>Nombre:</mat-label>
-          <input 
-            matInput 
-            type="text" 
-            placeholder="Reloj Negro metalico" 
-            [(ngModel)]="data.name"
-          >
-          <button 
-            *ngIf="data.name" 
-            matSuffix 
-            mat-icon-button 
-            aria-label="Clear" 
-            (click)="data.name=''"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12 w-100">
-        <div class="w-img mx-auto my-2">
-          <img 
-            *ngIf="comprobandoUrl; else king"
-            [src]="data.image"
-            class="rounded mx-auto d-block"
-            alt="Imagen Preview"
-          >
-          <ng-template #king>
-            <img 
-              src="../assets/img/Artboard.svg"
-              class="rounded mx-auto d-block"
-              alt="Imagen en blanco"
+    <div class="container vw-60">
+      <div class="row">
+        <div class="col-sm-5">
+          <mat-form-field class="w-100" appearance="outline"><!-- ID -->
+            <mat-label>ID:</mat-label>
+            <input 
+              matInput 
+              placeholder="#124" 
+              [(ngModel)]="data.id"
+              required
             >
-          </ng-template>
+          </mat-form-field>
         </div>
-        
-        <mat-form-field class="w-100" appearance="outline"><!-- Imagen -->
-          <mat-label>Imagen - Url:</mat-label>
-          <input 
-            matInput
-            type="url"
-            placeholder="www.url.com/img/1.jpg" [(ngModel)]="data.image"
-            (change)="compruebaUrl()"
-          >
-        </mat-form-field>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="col-sm-12 w-100">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Estatus:</mat-label>
-          <mat-select [(value)]="data.status">
-            <mat-select-trigger>
-              <div [innerHTML]="data.status | badges"></div>
-            </mat-select-trigger>
-            <mat-option [value]="option.value" *ngFor="let option of Types">
-              <div [innerHTML]="option.viewValue | badges"></div>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <p>Seleccionaste: {{data.status}}</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12">
-        <label id="example-radio-group-label">Elige tu Categoria:</label>
-        <mat-radio-group
-          aria-labelledby="radio-group-of-Category"
-          class="row  row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2"
-          [(ngModel)]="data.category">
-          <mat-radio-button class="my-2 col" *ngFor="let category of categorys" [value]="category">
-            {{category}}
-          </mat-radio-button>
-        </mat-radio-group>
-        <div>Your favorite season is: {{data.category}}</div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-6">
-        <mat-form-field class="w-100" appearance="outline"><!-- Precio -->
-          <mat-label>Precio:</mat-label>
-          <input matInput type="number" placeholder="150" [(ngModel)]="data.price">
-          <button *ngIf="data.price" matSuffix mat-icon-button aria-label="Clear" (click)="data.price=0">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
+        <div class="col-sm-7">
+          <mat-form-field class="w-100" appearance="outline"><!-- Name -->
+            <mat-label>Nombre:</mat-label>
+            <input 
+              matInput
+              required
+              type="text" 
+              placeholder="Reloj Negro metalico" 
+              [(ngModel)]="data.name"
+            >
+            <button 
+              *ngIf="data.name" 
+              matSuffix 
+              mat-icon-button 
+              aria-label="Clear" 
+              (click)="data.name=''"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
       </div>
 
-      <div class="col-sm-6">
-        <mat-form-field class="w-100" appearance="outline"><!-- Quantitys -->
-          <mat-label>Cantidad:</mat-label>
-          <input matInput type="number" placeholder="21" [(ngModel)]="data.quantitys">
-          <button *ngIf="data.quantitys" matSuffix mat-icon-button aria-label="Clear" (click)="data.quantitys=0">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
+      <div class="row">
+        <div class="col-sm-12 w-100">
+          <div class="w-img mx-auto my-2">
+            <img 
+              *ngIf="comprobandoUrl; else king"
+              [src]="data.image"
+              class="rounded mx-auto d-block"
+              alt="Imagen Preview"
+            >
+            <ng-template #king>
+              <img 
+                src="../assets/img/Artboard.svg"
+                class="rounded mx-auto d-block"
+                alt="Imagen en blanco"
+              >
+            </ng-template>
+          </div>
+          
+          <mat-form-field class="w-100" appearance="outline"><!-- Imagen -->
+            <mat-label>Imagen - Url:</mat-label>
+            <input 
+              matInput
+              type="url"
+              placeholder="www.url.com/img/1.jpg" [(ngModel)]="data.image"
+              (change)="compruebaUrl()"
+            >
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-sm-12 w-100">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Estatus:</mat-label>
+            <mat-select [(value)]="data.status" required>
+              <mat-select-trigger>
+                <div [innerHTML]="data.status | badges"></div>
+              </mat-select-trigger>
+              <mat-option selec [value]="option.value" *ngFor="let option of Types">
+                <div [innerHTML]="option.viewValue | badges"></div>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <label id="example-radio-group-label">Elige tu Categoria:</label>
+          <mat-radio-group
+            aria-labelledby="radio-group-of-Category"
+            class="row  row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2"
+            [(ngModel)]="data.category">
+            <mat-radio-button class="my-2 col" *ngFor="let category of categorys" [value]="category">
+              {{category}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field class="w-100" appearance="outline"><!-- Precio -->
+            <mat-label>Precio:</mat-label>
+            <input 
+              matInput
+              required
+              type="number" 
+              placeholder="150" 
+              [(ngModel)]="data.price" 
+              min="0"
+            >
+            <button *ngIf="data.price" matSuffix mat-icon-button aria-label="Clear" (click)="data.price=0">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-6">
+          <mat-form-field class="w-100" appearance="outline"><!-- Quantitys -->
+            <mat-label>Cantidad:</mat-label>
+            <input 
+              matInput
+              required
+              type="number" 
+              placeholder="21" 
+              [(ngModel)]="data.quantitys"
+              (change)="checkCantidadxEstatus()"
+              min="0"
+            >
+            <button *ngIf="data.quantitys" matSuffix mat-icon-button aria-label="Clear" (click)="data.quantitys=0">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
       </div>
     </div>
-  </div>
-
 </div>
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  <button mat-button type="submit" [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
 </mat-dialog-actions>
 
