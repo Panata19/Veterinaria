@@ -27,6 +27,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -94,6 +95,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -102,5 +104,8 @@
       }
     }
   },
-  "defaultProject": "veterinaria"
+  "defaultProject": "veterinaria",
+  "cli": {
+    "analytics": "4b59a02e-1cac-41ae-908d-36f4d40dae7d"
+  }
 }

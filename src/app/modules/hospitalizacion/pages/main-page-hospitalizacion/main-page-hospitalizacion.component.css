@@ -1,0 +1,12 @@
+h1{
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid gray;
+}
+
+
+.container-options{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
