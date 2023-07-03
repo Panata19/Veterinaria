@@ -120,6 +120,5 @@ export class ProductsService {
   **/
   addProduct(newProduct: ProductoData){
     this.productsDB.push(this.createNewProduct(this.productsDB.length+1));
-    //this.productsDB.push(newProduct);
   }
 }

@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import ProductoData from '../../interfaces/ProductData';
+import { SelectTypes } from '../interfaces/selected.interface';
+
 
 @Component({
   selector: 'app-add-product-modal',
@@ -34,6 +36,13 @@ export class AddProductModalComponent implements OnInit {
   ) {
     data.buttons = true;
   }
+
+  Types: SelectTypes[] = [
+    {value: 'IN STOCK', viewValue: 'IN STOCK'},
+    {value: 'LOW STOCK', viewValue: 'LOW STOCK'},
+    {value: 'OUT OF STOCK', viewValue: 'OUT OF STOCK'},
+  ];
+  selectedType = this.Types[2].value;
 
   compruebaUrl(): void{
     console.log(this.data.image)

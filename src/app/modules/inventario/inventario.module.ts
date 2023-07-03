@@ -16,6 +16,9 @@ import { StatusPipe } from './pipes/status.pipe';
 import { CustomPaginatorIntl } from 'src/app/shared/components/custom-paginator-intl/custom-paginator-intl';
 import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-delete-modal.component';
 import { AddProductModalComponent } from './producto/components/add-product-modal/add-product-modal.component';
+import { BadgesPipe } from './pipes/badges.pipe';
+
+
 
 
 @NgModule({
@@ -27,6 +30,7 @@ import { AddProductModalComponent } from './producto/components/add-product-moda
     ConfirmationModalComponent,
     StatusPipe,
     AddProductModalComponent,
+    BadgesPipe,
 ],
   imports: [
     CommonModule,

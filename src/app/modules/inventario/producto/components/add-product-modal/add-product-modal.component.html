@@ -64,10 +64,18 @@
     
     <div class="row">
       <div class="col-sm-12 w-100">
-        <mat-form-field class="w-100" appearance="outline"><!-- Status -->
+        <mat-form-field class="w-100" appearance="outline">
           <mat-label>Estatus:</mat-label>
-          <input matInput placeholder="www.url.com/img/1" [(ngModel)]="data.status">
+          <mat-select [(value)]="data.status">
+            <mat-select-trigger>
+              <div [innerHTML]="data.status | badges"></div>
+            </mat-select-trigger>
+            <mat-option [value]="option.value" *ngFor="let option of Types">
+              <div [innerHTML]="option.viewValue | badges"></div>
+            </mat-option>
+          </mat-select>
         </mat-form-field>
+        <p>Seleccionaste: {{data.status}}</p>
       </div>
     </div>
 
