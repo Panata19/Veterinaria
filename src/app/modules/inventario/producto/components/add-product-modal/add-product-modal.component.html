@@ -56,7 +56,7 @@
           <div class="w-img mx-auto my-2">
             <img 
               *ngIf="comprobandoUrl; else king"
-              [src]="data.image"
+              [src]="srcUrl"
               class="rounded mx-auto d-block img-fluid mw-100"
               alt="Imagen Preview"
             >
@@ -180,8 +180,9 @@
 <mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">No Thanks</button>
   <button 
-    mat-button 
-    type="submit" 
+    matRipple
+    type="submit"
+    class="btn btn-red btn-success shade"
     [disabled]="!comprueba"
     (click)="submit()"
     [mat-dialog-close]="data"

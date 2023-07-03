@@ -25,21 +25,28 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     width: 300px;
     height: 200px;
   }
+  .shade{
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  }
+  .shade:active{
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
   `]
 })
 export class AddProductModalComponent implements OnInit {
   
   public comprobandoUrl: boolean = false;
+  public srcUrl: string = '../assets/img/Artboard.svg';
 
-    public myForm: FormGroup = this.form.group({
-      id: ['', Validators.required],
-      name: ['', Validators.required],
-      image: ['', Validators.required],
-      status: ['', Validators.required],
-      category: ['', Validators.required],
-      price: ['', Validators.required],
-      quantitys: ['', Validators.required],
-    })
+  public myForm: FormGroup = this.form.group({
+    id: ['', Validators.required],
+    name: ['', Validators.required],
+    image: ['', Validators.required],
+    status: ['', Validators.required],
+    category: ['', Validators.required],
+    price: ['', Validators.required],
+    quantitys: ['', Validators.required],
+  })
 
   constructor(
     public dialogRef: MatDialogRef<AddProductModalComponent>,
@@ -93,8 +100,8 @@ export class AddProductModalComponent implements OnInit {
   }
 
   checkImage(){
-    this.compruebaUrl()
     let image = this.myForm.get('image');
+    this.compruebaUrl(image);
     image?.status === 'VALID' ? 
       this.checkData.image = true : 
       this.checkData.image = false;
@@ -148,9 +155,10 @@ export class AddProductModalComponent implements OnInit {
     }
   }
 
-  compruebaUrl(): void{
-    if(this.data.image !== undefined){
-      this.comprobandoUrl = this.data.image.endsWith(".png") || this.data.image.endsWith(".jpg");
+  compruebaUrl(image: any): void{
+    if(image?.status === 'VALID'){
+      this.comprobandoUrl = image?.value.endsWith(".png") || image?.value.endsWith(".jpg");
+      this.srcUrl = image?.value;
     }
   }
 
@@ -158,9 +166,7 @@ export class AddProductModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   submit(){
     this.data.id = this.myForm.get('id')!.value;
