@@ -32,6 +32,7 @@
               "src/template/css/sb-admin-2.min.css",
               "src/template/vendor/fontawesome-free/css/all.min.css",
               "src/template/vendor/datatables/Bootstrap-4-4.6.0/css/bootstrap.min.css"
+
             ],
             "scripts": [
               "src/template/vendor/jquery/jquery.min.js",

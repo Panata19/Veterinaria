@@ -1,0 +1,65 @@
+<div class="container">
+    <mat-toolbar>
+        <span>
+            {{operacion}} cliente
+        </span>
+    </mat-toolbar>
+
+    <mat-card class="margin">
+        <form [formGroup]="form" (ngSubmit)="agregarEditarCliente()">
+            <mat-grid-list cols="2" rowHeight="100px">
+
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input formControlName="nombre" matInput placeholder="Ingresar Nombre">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Apellido</mat-label>
+                        <input formControlName="apellido" matInput placeholder="Ingresar Apellido">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Edad</mat-label>
+                        <input type="number" formControlName="edad" matInput placeholder="Ingresar Edad">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field>
+                        <mat-label>Sexo</mat-label>
+                        <mat-select formControlName="sexo" >
+                          <mat-option *ngFor="let item of sexo" [value]="item">
+                            {{item}}
+                          </mat-option>
+                        </mat-select>
+                        
+                      </mat-form-field>                  
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nacionalidad</mat-label>
+                        <input formControlName="nacionalidad"  matInput placeholder="Ingresar Nacionalidad">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="2">
+                    <button [disabled]="form.invalid" type="submit" class="btnGuardar" mat-raised-button color="primary">Guardar</button>
+                    <button  mat-raised-button routerLink="/cliente/listado">volver</button>
+
+
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+
+
+    </mat-card>
+
+
+</div>>
