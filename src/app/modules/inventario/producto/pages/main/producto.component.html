@@ -18,7 +18,7 @@
           matRipple
           type="button"
           [disabled]="removeButton()"
-          class="btn btn-red btn-danger shade"
+          class="btn btn-danger shade"
           (click)="removeProduct()"
         >
           <span class="icon text-white-50">
@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<section class="mat-elevation-z8 overflow-auto bg-white" tabindex="0">
+<section class="mat-elevation-z8 overflow-auto bg-white mb-2 mb-sm-4" tabindex="0">
   <mat-form-field appearance="outline">
     <mat-label>Buscar</mat-label>
     <input matInput type="search" (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
@@ -153,7 +153,7 @@
             matTooltip="Eliminar"
             matTooltipPosition="right"
             (click)="removeProduct(row)"
-            class="btn btn-red btn-danger rounded-circle shade"
+            class="btn btn-danger rounded-circle shade"
           >
             <span class="icon text-white-50">
               <i class="fas fa-trash-alt"></i>

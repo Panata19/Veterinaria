@@ -11,16 +11,16 @@ export class BadgesPipe implements PipeTransform {
     let badge = ''
     switch (label) {
       case 'IN STOCK':
-        badge = "badge-success";
+        badge = "text-bg-success";
         break;
       case "LOW STOCK":
-        badge = "badge-warning";
+        badge = "text-bg-warning";
         break;
       case "OUT OF STOCK":
-        badge = "badge-danger";        
+        badge = "text-bg-danger";        
         break;
       default:
-        badge = "badge-danger";
+        badge = "text-bg-danger";
         break;
     }
 

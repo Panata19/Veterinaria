@@ -21,7 +21,6 @@ const routes: Routes = [
         path: 'tienda',
         loadChildren: () => import('./modules/tienda/tienda.module').then(m => m.TiendaModule)
       },
-
       {
         path: 'hospitalizacion',
         loadChildren: () => import('./modules/hospitalizacion/hospitalizacion.module').then(m => m.HospitalizacionModule)
@@ -31,7 +30,6 @@ const routes: Routes = [
         path: 'historialClinico',
         loadChildren: () => import('./modules/historialClinico/historial-clinico.module').then(m => m.HistorialClinicoModule)
       },    
-      
       {
         path: 'cliente',
         loadChildren: () => import('./modules/cliente/cliente.module').then(module => module.ClienteModule)

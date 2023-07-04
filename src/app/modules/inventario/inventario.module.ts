@@ -6,8 +6,6 @@ import { ProductoComponent } from './producto/pages/main/producto.component';
 import { BodegaComponent } from './bodega/pages/main/bodega.component';
 import { SuministrosComponent } from './suministros/pages/main/suministros.component';
 
-import { InventarioRoutingModule } from './inventario-routing.module';
-import { TemplateComponent } from './template/template.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 
@@ -26,7 +24,6 @@ import { BadgesPipe } from './pipes/badges.pipe';
     ProductoComponent,
     BodegaComponent,
     SuministrosComponent,
-    TemplateComponent,
     ConfirmationModalComponent,
     StatusPipe,
     AddProductModalComponent,
@@ -35,7 +32,6 @@ import { BadgesPipe } from './pipes/badges.pipe';
   imports: [
     CommonModule,
     FormsModule,
-    InventarioRoutingModule,
     SharedModule,
     MaterialModule,
     ReactiveFormsModule

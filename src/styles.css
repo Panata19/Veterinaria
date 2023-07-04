@@ -3,6 +3,15 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+/** Estilos Para la Tabla en Producto**/
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin: .25em !important;
+}
+
+.mat-form-field-wrapper{
+  padding: 0;
+} /** End **/
+/** Estilos del Snackbar **/
 .snackbar-custom-success{
   background-color: #28A745 !important;
   color: white;
@@ -19,7 +28,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .snackbar-custom-danger div button{
   color: white
-}
+}/** End **/
+
 /*!
  * Start Bootstrap - SB Admin 2 v4.1.3 (https://startbootstrap.com/theme/sb-admin-2)
  * Copyright 2013-2021 Start Bootstrap

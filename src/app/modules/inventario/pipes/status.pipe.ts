@@ -11,19 +11,19 @@ export class StatusPipe implements PipeTransform {
     let badge = ''
     switch (true) {
       case Product.quantitys > 10:
-        badge = "badge-success";
+        badge = "text-bg-success";
         break;
       case Product.quantitys > 0 && Product.quantitys <= 10:
-        badge = "badge-warning";
+        badge = "text-bg-warning";
         break;
       case Product.quantitys === 0:
-        badge = "badge-danger";        
+        badge = "text-bg-danger";        
         break;
       default:
-        badge = "badge-danger";
+        badge = "text-bg-danger";
         break;
     }
-      
+    
     const spanHtml = `<span class="badge ${badge} text-white">${Product.status}</span>`;
     return this.sanitizer.bypassSecurityTrustHtml(spanHtml);
   }
