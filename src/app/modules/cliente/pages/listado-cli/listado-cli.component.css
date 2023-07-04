@@ -10,6 +10,9 @@ table {
 .Scroll{
   overflow: auto;
 }
+th, td{
+  width: 5%;
+}
 
 
 

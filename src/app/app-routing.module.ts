@@ -30,21 +30,19 @@ const routes: Routes = [
       {
         path: 'historialClinico',
         loadChildren: () => import('./modules/historialClinico/historial-clinico.module').then(m => m.HistorialClinicoModule)
-      },
-
-      
+      },    
       
       {
         path: 'cliente',
-        loadChildren: () => import('./Gesclipac/cliente/cliente.module').then(module => module.ClienteModule)
+        loadChildren: () => import('./modules/cliente/cliente.module').then(module => module.ClienteModule)
       },
       {
         path: 'paciente',
-        loadChildren: () => import('./Gesclipac/paciente/paciente.module').then(module => module.PacienteModule)
+        loadChildren: () => import('./modules/paciente/paciente.module').then(module => module.PacienteModule)
       },
       {
-        path: 'cita',
-        loadChildren: () => import('./GesCi/citas/citas.module').then(module => module.CitasModule)
+        path: 'citas',
+        loadChildren: () => import('./modules/citas/citas.module').then(module => module.CitasModule)
       },
       {
         path: 'error',
@@ -64,7 +62,6 @@ const routes: Routes = [
       }
     ]
   },
-
 
 ];
 

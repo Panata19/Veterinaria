@@ -1,0 +1,27 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .Scroll{
+    overflow: auto;
+  }
+  
+  th, td{
+    width: 15%;
+  }
+  
+  
+  .title{
+    background-color: skyblue;
+    text-align: center;
+    padding: 25px;
+    color: white;
+  }
+  .pointer{
+  cursor: pointer;
+  }
