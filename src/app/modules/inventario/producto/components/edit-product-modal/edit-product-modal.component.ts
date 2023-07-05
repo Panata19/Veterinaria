@@ -5,43 +5,13 @@ import { SelectTypes } from '../interfaces/selected.interface';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-product-modal',
-  templateUrl: './add-product-modal.component.html',
-  styles: [`
-  .right-align {
-    text-align: right;
-  }
-
-  input.right-align::-webkit-outer-spin-button,
-  input.right-align::-webkit-inner-spin-button {
-    display: none;
-  }
-
-  input.right-align {
-    -moz-appearance: textfield;
-  }
-  
-  .w-img{
-    max-height: 200px;
-    max-width: 300px;
-  }
-
-  .shade{
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-  }
-  .shade:active{
-    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
-  }
-  .custom-error {
-    margin-top: 5px;
-    background: white;
-    width: fit-content;
-  }
-
-  `]
+  selector: 'app-edit-product-modal',
+  templateUrl: './edit-product-modal.component.html',
+  styles: [
+  ]
 })
-export class AddProductModalComponent implements OnInit {
-  
+export class EditProductModalComponent implements OnInit {
+
   public comprobandoUrl: boolean = false;
   public imgPreview: string = '../assets/img/Artboard.svg';
 
@@ -56,7 +26,7 @@ export class AddProductModalComponent implements OnInit {
   })
 
   constructor(
-    public dialogRef: MatDialogRef<AddProductModalComponent>,
+    public dialogRef: MatDialogRef<EditProductModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProductoData,
     private form: FormBuilder
   ) { console.log(this.myForm?.value?.id) }
@@ -147,7 +117,7 @@ export class AddProductModalComponent implements OnInit {
   get comprueba(){
     return this.myForm.valid
   }
-
+  
   checkCantidadxEstatus(quantitys: AbstractControl | null){
     switch (true) {
       case quantitys!.value > 10:
@@ -173,7 +143,18 @@ export class AddProductModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.comprobandoUrl = true;
+    this.imgPreview = this.data.image;
+
+    this.myForm.get('id')!.setValue(this.data.id);
+    this.myForm.get('name')!.setValue(this.data.name);
+    this.myForm.get('image')!.setValue(this.data.image);
+    this.myForm.get('price')!.setValue(this.data.price);
+    this.myForm.get('category')!.setValue(this.data.category); 
+    this.myForm.get('quantitys')!.setValue(this.data.quantitys);
+    this.myForm.get('status')!.setValue(this.data.status);
+  }
 
   submit(){
     this.data.id = this.myForm.get('id')!.value;
@@ -184,4 +165,5 @@ export class AddProductModalComponent implements OnInit {
     this.data.quantitys = this.myForm.get('quantitys')!.value;
     this.data.status = this.myForm.get('status')!.value;
   }
+
 }

@@ -15,6 +15,7 @@ import { CustomPaginatorIntl } from 'src/app/shared/components/custom-paginator-
 import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-delete-modal.component';
 import { AddProductModalComponent } from './producto/components/add-product-modal/add-product-modal.component';
 import { BadgesPipe } from './pipes/badges.pipe';
+import { EditProductModalComponent } from './producto/components/edit-product-modal/edit-product-modal.component';
 
 
 
@@ -28,6 +29,7 @@ import { BadgesPipe } from './pipes/badges.pipe';
     StatusPipe,
     AddProductModalComponent,
     BadgesPipe,
+    EditProductModalComponent,
 ],
   imports: [
     CommonModule,

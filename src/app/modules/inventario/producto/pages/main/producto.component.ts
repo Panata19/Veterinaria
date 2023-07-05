@@ -13,6 +13,7 @@ import { ProductoTable } from '../../interfaces/ProductData';
 import { ProductsService } from '../../services/products.service';
 import { Observable, ReplaySubject} from 'rxjs';
 import { AddProductModalComponent } from '../../components/add-product-modal/add-product-modal.component';
+import { EditProductModalComponent } from '../../components/edit-product-modal/edit-product-modal.component';
 
 
 @Component({
@@ -43,7 +44,6 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
   
   //** Logica Añadir Nuevo Producto **//
   addProduct(){
-    this.ProductsService.addProduct({ id: 89, name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK' });
     let id: number, price: number, quantitys: number;
     let name: string, image: string, category: string, status:string;
     let buttons: boolean = false;
@@ -72,7 +72,41 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
     });
     
     this.ngAfterViewInit();
-  }
+  } /** End AddProduct **/
+
+  //** Logica Editar Nuevo Producto **//
+  EditProduct(row: ProductoTable){
+    this.ProductsService.addProduct({ id: 89, name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK' });
+    let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
+    let name: string = row.name, image: string = row.image, category: string = row.category, status:string = row.status;
+    let buttons: boolean = row.buttons;
+
+    const dialogRef = this.dialog.open(EditProductModalComponent, {
+      data: {
+        id: id!,
+        name: name!,
+        image: image!,
+        price: price!,
+        category: category!,
+        quantitys: quantitys!,
+        status: status!,
+        buttons: buttons
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if( result !== undefined ){
+        this.ProductsService.addProduct(result);
+        
+        this.snackbar('¡Producto Editado con Exito!','success');
+      } else {
+        this.snackbar('¡Producto NO Editado!','danger');
+      }
+    });
+    
+    this.ngAfterViewInit();
+  } /** End EditProduct **/
+
 
   //** Validación para permitir usar eliminar en Masa **//
   removeButton(){ return  this.selection.selected.length === 0; }
