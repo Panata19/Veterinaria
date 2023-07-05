@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -21,7 +21,7 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './producto.component.html',
   styleUrls: ['./producto.component.css']
 })
-export class ProductoComponent implements OnInit, AfterViewInit  {
+export class ProductoComponent implements AfterViewInit  {
   
   displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'status','buttons'];
   dataSource: MatTableDataSource<ProductoTable>;
@@ -39,8 +39,6 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
     this.dataSource = new MatTableDataSource(this.users);
     this.selection = new SelectionModel<ProductoTable>(true, []);
   }
-  
-  ngOnInit(): void {}
   
   //** Logica Añadir Nuevo Producto **//
   addProduct(){
@@ -82,13 +80,13 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
 
     const dialogRef = this.dialog.open(EditProductModalComponent, {
       data: {
-        id: id!,
-        name: name!,
-        image: image!,
-        price: price!,
-        category: category!,
-        quantitys: quantitys!,
-        status: status!,
+        id: id,
+        name: name,
+        image: image,
+        price: price,
+        category: category,
+        quantitys: quantitys,
+        status: status,
         buttons: buttons
       },
     });

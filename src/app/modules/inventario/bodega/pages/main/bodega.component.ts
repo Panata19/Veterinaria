@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -22,7 +22,7 @@ import { BodegaService } from '../../services/bodega.service';
   templateUrl: './bodega.component.html',
   styleUrls: ['./bodega.component.css']
 })
-export class BodegaComponent implements OnInit, AfterViewInit{
+export class BodegaComponent implements AfterViewInit{
 
   displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'status','buttons'];
   dataSource: MatTableDataSource<BodegaTable>;
@@ -40,8 +40,6 @@ export class BodegaComponent implements OnInit, AfterViewInit{
     this.dataSource = new MatTableDataSource(this.users);
     this.selection = new SelectionModel<BodegaTable>(true, []);
   }
-  
-  ngOnInit(): void {}
   
   //** Logica Añadir Nuevo Bodegao **//
   addBodega(){
@@ -84,13 +82,13 @@ export class BodegaComponent implements OnInit, AfterViewInit{
 
     const dialogRef = this.dialog.open(EditBodegaModalComponent, {
       data: {
-        id: id!,
-        name: name!,
-        image: image!,
-        price: price!,
-        category: category!,
-        quantitys: quantitys!,
-        status: status!,
+        id: id,
+        name: name,
+        image: image,
+        price: price,
+        category: category,
+        quantitys: quantitys,
+        status: status,
         buttons: buttons
       },
     });
