@@ -131,4 +131,34 @@ export class ProductsService {
     };
     this.productsDB.push(ListoXTabla);
   }
+
+  /**
+  * * addProduct
+  * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
+  * @param newProduct: es el nuevo producto para agregarlo a la DB
+  **/
+  EditProduct(editProduct: ProductoTable){    
+    
+    // Encuent elra índice del objeto en el array utilizando el ID
+    const index = this.productsDB.findIndex(obj => obj.id === editProduct.id);
+
+    if (index !== -1) {
+      // Accede al objeto utilizando el índice encontrado
+      this.productsDB[index].id = editProduct.id;
+      this.productsDB[index].name = editProduct.name;
+      this.productsDB[index].status= editProduct.status;
+      this.productsDB[index].quantitys= editProduct.quantitys;
+      this.productsDB[index].image= editProduct.image;
+      this.productsDB[index].price= editProduct.price;
+      this.productsDB[index].category= editProduct.category;
+      this.productsDB[index].buttons= editProduct.buttons;
+
+      // Realiza las modificaciones necesarias en el objeto
+    } else {
+      console.log('No se encontró el objeto con el ID especificado');
+    }
+
+    return this.productsDB;
+  }
+
 }

@@ -76,7 +76,6 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
 
   //** Logica Editar Nuevo Producto **//
   EditProduct(row: ProductoTable){
-    this.ProductsService.addProduct({ id: 89, name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK' });
     let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
     let name: string = row.name, image: string = row.image, category: string = row.category, status:string = row.status;
     let buttons: boolean = row.buttons;
@@ -96,8 +95,7 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
 
     dialogRef.afterClosed().subscribe(result => {
       if( result !== undefined ){
-        this.ProductsService.addProduct(result);
-        
+        this.ProductsService.EditProduct(result);
         this.snackbar('¡Producto Editado con Exito!','success');
       } else {
         this.snackbar('¡Producto NO Editado!','danger');
