@@ -83,7 +83,7 @@ export class ProductsService {
     return {
       id: id,
       name: name,
-      image: '../../../../../../assets/img/'+image,
+      image: '../assets/img/'+image,
       price: price,
       category: category,
       quantitys: quantitys,

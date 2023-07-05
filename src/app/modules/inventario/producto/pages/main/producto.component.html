@@ -88,7 +88,7 @@
       <td mat-cell *matCellDef="let row">
         <img 
           class="shadow-4" 
-          [src]="row.image"
+          [src]="row.image | image"
           [alt]="row.name" 
           width="60"
         >

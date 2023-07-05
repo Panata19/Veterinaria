@@ -16,6 +16,7 @@ import { ConfirmationModalComponent } from 'src/app/shared/components/confirmati
 import { AddProductModalComponent } from './producto/components/add-product-modal/add-product-modal.component';
 import { BadgesPipe } from './pipes/badges.pipe';
 import { EditProductModalComponent } from './producto/components/edit-product-modal/edit-product-modal.component';
+import { ImagePipe } from './pipes/image.pipe';
 
 
 
@@ -30,6 +31,7 @@ import { EditProductModalComponent } from './producto/components/edit-product-mo
     AddProductModalComponent,
     BadgesPipe,
     EditProductModalComponent,
+    ImagePipe,
 ],
   imports: [
     CommonModule,

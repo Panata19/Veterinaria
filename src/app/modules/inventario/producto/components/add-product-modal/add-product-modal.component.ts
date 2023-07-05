@@ -164,7 +164,7 @@ export class AddProductModalComponent implements OnInit {
 
   compruebaUrl(image: any): void{
     if(image?.status === 'VALID'){
-      this.comprobandoUrl = image?.value.endsWith(".png") || image?.value.endsWith(".jpg");
+      this.comprobandoUrl = image?.value.endsWith(".png") || image?.value.endsWith(".jpg") || image?.value.endsWith(".svg");
       this.imgPreview = image?.value;
     }
   }

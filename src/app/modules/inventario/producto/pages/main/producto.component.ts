@@ -69,9 +69,9 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
       } else {
         this.snackbar('¡Producto NO Agregado!','danger');
       }
+      this.ngAfterViewInit();
     });
     
-    this.ngAfterViewInit();
   } /** End AddProduct **/
 
   //** Logica Editar Nuevo Producto **//
@@ -100,9 +100,9 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
       } else {
         this.snackbar('¡Producto NO Editado!','danger');
       }
+      this.ngAfterViewInit();
     });
     
-    this.ngAfterViewInit();
   } /** End EditProduct **/
 
 

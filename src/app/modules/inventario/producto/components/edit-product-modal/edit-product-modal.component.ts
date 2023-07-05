@@ -16,20 +16,21 @@ export class EditProductModalComponent implements OnInit {
   public imgPreview: string = '../assets/img/Artboard.svg';
 
   public myForm: FormGroup = this.form.group({
-    id: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-    name: ['', Validators.required],
-    image: ['', Validators.required],
-    status: ['', Validators.required],
-    category: ['', Validators.required],
-    price: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-    quantitys: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+    id: [this.data.id, [Validators.required, Validators.pattern('^[0-9]+$')]],
+    name: [this.data.name, Validators.required],
+    image: [this.data.image, Validators.required],
+    status: [this.data.status, Validators.required],
+    category: [this.data.category, Validators.required],
+    price: [this.data.price, [Validators.required, Validators.pattern('^[0-9]+$')]],
+    quantitys: [this.data.quantitys, [Validators.required, Validators.pattern('^[0-9]+$')]],
   })
-
+  
+  
   constructor(
     public dialogRef: MatDialogRef<EditProductModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProductoData,
     private form: FormBuilder
-  ) { console.log(this.myForm?.value?.id) }
+  ) { }
   
   //** Opciones Para el DropDown Select **//
   Types: SelectTypes[] = [
@@ -146,14 +147,6 @@ export class EditProductModalComponent implements OnInit {
   ngOnInit(): void {
     this.comprobandoUrl = true;
     this.imgPreview = this.data.image;
-
-    this.myForm.get('id')!.setValue(this.data.id);
-    this.myForm.get('name')!.setValue(this.data.name);
-    this.myForm.get('image')!.setValue(this.data.image);
-    this.myForm.get('price')!.setValue(this.data.price);
-    this.myForm.get('category')!.setValue(this.data.category); 
-    this.myForm.get('quantitys')!.setValue(this.data.quantitys);
-    this.myForm.get('status')!.setValue(this.data.status);
   }
 
   submit(){
