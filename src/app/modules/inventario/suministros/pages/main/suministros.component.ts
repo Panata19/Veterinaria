@@ -32,7 +32,6 @@ export class SuministrosComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   
   constructor(private SuministroService: SuministroService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
-
     //** Get Data **/
     this.users = this.SuministroService.getSuministros();
 
@@ -41,7 +40,7 @@ export class SuministrosComponent implements AfterViewInit {
     this.selection = new SelectionModel<SuministroTable>(true, []);
   }
   
-  //** Logica Añadir Nuevo Producto **//
+  //** Logica Añadir Nuevo Suministro **//
   addSuministro(){
     let id: number, price: number, quantitys: number;
     let name: string, image: string, category: string, status:string;
@@ -64,16 +63,16 @@ export class SuministrosComponent implements AfterViewInit {
       if( result !== undefined ){
         this.SuministroService.addSuministro(result);
         
-        this.snackbar('¡Producto Agregado con Exito!','success');
+        this.snackbar('!Suministro Agregado con Exito!','success');
       } else {
-        this.snackbar('¡Producto NO Agregado!','danger');
+        this.snackbar('¡Suministro NO Agregado!','danger');
       }
       this.ngAfterViewInit();
     });
     
-  } /** End AddProduct **/
+  } /** End AddSuministro **/
 
-  //** Logica Editar Nuevo Producto **//
+  //** Logica Editar Nuevo Suministro **//
   EditSuministro(row: SuministroTable){
     let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
     let name: string = row.name, image: string = row.image, category: string = row.category, status:string = row.status;
@@ -95,14 +94,14 @@ export class SuministrosComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if( result !== undefined ){
         this.SuministroService.EditSuministro(result);
-        this.snackbar('¡Producto Editado con Exito!','success');
+        this.snackbar('!Suministro Editado con Exito!','success');
       } else {
-        this.snackbar('¡Producto NO Editado!','danger');
+        this.snackbar('¡Suministro NO Editado!','danger');
       }
       this.ngAfterViewInit();
     });
     
-  } /** End EditProduct **/
+  } /** End EditSuministro **/
 
 
   //** Validación para permitir usar eliminar en Masa **//
@@ -114,7 +113,7 @@ export class SuministrosComponent implements AfterViewInit {
     let confirmation: boolean = false;
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       data: {
-        label: '¿Estas seguro de querer eliminar este Producto?', 
+        label: '¿Estas seguro de querer eliminar este Suministro?', 
         confirmation: confirmation 
       },
     });

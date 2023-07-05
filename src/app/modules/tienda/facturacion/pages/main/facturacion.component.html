@@ -1,1 +1,29 @@
-<h1>Hola</h1>
+<div class="w-100 mt-3 p-2 border-top text-end">
+  <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
+    <mat-button-toggle 
+      value="view_list" 
+      aria-label="List View"
+      [checked]="List"
+      (change)="viewList()"
+      [ngClass]="{'selected': List }"
+    >
+      <mat-icon
+        [ngClass]="{'text-white': List }"
+      >view_list</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle 
+      
+      value="view_grid" 
+      aria-label="Grid View"
+      (change)="viewGrid()"
+      [ngClass]="{'selected': Grid }"
+    >
+      <mat-icon
+        [ngClass]="{'text-white': Grid }"
+      >grid_view</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+<div class="w-100 p-2 border-top">
+  <p>Chosen value is {{fontStyleControl.value}}</p>  
+</div>
