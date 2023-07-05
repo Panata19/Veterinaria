@@ -3,17 +3,17 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { SelectionModel, DataSource } from '@angular/cdk/collections';
+import { SelectionModel } from '@angular/cdk/collections';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-delete-modal.component';
 
-import { ProductoTable } from '../../interfaces/ProductData';
-import { ProductsService } from '../../services/products.service';
-import { Observable, ReplaySubject} from 'rxjs';
 import { AddProductModalComponent } from '../../components/add-product-modal/add-product-modal.component';
 import { EditProductModalComponent } from '../../components/edit-product-modal/edit-product-modal.component';
+
+import { ProductoTable } from '../../interfaces/ProductData';
+import { ProductsService } from '../../services/products.service';
 
 
 @Component({
@@ -192,25 +192,5 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
-}
-
-
-class ExampleDataSource extends DataSource<ProductoTable> {
-  private _dataStream = new ReplaySubject<ProductoTable[]>();
-
-  constructor(initialData: ProductoTable[]) {
-    super();
-    this.setData(initialData);
-  }
-
-  connect(): Observable<ProductoTable[]> {
-    return this._dataStream;
-  }
-
-  disconnect() {}
-
-  setData(data: ProductoTable[]) {
-    this._dataStream.next(data);
   }
 }

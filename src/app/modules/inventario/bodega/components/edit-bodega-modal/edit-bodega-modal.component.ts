@@ -1,58 +1,36 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ProductoData } from '../../interfaces/ProductData';
+import { BodegaData } from '../../interfaces/BodegaData';
 import { SelectTypes } from '../interfaces/selected.interface';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-product-modal',
-  templateUrl: './add-product-modal.component.html',
-  styles: [`
-  .right-align {
-    text-align: right;
-  }
-
-  input.right-align::-webkit-outer-spin-button,
-  input.right-align::-webkit-inner-spin-button {
-    display: none;
-  }
-
-  input.right-align {
-    -moz-appearance: textfield;
-  }
-  
-  .w-img{
-    max-height: 200px;
-    max-width: 300px;
-  }
-
-  .custom-error {
-    margin-top: 5px;
-    background: white;
-    width: fit-content;
-  }
-  `]
+  selector: 'app-edit-bodega-modal',
+  templateUrl: './edit-bodega-modal.component.html',
+  styles: [
+  ]
 })
-export class AddProductModalComponent {
-  
+export class EditBodegaModalComponent implements OnInit {
+
   public comprobandoUrl: boolean = false;
   public imgPreview: string = '../assets/img/Artboard.svg';
 
   public myForm: FormGroup = this.form.group({
-    id: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-    name: ['', Validators.required],
-    image: ['', Validators.required],
-    status: ['', Validators.required],
-    category: ['', Validators.required],
-    price: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-    quantitys: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+    id: [this.data.id, [Validators.required, Validators.pattern('^[0-9]+$')]],
+    name: [this.data.name, Validators.required],
+    image: [this.data.image, Validators.required],
+    status: [this.data.status, Validators.required],
+    category: [this.data.category, Validators.required],
+    price: [this.data.price, [Validators.required, Validators.pattern('^[0-9]+$')]],
+    quantitys: [this.data.quantitys, [Validators.required, Validators.pattern('^[0-9]+$')]],
   })
-
+  
+  
   constructor(
-    public dialogRef: MatDialogRef<AddProductModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ProductoData,
+    public dialogRef: MatDialogRef<EditBodegaModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: BodegaData,
     private form: FormBuilder
-  ) { console.log(this.myForm?.value?.id) }
+  ) { }
   
   //** Opciones Para el DropDown Select **//
   Types: SelectTypes[] = [
@@ -140,7 +118,7 @@ export class AddProductModalComponent {
   get comprueba(){
     return this.myForm.valid
   }
-
+  
   checkCantidadxEstatus(quantitys: AbstractControl | null){
     switch (true) {
       case quantitys!.value > 10:
@@ -157,13 +135,18 @@ export class AddProductModalComponent {
 
   compruebaUrl(image: any): void{
     if(image?.status === 'VALID'){
-      this.comprobandoUrl = image?.value.endsWith(".png") || image?.value.endsWith(".jpg") || image?.value.endsWith(".svg");
+      this.comprobandoUrl = image?.value.endsWith(".png") || image?.value.endsWith(".jpg");
       this.imgPreview = image?.value;
     }
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  ngOnInit(): void {
+    this.comprobandoUrl = true;
+    this.imgPreview = this.data.image;
   }
 
   submit(){
@@ -175,4 +158,5 @@ export class AddProductModalComponent {
     this.data.quantitys = this.myForm.get('quantitys')!.value;
     this.data.status = this.myForm.get('status')!.value;
   }
+
 }

@@ -17,6 +17,10 @@ import { AddProductModalComponent } from './producto/components/add-product-moda
 import { BadgesPipe } from './pipes/badges.pipe';
 import { EditProductModalComponent } from './producto/components/edit-product-modal/edit-product-modal.component';
 import { ImagePipe } from './pipes/image.pipe';
+import { EditBodegaModalComponent } from './bodega/components/edit-bodega-modal/edit-bodega-modal.component';
+import { AddBodegaModalComponent } from './bodega/components/add-bodega-modal/add-bodega-modal.component';
+import { AddSuministrosModalComponent } from './suministros/components/add-suministros-modal/add-suministros-modal.component';
+import { EditSuministrosModalComponent } from './suministros/components/edit-suministros-modal/edit-suministros-modal.component';
 
 
 
@@ -32,6 +36,10 @@ import { ImagePipe } from './pipes/image.pipe';
     BadgesPipe,
     EditProductModalComponent,
     ImagePipe,
+    EditBodegaModalComponent,
+    AddBodegaModalComponent,
+    AddSuministrosModalComponent,
+    EditSuministrosModalComponent,
 ],
   imports: [
     CommonModule,
