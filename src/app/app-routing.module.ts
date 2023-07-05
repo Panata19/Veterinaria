@@ -25,7 +25,6 @@ const routes: Routes = [
         path: 'hospitalizacion',
         loadChildren: () => import('./modules/hospitalizacion/hospitalizacion.module').then(m => m.HospitalizacionModule)
       },
-
       {
         path: 'historialClinico',
         loadChildren: () => import('./modules/historialClinico/historial-clinico.module').then(m => m.HistorialClinicoModule)

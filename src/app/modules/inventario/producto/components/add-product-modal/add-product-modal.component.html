@@ -11,21 +11,27 @@
             <input 
               matInput 
               required
-              type="number"
               placeholder="#124" 
               formControlName="id"
-              (change)="checkID()"
+              (input)="checkID()"
             >
             <button 
               *ngIf="checkData.id"
               matSuffix 
-              mat-icon-button 
+              mat-icon-button
+              type="button"
               aria-label="Clear" 
               (click)="clearID()"
             >
               <mat-icon>close</mat-icon>
             </button>
+            <mat-error 
+              class="custom-error" 
+            >
+              {{checklabel.id}}
+            </mat-error>  
           </mat-form-field>
+          
         </div>
         <div class="col-sm-7">
           <mat-form-field class="w-100" appearance="outline"><!-- Name -->
@@ -33,20 +39,26 @@
             <input 
               matInput
               required
-              type="text" 
+              type="text"
               placeholder="Reloj Negro metalico" 
               formControlName="name"
-              (change)="checkName()"
+              (input)="checkName()"
             >
             <button 
               *ngIf="checkData.name"
               matSuffix 
               mat-icon-button 
+              type="button"
               aria-label="Clear" 
               (click)="clearName()"
             >
               <mat-icon>close</mat-icon>
             </button>
+            <mat-error 
+              class="custom-error" 
+            >
+              {{checklabel.name}}
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -56,7 +68,7 @@
           <div class="w-img mx-auto my-2">
             <img 
               *ngIf="comprobandoUrl; else king"
-              [src]="srcUrl"
+              [src]="imgPreview"
               class="rounded mx-auto d-block img-fluid mw-100"
               alt="Imagen Preview"
             >
@@ -77,17 +89,23 @@
               type="url"
               placeholder="www.url.com/img/1.jpg" 
               formControlName="image"
-              (change)="checkImage()"
+              (input)="checkImage()"
             >
             <button 
               *ngIf="checkData.image"
               matSuffix 
-              mat-icon-button 
+              mat-icon-button
+              type="button"
               aria-label="Clear" 
               (click)="clearImage()"
             >
               <mat-icon>close</mat-icon>
             </button>
+            <mat-error 
+              class="custom-error" 
+            >
+              {{checklabel.name}}
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -134,19 +152,24 @@
               matInput
               required
               min="0"
-              type="number" 
               placeholder="150"
               formControlName="price"
-              (change)="checkPrice()"
+              (input)="checkPrice()"
             >
             <button 
               *ngIf="checkData.price" 
               matSuffix mat-icon-button 
+              type="button"
               aria-label="Clear" 
               (click)="clearPrice()"
             >
               <mat-icon>close</mat-icon>
             </button>
+            <mat-error 
+              class="custom-error" 
+            >
+              {{checklabel.price}}
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -157,19 +180,24 @@
               matInput
               required
               min="0"
-              type="number" 
               placeholder="21" 
               formControlName="quantitys"
-              (change)="checkQuantitys()"
+              (input)="checkQuantitys()"
             >
             <button 
               *ngIf="checkData.quantitys" 
               matSuffix mat-icon-button 
+              type="button"
               aria-label="Clear" 
               (click)="clearQuantitys()"
             >
               <mat-icon>close</mat-icon>
             </button>
+            <mat-error 
+              class="custom-error" 
+            >
+              {{checklabel.quantitys}}  
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
