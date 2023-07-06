@@ -5,6 +5,7 @@ import { FacturacionRoutingModule } from './facturacion-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FacturacionRoutingModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    PipesModule
   ]
 })
 export class TiendaModule { }

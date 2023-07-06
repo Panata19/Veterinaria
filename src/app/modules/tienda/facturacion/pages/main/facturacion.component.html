@@ -30,23 +30,40 @@
     <div 
       *ngFor="let item of [1,2,3,4,6,7,8]" 
       class="card"
-      [ngClass]="{'w-100': List, 'wdth-r': Grid }"
+      [ngClass]="{'wdth-L': List, 'wdth-G': Grid }"
     >
       <div class="row g-0">
         <div 
-          class="col m-auto"
-          [ngClass]="{'col-5 col-sm-4 col-md-3': List, 'col-12': Grid }"
-        >
-          <img src="../assets/img/Artboard.svg" class="img-fluid rounded my-2" alt="...">
+          class="col my-auto"
+          [ngClass]="{'col-5 col-sm-4 col-md-3 pe-0': List, 'col-12 m-auto': Grid }"
+        > 
+          <div *ngIf="Grid" class="text-center mt-4 mb-3">
+            <span class="me-3">
+              <i class="bi bi-tag tag align-middle"></i>{{'Accesorios'}}
+            </span>
+            <span [innerHTML]="'IN STOCK' | badges"></span>
+          </div>
+          <img 
+            [src]="'../assets/img/Artboard.svg'" 
+            class="img-fluid rounded my-2 m-0" 
+            alt="..."
+          >
         </div>
         <div 
           class="col overflow-auto"
           [ngClass]="{'col-7 col-sm-8 col-md-9': List, 'col-12': Grid }"
         >
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <div class="card-body py-auto">
+            <h5 class="card-title fs-4 fw-semibold"
+              [ngClass]="{'text-center':Grid}"
+            >{{'Card title'}}</h5>
             <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            <div *ngIf="List">
+              <span class="me-3">
+                <i class="bi bi-tag tag align-middle"></i>{{'Accesorios'}}
+              </span>
+              <span [innerHTML]="'IN STOCK' | badges"></span>
+            </div>
           </div>
         </div>
       </div>
