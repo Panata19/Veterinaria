@@ -1,0 +1,45 @@
+.selected {
+  background-color: #3158C9;
+  color: black;
+}
+.w-img{
+  max-width: 200px;
+  max-height: 300px;
+}
+
+.box{
+  box-sizing: border-box;
+}
+
+/* Estilos por defecto */
+div.card.wdth-r {
+  width: 100%;
+}
+
+/* Media query para pantallas mayores a lg@media */
+@media (min-width: 1200px) {
+  div.card.wdth-r {
+    width: 24%;
+  }
+}
+
+/* Media query para pantallas mayores a md y menores que lg */
+@media (min-width: 992px) and (max-width: 1199px) {
+  div.card.wdth-r    {
+    width: 32%;
+  }
+}
+
+/* Media query para pantallas mayores y sm a menores que md */
+@media (min-width: 768px) and (max-width: 991px) {
+  div.card.wdth-r {
+    width: 49%;
+  }
+}
+
+/* Media query para pantallas menores que sm */
+@media (max-width: 767px) {
+  div.card.wdth-r {
+    width: 100%;
+  }
+}

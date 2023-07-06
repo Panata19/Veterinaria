@@ -24,6 +24,34 @@
     </mat-button-toggle>
   </mat-button-toggle-group>
 </div>
-<div class="w-100 p-2 border-top">
-  <p>Chosen value is {{fontStyleControl.value}}</p>  
+<div class="w-100 p-3  border-top bg-white">
+  <p>Chosen value is {{fontStyleControl.value}}</p> 
+  <div class="row gap-2">
+    <div 
+      *ngFor="let item of [1,2,3,4,6,7,8]" 
+      class="card"
+      [ngClass]="{'w-100': List, 'wdth-r': Grid }"
+    >
+      <div class="row g-0">
+        <div 
+          class="col m-auto"
+          [ngClass]="{'col-5 col-sm-4 col-md-3': List, 'col-12': Grid }"
+        >
+          <img src="../assets/img/Artboard.svg" class="img-fluid rounded my-2" alt="...">
+        </div>
+        <div 
+          class="col overflow-auto"
+          [ngClass]="{'col-7 col-sm-8 col-md-9': List, 'col-12': Grid }"
+        >
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+  </div> 
 </div>

@@ -5,12 +5,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-facturacion',
   templateUrl: './facturacion.component.html',
-  styles: [`
-    .selected {
-      background-color: #3158C9;
-      color: black;
-    }
-  `]
+  styleUrls: ['./facturacion.component.css']
 })
 export class FacturacionComponent implements OnInit {
 
@@ -24,19 +19,23 @@ export class FacturacionComponent implements OnInit {
   }
 
   viewGrid(): void{
-    console.log('Grid')
     if(this.Grid === false){
       this.Grid = !this.Grid;
       this.List = !this.List;
     }
+    console.log('Grid', this.Grid)
+    console.log('List', this.List)
+    console.log('----')
   }
 
   viewList(): void {
-    console.log('List')
     if(this.List === false){
       this.Grid = !this.Grid;
       this.List = !this.List;
     }
+    console.log('List', this.List)
+    console.log('Grid', this.Grid)
+    console.log('----')
   }
 
 }
