@@ -1,4 +1,4 @@
-<div class="w-100 mt-3 p-2 border-top text-end">
+<div class="w-100 mt-3 p-2 border-top text-end"><!-- Header Buttons -->
   <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
     <mat-button-toggle 
       value="view_list" 
@@ -23,14 +23,14 @@
       >grid_view</mat-icon>
     </mat-button-toggle>
   </mat-button-toggle-group>
-</div>
-<div class="w-100 p-3  border-top bg-white">
+</div> <!-- Header Buttons End-->
+<div class="w-100 p-3  border-top bg-white"> <!-- Container Para las Cards -->
   <div class="row gap-2">
     <div 
       *ngFor="let item of [1,2,3,4,6,7,8]" 
       class="card"
       [ngClass]="{'wdth-L': List, 'wdth-G': Grid }"
-    >
+    > <!-- Cards -->
       <div class="row g-0">
         <div 
           class="col my-auto"
@@ -90,7 +90,22 @@
         </div>
       </div>
     </div>
-    
-    
+    <!--- Paginator --->
+    <mat-paginator #paginator
+               class="demo-paginator"
+               (page)="handlePageEvent($event)"
+               [length]="length"
+               [pageSize]="pageSize"
+               [disabled]="disabled"
+               [showFirstLastButtons]="showFirstLastButtons"
+               [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+               [hidePageSize]="hidePageSize"
+               [pageIndex]="pageIndex"
+               aria-label="Select page">
+      </mat-paginator>
+      <div class="demo-data">
+        <div> Output event: {{(pageEvent | json) || 'No events dispatched yet'}} </div>
+        <div> getNumberOfPages: {{paginator.getNumberOfPages()}} </div>
+      </div>
   </div> 
 </div>
