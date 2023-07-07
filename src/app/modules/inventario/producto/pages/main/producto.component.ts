@@ -1,18 +1,19 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { SelectionModel, DataSource } from '@angular/cdk/collections';
+import { SelectionModel } from '@angular/cdk/collections';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-delete-modal.component';
 
+import { AddProductModalComponent } from '../../components/add-product-modal/add-product-modal.component';
+import { EditProductModalComponent } from '../../components/edit-product-modal/edit-product-modal.component';
+
 import { ProductoTable } from '../../interfaces/ProductData';
 import { ProductsService } from '../../services/products.service';
-import { Observable, ReplaySubject} from 'rxjs';
-import { AddProductModalComponent } from '../../components/add-product-modal/add-product-modal.component';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { AddProductModalComponent } from '../../components/add-product-modal/add
   templateUrl: './producto.component.html',
   styleUrls: ['./producto.component.css']
 })
-export class ProductoComponent implements OnInit, AfterViewInit  {
+export class ProductoComponent implements AfterViewInit  {
   
   displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'status','buttons'];
   dataSource: MatTableDataSource<ProductoTable>;
@@ -39,11 +40,8 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
     this.selection = new SelectionModel<ProductoTable>(true, []);
   }
   
-  ngOnInit(): void {}
-  
   //** Logica Añadir Nuevo Producto **//
   addProduct(){
-    this.ProductsService.addProduct({ id: 89, name: 'prueba', image: 'Prueba.jpg', price: 8, category: 'Siu', quantitys: 5, status:'LOWSTOCK' });
     let id: number, price: number, quantitys: number;
     let name: string, image: string, category: string, status:string;
     let buttons: boolean = false;
@@ -69,10 +67,42 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
       } else {
         this.snackbar('¡Producto NO Agregado!','danger');
       }
+      this.ngAfterViewInit();
     });
     
-    this.ngAfterViewInit();
-  }
+  } /** End AddProduct **/
+
+  //** Logica Editar Nuevo Producto **//
+  EditProduct(row: ProductoTable){
+    let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
+    let name: string = row.name, image: string = row.image, category: string = row.category, status:string = row.status;
+    let buttons: boolean = row.buttons;
+
+    const dialogRef = this.dialog.open(EditProductModalComponent, {
+      data: {
+        id: id,
+        name: name,
+        image: image,
+        price: price,
+        category: category,
+        quantitys: quantitys,
+        status: status,
+        buttons: buttons
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if( result !== undefined ){
+        this.ProductsService.EditProduct(result);
+        this.snackbar('¡Producto Editado con Exito!','success');
+      } else {
+        this.snackbar('¡Producto NO Editado!','danger');
+      }
+      this.ngAfterViewInit();
+    });
+    
+  } /** End EditProduct **/
+
 
   //** Validación para permitir usar eliminar en Masa **//
   removeButton(){ return  this.selection.selected.length === 0; }
@@ -160,25 +190,5 @@ export class ProductoComponent implements OnInit, AfterViewInit  {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
-}
-
-
-class ExampleDataSource extends DataSource<ProductoTable> {
-  private _dataStream = new ReplaySubject<ProductoTable[]>();
-
-  constructor(initialData: ProductoTable[]) {
-    super();
-    this.setData(initialData);
-  }
-
-  connect(): Observable<ProductoTable[]> {
-    return this._dataStream;
-  }
-
-  disconnect() {}
-
-  setData(data: ProductoTable[]) {
-    this._dataStream.next(data);
   }
 }

@@ -1,22 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FacturacionComponent } from './facturacion/pages/main/facturacion.component';
-import { TemplateComponent } from './template/template.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: TemplateComponent,
-    children: [
-      {
-        path: '',
-        component: FacturacionComponent
-      },
-      {
-        path: '**', redirectTo: ''
-      }
-    ]
+    component: FacturacionComponent
+  },
+  {
+    path: '**', redirectTo: ''
   }
 ];
 

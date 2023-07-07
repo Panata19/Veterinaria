@@ -1,9 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProductoData } from '../../interfaces/ProductData';
 import { SelectTypes } from '../interfaces/selected.interface';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-product-modal',
@@ -21,39 +20,41 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   input.right-align {
     -moz-appearance: textfield;
   }
+  
   .w-img{
-    width: 300px;
-    height: 200px;
+    max-height: 200px;
+    max-width: 300px;
   }
-  .shade{
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-  }
-  .shade:active{
-    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+  .custom-error {
+    margin-top: 5px;
+    background: white;
+    width: fit-content;
   }
   `]
 })
-export class AddProductModalComponent implements OnInit {
+export class AddProductModalComponent {
   
   public comprobandoUrl: boolean = false;
-  public srcUrl: string = '../assets/img/Artboard.svg';
+  public imgPreview: string = '../assets/img/Artboard.svg';
 
   public myForm: FormGroup = this.form.group({
-    id: ['', Validators.required],
+    id: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     name: ['', Validators.required],
     image: ['', Validators.required],
     status: ['', Validators.required],
     category: ['', Validators.required],
-    price: ['', Validators.required],
-    quantitys: ['', Validators.required],
+    price: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+    quantitys: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
   })
 
   constructor(
     public dialogRef: MatDialogRef<AddProductModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProductoData,
     private form: FormBuilder
-  ) {}
-
+  ) { console.log(this.myForm?.value?.id) }
+  
+  //** Opciones Para el DropDown Select **//
   Types: SelectTypes[] = [
     {value: 'IN STOCK', viewValue: 'IN STOCK'},
     {value: 'LOW STOCK', viewValue: 'LOW STOCK'},
@@ -61,8 +62,10 @@ export class AddProductModalComponent implements OnInit {
   ];
   selectedType = this.Types[2].value;
 
+  //** Opciones para los RadioButton Categoria **//
   categorys: string[] = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness'];
   
+  //** Permite Vaciar el campo con un boton **//
   checkData = {
     id: false,
     name: false,
@@ -72,84 +75,81 @@ export class AddProductModalComponent implements OnInit {
     quantitys: false,
     status: false,
   }
+  //** Mensajes de Error **//
+  checklabel = {
+    id: '',
+    name: '',
+    image: '',
+    price: '',
+    category: '',
+    quantitys: '',
+    status: '',
+  }
 
   //** Validaciones para Campos - Checks y Clears **//
-  checkID(){
-    let id = this.myForm.get('id');
-    id?.status === 'VALID' ? 
-      this.checkData.id = true : 
-      this.checkData.id = false;
+  getErrorMessage(name: string, item: AbstractControl | null) {    
+    let typeValue = name as keyof typeof this.checklabel
+    if(item!.hasError('pattern')) {      
+      this.checklabel[typeValue] = 'El valor debe ser numérico *'; 
+      item!.valid ? this.checkData[typeValue] = true : this.checkData[typeValue] = false;
+    } else if (item!.hasError('required')) {
+      this.checklabel[typeValue] = 'Debes introducir un valor * ';
+    } else {
+      this.checklabel[typeValue] = '' 
+      item!.valid ? this.checkData[typeValue] = true : this.checkData[typeValue] = false;
+    }
   }
 
-  clearID(){
-    //this.myForm.get('id')!.setValue('nuevo valor');
-    this.myForm.get('id')!.reset();
-    this.checkData.id = false;
+  checkID(){
+    let id = this.myForm.get('id');
+    this.getErrorMessage('id', id);
   }
+
+  clearID(){ this.myForm.get('id')!.reset(); }
 
   checkName(){
     let name = this.myForm.get('name');
-    name?.status === 'VALID' ? 
-      this.checkData.name = true : 
-      this.checkData.name = false;
+    this.getErrorMessage('name', name);
   }
 
-  clearName(){
-    this.myForm.get('name')!.reset();
-    this.checkData.name = false;
-  }
+  clearName(){ this.myForm.get('name')!.reset();  }
 
   checkImage(){
     let image = this.myForm.get('image');
     this.compruebaUrl(image);
-    image?.status === 'VALID' ? 
-      this.checkData.image = true : 
-      this.checkData.image = false;
+    image!.valid ? this.checkData.image = true : this.checkData.image = false;
   }
 
-  clearImage(){
-    this.myForm.get('image')!.reset();
-    this.checkData.image = false;
-  }
+  clearImage(){ this.myForm.get('image')!.reset(); }
 
   checkQuantitys(){
     let quantitys = this.myForm.get('quantitys');
     this.checkCantidadxEstatus(quantitys);
-    quantitys?.status === 'VALID' ? 
-      this.checkData.quantitys = true : 
-      this.checkData.quantitys = false;
+    this.getErrorMessage('quantitys', quantitys);
   }
 
-  clearQuantitys(){
-    this.myForm.get('quantitys')!.reset();
-    this.checkData.quantitys = false;
-  }
+  clearQuantitys(){ this.myForm.get('quantitys')!.reset(); }
 
   checkPrice(){
     let price = this.myForm.get('price');
-    price?.status === 'VALID' ? 
-      this.checkData.price = true : 
-      this.checkData.price = false;
+    this.getErrorMessage('price', price);
   }
 
-  clearPrice(){
-    this.myForm.get('price')!.reset();
-    this.checkData.price = false;
-  }
+  clearPrice(){  this.myForm.get('price')!.reset();  }
 
   get comprueba(){
     return this.myForm.valid
   }
 
-  checkCantidadxEstatus(quantitys: any){
+  checkCantidadxEstatus(quantitys: AbstractControl | null){
     switch (true) {
-      case quantitys.value > 10:
+      case quantitys!.value > 10:
         this.myForm.get('status')!.setValue('IN STOCK');
         break;
-      case quantitys.value > 0 && quantitys.value <= 10:
+      case quantitys!.value > 0 && quantitys!.value <= 10:
         this.myForm.get('status')!.setValue('LOW STOCK');
         break;
-      case quantitys.value === 0:
+      case quantitys!.value === 0:
         this.myForm.get('status')!.setValue('OUT OF STOCK');
         break;
     }
@@ -157,16 +157,14 @@ export class AddProductModalComponent implements OnInit {
 
   compruebaUrl(image: any): void{
     if(image?.status === 'VALID'){
-      this.comprobandoUrl = image?.value.endsWith(".png") || image?.value.endsWith(".jpg");
-      this.srcUrl = image?.value;
+      this.comprobandoUrl = image?.value.endsWith(".png") || image?.value.endsWith(".jpg") || image?.value.endsWith(".svg");
+      this.imgPreview = image?.value;
     }
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  ngOnInit(): void {}
 
   submit(){
     this.data.id = this.myForm.get('id')!.value;

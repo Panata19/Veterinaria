@@ -3,6 +3,89 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+/** Estilos Para la Tabla en Producto**/
+
+.shade{
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+.shade:active{
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+.btn-icon-split {
+  padding: 0;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.btn-morado {
+  color: #fff;
+  background-color: #A855F7;
+  border-color: #A855F7;
+}
+
+.btn-morado:focus{
+  background: #8a2be4;
+  color: #ffffff;
+  border-color: #9333EA;
+}
+
+.btn-morado:hover{
+  background: #9333EA;
+  color: #ffffff;
+  border-color: #9333EA;
+}
+
+
+
+button:active .text-white-50 {
+  color: rgba(255,255,255,1) !important;
+}
+button span:nth-child(2){
+  padding-left: 10px;
+}
+
+table {
+  width: 100%;
+}
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+td, th {
+  width: 25%;
+}
+
+td.mat-row.cdk-row.ng-star-inserted mat-checkbox.mat-checkbox.mat-accent label.mat-checkbox-layout{
+  margin: 0px !important;
+}
+
+.table-bordered {
+  border-collapse: collapse;
+}
+
+.mat-checkbox-layout{
+  margin: 0px !important;
+}
+
+.shadow-4 {
+  box-shadow: 0 1px 10px #0000001f,0 4px 5px #00000024,0 2px 4px -1px #0003 !important;
+}
+
+.overflow-scroll{
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+.container-fluid{ margin-bottom: 20px; }
+
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin: .25em !important;
+}
+
+.mat-form-field-wrapper{  padding: 0; } /** End **/
+/** Estilos del Snackbar **/
 .snackbar-custom-success{
   background-color: #28A745 !important;
   color: white;
@@ -19,7 +102,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .snackbar-custom-danger div button{
   color: white
-}
+}/** End **/
+
 /*!
  * Start Bootstrap - SB Admin 2 v4.1.3 (https://startbootstrap.com/theme/sb-admin-2)
  * Copyright 2013-2021 Start Bootstrap
