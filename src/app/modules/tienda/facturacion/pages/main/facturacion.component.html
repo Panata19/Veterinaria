@@ -25,7 +25,6 @@
   </mat-button-toggle-group>
 </div>
 <div class="w-100 p-3  border-top bg-white">
-  <p>Chosen value is {{fontStyleControl.value}}</p> 
   <div class="row gap-2">
     <div 
       *ngFor="let item of [1,2,3,4,6,7,8]" 
@@ -35,7 +34,7 @@
       <div class="row g-0">
         <div 
           class="col my-auto"
-          [ngClass]="{'col-5 col-sm-4 col-md-3 pe-0': List, 'col-12 m-auto': Grid }"
+          [ngClass]="{'col-4 col-sm-4 col-md-3 pe-0': List, 'col-12 m-auto': Grid }"
         > 
           <div *ngIf="Grid" class="text-center mt-4 mb-3">
             <span class="me-3">
@@ -51,18 +50,41 @@
         </div>
         <div 
           class="col overflow-auto"
-          [ngClass]="{'col-7 col-sm-8 col-md-9': List, 'col-12': Grid }"
+          [ngClass]="{'col-6 col-sm-6 col-md-7': List, 'col-12': Grid }"
         >
-          <div class="card-body py-auto">
-            <h5 class="card-title fs-4 fw-semibold"
+          <div class="card-body py-auto" [ngClass]="{'py-0':Grid}">
+            <h2 class="card-title fs-4 fw-semibold"
               [ngClass]="{'text-center':Grid}"
-            >{{'Card title'}}</h5>
-            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            >{{'Card title'}}</h2>
+            <p 
+              class="card-text" [ngClass]="{'text-center':Grid}"
+            >
+              <small class="text-body-secondary">Last updated 3 mins ago</small>
+            </p>
             <div *ngIf="List">
               <span class="me-3">
                 <i class="bi bi-tag tag align-middle"></i>{{'Accesorios'}}
               </span>
               <span [innerHTML]="'IN STOCK' | badges"></span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col m-auto "
+          [ngClass]="{'col-2 col-sm-2 col-md-2':List,'text-center': Grid}"
+        >
+          <div 
+            class="row gap-4 align-items-center"
+            [ngClass]="{'justify-content-between mb-3': Grid }"
+          >
+            <span class="col fs-5 text-secondary-emphasis" [ngClass]="{'align-self-start': List}" > ${{'65'}} </span>
+            <div class="col" [ngClass]="{'align-self-end': List}" >
+              <button
+                type="button"
+                class="btn btn-primary rounded-circle shade p-auto"
+              >
+                <i class="bi bi-cart"></i>
+              </button>
             </div>
           </div>
         </div>
