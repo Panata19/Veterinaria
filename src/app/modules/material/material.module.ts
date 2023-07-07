@@ -16,6 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatChipsModule } from '@angular/material/chips'; 
 import { MatRadioModule } from '@angular/material/radio'; 
+import { MatButtonToggleModule } from '@angular/material/button-toggle'; 
 
 
 @NgModule({
@@ -37,7 +38,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSelectModule,
     MatChipsModule,
     MatRadioModule,
-    
+    MatButtonToggleModule
   ],
 })
 export class MaterialModule {}

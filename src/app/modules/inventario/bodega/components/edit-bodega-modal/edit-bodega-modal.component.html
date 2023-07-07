@@ -1,18 +1,19 @@
-<h1 mat-dialog-title>Agregar Producto</h1>
+<h1 mat-dialog-title>Editar Bodega</h1>
 <div mat-dialog-content>
   <form [formGroup]="myForm" (ngSubmit)="submit()">
-    <p>Detalles del Producto</p>
+    <p>Detalles de la Bodega</p>
   
     <div class="container vw-60">
       <div class="row">
         <div class="col-sm-5">
           <mat-form-field class="w-100" appearance="outline"><!-- ID -->
             <mat-label>ID:</mat-label>
-            <input 
+            <input
               matInput 
               required
-              placeholder="#124" 
+              placeholder="#124"
               formControlName="id"
+              readonly
               (input)="checkID()"
             >
             <button 
@@ -207,7 +208,7 @@
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button 
+  <button
     matRipple
     type="submit"
     class="btn btn-red btn-success shade"

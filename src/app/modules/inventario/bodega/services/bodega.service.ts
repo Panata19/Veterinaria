@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProductoData, ProductoTable } from '../interfaces/ProductData';
+import { BodegaData, BodegaTable } from '../interfaces/BodegaData';
 
 
 //** Datos Quemados **//
@@ -40,20 +40,21 @@ const IMAGE: string[] = [
 ]
 const CATEGORYS = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness'];
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsService {
+export class BodegaService {
 
   productsDB = Array.from({length: 100}, (_, k) => this.convertToData(k + 1))
   //constructor() {}
 
   /**
-  * *createNewProduct
+  * *createNewBodega
   * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
   * @param id: Sirve para establecer el id del producto
   **/
-  private createNewProduct(id: number): ProductoData { 
+  private createNewBodega(id: number): BodegaData { 
     let name:string =
       NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
       ' ' +
@@ -91,9 +92,9 @@ export class ProductsService {
     };
   }
 
-  private convertToData(index: number): ProductoTable{
+  convertToData(index: number): BodegaTable{
     let NewDatos = { 
-      ...this.createNewProduct(index),
+      ...this.createNewBodega(index),
       buttons: true
     };
     
@@ -101,57 +102,57 @@ export class ProductsService {
   }
 
   /**
-  * *getProducts
-  * TODO: Metodo Improvisado para llamar a TODOS los Productos - Se Debe Refactorizar con la DB
+  * *getBodegas
+  * TODO: Metodo Improvisado para llamar a TODOS los Bodegaos - Se Debe Refactorizar con la DB
   **/
 
-  getProducts():ProductoTable[] {
+  getBodegas():BodegaTable[] {
     return this.productsDB;
   }
 
   /**
-  * *deleteProduct
+  * *deleteBodega
   * TODO: Metodo Improvisado para Eliminar Datos - Se Debe Refactorizar con la DB
   * @param product: envia el producto completo para eliminarlo de la DB
   **/
-  deleteProduct(productoEliminar:ProductoData){
+  deleteBodega(productoEliminar:BodegaData){
     this.productsDB = this.productsDB.filter(item => item.id !== productoEliminar.id );
     return this.productsDB;
   }
 
   /**
-  * * addProduct
+  * * addBodega
   * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
-  * @param newProduct: es el nuevo producto para agregarlo a la DB
+  * @param newBodega: es el nuevo producto para agregarlo a la DB
   **/
-  addProduct(newProduct: ProductoData){
+  addBodega(newBodega: BodegaData){
     let ListoXTabla = { 
-      ...newProduct,
+      ...newBodega,
       buttons: true
     };
     this.productsDB.push(ListoXTabla);
   }
 
   /**
-  * * addProduct
+  * * addBodega
   * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
-  * @param newProduct: es el nuevo producto para agregarlo a la DB
+  * @param newBodega: es el nuevo producto para agregarlo a la DB
   **/
-  EditProduct(editProduct: ProductoTable){    
+  EditBodega(editBodega: BodegaTable){    
     
     // Encuent elra índice del objeto en el array utilizando el ID
-    const index = this.productsDB.findIndex(obj => obj.id === editProduct.id);
+    const index = this.productsDB.findIndex(obj => obj.id === editBodega.id);
 
     if (index !== -1) {
       // Accede al objeto utilizando el índice encontrado
-      this.productsDB[index].id = editProduct.id;
-      this.productsDB[index].name = editProduct.name;
-      this.productsDB[index].status= editProduct.status;
-      this.productsDB[index].quantitys= editProduct.quantitys;
-      this.productsDB[index].image= editProduct.image;
-      this.productsDB[index].price= editProduct.price;
-      this.productsDB[index].category= editProduct.category;
-      this.productsDB[index].buttons= editProduct.buttons;
+      this.productsDB[index].id = editBodega.id;
+      this.productsDB[index].name = editBodega.name;
+      this.productsDB[index].status= editBodega.status;
+      this.productsDB[index].quantitys= editBodega.quantitys;
+      this.productsDB[index].image= editBodega.image;
+      this.productsDB[index].price= editBodega.price;
+      this.productsDB[index].category= editBodega.category;
+      this.productsDB[index].buttons= editBodega.buttons;
 
       // Realiza las modificaciones necesarias en el objeto
     } else {
@@ -160,5 +161,4 @@ export class ProductsService {
 
     return this.productsDB;
   }
-
 }

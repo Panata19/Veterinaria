@@ -88,7 +88,7 @@
       <td mat-cell *matCellDef="let row">
         <img 
           class="shadow-4" 
-          [src]="row.image"
+          [src]="row.image | image"
           [alt]="row.name" 
           width="60"
         >
@@ -141,6 +141,7 @@
             type="button"
             matTooltip="Editar"
             matTooltipPosition="left"
+            (click)="EditProduct(row)"
             class="btn btn-success rounded-circle shade"
           >
             <span class="icon text-white-50">

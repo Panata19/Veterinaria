@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ProductoData } from '../../interfaces/ProductData';
+import { SuministroData } from '../../interfaces/SuministroData';
 import { SelectTypes } from '../interfaces/selected.interface';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-product-modal',
-  templateUrl: './add-product-modal.component.html',
+  selector: 'app-add-suministros-modal',
+  templateUrl: './add-suministros-modal.component.html',
   styles: [`
   .right-align {
     text-align: right;
@@ -33,8 +33,8 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
   }
   `]
 })
-export class AddProductModalComponent {
-  
+export class AddSuministrosModalComponent {
+
   public comprobandoUrl: boolean = false;
   public imgPreview: string = '../assets/img/Artboard.svg';
 
@@ -49,8 +49,8 @@ export class AddProductModalComponent {
   })
 
   constructor(
-    public dialogRef: MatDialogRef<AddProductModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ProductoData,
+    public dialogRef: MatDialogRef<AddSuministrosModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: SuministroData,
     private form: FormBuilder
   ) { console.log(this.myForm?.value?.id) }
   
@@ -175,4 +175,5 @@ export class AddProductModalComponent {
     this.data.quantitys = this.myForm.get('quantitys')!.value;
     this.data.status = this.myForm.get('status')!.value;
   }
+
 }

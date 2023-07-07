@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Agregar Producto</h1>
+<h1 mat-dialog-title>Editar Producto</h1>
 <div mat-dialog-content>
   <form [formGroup]="myForm" (ngSubmit)="submit()">
     <p>Detalles del Producto</p>
@@ -11,8 +11,9 @@
             <input 
               matInput 
               required
-              placeholder="#124" 
+              placeholder="#124"
               formControlName="id"
+              readonly
               (input)="checkID()"
             >
             <button 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProductoData, ProductoTable } from '../interfaces/ProductData';
+import { SuministroData, SuministroTable } from '../interfaces/SuministroData';
 
 
 //** Datos Quemados **//
@@ -43,17 +43,17 @@ const CATEGORYS = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness'];
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsService {
+export class SuministroService {
 
   productsDB = Array.from({length: 100}, (_, k) => this.convertToData(k + 1))
   //constructor() {}
 
   /**
-  * *createNewProduct
+  * *createNewSuministro
   * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
   * @param id: Sirve para establecer el id del producto
   **/
-  private createNewProduct(id: number): ProductoData { 
+  private createNewSuministro(id: number): SuministroData { 
     let name:string =
       NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
       ' ' +
@@ -91,9 +91,9 @@ export class ProductsService {
     };
   }
 
-  private convertToData(index: number): ProductoTable{
+  private convertToData(index: number): SuministroTable{
     let NewDatos = { 
-      ...this.createNewProduct(index),
+      ...this.createNewSuministro(index),
       buttons: true
     };
     
@@ -101,57 +101,56 @@ export class ProductsService {
   }
 
   /**
-  * *getProducts
-  * TODO: Metodo Improvisado para llamar a TODOS los Productos - Se Debe Refactorizar con la DB
+  * *getSuministros
+  * TODO: Metodo Improvisado para llamar a TODOS los Suministros - Se Debe Refactorizar con la DB
   **/
-
-  getProducts():ProductoTable[] {
+  getSuministros():SuministroTable[] {
     return this.productsDB;
   }
 
   /**
-  * *deleteProduct
+  * *deleteSuministro
   * TODO: Metodo Improvisado para Eliminar Datos - Se Debe Refactorizar con la DB
   * @param product: envia el producto completo para eliminarlo de la DB
   **/
-  deleteProduct(productoEliminar:ProductoData){
+  deleteSuministro(productoEliminar:SuministroData){
     this.productsDB = this.productsDB.filter(item => item.id !== productoEliminar.id );
     return this.productsDB;
   }
 
   /**
-  * * addProduct
+  * * addSuministro
   * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
-  * @param newProduct: es el nuevo producto para agregarlo a la DB
+  * @param newSuministro: es el nuevo producto para agregarlo a la DB
   **/
-  addProduct(newProduct: ProductoData){
+  addSuministro(newSuministro: SuministroData){
     let ListoXTabla = { 
-      ...newProduct,
+      ...newSuministro,
       buttons: true
     };
     this.productsDB.push(ListoXTabla);
   }
 
   /**
-  * * addProduct
+  * * addSuministro
   * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
-  * @param newProduct: es el nuevo producto para agregarlo a la DB
+  * @param newSuministro: es el nuevo producto para agregarlo a la DB
   **/
-  EditProduct(editProduct: ProductoTable){    
+  EditSuministro(editSuministro: SuministroTable){    
     
     // Encuent elra índice del objeto en el array utilizando el ID
-    const index = this.productsDB.findIndex(obj => obj.id === editProduct.id);
+    const index = this.productsDB.findIndex(obj => obj.id === editSuministro.id);
 
     if (index !== -1) {
       // Accede al objeto utilizando el índice encontrado
-      this.productsDB[index].id = editProduct.id;
-      this.productsDB[index].name = editProduct.name;
-      this.productsDB[index].status= editProduct.status;
-      this.productsDB[index].quantitys= editProduct.quantitys;
-      this.productsDB[index].image= editProduct.image;
-      this.productsDB[index].price= editProduct.price;
-      this.productsDB[index].category= editProduct.category;
-      this.productsDB[index].buttons= editProduct.buttons;
+      this.productsDB[index].id = editSuministro.id;
+      this.productsDB[index].name = editSuministro.name;
+      this.productsDB[index].status= editSuministro.status;
+      this.productsDB[index].quantitys= editSuministro.quantitys;
+      this.productsDB[index].image= editSuministro.image;
+      this.productsDB[index].price= editSuministro.price;
+      this.productsDB[index].category= editSuministro.category;
+      this.productsDB[index].buttons= editSuministro.buttons;
 
       // Realiza las modificaciones necesarias en el objeto
     } else {
@@ -160,5 +159,4 @@ export class ProductsService {
 
     return this.productsDB;
   }
-
 }
