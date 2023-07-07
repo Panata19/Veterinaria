@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { TiendaService } from '../../services/tienda.service';
+import { ProductoData } from '../../interfaces/ProductData';
 
 @Component({
   selector: 'app-facturacion',
@@ -13,10 +15,12 @@ export class FacturacionComponent implements OnInit {
   List: boolean = true;
   Grid: boolean = false;
 
-  length = 50;
-  pageSize = 10;
+  Products: ProductoData[] = [];
+
+  length: number = 50;
+  pageSize = 8;
   pageIndex = 0;
-  pageSizeOptions = [5, 10, 25, 50];
+  pageSizeOptions = [4, 8, 24, 50];
 
   hidePageSize = false;
   showPageSizeOptions = true;
@@ -25,7 +29,10 @@ export class FacturacionComponent implements OnInit {
 
   pageEvent!: PageEvent;
 
-  constructor() { }
+  constructor(private TiendaService: TiendaService) { 
+    this.Products = TiendaService.getProducts();
+    this.length = this.Products.length;
+  }
 
   ngOnInit(): void {
   }

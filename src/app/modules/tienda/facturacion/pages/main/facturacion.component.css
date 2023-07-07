@@ -15,6 +15,9 @@ div.card.wdth-G {
 div.card.wdth-L {
   width: calc(50% - 1%);
 }
+.price{
+  padding: auto;
+}
 
 /* Media query para pantallas mayores a xl */
 @media (min-width: 1200px) {
@@ -55,6 +58,9 @@ div.card.wdth-L {
   div.card.wdth-L {
     width: calc(100%);
   }
+  span.price{
+    padding: 0 !important;
+  }
 }
 
 .tag{
@@ -67,3 +73,4 @@ div.card.wdth-L {
   max-width: 180px;
   max-height: 130px;
 }
+

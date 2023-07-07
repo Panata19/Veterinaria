@@ -91,7 +91,7 @@ export class ProductsService {
     };
   }
 
-  convertToData(index: number): ProductoTable{
+  private convertToData(index: number): ProductoTable{
     let NewDatos = { 
       ...this.createNewProduct(index),
       buttons: true

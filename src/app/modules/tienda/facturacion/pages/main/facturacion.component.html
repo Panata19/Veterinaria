@@ -27,7 +27,7 @@
 <div class="w-100 p-3  border-top bg-white"> <!-- Container Para las Cards -->
   <div class="row gap-2">
     <div 
-      *ngFor="let item of [1,2,3,4,6,7,8]" 
+      *ngFor="let item of Products | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }" 
       class="card"
       [ngClass]="{'wdth-L': List, 'wdth-G': Grid }"
     > <!-- Cards -->
@@ -38,12 +38,12 @@
         > 
           <div *ngIf="Grid" class="text-center mt-4 mb-3">
             <span class="me-3">
-              <i class="bi bi-tag tag align-middle"></i>{{'Accesorios'}}
+              <i class="bi bi-tag tag align-middle"></i>{{item.category}}
             </span>
-            <span [innerHTML]="'IN STOCK' | badges"></span>
+            <span [innerHTML]="item.status | badges"></span>
           </div>
           <img 
-            [src]="'../assets/img/Artboard.svg'" 
+            [src]="item.image||'../assets/img/Artboard.svg'" 
             class="img-fluid rounded my-2 m-0" 
             alt="..."
           >
@@ -55,7 +55,7 @@
           <div class="card-body py-auto" [ngClass]="{'py-0':Grid}">
             <h2 class="card-title fs-4 fw-semibold"
               [ngClass]="{'text-center':Grid}"
-            >{{'Card title'}}</h2>
+            >{{ item.name }}</h2>
             <p 
               class="card-text" [ngClass]="{'text-center':Grid}"
             >
@@ -63,9 +63,9 @@
             </p>
             <div *ngIf="List">
               <span class="me-3">
-                <i class="bi bi-tag tag align-middle"></i>{{'Accesorios'}}
+                <i class="bi bi-tag tag align-middle"></i>{{item.category}}
               </span>
-              <span [innerHTML]="'IN STOCK' | badges"></span>
+              <span [innerHTML]="item.status | badges"></span>
             </div>
           </div>
         </div>
@@ -77,11 +77,11 @@
             class="row gap-4 align-items-center"
             [ngClass]="{'justify-content-between mb-3': Grid }"
           >
-            <span class="col fs-5 text-secondary-emphasis" [ngClass]="{'align-self-start': List}" > ${{'65'}} </span>
-            <div class="col" [ngClass]="{'align-self-end': List}" >
+            <span class="col fs-5 text-secondary-emphasis price" [ngClass]="{'align-self-start': List}" > ${{item.price}} </span>
+            <div class="col price" [ngClass]="{'align-self-end': List}" >
               <button
                 type="button"
-                class="btn btn-primary rounded-circle shade p-auto"
+                class="btn btn-primary rounded-circle shade p-auto "
               >
                 <i class="bi bi-cart"></i>
               </button>
