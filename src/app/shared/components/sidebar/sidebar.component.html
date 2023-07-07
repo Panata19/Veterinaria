@@ -114,13 +114,16 @@
         <h6 class="collapse-header">Inventario Screens:</h6>
         <a 
           class="collapse-item {{URL.includes('bodega')?'active':''}}" 
+          (click)="useNavigation()"
           routerLink="/inventario/bodega"
         >Bodega</a>
         <a 
           class="collapse-item {{URL.includes('productos')?'active':''}}" 
+          (click)="useNavigation()"
           routerLink="/inventario/productos"
         >Producto</a>
         <a class="collapse-item {{URL.includes('suministros')?'active':''}}"
+          (click)="useNavigation()"  
           routerLink="/inventario/suministros"
         >Suministros</a>
         <div class="collapse-divider"></div>
@@ -150,6 +153,7 @@
         <h6 class="collapse-header">Tienda Screens:</h6>
         <a 
           class="collapse-item {{URL.includes('tienda')?'active':''}}" 
+          (click)="useNavigation()"
           routerLink="/tienda"
         >Tienda</a>
         <div class="collapse-divider"></div>
