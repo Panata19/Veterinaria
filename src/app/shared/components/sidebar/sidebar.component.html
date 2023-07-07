@@ -116,10 +116,12 @@
           <a 
             class="collapse-item {{URL.includes('bodega')?'active':''}}" 
             routerLink="/cliente/listado"
+            (click)="useNavigation()"
           >Mantenimiento de Cliente.</a>
           <a 
             class="collapse-item {{URL.includes('productos')?'active':''}}" 
             routerLink="/paciente/listado"
+            (click)="useNavigation()"
           >Mantenimiento Paciente.  </a>
 
         
