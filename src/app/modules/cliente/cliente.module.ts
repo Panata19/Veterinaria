@@ -6,6 +6,7 @@ import { ListadoCliComponent } from './pages/listado-cli/listado-cli.component';
 
 import { ClienteRoutingModule } from './cliente-routing.module';
 import { MaterialModule } from 'src/app/material/material.module';
+import { ConfirmacionComponent } from './pages/verificacion/confirmacion/confirmacion.component';
 
 
 
@@ -16,7 +17,8 @@ import { MaterialModule } from 'src/app/material/material.module';
 @NgModule({
   declarations: [
     AgregarEditarClientesComponent,
-    ListadoCliComponent
+    ListadoCliComponent,  
+    ConfirmacionComponent
   ],
   imports: [
     CommonModule,
