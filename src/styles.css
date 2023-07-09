@@ -53,9 +53,6 @@ table {
   font-size: 14px;
   width: 100%;
 }
-td, th {
-  width: 25%;
-}
 
 td.mat-row.cdk-row.ng-star-inserted mat-checkbox.mat-checkbox.mat-accent label.mat-checkbox-layout{
   margin: 0px !important;
