@@ -42,9 +42,14 @@ export class FacturacionComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
+  //** Metodo para filtrar las cards **//
   filterProducts(): void {
-    this.filteredProducts = this.Products.filter(product => product.name.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    this.filteredProducts = this.Products.filter(product => {
+      const productNameMatch = product.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+      const categoryMatch = product.category.toLowerCase().includes(this.searchTerm.toLowerCase());
+      const statusMatch = product.status.toLowerCase().includes(this.searchTerm.toLowerCase());
+      return productNameMatch || categoryMatch || statusMatch;
+    });
     this.length = this.filteredProducts.length;
     this.pageIndex = 0
   }
