@@ -2,7 +2,7 @@
   <div class="col">
     <mat-form-field appearance="outline">
       <mat-label>Buscar</mat-label>
-      <input matInput [(ngModel)]="searchTerm" placeholder="Buscar...">
+      <input matInput [(ngModel)]="searchTerm" (ngModelChange)="filterProducts()" placeholder="Buscar...">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
@@ -35,9 +35,8 @@
 </div> <!-- Header Buttons End-->
 <div class="w-100 p-3  border-top border-gray bg-white"> <!-- Container Para las Cards -->
   <div class="row gap-2">
-    
     <div 
-    *ngFor="let item of filterProducts() | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }"
+      *ngFor="let item of filteredProducts | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }"
       class="card border border-gray"
       [ngClass]="{'wdth-L': List, 'wdth-G': Grid }"
     > <!-- Cards -->

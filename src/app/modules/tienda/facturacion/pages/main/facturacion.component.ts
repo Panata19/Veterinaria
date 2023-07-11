@@ -15,6 +15,7 @@ import { ModalCompraComponent } from '../../components/modal-compra/modal-compra
 export class FacturacionComponent implements OnInit {
   
   searchTerm: string = '';
+  filteredProducts: ProductoData[] = [];
 
   fontStyleControl = new FormControl('grid_view');
   List: boolean = true;
@@ -37,17 +38,19 @@ export class FacturacionComponent implements OnInit {
   constructor(private TiendaService: TiendaService, public dialog: MatDialog) { 
     this.Products = TiendaService.getProducts();
     this.length = this.Products.length;
+    this.filterProducts()
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  filterProducts(): any[] {
-    return this.Products.filter(product => product.name.toLowerCase().includes(this.searchTerm.toLowerCase()));
-  }  
+  filterProducts(): void {
+    this.filteredProducts = this.Products.filter(product => product.name.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    this.length = this.filteredProducts.length;
+    this.pageIndex = 0
+  }
 
   //** Parte del Paginador **//
-  handlePageEvent(e: PageEvent) {
+  handlePageEvent(e: PageEvent): void {
     this.pageEvent = e;
     this.length = e.length;
     this.pageSize = e.pageSize;
