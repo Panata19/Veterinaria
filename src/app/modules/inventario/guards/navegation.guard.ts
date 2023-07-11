@@ -28,7 +28,7 @@ export class NavegationGuard implements CanActivate, CanActivateChild, CanLoad {
         .pipe(
           tap( (item) => {
                 if(!item){
-                  this.routed.navigate(['./error']);
+                  this.routed.navigate(['./error/403']);
                 }
                 return item;
               }

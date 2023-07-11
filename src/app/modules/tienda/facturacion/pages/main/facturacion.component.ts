@@ -14,15 +14,21 @@ import { ModalCompraComponent } from '../../components/modal-compra/modal-compra
 })
 export class FacturacionComponent implements OnInit {
   
+  
+  imageLoading: boolean = true;
+
+  //** Variables para filtrar **//
   searchTerm: string = '';
   filteredProducts: ProductoData[] = [];
 
-  fontStyleControl = new FormControl('grid_view');
-  List: boolean = true;
-  Grid: boolean = false;
-
+  //** Productos **//
   Products: ProductoData[] = [];
 
+  //** Variables para las Vistas  **//
+  List: boolean = true;
+  Grid: boolean = false;
+  
+  //**  Variables Paginación **//
   length: number = 50;
   pageSize = 8;
   pageIndex = 0;
@@ -42,6 +48,19 @@ export class FacturacionComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  onImageLoad(): void {
+    this.imageLoading = false;
+  }
+  
+  onImageError(): void {
+    this.imageLoading = false;
+  }
+  onImageProgress(event: any): void{
+    console.log(event);
+    console.log('img')
+  }
+
   //** Metodo para filtrar las cards **//
   filterProducts(): void {
     this.filteredProducts = this.Products.filter(product => {
@@ -61,7 +80,7 @@ export class FacturacionComponent implements OnInit {
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
   }
-
+  //** Establece las paginas **//
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);

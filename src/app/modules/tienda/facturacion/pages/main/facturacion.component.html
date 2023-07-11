@@ -7,7 +7,7 @@
     </mat-form-field>
   </div>
   <div class="col text-end">
-    <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style" >
+    <mat-button-toggle-group aria-label="Font Style" >
       <mat-button-toggle 
         value="view_list" 
         aria-label="List View"
@@ -53,9 +53,13 @@
           </div>
           <img 
             [src]="item.image||'../assets/img/Artboard.svg'" 
+            (progress)="onImageProgress($event)"
             class="img-fluid shade rounded my-2 m-0" 
-            alt="..."
+            alt="{{item.name}} - {{item.category}}"
+            (load)="onImageLoad()"
+            (error)="onImageError()"
           >
+          <mat-progress-bar mode="indeterminate" *ngIf="imageLoading"></mat-progress-bar>
         </div>
         <div 
           class="col overflow-auto"

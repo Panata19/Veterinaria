@@ -9,14 +9,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { InicioPageComponent } from './shared/inicio-page/inicio-page.component';
-import { ErrorPageComponent } from './shared/error-page/error-page.component';
 import { HomeComponent } from './modules/home/pages/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InicioPageComponent,
-    ErrorPageComponent,
     HomeComponent,
    
   ],

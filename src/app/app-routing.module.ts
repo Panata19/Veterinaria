@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InicioPageComponent } from './shared/inicio-page/inicio-page.component';
-import { ErrorPageComponent } from './shared/error-page/error-page.component';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import { NavegationGuard } from './modules/inventario/guards/navegation.guard';
 
@@ -57,17 +56,8 @@ const routes: Routes = [
         path: '**',
         redirectTo: 'error'
       },
-      {
-        path: '404',
-        component: ErrorPageComponent
-      },
-      {
-        path: '**',
-        redirectTo: '404'
-      }
     ]
   },
-
 ];
 
 @NgModule({
