@@ -30,7 +30,7 @@
             <button
               matRipple
               type="button"
-              class="btn btn-gray shade"
+              class="btn btn-light border-gray shade"
               (click)="disminuir()"
             >
               <span class="icon text-black">
@@ -40,7 +40,7 @@
             <button
               matRipple
               type="button"
-              class="btn btn-gray shade"
+              class="btn btn-light border-gray shade"
               (click)="aumentar()"
             >
               <span class="icon text-black">
@@ -53,13 +53,12 @@
     </div>
 </div>
   <div class="border mt-2 rounded border-gray">
-    <h3 class="border-bottom fw-bold border-gray ms-2 mb-2">Cuenta:</h3>
-
-    <div class="ms-2">
-      <p>Precio:          ${{precio}}</p>
-      <p>Cantidad:        {{cantidadTotal}}</p>
-      <p>Iva {{iva}}% :  {{valorIva}}</p>
-      <p class="fw-bold">Total:           ${{precioTotal}}</p>
+    <h3 class="border-bottom fs-6 fw-bold border-gray mx-2 px-2 mb-2">Cuenta:</h3>
+    <div class="ms-2 p-1">
+      <p class="m-0">Precio:          ${{precio}}</p>
+      <p class="m-0">Cantidad:        {{cantidadTotal}}</p>
+      <p >Iva {{iva}}% :  {{valorIva}}</p>
+      <p class="fw-bold fs-6">Total: <span class="fs-5">${{precioTotal}}</span></p>
       <div *ngIf="warning" class="bg-danger rounded">
         <h3 class="fs-5 text-white p-0 text-center">No se puede {{message()}} más la cantidad</h3>
       </div>
