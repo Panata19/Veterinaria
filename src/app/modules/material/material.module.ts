@@ -25,6 +25,7 @@ import { MatGridListModule} from '@angular/material/grid-list';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatStepperModule } from '@angular/material/stepper'; 
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatStepperModule
   ],
 })
 export class MaterialModule {}
