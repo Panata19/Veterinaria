@@ -37,6 +37,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-color: #9333EA;
 }
 
+.btn-gray {
+  color: #050505;
+  background-color: #ccc7d1 !important;
+  border-color: #242323 !important;
+}
+
+.btn-gray:hover{
+  color: #050505;
+  background-color: #ccc7d1 !important;
+  border-color: #242323 !important;
+}
 
 
 button:active .text-white-50 {

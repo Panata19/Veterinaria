@@ -1,0 +1,73 @@
+<h1 mat-dialog-title>Comprar {{data.name}}</h1>
+<section mat-dialog-content>
+  <div class="card wdth-L border-gray border" > <!-- Cards -->
+    <div class="row g-0">
+      <div class="col my-auto col-4 col-sm-4 col-md-3 pe-0" > 
+        <img 
+          [src]="data.image||'../assets/img/Artboard.svg'" 
+          class="img-fluid shade rounded my-2 m-0" 
+          alt="..."
+        >
+      </div>
+      <div class="col overflow-auto col-6 col-sm-6 col-md-7" >
+        <div class="card-body py-auto" >
+          <h2 class="card-title fs-4 fw-semibold">{{ data.name }}</h2>
+          <p class="card-text text-body-secondary">
+              Existen: {{data.quantitys}}
+            </p>
+          <div>
+            <span class="me-3">
+              <i class="bi bi-tag tag align-middle"></i>{{data.category}}
+            </span>
+            <span [innerHTML]="data.status | badges"></span>
+          </div>
+        </div>
+      </div>
+      <div class="col m-auto col-2 col-sm-2 col-md-2">
+        <div class="row gap-4 align-items-center" >
+          <span class="col fs-5 text-secondary-emphasis price align-self-start">${{data.price}} </span>
+          <div class="col price align-self-end">
+            <button
+              matRipple
+              type="button"
+              class="btn btn-gray shade"
+              (click)="disminuir()"
+            >
+              <span class="icon text-black">
+                <i class="bi bi-dash-lg"></i>
+              </span>
+            </button>
+            <button
+              matRipple
+              type="button"
+              class="btn btn-gray shade"
+              (click)="aumentar()"
+            >
+              <span class="icon text-black">
+                <i class="bi bi-plus-lg"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  <div class="border mt-2 rounded border-gray">
+    <h3 class="border-bottom fw-bold border-gray ms-2 mb-2">Cuenta:</h3>
+
+    <div class="ms-2">
+      <p>Precio:          ${{precio}}</p>
+      <p>Cantidad:        {{cantidadTotal}}</p>
+      <p>Iva {{iva}}% :  {{valorIva}}</p>
+      <p class="fw-bold">Total:           ${{precioTotal}}</p>
+      <div *ngIf="warning" class="bg-danger rounded">
+        <h3 class="fs-5 text-white p-0 text-center">No se puede {{message()}} más la cantidad</h3>
+      </div>
+    </div>
+    
+  </div>
+</section>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

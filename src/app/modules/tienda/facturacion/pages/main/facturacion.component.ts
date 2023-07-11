@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { TiendaService } from '../../services/tienda.service';
 import { ProductoData } from '../../interfaces/ProductData';
+import { CompraData } from '../../interfaces/CompraProducto';
+import { ModalCompraComponent } from '../../components/modal-compra/modal-compra.component';
 
 @Component({
   selector: 'app-facturacion',
@@ -10,6 +13,8 @@ import { ProductoData } from '../../interfaces/ProductData';
   styleUrls: ['./facturacion.component.css']
 })
 export class FacturacionComponent implements OnInit {
+  
+  searchTerm: string = '';
 
   fontStyleControl = new FormControl('grid_view');
   List: boolean = true;
@@ -29,7 +34,7 @@ export class FacturacionComponent implements OnInit {
 
   pageEvent!: PageEvent;
 
-  constructor(private TiendaService: TiendaService) { 
+  constructor(private TiendaService: TiendaService, public dialog: MatDialog) { 
     this.Products = TiendaService.getProducts();
     this.length = this.Products.length;
   }
@@ -37,6 +42,11 @@ export class FacturacionComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  filterProducts(): any[] {
+    return this.Products.filter(product => product.name.toLowerCase().includes(this.searchTerm.toLowerCase()));
+  }  
+
+  //** Parte del Paginador **//
   handlePageEvent(e: PageEvent) {
     this.pageEvent = e;
     this.length = e.length;
@@ -49,7 +59,7 @@ export class FacturacionComponent implements OnInit {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
   }
-
+  //** Cambiar a Vista Grid **//
   viewGrid(): void{
     if(this.Grid === false){
       this.Grid = !this.Grid;
@@ -59,7 +69,7 @@ export class FacturacionComponent implements OnInit {
     console.log('List', this.List)
     console.log('----')
   }
-
+  //** Cambiar a Vista Lista **//
   viewList(): void {
     if(this.List === false){
       this.Grid = !this.Grid;
@@ -68,6 +78,26 @@ export class FacturacionComponent implements OnInit {
     console.log('List', this.List)
     console.log('Grid', this.Grid)
     console.log('----')
+  }
+
+  //** Modal Comprar **//
+  procesoCompra(Producto: CompraData): void{
+    const dialogRef = this.dialog.open(ModalCompraComponent, {
+      data: {
+        id: Producto.id,
+        name: Producto.name, 
+        image: Producto.image,
+        price: Producto.price,
+        category: Producto.category,
+        quantitys: Producto.quantitys,
+        status: Producto.status,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
   }
 
 }

@@ -7,12 +7,14 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { PaginatePipe } from './facturacion/pipe/paginate.pipe';
+import { ModalCompraComponent } from './facturacion/components/modal-compra/modal-compra.component';
 
 
 @NgModule({
   declarations: [
     FacturacionComponent,
-    PaginatePipe
+    PaginatePipe,
+    ModalCompraComponent
   ],
   imports: [
     CommonModule,

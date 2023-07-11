@@ -1,34 +1,44 @@
-<div class="w-100 mt-3 p-2 border-top text-end"><!-- Header Buttons -->
-  <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
-    <mat-button-toggle 
-      value="view_list" 
-      aria-label="List View"
-      [checked]="List"
-      (change)="viewList()"
-      [ngClass]="{'selected': List }"
-    >
-      <mat-icon
-        [ngClass]="{'text-white': List }"
-      >view_list</mat-icon>
-    </mat-button-toggle>
-    <mat-button-toggle 
-      
-      value="view_grid" 
-      aria-label="Grid View"
-      (change)="viewGrid()"
-      [ngClass]="{'selected': Grid }"
-    >
-      <mat-icon
-        [ngClass]="{'text-white': Grid }"
-      >grid_view</mat-icon>
-    </mat-button-toggle>
-  </mat-button-toggle-group>
+<div class="w-100 mt-3 p-2 border-top border-gray row"><!-- Header Buttons -->
+  <div class="col">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar</mat-label>
+      <input matInput [(ngModel)]="searchTerm" placeholder="Buscar...">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="col text-end">
+    <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style" >
+      <mat-button-toggle 
+        value="view_list" 
+        aria-label="List View"
+        [checked]="List"
+        (change)="viewList()"
+        [ngClass]="{'selected': List }"
+      >
+        <mat-icon
+          [ngClass]="{'text-white': List }"
+        >view_list</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle 
+        
+        value="view_grid" 
+        aria-label="Grid View"
+        (change)="viewGrid()"
+        [ngClass]="{'selected': Grid }"
+      >
+        <mat-icon
+          [ngClass]="{'text-white': Grid }"
+        >grid_view</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
 </div> <!-- Header Buttons End-->
-<div class="w-100 p-3  border-top bg-white"> <!-- Container Para las Cards -->
+<div class="w-100 p-3  border-top border-gray bg-white"> <!-- Container Para las Cards -->
   <div class="row gap-2">
+    
     <div 
-      *ngFor="let item of Products | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }" 
-      class="card"
+    *ngFor="let item of filterProducts() | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }"
+      class="card border border-gray"
       [ngClass]="{'wdth-L': List, 'wdth-G': Grid }"
     > <!-- Cards -->
       <div class="row g-0">
@@ -44,7 +54,7 @@
           </div>
           <img 
             [src]="item.image||'../assets/img/Artboard.svg'" 
-            class="img-fluid rounded my-2 m-0" 
+            class="img-fluid shade rounded my-2 m-0" 
             alt="..."
           >
         </div>
@@ -57,9 +67,9 @@
               [ngClass]="{'text-center':Grid}"
             >{{ item.name }}</h2>
             <p 
-              class="card-text" [ngClass]="{'text-center':Grid}"
+              class="card-text text-body-secondary" [ngClass]="{'text-center':Grid}"
             >
-              <small class="text-body-secondary">Last updated 3 mins ago</small>
+              Existen: {{item.quantitys}}
             </p>
             <div *ngIf="List">
               <span class="me-3">
@@ -81,7 +91,9 @@
             <div class="col price" [ngClass]="{'align-self-end': List}" >
               <button
                 type="button"
-                class="btn btn-primary rounded-circle shade p-auto "
+                class="btn btn-primary rounded-circle shade p-auto"
+                [disabled]="item.quantitys <= 0"
+                (click)="procesoCompra(item)"
               >
                 <i class="bi bi-cart"></i>
               </button>
