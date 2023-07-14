@@ -6,7 +6,6 @@
         sexo: string;
         edad: Date;
         nacionalidad: string;
-    
     }
 
 

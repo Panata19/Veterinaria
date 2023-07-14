@@ -16,12 +16,12 @@ const routes: Routes = [
       },
       {
         path: 'auth',
-        loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
-        
+        loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule),
       },
       {
         path: 'usuarios',
-        loadChildren: () => import('./modules/usuario/usuario.module').then(m => m.UsuarioModule)
+        loadChildren: () => import('./modules/usuario/usuario.module').then(m => m.UsuarioModule),
+        canActivate: [AuthGuard],
       },
       {
         path: 'inventario',

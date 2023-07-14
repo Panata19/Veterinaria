@@ -20,7 +20,10 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: {showError: true},
+      useValue: {
+        showError: true,
+        displayDefaultIndicatorType: false
+      },
     },
   ],
   imports: [
