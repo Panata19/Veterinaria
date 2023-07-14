@@ -8,16 +8,16 @@ export class PacienteService {
 
   constructor() {/* */ }
   private pacientes: Paciente[] = [
-    { id: 1, nombre: "Juan ", sexo: "Masculino", edad: 5, raza: "Labrador", peso: 30 },
-    { id: 2, nombre: "Maria ", sexo: "Femenino", edad: 8, raza: "Bulldog", peso: 25 },
-    { id: 3, nombre: "Pedro ", sexo: "Masculino", edad: 2, raza: "Golden Retriever", peso: 35 },
-    { id: 4, nombre: "Laura ", sexo: "Femenino", edad: 1, raza: "Chihuahua", peso: 5 },
-    { id: 5, nombre: "Carlos", sexo: "Masculino", edad: 9, raza: "Poodle", peso: 10 },
-    { id: 6, nombre: "Ana ", sexo: "Femenino", edad: 6, raza: "Husky Siberiano", peso: 40 },
-    { id: 7, nombre: "Diego ", sexo: "Masculino", edad: 7, raza: "Beagle", peso: 12 },
-    { id: 8, nombre: "Sofia ", sexo: "Femenino", edad: 5, raza: "Bichón Frisé", peso: 8 },
-    { id: 9, nombre: "Javier ", sexo: "Masculino", edad: 9, raza: "Dálmata", peso: 25 },
-    { id: 10, nombre: "Lucia", sexo: "Femenino", edad: 3, raza: "Bóxer", peso: 30 }
+    { id: 1, nombre: "Juan ", sexo: "Masculino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Labrador", peso: 30 },
+    { id: 2, nombre: "Maria ", sexo: "Femenino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Bulldog", peso: 25 },
+    { id: 3, nombre: "Pedro ", sexo: "Masculino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Golden Retriever", peso: 35 },
+    { id: 4, nombre: "Laura ", sexo: "Femenino",  Fechadenacimiento: new Date(1985, 5, 12), raza: "Chihuahua", peso: 5 },
+    { id: 5, nombre: "Carlos", sexo: "Masculino",  Fechadenacimiento: new Date(1985, 5, 12), raza: "Poodle", peso: 10 },
+    { id: 6, nombre: "Ana ", sexo: "Femenino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Husky Siberiano", peso: 40 },
+    { id: 7, nombre: "Diego ", sexo: "Masculino",  Fechadenacimiento: new Date(1985, 5, 12), raza: "Beagle", peso: 12 },
+    { id: 8, nombre: "Sofia ", sexo: "Femenino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Bichón Frisé", peso: 8 },
+    { id: 9, nombre: "Javier ", sexo: "Masculino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Dálmata", peso: 25 },
+    { id: 10, nombre: "Lucia", sexo: "Femenino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Bóxer", peso: 30 }
   ];
 
 

@@ -1,36 +1,44 @@
 <div class="container">
     <mat-toolbar>
         <span>
-            {{operacion}} Paciente
+            <h2 mat-dialog-title>{{ modo === 'agregar' ? 'Agregar' : 'Editar' }} Paciente</h2>
+
         </span>
     </mat-toolbar>
 
     <mat-card class="margin">
-        <form [formGroup]="form" (ngSubmit)="agregarPaciente()">
-            <mat-grid-list cols="2" rowHeight="100px">
-
-                <mat-grid-tile>
+        <form [formGroup]="pacienteForm"  class="row g-3">
+           
+          
+                  <div class="col-md-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Nombre</mat-label>
                         <input formControlName="nombre" matInput placeholder="Ingresar Nombre">
                     </mat-form-field>
-                </mat-grid-tile>
+                </div>
+                
 
-                <mat-grid-tile>
+                  <div class="col-md-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Raza</mat-label>
                         <input formControlName="raza" matInput placeholder="Ingresar Apellido">
                     </mat-form-field>
-                </mat-grid-tile>
+                </div>
 
-                <mat-grid-tile>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Edad</mat-label>
-                        <input type="number" formControlName="edad" matInput placeholder="Ingresar Edad">
-                    </mat-form-field>
-                </mat-grid-tile>
+                <div class="col-md-6">
+                  <mat-form-field>
+                      <input matInput [matDatepicker]="datepicker" formControlName="Fechadenacimiento"
+                          placeholder="Ingresar Fecha de nacimiento">
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                      <mat-datepicker #datepicker></mat-datepicker>
+                  </mat-form-field>
+              </div>
 
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
+
+
+
+                <div class="col-md-6">
                     <mat-form-field>
                         <mat-label>Sexo</mat-label>
                         <mat-select formControlName="sexo" >
@@ -40,26 +48,29 @@
                         </mat-select>
                         
                       </mat-form-field>                  
-                </mat-grid-tile>
+                </div>
 
-                <mat-grid-tile>
+                  <div class="col-md-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Peso</mat-label>
                         <input formControlName="peso"  matInput placeholder="Ingresar Nacionalidad">
                     </mat-form-field>
-                </mat-grid-tile>
+                </div>
 
-                <mat-grid-tile [colspan]="2">
-                    <button [disabled]="form.invalid" type="submit" class="btnGuardar" mat-raised-button color="primary">Guardar</button>
-                    <button  mat-raised-button routerLink="/paciente/listado">volver</button>
+             
+            
 
 
-                </mat-grid-tile>
-            </mat-grid-list>
         </form>
-
+        
 
     </mat-card>
+    <br>
+    <div class="col-12" style="text-align: center;">
+        <button mat-button [disabled]="pacienteForm.invalid" (click)="guardar()" class="btn btn-primary" style="color: white">{{ modo === 'agregar' ? 'Agregar' : 'Guardar' }}</button>
+        <button  mat-raised-button (click)="cancelar()">volver</button>
+
+    </div>
 
 
 </div>>

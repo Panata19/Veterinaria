@@ -1,58 +1,47 @@
 // agregar-editar-clientes.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component,Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Cliente } from '../../interface/cliente.interface';
-import { ClienteService } from '../../service/cliente.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-agregar-editar-clientes',
   templateUrl: './agregar-editar-clientes.component.html',
   styleUrls: ['./agregar-editar-clientes.component.css']
 })
-export class AgregarEditarClientesComponent implements OnInit {
+export class AgregarEditarClientesComponent  {
   sexo: any[] = ['Masculino', 'Femenino'];
   form: FormGroup;
-  id: number;
-  operacion: string = 'Agregar';
-
+  modo: string;
+  
   constructor(
-    private fb: FormBuilder,
-    private clienteService: ClienteService,
-    private router: Router,
-    private snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute
+    public dialogRef: MatDialogRef<AgregarEditarClientesComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formBuilder: FormBuilder
   ) {
-    this.form = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      edad: ['', Validators.required],
-      sexo: ['', Validators.required],
-      nacionalidad: ['', Validators.required]
-    });
+    this.modo = data.modo;
+  
+      // Inicializar el formulario con los campos y validadores correspondientes
+      this.form = this.formBuilder.group({
+        nombre: [data.cliente ? data.cliente.nombres : '', Validators.required],
+        apellido: [data.cliente ? data.cliente.apellidos : '', Validators.required],
+        edad: [data.cliente ? data.cliente.edad : '', Validators.required],
+        sexo: [data.cliente ? data.cliente.sexo : '', Validators.required],
+        nacionalidad: [data.cliente ? data.cliente.nacionalidad : '', Validators.required]
+      });
+  
 
-    this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+   
   }
 
-  ngOnInit(): void {
-    if (this.id !== 0) {
-      this.operacion = 'Editar';
-      const cliente = this.clienteService.getCliente().find(c => c.id === this.id);
-      if (cliente) {
-        this.form.patchValue({
-          nombre: cliente.nombres,
-          apellido: cliente.apellidos,
-          edad: cliente.edad,
-          sexo: cliente.sexo,
-          nacionalidad: cliente.nacionalidad
-        });
-      }
+  guardar(): void {
+    if (this.form.invalid) {
+      return;
     }
-  }
 
-  agregarEditarCliente(): void {
     const cliente: Cliente = {
+      id: this.data.cliente ? this.data.cliente.id : null,
       nombres: this.form.value.nombre,
       apellidos: this.form.value.apellido,
       edad: this.form.value.edad,
@@ -60,19 +49,14 @@ export class AgregarEditarClientesComponent implements OnInit {
       nacionalidad: this.form.value.nacionalidad
     };
 
-    if (this.id === 0) {
-      this.clienteService.addCliente(cliente);
-    } else {
-      cliente.id = this.id;
-      this.clienteService.editCliente(cliente);
-    }
-
-    this.router.navigate(['/cliente/listado']);
-
-    this.snackBar.open('El Cliente fue ' + (this.id === 0 ? 'agregado' : 'editado') + ' con éxito', '', {
-      duration: 3000,
-      horizontalPosition: 'right',
-      verticalPosition: 'bottom'
-    });
+    this.dialogRef.close(cliente);
   }
+
+  cancelar(): void {
+    this.dialogRef.close();
+  }
+
+
+
+  
 }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { InicioPageComponent } from './shared/inicio-page/inicio-page.component';
 import { ErrorPageComponent } from './shared/error-page/error-page.component';
 import { MenuComponent } from './shared/components/menu/menu.component';
+import { NavegationGuard } from './modules/inventario/guards/navegation.guard';
 import { AuthGuard } from './modules/auth/guards/auth.guard';
 
 const routes: Routes = [
@@ -24,32 +25,38 @@ const routes: Routes = [
       },
       {
         path: 'inventario',
-        loadChildren: () => import('./modules/inventario/inventario.module').then(m => m.InventarioModule)
+        loadChildren: () => import('./modules/inventario/inventario.module').then(m => m.InventarioModule),
+        canLoad: [NavegationGuard]
       },
       {
         path: 'tienda',
-        loadChildren: () => import('./modules/tienda/tienda.module').then(m => m.TiendaModule)
+        loadChildren: () => import('./modules/tienda/tienda.module').then(m => m.TiendaModule),
+        canLoad: [NavegationGuard]
       },
       {
         path: 'hospitalizacion',
-        loadChildren: () => import('./modules/hospitalizacion/hospitalizacion.module').then(m => m.HospitalizacionModule)
+        loadChildren: () => import('./modules/hospitalizacion/hospitalizacion.module').then(m => m.HospitalizacionModule),
+        canLoad: [NavegationGuard]
       },
-
       {
         path: 'historialClinico',
-        loadChildren: () => import('./modules/historialClinico/historial-clinico.module').then(m => m.HistorialClinicoModule)
+        loadChildren: () => import('./modules/historialClinico/historial-clinico.module').then(m => m.HistorialClinicoModule),
+        canLoad: [NavegationGuard]
       },    
       {
         path: 'cliente',
-        loadChildren: () => import('./modules/cliente/cliente.module').then(module => module.ClienteModule)
+        loadChildren: () => import('./modules/cliente/cliente.module').then(module => module.ClienteModule),
+        canLoad: [NavegationGuard]
       },
       {
         path: 'paciente',
-        loadChildren: () => import('./modules/paciente/paciente.module').then(module => module.PacienteModule)
+        loadChildren: () => import('./modules/paciente/paciente.module').then(module => module.PacienteModule),
+        canLoad: [NavegationGuard]
       },
       {
         path: 'citas',
-        loadChildren: () => import('./modules/citas/citas.module').then(module => module.CitasModule)
+        loadChildren: () => import('./modules/citas/citas.module').then(module => module.CitasModule),
+        canLoad: [NavegationGuard]
       },
       {
         path: 'error',
