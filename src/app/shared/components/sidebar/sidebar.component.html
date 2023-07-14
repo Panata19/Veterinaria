@@ -203,17 +203,18 @@
     </div>
   </li>
 
-  <li class="nav-item {{URL.includes('hospitalizacion')?'active':''}}"> <!-- Nav Item - Hospitalizacion Collapse Menu -->
+  <!-- Hospitizacion -->
+  <li class="nav-item {{URL.includes('hospitalizacion')?'active':''}}">
     <a
       class="nav-link {{URL.includes('hospitalizacion')?'':'collapsed'}}"
       href="#"
       data-toggle="collapse"
-      data-target="#collapseHospitalizacion"hospitalizacion
+      data-target="#collapseHospitalizacion"
       aria-expanded="true"
       aria-controls="collapseHospitalizacion"
     >
-      <i class="bi bi-hospital"></i>
-      <span>Hospitalización</span>
+      <i class="fas fa-fw fa-warehouse"></i>
+      <span>Hospitalizacion</span>
     </a>
     <div
       id="collapseHospitalizacion"
@@ -225,13 +226,15 @@
         <h6 class="collapse-header">Hospitalizacion Screens:</h6>
         <a 
           class="collapse-item {{URL.includes('hospitalizacion')?'active':''}}" 
-          routerLink="/hospitalizacion"
-        >Hospitalizacion</a>
-        <div class="collapse-divider"></div>
+          (click)="useNavigation()"
+          routerLink="/hospitalizacion">
+          Hospitazacion</a>
         <a 
-        class="collapse-item {{URL.includes('historialClinico')?'active':''}}" 
-        routerLink="/historialClinico"
-      >Historial Clinico</a>
+          class="collapse-item {{URL.includes('historialClinico')?'active':''}}" 
+          (click)="useNavigation()"
+          routerLink="/historialClinico">
+          Historia Clinica</a>
+        <div class="collapse-divider"></div>
       </div>
     </div>
   </li>
