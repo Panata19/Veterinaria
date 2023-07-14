@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Comprar {{data.name}}</h1>
-<section mat-dialog-content>
+<section mat-dialog-content class="px-0 px-sm-auto">
   <mat-stepper
     class="example-stepper"
     (selectionChange)="onStepChange($event)"
@@ -99,7 +99,7 @@
         <form [formGroup]="secondFormGroup"
           
         >
-          <div class="col">
+          <div class="col px-0 px-sm-auto">
             <mat-form-field appearance="outline">
               <mat-label>Buscar Usuario</mat-label>
               <input matInput 
