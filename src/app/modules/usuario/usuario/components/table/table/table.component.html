@@ -1,0 +1,67 @@
+<div class="d-flex justify-content-between align-items-center mb-4" style="margin-top: 70px;">
+    <h1 class="mb-0 text-dark" style="margin-top: 20px;">Listado de Usuarios</h1>
+    <button class="btn btn-primary" (click)="openModal()">
+        Agregar Nuevo Usuario
+        <i class="fas fa-plus-circle fa-xs ml-2"></i>
+    </button>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre de Usuario</th>
+            <th>Contraseña</th>
+            <th>Correo</th>
+            <th>Bloqueado</th>
+            <th>Estado de Usuario</th>
+            <th>Fecha de Creación</th>
+            <th>Fecha de Actualización</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr
+            *ngFor="let usuario of usuarios | slice: (pagina - 1) * registrosPorPagina : pagina * registrosPorPagina; let i = index">
+            <td>{{ (pagina - 1) * registrosPorPagina + i + 1 }}</td>
+            <td>{{ usuario.nombreUsuario }}</td>
+            <td>{{ usuario.contrasenia }}</td>
+            <td>{{ usuario.correo }}</td>
+            <td>{{ usuario.bloqueado ? 'Sí' : 'No' }}</td>
+            <td>{{ usuario.estadoUsuario }}</td>
+            <td>{{ usuario.fechaCreacion | date }}</td>
+            <td>{{ usuario.fechaActualizacion | date }}</td>
+            <td>
+                <button class="btn btn-primary">
+                    Editar <i class="fas fa-edit fa-xs"></i>
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-danger">
+                    Eliminar <i class="fas fa-trash fa-xs"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="text-center">
+    Mostrando {{ obtenerRangoRegistros() }}
+</div>
+
+<div class="text-center">
+    <nav>
+        <ul class="pagination">
+            <li class="page-item" [class.disabled]="pagina === 1">
+                <a class="page-link" href="" (click)="anteriorPagina($event)">Anterior</a>
+            </li>
+            <li class="page-item" [class.active]="p === pagina" *ngFor="let p of range(1, totalPaginas)">
+                <a class="page-link" href="" (click)="irAPagina($event, p)">{{ p }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="pagina === totalPaginas">
+                <a class="page-link" href="" (click)="siguientePagina($event)">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
+</div>

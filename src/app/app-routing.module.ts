@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { InicioPageComponent } from './shared/inicio-page/inicio-page.component';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import { NavegationGuard } from './modules/inventario/guards/navegation.guard';
+import { AuthGuard } from './modules/auth/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -14,9 +15,17 @@ const routes: Routes = [
         component: InicioPageComponent
       },
       {
+        path: 'auth',
+        loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+      },
+      {
+        path: 'usuarios',
+        loadChildren: () => import('./modules/usuario/usuario.module').then(m => m.UsuarioModule)
+      },
+      {
         path: 'inventario',
         loadChildren: () => import('./modules/inventario/inventario.module').then(m => m.InventarioModule),
-//        canLoad: [NavegationGuard]
+        //  canLoad: [NavegationGuard]
       },
       {
         path: 'tienda',

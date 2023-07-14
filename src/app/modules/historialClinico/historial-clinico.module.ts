@@ -15,6 +15,7 @@ import { HistorialClinicoPacienteComponent } from './pages/historial-clinico-pac
 import { SharedModule } from '../../shared/shared.module';
 import { FiltroPipe } from './pipes/filtro.pipe';
 import { FormsModule } from '@angular/forms';
+import { FiltroHistorialClinicoPipe } from './pipes/filtro-historial-clinico.pipe';
 
 
 
@@ -24,7 +25,7 @@ import { FormsModule } from '@angular/forms';
     TableComponent, 
     InputSearchComponent, 
     HistorialClinicoPacienteComponent, 
-    FiltroPipe
+    FiltroPipe, FiltroHistorialClinicoPipe
   ],
   
   imports: [ 

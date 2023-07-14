@@ -1,0 +1,276 @@
+{
+  "usuarios": [
+    {
+      "idUsuario": 1,
+      "nombreUsuario": "Usuario1",
+      "contrasenia": "contrasenia1",
+      "correo": "usuario1@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 1
+    },
+    {
+      "idUsuario": 2,
+      "nombreUsuario": "Usuario2",
+      "contrasenia": "contrasenia2",
+      "correo": "usuario2@example.com",
+      "bloqueado": true,
+      "estadoUsuario": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 2
+    },
+    {
+      "idUsuario": 3,
+      "nombreUsuario": "Usuario3",
+      "contrasenia": "contrasenia3",
+      "correo": "usuario3@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 3
+    },
+    {
+      "idUsuario": 4,
+      "nombreUsuario": "Usuario4",
+      "contrasenia": "contrasenia4",
+      "correo": "usuario4@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 4
+    },
+    {
+      "idUsuario": 5,
+      "nombreUsuario": "Usuario5",
+      "contrasenia": "contrasenia5",
+      "correo": "usuario5@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 5
+    },
+    {
+      "idUsuario": 6,
+      "nombreUsuario": "Usuario6",
+      "contrasenia": "contrasenia6",
+      "correo": "usuario6@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 6
+    },
+    {
+      "idUsuario": 7,
+      "nombreUsuario": "Usuario7",
+      "contrasenia": "contrasenia7",
+      "correo": "usuario7@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 7
+    },
+    {
+      "idUsuario": 8,
+      "nombreUsuario": "Usuario8",
+      "contrasenia": "contrasenia8",
+      "correo": "usuario8@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 8
+    },
+    {
+      "idUsuario": 9,
+      "nombreUsuario": "Usuario9",
+      "contrasenia": "contrasenia9",
+      "correo": "usuario9@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 9
+    },
+    {
+      "idUsuario": 10,
+      "nombreUsuario": "Usuario10",
+      "contrasenia": "contrasenia10",
+      "correo": "usuario10@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 10
+    },
+    {
+      "idUsuario": 11,
+      "nombreUsuario": "Usuario11",
+      "contrasenia": "contrasenia11",
+      "correo": "usuario11@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 11
+    },
+    {
+      "idUsuario": 12,
+      "nombreUsuario": "Usuario12",
+      "contrasenia": "contrasenia12",
+      "correo": "usuario12@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 12
+    },
+    {
+      "idUsuario": 13,
+      "nombreUsuario": "Usuario13",
+      "contrasenia": "contrasenia13",
+      "correo": "usuario13@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 13
+    },
+    {
+      "idUsuario": 14,
+      "nombreUsuario": "Usuario14",
+      "contrasenia": "contrasenia14",
+      "correo": "usuario14@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 14
+    },
+    {
+      "idUsuario": 15,
+      "nombreUsuario": "Usuario15",
+      "contrasenia": "contrasenia15",
+      "correo": "usuario15@example.com",
+      "bloqueado": false,
+      "estadoUsuario": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z",
+      "idPerfil": 15
+    }
+  ],
+  "perfiles": [
+    {
+      "idPerfil": 1,
+      "nombrePerfil": "Perfil1",
+      "estadoPerfil": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 2,
+      "nombrePerfil": "Perfil2",
+      "estadoPerfil": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 3,
+      "nombrePerfil": "Perfil3",
+      "estadoPerfil": "activo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 4,
+      "nombrePerfil": "Perfil4",
+      "estadoPerfil": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 5,
+      "nombrePerfil": "Perfil5",
+      "estadoPerfil": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 6,
+      "nombrePerfil": "Perfil6",
+      "estadoPerfil": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 7,
+      "nombrePerfil": "Perfil7",
+      "estadoPerfil": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 8,
+      "nombrePerfil": "Perfil8",
+      "estadoPerfil": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 9,
+      "nombrePerfil": "Perfil9",
+      "estadoPerfil": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 10,
+      "nombrePerfil": "Perfil10",
+      "estadoPerfil": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 11,
+      "nombrePerfil": "Perfil11",
+      "estadoPerfil": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 12,
+      "nombrePerfil": "Perfil12",
+      "estadoPerfil": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 13,
+      "nombrePerfil": "Perfil13",
+      "estadoPerfil": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 14,
+      "nombrePerfil": "Perfil14",
+      "estadoPerfil": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    },
+    {
+      "idPerfil": 15,
+      "nombrePerfil": "Perfil15",
+      "estadoPerfil": "inactivo",
+      "fechaCreacion": "2023-06-30T07:00:00.000Z",
+      "fechaActualizacion": "2023-06-30T07:00:00.000Z"
+    }
+  ]
+}

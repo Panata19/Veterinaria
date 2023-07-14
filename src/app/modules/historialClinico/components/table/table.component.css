@@ -1,29 +1,29 @@
-.container_select{
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+.mat-header-cell{
+  background-color:#0d49a1;
+  padding: 1rem;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
 }
 
-.container_select, 
-table{
+.mat-cell{
+  padding: 1rem;
   font-size: 1rem;
 }
 
-.container_pagination{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  gap: 1rem;
+.color-sort-header-arrow-white {
+  .mat-sort-header-arrow {
+    color: #fff;
+  }
 }
 
-.container_buttons_navigation{
+.cell_options{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+}
+
+.btn_detalles_hospitalizacion{
+  display: flex; 
   gap: .5rem;
-}
-
-.container_buttons_navigation button{
-  width: max-content;
 }

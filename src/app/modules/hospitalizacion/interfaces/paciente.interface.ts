@@ -1,8 +1,9 @@
-export interface Mascotas {
-    id: number,
-    nombreMascota: string, 
-    tipoMascota: string, 
-    raza: string,
-    edad: number,
-    sexo: string
+export interface Paciente {
+    idPaciente:    number;
+    nombreMascota: string;
+    tipoMascota:   string;
+    raza:          string;
+    edad:          number;
+    sexo:          string;
+    fechaNac:      string;
 }
