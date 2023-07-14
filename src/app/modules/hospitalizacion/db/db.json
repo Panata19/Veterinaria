@@ -1,0 +1,295 @@
+{
+  "pacientes": [
+    {
+      "idPaciente": 1,
+      "nombreMascota": "Max",
+      "tipoMascota": "Perro",
+      "raza": "Labrador Retriever",
+      "edad": 5,
+      "sexo": "masculino",
+      "fechaNac": "2018-07-08",
+      "id": 1
+    },
+    {
+      "idPaciente": 2,
+      "nombreMascota": "Luna",
+      "tipoMascota": "Gato",
+      "raza": "Siamés",
+      "edad": 3,
+      "sexo": "femenino",
+      "fechaNac": "2020-07-08",
+      "id": 2
+    },
+    {
+      "idPaciente": 3,
+      "nombreMascota": "Bobby",
+      "tipoMascota": "Perro",
+      "raza": "Bulldog Francés",
+      "edad": 2,
+      "sexo": "masculino",
+      "fechaNac": "2021-07-08",
+      "id": 3
+    },
+    {
+      "idPaciente": 4,
+      "nombreMascota": "Nala",
+      "tipoMascota": "Gato",
+      "raza": "Persa",
+      "edad": 4,
+      "sexo": "femenino",
+      "fechaNac": "2019-07-08",
+      "id": 4
+    },
+    {
+      "idPaciente": 5,
+      "nombreMascota": "Rocky",
+      "tipoMascota": "Perro",
+      "raza": "Golden Retriever",
+      "edad": 7,
+      "sexo": "masculino",
+      "fechaNac": "2016-07-08",
+      "id": 5
+    },
+    {
+      "idPaciente": 6,
+      "nombreMascota": "Coco",
+      "tipoMascota": "Perro",
+      "raza": "Chihuahua",
+      "edad": 1,
+      "sexo": "masculino",
+      "fechaNac": "2022-07-08",
+      "id": 6
+    },
+    {
+      "idPaciente": 7,
+      "nombreMascota": "Simba",
+      "tipoMascota": "Gato",
+      "raza": "Bengalí",
+      "edad": 2,
+      "sexo": "masculino",
+      "fechaNac": "2021-07-08",
+      "id": 7
+    },
+    {
+      "idPaciente": 8,
+      "nombreMascota": "Milo",
+      "tipoMascota": "Perro",
+      "raza": "Border Collie",
+      "edad": 4,
+      "sexo": "masculino",
+      "fechaNac": "2019-07-08",
+      "id": 8
+    },
+    {
+      "idPaciente": 9,
+      "nombreMascota": "Lola",
+      "tipoMascota": "Gato",
+      "raza": "Maine Coon",
+      "edad": 6,
+      "sexo": "femenino",
+      "fechaNac": "2017-07-08",
+      "id": 9
+    },
+    {
+      "idPaciente": 10,
+      "nombreMascota": "Bella",
+      "tipoMascota": "Perro",
+      "raza": "Poodle",
+      "edad": 3,
+      "sexo": "femenino",
+      "fechaNac": "2020-07-08",
+      "id": 10
+    },
+    {
+      "idPaciente": 11,
+      "nombreMascota": "Tom",
+      "tipoMascota": "Gato",
+      "raza": "Azul Ruso",
+      "edad": 5,
+      "sexo": "masculino",
+      "fechaNac": "2018-07-08",
+      "id": 11
+    },
+    {
+      "idPaciente": 12,
+      "nombreMascota": "Lucky",
+      "tipoMascota": "Perro",
+      "raza": "Shih Tzu",
+      "edad": 2,
+      "sexo": "masculino",
+      "fechaNac": "2021-07-08",
+      "id": 12
+    },
+    {
+      "idPaciente": 13,
+      "nombreMascota": "Lucy",
+      "tipoMascota": "Gato",
+      "raza": "Ragdoll",
+      "edad": 4,
+      "sexo": "femenino",
+      "fechaNac": "2019-07-08",
+      "id": 13
+    },
+    {
+      "idPaciente": 14,
+      "nombreMascota": "Charlie",
+      "tipoMascota": "Perro",
+      "raza": "Bichón Maltés",
+      "edad": 3,
+      "sexo": "masculino",
+      "fechaNac": "2020-07-08",
+      "id": 14
+    },
+    {
+      "idPaciente": 15,
+      "nombreMascota": "Mia",
+      "tipoMascota": "Gato",
+      "raza": "Angora",
+      "edad": 2,
+      "sexo": "femenino",
+      "fechaNac": "2021-07-08",
+      "id": 15
+    }
+  ],
+  "medicos": [
+    {
+      "idMedico": 1,
+      "nombre": "Juan Pérez",
+      "idUsuario": 2,
+      "cedula": "130247355",
+      "edad": 40,
+      "telefono": "555-1234",
+      "especialidad": "especilaidad 1"
+    },
+    {
+      "idMedico": 2,
+      "nombre": "María Gómez",
+      "idUsuario": 2,
+      "cedula": "DEF456",
+      "edad": 35,
+      "telefono": "555-5678",
+      "especialidad": "especilaidad 1"
+    },
+    {
+      "idMedico": 3,
+      "nombre": "Roberto Rodríguez",
+      "idUsuario": 2,
+      "cedula": "GHI789",
+      "edad": 50,
+      "telefono": "555-9012",
+      "especialidad": "especilaidad 1"
+    },
+    {
+      "idMedico": 4,
+      "nombre": "Laura Sánchez",
+      "idUsuario": 2,
+      "cedula": "JKL012",
+      "edad": 42,
+      "telefono": "555-3456",
+      "especialidad": "especilaidad 1"
+    },
+    {
+      "idMedico": 5,
+      "nombre": "Carlos López",
+      "idUsuario": 2,
+      "cedula": "MNO345",
+      "edad": 38,
+      "telefono": "555-7890",
+      "especialidad": "especilaidad 1"
+    },
+    {
+      "idMedico": 6,
+      "nombre": "Ana Ramírez",
+      "idUsuario": 2,
+      "cedula": "PQR678",
+      "edad": 45,
+      "telefono": "555-1234",
+      "especialidad": "especilaidad 2"
+    },
+    {
+      "idMedico": 7,
+      "nombre": "Javier Torres",
+      "idUsuario": 2,
+      "cedula": "STU901",
+      "edad": 55,
+      "telefono": "555-5678",
+      "especialidad": "especilaidad 2"
+    },
+    {
+      "idMedico": 8,
+      "nombre": "Patricia Vargas",
+      "idUsuario": 2,
+      "cedula": "VWX234",
+      "edad": 33,
+      "telefono": "555-9012",
+      "especialidad": "especilaidad 2"
+    },
+    {
+      "idMedico": 9,
+      "nombre": "Luis Hernández",
+      "idUsuario": 2,
+      "cedula": "YZA567",
+      "edad": 48,
+      "telefono": "555-3456",
+      "especialidad": "especilaidad 2"
+    },
+    {
+      "idMedico": 10,
+      "nombre": "Gabriela Morales",
+      "idUsuario": 2,
+      "cedula": "BCD890",
+      "edad": 39,
+      "telefono": "555-7890",
+      "especialidad": "especilaidad 2"
+    }
+  ],
+  "hospitalizaciones": [
+    {
+      "idHospitalizacion": 1,
+      "idPaciente": 1,
+      "fechaIngreso": "2023-07-09",
+      "fechaSalida": "2023-07-10",
+      "motivo": "Dolor estomacal",
+      "id": 1
+    },
+    {
+      "idHospitalizacion": 2,
+      "idPaciente": 2,
+      "fechaIngreso": "2023-07-09",
+      "fechaSalida": "2023-07-10",
+      "motivo": "daño molar",
+      "id": 2
+    },
+    {
+      "idHospitalizacion": 3,
+      "idPaciente": 1,
+      "fechaIngreso": "2023-07-10",
+      "fechaSalida": "2023-07-11",
+      "motivo": "dsadsa",
+      "id": 3
+    }
+  ],
+  
+  "tipoCirugias": [
+    {
+      "idTipoCirugia": 1,
+      "tipoCirugia": "Esterilización"
+    },
+    {
+      "idTipoCirugia": 2,
+      "tipoCirugia": "Castración"
+    },
+    {
+      "idTipoCirugia": 3,
+      "tipoCirugia": "Extracción de tumor"
+    },
+    {
+      "idTipoCirugia": 4,
+      "tipoCirugia": "Reparación de fractura"
+    },
+    {
+      "idTipoCirugia": 5,
+      "tipoCirugia": "Cirugía dental"
+    }
+  ]
+}

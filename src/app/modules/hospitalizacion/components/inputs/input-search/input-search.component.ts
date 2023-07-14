@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Mascotas } from 'src/app/modules/hospitalizacion/interfaces/paciente.interface';
+import { Paciente } from 'src/app/modules/hospitalizacion/interfaces/paciente.interface';
 
 @Component({
   selector: 'app-input-search',
@@ -9,9 +9,9 @@ import { Mascotas } from 'src/app/modules/hospitalizacion/interfaces/paciente.in
 })
 export class InputSearchComponent {
 
-  @Input() dataSource!: MatTableDataSource<Mascotas>  
+  @Input() dataPacientes!: MatTableDataSource<Paciente>  
   
-  filtrarDatos(event: KeyboardEvent, dataSource: MatTableDataSource<Mascotas>){
+  filtrarDatos(event: KeyboardEvent, dataSource: MatTableDataSource<Paciente>){
     const filtro: string = (event.target as HTMLInputElement).value;
     dataSource.filter = filtro.toLowerCase().trim();
   }

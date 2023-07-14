@@ -31,9 +31,6 @@ import { HomeComponent } from './modules/home/pages/home/home.component';
     AppRoutingModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    
-
-   
   ],
   
   providers: [],

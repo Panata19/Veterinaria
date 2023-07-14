@@ -157,6 +157,39 @@
     </div>
   </li>
 
+  <li class="nav-item {{URL.includes('hospitalizacion')?'active':''}}"> <!-- Nav Item - Hospitalizacion Collapse Menu -->
+    <a
+      class="nav-link {{URL.includes('hospitalizacion')?'':'collapsed'}}"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapseHospitalizacion"hospitalizacion
+      aria-expanded="true"
+      aria-controls="collapseHospitalizacion"
+    >
+      <i class="bi bi-hospital"></i>
+      <span>Hospitalización</span>
+    </a>
+    <div
+      id="collapseHospitalizacion"
+      class="collapse {{URL.includes('hospitalizacion')?'show':''}}"
+      aria-labelledby="headingPages"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Hospitalizacion Screens:</h6>
+        <a 
+          class="collapse-item {{URL.includes('hospitalizacion')?'active':''}}" 
+          routerLink="/hospitalizacion"
+        >Hospitalizacion</a>
+        <div class="collapse-divider"></div>
+        <a 
+        class="collapse-item {{URL.includes('historialClinico')?'active':''}}" 
+        routerLink="/historialClinico"
+      >Historial Clinico</a>
+      </div>
+    </div>
+  </li>
+
   <li class="nav-item"> <!-- Nav Item - Pages Collapse Menu -->
     <a
       class="nav-link"

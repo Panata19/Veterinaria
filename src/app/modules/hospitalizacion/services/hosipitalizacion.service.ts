@@ -1,36 +1,75 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Paciente } from '../interfaces/paciente.interface';
+import { Medico } from '../interfaces/medico.interface';
+import { Hospitalizacion } from '../interfaces/hospitalizacion.interface';
+import { TipoCirugias } from '../interfaces/tipoCirugias.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class HosipitalizacionService {
-  
-  hospitalizacion = [
-    { id:1, nombreMascota: 'Max', tipoMascota: 'Perro', raza: 'Labrador Retriever',edad: 5, sexo:'masculino' },
-    { id:2, nombreMascota: 'Luna', tipoMascota: 'Gato', raza: 'Siamés', edad: 3, sexo:'femenino' },
-    { id:3, nombreMascota: 'Bobby', tipoMascota: 'Perro', raza: 'Bulldog Francés', edad: 2, sexo:'masculino'},
-    { id:4, nombreMascota: 'Nala', tipoMascota: 'Gato', raza: 'Persa', edad: 4, sexo:'femenino' },
-    { id:5, nombreMascota: 'Rocky', tipoMascota: 'Perro', raza: 'Golden Retriever', edad: 7, sexo:'masculino' },
-    { id:6, nombreMascota: 'Coco', tipoMascota: 'Perro', raza: 'Chihuahua', edad: 1, sexo:'masculino' },
-    { id:7, nombreMascota: 'Simba', tipoMascota: 'Gato', raza: 'Bengalí', edad: 2, sexo:'masculino' },
-    { id:8, nombreMascota: 'Milo', tipoMascota: 'Perro', raza: 'Border Collie', edad: 4, sexo:'masculino' },
-    { id:9, nombreMascota: 'Lola', tipoMascota: 'Gato', raza: 'Maine Coon', edad: 6, sexo:'femenino'},
-    { id:10, nombreMascota:'Bella', tipoMascota: 'Perro', raza: 'Poodle', edad: 3, sexo:'femenino' },
-    { id:11, nombreMascota: 'Tom', tipoMascota: 'Gato', raza: 'Azul Ruso', edad: 5, sexo:'masculino' },
-    { id:12, nombreMascota: 'Lucky', tipoMascota: 'Perro', raza: 'Shih Tzu', edad: 2, sexo:'masculino' },
-    { id:13, nombreMascota: 'Lucy', tipoMascota: 'Gato', raza: 'Ragdoll', edad: 4, sexo:'femenino' },
-    { id:14, nombreMascota: 'Charlie', tipoMascota: 'Perro', raza: 'Bichón Maltés', edad: 3, sexo:'masculino' },
-    { id:15, nombreMascota: 'Mia', tipoMascota: 'Gato', raza: 'Angora', edad: 2, sexo:'femenino' },
-    { id:16, nombreMascota: 'Bruno', tipoMascota: 'Perro', raza: 'Bulldog Inglés', edad: 5, sexo:'masculino' },
-    { id:17, nombreMascota: 'Oliver', tipoMascota: 'Gato', raza: 'Persa', edad: 4, sexo:'masculino' },
-    { id:18, nombreMascota: 'Coco', tipoMascota: 'Perro', raza: 'Labrador Retriever', edad: 6, sexo:'femenino'},
-    { id:19, nombreMascota: 'Lily', tipoMascota: 'Gato', raza: 'Siamés', edad: 3, sexo:'femenino' },
-    { id:20, nombreMascota: 'Rocky', tipoMascota: 'Perro', raza: 'Rottweiler', edad: 4, sexo:'masculino' }
-  ];
 
-  get allHospitalizacion(){
-    return [...this.hospitalizacion];
+  constructor(private http: HttpClient) { }
+
+  /* SECCIÓN PACIENTES */
+
+  //Este método obtienes todos los pacientes
+  get allPacientes(): Observable<Paciente[]>{
+    return this.http.get<Paciente[]>('http://localhost:3000/pacientes');
+  }
+
+  //Este método obtiene un paciente
+  getPaciente(id: number): Observable<Paciente>{
+    return this.http.get<Paciente>(`http://localhost:3000/pacientes?id=${id}`);
+  }
+
+  /* SECCIÓN MÉDICOS */
+
+  //Este método obtienes todos los médicos
+  get allMedicos(): Observable<Medico[]>{
+    return this.http.get<Medico[]>('http://localhost:3000/medicos');
+  }
+  
+  //Este método obtiene un médico
+  getMedico(id: number): Observable<Medico>{
+    return this.http.get<Medico>(`http://localhost:3000/medicos?idMedico=${id}`);
+  }
+
+  /* SECCIÓN HOSPITALIZACIONES */
+
+  //Este método obtienes todos los hospitalizaciones
+  get allHospitalizaciones(): Observable<Hospitalizacion[]>{
+    return this.http.get<Hospitalizacion[]>('http://localhost:3000/hospitalizaciones');
+  }
+  
+  //Este método obtiene un médico
+  getHospitalizacion(id: number): Observable<Hospitalizacion>{
+    return this.http.get<Hospitalizacion>(`http://localhost:3000/hospitalizaciones?idHospitalizacion=${id}`);
+  }
+
+  //Este método registra una nueva hospitalización
+  registrarNuevaHospitalizacion(hospitalizacion: Hospitalizacion): Observable<Hospitalizacion>{
+    const opciones = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }) 
+    };
+    return this.http.post<Hospitalizacion>('http://localhost:3000/hospitalizaciones', hospitalizacion, opciones);
+  }
+
+  //SECCIÓN CIRUGÍAS
+
+  //Este método obtienes todos los tipos de cirugias
+  get allTipoCirugias(): Observable<TipoCirugias[]>{
+    return this.http.get<TipoCirugias[]>('http://localhost:3000/tipoCirugias');
+  }
+
+  //Este método obtienes un tipo de cirugia
+  getTipoCirugia(id: number): Observable<TipoCirugias>{
+    return this.http.get<TipoCirugias>(`http://localhost:3000/tipoCirugias?idTipoCirugia=${id}`);
   }
 }
 

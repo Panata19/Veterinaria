@@ -1,0 +1,36 @@
+
+h2, h3, p{ margin: 0; }
+
+.container_datails{
+    padding: 1rem;
+}
+
+.container_datails > div{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.detail_title{
+    display: flex;
+    gap: .5rem;
+    border-bottom: 1px solid black;
+}
+
+.detail_icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail_body{
+    margin-top: 1rem;
+}
+
+.detail_body .detail_text{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: .5rem;
+}
