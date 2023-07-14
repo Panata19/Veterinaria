@@ -44,7 +44,7 @@ export class ModalCompraComponent implements OnInit {
       this.cantidadTotal = this.cantidadTotal + 1;
       this.calcularIva(this.precio);
       this.precioTotal = this.precio + this.valorIva;
-
+      this.precioTotal = Math.round(this.precioTotal * 100) / 100;
     } else {
       this.advertencia();
       this.label = 'Aumentar';
@@ -73,9 +73,9 @@ export class ModalCompraComponent implements OnInit {
       }, 4200);
   }
 
-  calcularIva( valor: number ): void{
-    this.valorIva = (valor * this.iva) / 100;
-    this.valorIva = Math.round(this.valorIva * 100) / 100;
+  calcularIva( valor: number, iva: number = this.iva): void{
+    const valorIva = (valor * iva) / 100;
+    this.valorIva = Math.round(valorIva * 100) / 100;
   }
 
   message(): string {

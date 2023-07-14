@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { TiendaService } from '../../services/tienda.service';
 import { ProductoData } from '../../interfaces/ProductData';
@@ -56,6 +56,7 @@ export class FacturacionComponent implements OnInit {
   onImageError(): void {
     this.imageLoading = false;
   }
+
   onImageProgress(event: any): void{
     console.log(event);
     console.log('img')
@@ -113,7 +114,10 @@ export class FacturacionComponent implements OnInit {
       data: {
         id: Producto.id,
         name: Producto.name, 
-        image: Producto.image,
+        image: {
+          url: Producto.image.url,
+          loading: true
+        },
         price: Producto.price,
         category: Producto.category,
         quantitys: Producto.quantitys,
@@ -122,7 +126,6 @@ export class FacturacionComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       console.log(result);
     });
   }

@@ -51,15 +51,14 @@
             </span>
             <span [innerHTML]="item.status | badges"></span>
           </div>
-          <img 
-            [src]="item.image||'../assets/img/Artboard.svg'" 
-            (progress)="onImageProgress($event)"
-            class="img-fluid shade rounded my-2 m-0" 
+          <img
+            class="img-fluid shade rounded my-2 m-0"
+            [src]="item.image.url"
             alt="{{item.name}} - {{item.category}}"
-            (load)="onImageLoad()"
-            (error)="onImageError()"
+            (load)="item.image.loading = false"
+            onerror="this.src='../assets/img/Artboard.svg'"
           >
-          <mat-progress-bar mode="indeterminate" *ngIf="imageLoading"></mat-progress-bar>
+          <mat-progress-bar *ngIf="item.image.loading" mode="indeterminate"></mat-progress-bar>
         </div>
         <div 
           class="col overflow-auto"

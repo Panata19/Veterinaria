@@ -3,11 +3,14 @@
   <div class="card wdth-L border-gray border" > <!-- Cards -->
     <div class="row g-0">
       <div class="col my-auto col-4 col-sm-4 col-md-3 pe-0" > 
-        <img 
-          [src]="data.image||'../assets/img/Artboard.svg'" 
-          class="img-fluid shade rounded my-2 m-0" 
-          alt="{{data.name}} - {{data.category}}"
-        >
+        <img
+            class="img-fluid shade rounded my-2 m-0"
+            [src]="data.image.url"
+            alt="{{data.name}} - {{data.category}}"
+            (load)="data.image.loading = false"
+            onerror="this.src='../assets/img/Artboard.svg'"
+          >
+          <mat-progress-bar *ngIf="data.image.loading" mode="indeterminate"></mat-progress-bar>
       </div>
       <div class="col overflow-auto col-6 col-sm-6 col-md-7" >
         <div class="card-body py-auto" >
@@ -67,6 +70,6 @@
   </div>
 </section>
 <mat-dialog-actions align="end">
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onNoClick()">No, Gracias</button>
+  <button mat-button class="btn-success" [disabled]="this.cantidadTotal === 0 " [mat-dialog-close]="data" cdkFocusInitial>Comprar</button>
 </mat-dialog-actions>
