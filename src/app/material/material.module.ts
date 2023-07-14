@@ -23,6 +23,10 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 
+import { MatRippleModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio'; 
+import { MatButtonToggleModule } from '@angular/material/button-toggle'; 
 
 
 
@@ -55,7 +59,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRippleModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatButtonToggleModule,
 
     
 
@@ -80,7 +88,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRippleModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatButtonToggleModule,
 
 
     

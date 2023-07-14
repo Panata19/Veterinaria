@@ -4,6 +4,7 @@ import { InicioPageComponent } from './shared/inicio-page/inicio-page.component'
 import { ErrorPageComponent } from './shared/error-page/error-page.component';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import { NavegationGuard } from './modules/inventario/guards/navegation.guard';
+import { AuthGuard } from './modules/auth/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,6 +14,14 @@ const routes: Routes = [
       {
         path: 'inicio',
         component: InicioPageComponent
+      },
+      {
+        path: 'auth',
+        loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+      },
+      {
+        path: 'usuarios',
+        loadChildren: () => import('./modules/usuario/usuario.module').then(m => m.UsuarioModule)
       },
       {
         path: 'inventario',

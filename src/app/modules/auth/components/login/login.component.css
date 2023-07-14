@@ -1,0 +1,28 @@
+/* .logo img{
+    width: 400px;
+}
+.row{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+} */
+.bg-login-logo {
+    padding-left: 10px;
+    background: url(https://png.pngtree.com/png-clipart/20221024/original/pngtree-cat-health-checkup-by-vet-at-veterinary-clinic-png-image_8716923.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.invalid-feedback1 {
+    color: #dc3545;
+    margin-top: 5px;
+
+}
+
+.invalid-feedback1.show {
+    display: block;
+}
