@@ -13,7 +13,7 @@
           <mat-progress-bar *ngIf="data.image.loading" mode="indeterminate"></mat-progress-bar>
       </div>
       <div class="col overflow-auto col-6 col-sm-6 col-md-7" >
-        <div class="card-body py-auto" >
+        <div class="card-body px-0 px-sm-auto py-auto" >
           <h2 class="card-title fs-4 fw-semibold">{{ data.name }}</h2>
           <p class="card-text text-body-secondary">
               Existen: {{data.quantitys}}
@@ -26,10 +26,10 @@
           </div>
         </div>
       </div>
-      <div class="col m-auto col-2 col-sm-2 col-md-2">
+      <div class="col m-auto px-0 px-sm-auto col-2 col-sm-2 col-md-2">
         <div class="row gap-4 align-items-center" >
-          <span class="col fs-5 text-secondary-emphasis price align-self-start">${{data.price}} </span>
-          <div class="col price align-self-end">
+          <span class="col-12 fs-5 px-0 px-sm-auto text-secondary-emphasis price align-self-start">${{data.price}} </span>
+          <div class="col-12 price px-0 px-sm-auto align-self-end">
             <button
               matRipple
               type="button"

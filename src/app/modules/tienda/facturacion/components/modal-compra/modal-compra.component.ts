@@ -27,7 +27,7 @@ export class ModalCompraComponent implements OnInit {
       this.precio = data.price;
       this.cantidadTotal = 1;
       this.calcularIva(this.precio);
-      this.precioTotal = this.precio + this.valorIva;
+      this.precioTotal = Math.round((this.precio + this.valorIva)*100) /100 ;
     }
   }
 
@@ -43,8 +43,8 @@ export class ModalCompraComponent implements OnInit {
       this.precio = this.precio + this.data.price;
       this.cantidadTotal = this.cantidadTotal + 1;
       this.calcularIva(this.precio);
-      this.precioTotal = this.precio + this.valorIva;
-      this.precioTotal = Math.round(this.precioTotal * 100) / 100;
+      this.precioTotal = Math.round(this.precio + this.valorIva * 100) / 100;
+      console.log(this.precioTotal)
     } else {
       this.advertencia();
       this.label = 'Aumentar';
@@ -56,9 +56,8 @@ export class ModalCompraComponent implements OnInit {
       this.precio = this.precio - this.data.price;
       this.cantidadTotal = this.cantidadTotal - 1;
       this.calcularIva(this.precio);
-      this.precioTotal = this.precio + this.valorIva;
-      this.precioTotal = Math.round(this.precioTotal * 100) / 100;
-
+      this.precioTotal = Math.round(this.precio + this.valorIva * 100) / 100;
+      console.log(this.precioTotal)
     } else {
       this.advertencia();
       this.label = 'Disminuir';

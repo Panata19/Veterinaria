@@ -64,7 +64,7 @@
           class="col overflow-auto"
           [ngClass]="{'col-6 col-sm-6 col-md-7': List, 'col-12': Grid }"
         >
-          <div class="card-body py-auto" [ngClass]="{'py-0':Grid}">
+          <div class="card-body px-0 px-sm-auto py-auto" [ngClass]="{'py-0':Grid}">
             <h2 class="card-title fs-4 fw-semibold"
               [ngClass]="{'text-center':Grid}"
             >{{ item.name }}</h2>
@@ -90,7 +90,7 @@
             [ngClass]="{'justify-content-between mb-3': Grid }"
           >
             <span class="col fs-5 text-secondary-emphasis price" [ngClass]="{'align-self-start': List}" > ${{item.price}} </span>
-            <div class="col price" [ngClass]="{'align-self-end': List}" >
+            <div class="col price px-0 px-sm-auto" [ngClass]="{'align-self-end': List}" >
               <button
                 type="button"
                 class="btn btn-primary rounded-circle shade p-auto"

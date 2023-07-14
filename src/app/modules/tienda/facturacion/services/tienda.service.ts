@@ -47,8 +47,6 @@ export class TiendaService {
 
   private productsDB = Array.from({length: 100}, (_, k) => this.convertToData(k + 1))
 
-  constructor() { }
-
   private createNewProduct(id: number): ProductoData { 
     let name:string =
       NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
