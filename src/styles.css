@@ -41,9 +41,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 button:active .text-white-50 {
   color: rgba(255,255,255,1) !important;
 }
-button span:nth-child(2){
-  padding-left: 10px;
-}
 
 table {
   width: 100%;
