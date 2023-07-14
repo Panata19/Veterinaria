@@ -1,12 +1,15 @@
 
-    export interface Cliente {
-        id?: number;
-        nombres: string;
-        apellidos: string;
-        sexo: string;
-        edad: Date;
-        nacionalidad: string;
-    
-    }
+export interface Cliente {
+    id?: number;
+    numDocumento: string;
+    nombreCliente: string;
+    apellidosCliente: string;
+    sexo: string;
+    telefono: string;
+    direccion: string;
+    correo?: string;
+    fechaNac: Date;
+    nacionalidad: string;  
+}
 
 

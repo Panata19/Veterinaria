@@ -1,79 +1,92 @@
-<div class="container">
-    <diV class="title">
-        <h1>Listado de Pacientes</h1>
-    </diV>
-    <div *ngIf="listpaciente.length > 0">
-        <mat-form-field>
-            <mat-label>Filter</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John" #input>
-        </mat-form-field>
-        <div class="mat-elevation-z8 Scroll">
+<div *ngIf="listpaciente.length > 0">
+    <div class="card">
+        <div class="col-md-6 d-inline-flex justify-content-start margin">
+            <button matRipple type="button" class="btn btn-success btn-icon-split" (click)="abrirModalAgregar()">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Nuevo</span>
+            </button>
 
-            <table mat-table [dataSource]="dataSource" matSort>
-
-                <!-- nombre -->
-                <ng-container matColumnDef="nombres">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-                </ng-container>
-
-                <!-- sexo -->
-                <ng-container matColumnDef="sexo">
-                    <th mat-header-cell *matHeaderCellDef> Sexo </th>
-                    <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
-                </ng-container>
-
-                  <!--   Fechadenacimiento -->
-                  <ng-container matColumnDef="Fechadenacimiento">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de nacimiento </th>
-                    <td mat-cell *matCellDef="let element"> {{element.Fechadenacimiento | date:'dd/MM/yyyy'}} </td>
-                </ng-container>
-              
-
-                <!-- apellidos -->
-                <ng-container matColumnDef="raza">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Raza </th>
-                    <td mat-cell *matCellDef="let element"> {{element.raza}} </td>
-                </ng-container>
-
-                <!-- nacionalidad -->
-                <ng-container matColumnDef="peso">
-                    <th mat-header-cell *matHeaderCellDef> Peso </th>
-                    <td mat-cell *matCellDef="let element"> {{element.peso}}kg </td>
-                </ng-container>
-
-                <!-- Acciones -->
-                <ng-container matColumnDef="acciones">
-                    <th mat-header-cell *matHeaderCellDef> <button (click)="abrirModalAgregar()" mat-raised-button
-                            color="primary">Agregar</button>
-
-                    </th>
-                    <td mat-cell *matCellDef="let element">
-                        <a class="pointer" (click)="abrirModalEditar(element)" style="color:skyblue"
-                            matTooltip="Editar">
-                            <mat-icon>edit</mat-icon>
-                        </a>
-                        <a class="pointer" (click)="Eliminarpacientes(element.id)" style="color:red" matTooltip="Eliminar">
-                            <mat-icon>delete</mat-icon>
-                        </a>
-                    </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-                <!-- Row shown when there is no matching data. -->
-                <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="4">No se encontraron paciente que concuerden con: "{{input.value}}"
-                    </td>
-                </tr>
-
-            </table>
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-                aria-label="Select page of periodic elements">
-            </mat-paginator>
         </div>
     </div>
-    <h2 *ngIf="listpaciente.length == 0">No hay resultados de pacientes para mostrar</h2>
 
+    <mat-form-field>
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John" #input>
+    </mat-form-field>
+    <div class="mat-elevation-z8 Scroll">
+
+        <table mat-table [dataSource]="dataSource" matSort>
+
+
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="sexo">
+                <th mat-header-cell *matHeaderCellDef> Sexo </th>
+                <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Fechadenacimiento">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de nacimiento </th>
+                <td mat-cell *matCellDef="let element"> {{element.Fechadenacimiento | date:'dd/MM/yyyy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipoPaciente">
+                <th mat-header-cell *matHeaderCellDef > Tipo de Paciente </th>
+                <td mat-cell *matCellDef="let element"> {{element.tipoPaciente  }} </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="raza">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Raza </th>
+                <td mat-cell *matCellDef="let element"> {{element.raza}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="peso">
+                <th mat-header-cell *matHeaderCellDef> Peso </th>
+                <td mat-cell *matCellDef="let element"> {{element.peso}}kg </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef>
+                </th>
+                <td mat-cell *matCellDef="let element">
+
+
+                    <button (click)="abrirModalEditar(element)" class="btn btn-primary pointer" matTooltip="Editar">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+
+
+                    <button class="btn btn-danger pointer" (click)="Eliminarpacientes(element.id)"
+                        matTooltip="Eliminar"> <i class="bi bi-trash-fill"></i>
+                    </button>
+
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No se encontraron paciente que concuerden con: "{{input.value}}"
+                </td>
+            </tr>
+
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
 </div>
+<h2 *ngIf="listpaciente.length == 0">No hay resultados de pacientes para mostrar</h2>

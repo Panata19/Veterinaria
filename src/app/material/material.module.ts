@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
+
+
 import {MatTableModule} from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -23,6 +25,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 
+import {MatSortModule} from '@angular/material/sort';
 
 
 
@@ -41,8 +44,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   imports:[
     MatTableModule,
     MatInputModule,
-    MatPaginatorModule,
-    MatSortModule,
+    MatPaginatorModule,  
     MatIconModule,
     MatTooltipModule,
     MatSnackBarModule,
@@ -55,7 +57,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSortModule
+  
 
     
 
@@ -67,7 +71,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTableModule,
     MatInputModule,
     MatPaginatorModule,
-    MatSortModule,
     MatIconModule,
     MatTooltipModule,
     MatSnackBarModule,
@@ -80,7 +83,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSortModule
+ 
 
 
     

@@ -37,12 +37,12 @@ const routes: Routes = [
       {
         path: 'cliente',
         loadChildren: () => import('./modules/cliente/cliente.module').then(module => module.ClienteModule),
-        canLoad: [NavegationGuard]
+        
       },
       {
         path: 'paciente',
         loadChildren: () => import('./modules/paciente/paciente.module').then(module => module.PacienteModule),
-        canLoad: [NavegationGuard]
+        
       },
       {
         path: 'citas',

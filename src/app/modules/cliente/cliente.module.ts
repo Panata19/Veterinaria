@@ -23,8 +23,8 @@ import { ConfirmacionComponent } from './pages/verificacion/confirmacion/confirm
   imports: [
     CommonModule,
     ClienteRoutingModule,
-    MaterialModule   
-    
+    MaterialModule,
+   
   ]
 })
 export class ClienteModule { }

@@ -45,8 +45,7 @@
                           <mat-option *ngFor="let item of sexo" [value]="item">
                             {{item}}
                           </mat-option>
-                        </mat-select>
-                        
+                        </mat-select>                        
                       </mat-form-field>                  
                 </div>
 
@@ -55,6 +54,17 @@
                         <mat-label>Peso</mat-label>
                         <input formControlName="peso"  matInput placeholder="Ingresar Nacionalidad">
                     </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Tipo Pacient</mat-label>
+                        <mat-select formControlName="tipoPaciente" >
+                          <mat-option *ngFor="let item of tipoPacient" [value]="item">
+                            {{item}}
+                          </mat-option>
+                        </mat-select>                        
+                      </mat-form-field>                  
                 </div>
 
              
