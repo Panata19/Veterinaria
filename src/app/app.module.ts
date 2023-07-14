@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 import { InicioPageComponent } from './shared/inicio-page/inicio-page.component';
-import { ErrorPageComponent } from './shared/error-page/error-page.component';
 import { HomeComponent } from './modules/home/pages/home/home.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,7 +17,6 @@ import { AuthGuard } from './modules/auth/guards/auth.guard';
   declarations: [
     AppComponent,
     InicioPageComponent,
-    ErrorPageComponent,
     HomeComponent,
    
   ],

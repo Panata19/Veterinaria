@@ -1,3 +1,7 @@
+td, th {
+  width: 25%;
+}
+
 .mat-column-select {
   width: 32px;
   border-right: 1px solid #DEE2E6;
