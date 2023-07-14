@@ -29,11 +29,7 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
   ngOnInit(): void {
-=======
-  ngOnInit(): void {    
->>>>>>> 219f2c8457a207d3fb3ff08e713d23a7875a1c40
     this.initializeSidebar();
   }
 
