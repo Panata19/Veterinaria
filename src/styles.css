@@ -81,6 +81,7 @@ td.mat-row.cdk-row.ng-star-inserted mat-checkbox.mat-checkbox.mat-accent label.m
 }
 
 .mat-form-field-wrapper{  padding: 0; } /** End **/
+
 /** Estilos del Snackbar **/
 .snackbar-custom-success{
   background-color: #28A745 !important;

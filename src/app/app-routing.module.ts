@@ -26,27 +26,25 @@ const routes: Routes = [
       {
         path: 'hospitalizacion',
         loadChildren: () => import('./modules/hospitalizacion/hospitalizacion.module').then(m => m.HospitalizacionModule),
-        canLoad: [NavegationGuard]
       },
       {
         path: 'historialClinico',
         loadChildren: () => import('./modules/historialClinico/historial-clinico.module').then(m => m.HistorialClinicoModule),
-        canLoad: [NavegationGuard]
       },    
       {
         path: 'cliente',
         loadChildren: () => import('./modules/cliente/cliente.module').then(module => module.ClienteModule),
-        canLoad: [NavegationGuard]
+        
       },
       {
         path: 'paciente',
         loadChildren: () => import('./modules/paciente/paciente.module').then(module => module.PacienteModule),
-        canLoad: [NavegationGuard]
+        
       },
       {
         path: 'citas',
         loadChildren: () => import('./modules/citas/citas.module').then(module => module.CitasModule),
-        canLoad: [NavegationGuard]
+        
       },
       {
         path: 'error',

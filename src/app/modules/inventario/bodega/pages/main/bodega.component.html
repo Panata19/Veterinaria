@@ -2,7 +2,7 @@
 <div class="card">
   <div class="card-header">
     <div class="row">
-      <div class="col-md-6 d-inline-flex justify-content-start">
+      <div class="col-md-12 d-inline-flex justify-content-start">
         <button
           matRipple
           type="button"
@@ -10,13 +10,15 @@
           (click)="addBodega()"
         >
           <span class="icon text-white-50">
-            <i class="fas fa-plus"></i> 
+            <i class="bi bi-plus-circle"></i>
           </span>
           <span class="text">Nuevo</span>
         </button>
         <button
           matRipple
           type="button"
+          matTooltip="Eliminar Filas Marcadas"
+          matTooltipPosition="right"
           [disabled]="removeButton()"
           class="btn btn-danger shade"
           (click)="removeBodega()"
@@ -24,12 +26,6 @@
           <span class="icon text-white-50">
             <i class="fas fa-trash-alt"></i>
           </span>
-        </button>
-      </div>
-      <div class="col-md-6 d-inline-flex justify-content-end">
-        <button matRipple type="button" class="btn btn-primary">Import</button>
-        <button matRipple type="button" class="btn btn-morado shade">
-          Export
         </button>
       </div>
     </div>
@@ -142,7 +138,7 @@
             matTooltip="Editar"
             matTooltipPosition="left"
             (click)="EditBodega(row)"
-            class="btn btn-success rounded-circle shade"
+            class="btn btn-primary shade"
           >
             <span class="icon text-white-50">
               <i class="fas fa-pen-alt"></i>
@@ -154,7 +150,7 @@
             matTooltip="Eliminar"
             matTooltipPosition="right"
             (click)="removeBodega(row)"
-            class="btn btn-danger rounded-circle shade"
+            class="btn btn-danger shade"
           >
             <span class="icon text-white-50">
               <i class="fas fa-trash-alt"></i>
