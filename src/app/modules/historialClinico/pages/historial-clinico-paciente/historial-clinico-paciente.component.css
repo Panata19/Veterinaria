@@ -1,0 +1,18 @@
+.container_card .card{
+    background: #56CCF2; 
+    background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  
+    background: linear-gradient(to right, #2F80ED, #56CCF2); 
+    color: #fff;
+    max-height: max-content;
+}
+
+.card-body{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.bi-file-text{
+    font-size: 6rem;
+}

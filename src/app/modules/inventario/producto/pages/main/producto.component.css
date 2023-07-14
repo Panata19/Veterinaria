@@ -1,0 +1,123 @@
+.shade{
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),0px 2px 2px 0px rgba(0, 0, 0, 0.14),0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+.shade:active{
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+.btn-icon-split {
+  padding: 0;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.btn-morado {
+  color: #fff;
+  background-color: #A855F7;
+  border-color: #A855F7;
+}
+
+.btn-morado:focus{
+  background: #8a2be4;
+  color: #ffffff;
+  border-color: #9333EA;
+}
+
+.btn-morado:hover{
+  background: #9333EA;
+  color: #ffffff;
+  border-color: #9333EA;
+}
+
+
+
+button:active .text-white-50 {
+  color: rgba(255,255,255,1) !important;
+}
+button span:nth-child(2){
+  padding-left: 10px;
+}
+
+table {
+  width: 100%;
+}
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+td, th {
+  width: 25%;
+}
+
+td.mat-row.cdk-row.ng-star-inserted mat-checkbox.mat-checkbox.mat-accent label.mat-checkbox-layout{
+  margin: 0px !important;
+}
+
+.table-bordered {
+  border-collapse: collapse;
+}
+
+.mat-checkbox-layout{
+  margin: 0px !important;
+}
+
+
+.mat-column-select {
+  width: 32px;
+  border-right: 1px solid #DEE2E6;
+  padding-right: 24px;
+  text-align: center;
+}
+
+.mat-column-id {
+  width: 4vw;  
+  min-width: 4vw;
+  padding-left: 1.5vw;
+}
+
+.mat-column-image{
+  width: 11vw;
+  max-width: 15vw;
+  min-width: 11vw;
+  padding: 0 1.5vw;
+}
+
+.mat-column-category,
+.mat-column-name{
+  width: 12vw;
+  max-width: 15vw;
+  min-width: 12vw;
+  padding: 0 1.5vw;
+}
+
+/* Column Widths  */
+.mat-column-price,
+.mat-column-quantitys{
+  width: 7vw;
+  max-width: 10vw;
+  min-width: 7vw;
+  padding: 0 1.5vw;
+  
+}
+
+.mat-column-status{
+  width: 7vw;
+  min-width: 8vw;
+  padding: 0 1.5vw; 
+}
+
+.shadow-4 {
+  box-shadow: 0 1px 10px #0000001f,0 4px 5px #00000024,0 2px 4px -1px #0003 !important;
+}
+
+.overflow-scroll{
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+.container-fluid{
+  margin-bottom: 20px;
+}
+
+

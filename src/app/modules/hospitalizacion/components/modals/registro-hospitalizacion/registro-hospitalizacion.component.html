@@ -1,0 +1,76 @@
+<div class="row">
+    <form autocomplete="off" [formGroup]="formularioRegistroHospitalizacion">
+        <div class="row mt-4">
+            <div class="col">
+                <h2>Datos Paciente</h2>
+                <div class="form-group">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" 
+                           class="form-control form-control-user"
+                           placeholder="Nombre paciente" 
+                           formControlName="nombre"
+                           id="nombre"/>
+                    <span *ngIf="validarCampoSoloLetras('nombre')" class="text-form text-danger">
+                        *Debe ingresar solo letras
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="tipo" class="form-label">Tipo</label>
+                    <input type="text" 
+                           class="form-control form-control-user"
+                           placeholder="Tipo" 
+                           formControlName="tipo"
+                           id="tipo"/>
+                    <span *ngIf="validarCampoSoloLetras('tipo')" class="text-form text-danger">
+                        *Debe ingresar solo letras
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="raza" class="form-label">Raza</label>
+                    <input type="text" 
+                           class="form-control form-control-user"
+                           placeholder="Raza"
+                           formControlName="raza"
+                           id="raza" />
+                    <span *ngIf="validarCampoSoloLetras('raza')" class="text-form text-danger">
+                        *Debe ingresar solo letras
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="sexo" class="form-label">Sexo</label>
+                    <input type="text" 
+                           class="form-control form-control-user"
+                           placeholder="Sexo" 
+                           formControlName="sexo"
+                           id="sexo"/>
+                    <span *ngIf="validarCampoSoloLetras('sexo')" class="text-form text-danger">
+                        *Debe ingresar solo letras
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="edad" class="form-label">Edad</label>
+                    <input type="number" 
+                           class="form-control form-control-user"
+                           placeholder="Edad" 
+                           formControlName="edad"
+                           id="edad"/>
+                    <span *ngIf="validarCampoSoloNumeros('edad')" class="text-form text-danger">
+                        *Debe ingresar solo numeros
+                    </span>
+                </div>
+            </div>
+            <div class="col">
+                <h2>Programar Cirugía</h2>
+                <div class="form-group">
+                    <label for="fecha" class="form-label">Fecha</label>
+                    <input type="date" class="form-control" id="fecha">
+                </div>
+                <div class="form-group">
+                    <label for="hora" class="form-label">Hora</label>
+                    <input type="time" class="form-control" id="hora">
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-success float-end">Registrar</button>
+    </form>
+</div>

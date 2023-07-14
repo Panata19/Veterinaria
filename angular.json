@@ -28,9 +28,19 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/template/css/sb-admin-2.min.css",
+              "src/assets/template/fontawesome-free/css/all.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/template/bootstrap/js/bootstrap.bundle.min.js",
+              
+              "src/assets/template/jquery-easing/jquery.easing.min.js",
+              "src/assets/template/js/sb-admin-2.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -104,5 +114,8 @@
       }
     }
   },
-  "defaultProject": "veterinaria"
+  "defaultProject": "veterinaria",
+  "cli": {
+    "analytics": "4b59a02e-1cac-41ae-908d-36f4d40dae7d"
+  }
 }

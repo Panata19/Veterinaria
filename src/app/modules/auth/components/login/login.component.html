@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-lg-6 d-none d-lg-block bg-login-logo"></div>
+            <div class="col-lg-6">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">Login!</h1>
+                </div>
+
+
+
+
+                <form class="user" [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off" novalidate>
+                  <div class="form-group">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su Correo electrónico..."
+                      formControlName="email" required>
+                    <div class="valid-feedback">
+                      ¡Se ve bien!
+                    </div>
+                    <div class="invalid-feedback1" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || submitted)">
+                      <ng-container *ngIf="loginForm.get('email')?.errors?.['required']">Correo electrónico es requerido.</ng-container>
+                      <ng-container *ngIf="loginForm.get('email')?.errors?.['email']">Por favor, ingrese un correo electrónico válido.</ng-container>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control" id="password" name="password" placeholder="Ingrese su Contraseña"
+                      formControlName="password" required>
+                    <div class="valid-feedback">
+                      ¡Se ve bien!
+                    </div>
+                    <div class="invalid-feedback1" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || submitted)">
+                      <ng-container *ngIf="loginForm.get('password')?.errors?.['required']">Contraseña es requerida.</ng-container>
+                    </div>
+                    <button class="btn btn-outline-secondary mt-2" type="button" (click)="togglePasswordVisibility()">
+                      <i class="fas" [ngClass]="{ 'fa-eye': showPassword, 'fa-eye-slash': !showPassword }"></i>
+                    </button>
+                  </div>
+                  
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox small">
+                      <input type="checkbox" class="custom-control-input" id="checkbox">
+                      <label for="checkbox" class="custom-control-label">Recordarme</label>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
+                  <hr>
+                  <div *ngIf="credencialesInvalidas" class="text-danger">
+                    Credenciales incorrectas. Por favor, verifique su correo electrónico y contraseña.
+                  </div>
+                </form>
+                
+                
+                
+                
+
+
+
+
+
+                <hr>
+                <div class="text-center">
+                  <a class="small" href="">Olvidaste tu contraseña?</a>
+                </div>
+                <div class="text-center">
+                  <a class="small" href="">Crear una cuenta!</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
