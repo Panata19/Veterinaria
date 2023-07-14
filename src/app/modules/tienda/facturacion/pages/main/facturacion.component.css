@@ -74,3 +74,6 @@ div.card.wdth-L {
   max-height: 130px;
 }
 
+.border-gray{
+  border-color: #c3c4c5 !important;
+}

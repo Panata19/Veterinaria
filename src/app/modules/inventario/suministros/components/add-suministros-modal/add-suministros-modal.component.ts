@@ -169,7 +169,8 @@ export class AddSuministrosModalComponent {
   submit(){
     this.data.id = this.myForm.get('id')!.value;
     this.data.name = this.myForm.get('name')!.value;
-    this.data.image = this.myForm.get('image')!.value;
+    this.data.image.url = this.myForm.get('image')!.value;
+    this.data.image.loading = true;
     this.data.price = this.myForm.get('price')!.value;
     this.data.category = this.myForm.get('category')!.value;
     this.data.quantitys = this.myForm.get('quantitys')!.value;

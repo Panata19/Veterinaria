@@ -12,7 +12,14 @@
 }
 
 .color-sort-header-arrow-white {
-    .mat-sort-header-arrow {
-      color: #fff;
-    }
+  .mat-sort-header-arrow {
+    color: #fff;
   }
+}
+
+.cell_options{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+}

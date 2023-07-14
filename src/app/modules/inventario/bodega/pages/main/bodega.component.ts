@@ -12,7 +12,7 @@ import { ConfirmationModalComponent } from 'src/app/shared/components/confirmati
 import { AddBodegaModalComponent } from '../../components/add-bodega-modal/add-bodega-modal.component';
 import { EditBodegaModalComponent } from '../../components/edit-bodega-modal/edit-bodega-modal.component';
 
-import { BodegaTable } from '../../interfaces/BodegaData';
+import { BodegaTable, ImageInfo } from '../../interfaces/BodegaData';
 import { BodegaService } from '../../services/bodega.service';
 
 
@@ -44,15 +44,18 @@ export class BodegaComponent implements AfterViewInit{
   //** Logica Añadir Nuevo Bodegao **//
   addBodega(){
     let id: number, price: number, quantitys: number;
-    let name: string, image: string, category: string, status:string;
+    let name: string, category: string, status:string;
+    let image: ImageInfo = {
+      url: '',
+      loading: true
+    }
     let buttons: boolean = false;
-    
     
     const dialogRef = this.dialog.open(AddBodegaModalComponent, {
       data: {
         id: id!,
         name: name!,
-        image: image!,
+        image: image,
         price: price!,
         category: category!,
         quantitys: quantitys!,
@@ -77,7 +80,11 @@ export class BodegaComponent implements AfterViewInit{
   //** Logica Editar Nuevo Bodegao **//
   EditBodega(row: BodegaTable){
     let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
-    let name: string = row.name, image: string = row.image, category: string = row.category, status:string = row.status;
+    let name: string = row.name, category: string = row.category, status:string = row.status;
+    let image: ImageInfo = {
+      url: row.image.url,
+      loading: true
+    }
     let buttons: boolean = row.buttons;
 
     const dialogRef = this.dialog.open(EditBodegaModalComponent, {

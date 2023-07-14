@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Router, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { MainPageHistorialClinicoComponent } from './pages/main-page-historial-clinico/main-page-historial-clinico.component';
 import { HistorialClinicoPacienteComponent } from './pages/historial-clinico-paciente/historial-clinico-paciente.component';
 

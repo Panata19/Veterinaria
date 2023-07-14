@@ -9,7 +9,11 @@ declare let jQuery: any;
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styles: [`
-  
+    ul{
+      position: sticky;
+      top:0;
+      left: 0;
+    }
   `]
 })
 export class SidebarComponent implements OnInit {
@@ -25,7 +29,7 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.initializeSidebar();
   }
 

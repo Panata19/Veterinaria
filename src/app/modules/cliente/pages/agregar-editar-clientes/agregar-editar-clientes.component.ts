@@ -26,15 +26,15 @@ export class AgregarEditarClientesComponent  {
       this.form = this.formBuilder.group({      
         
 
-        numDoc: [data.cliente ? data.cliente.numDocumento : '', [Validators.required, Validators.pattern('^[0-9]{1,10}$')]],
-        nombre: [data.cliente ? data.cliente.nombreCliente : '', [Validators.required, Validators.maxLength(50)]],
-        apellido: [data.cliente ? data.cliente.apellidosCliente : '', [Validators.required, Validators.maxLength(50)]],
+        numDoc: [data.cliente ? data.cliente.numDocumento : '', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+        nombre: [data.cliente ? data.cliente.nombreCliente : '', [Validators.required, Validators.maxLength(30)]],
+        apellido: [data.cliente ? data.cliente.apellidosCliente : '', [Validators.required, Validators.maxLength(30)]],
         sexo: [data.cliente ? data.cliente.sexo : '', Validators.required],
         telefono: [data.cliente ? data.cliente.telefono : '', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-        direccion: [data.cliente ? data.cliente.direccion : '', Validators.maxLength(50)],
+        direccion: [data.cliente ? data.cliente.direccion : '', [Validators.required,Validators.maxLength(30)]],  
         correo: [data.cliente ? data.cliente.correo : '', Validators.email],
         fechaNac: [data.cliente ? data.cliente.fechaNac : '', [Validators.required, this.fechaNacimientoValidator]],
-        nacionalidad: [data.cliente ? data.cliente.nacionalidad : '', Validators.maxLength(15)]
+        nacionalidad: [data.cliente ? data.cliente.nacionalidad : '', [Validators.required, Validators.maxLength(15)]]
       });
 
 
@@ -43,6 +43,10 @@ export class AgregarEditarClientesComponent  {
 
    
   }
+
+ 
+
+
 
   fechaNacimientoValidator(control: AbstractControl): ValidationErrors | null {
     const fechaNacimiento = control.value;
@@ -55,7 +59,15 @@ export class AgregarEditarClientesComponent  {
     return null;
   }
 
- 
+  getErrorMessage() {
+    const correoControl = this.form?.get('correo');
+  
+    if (correoControl?.hasError('required')) {
+      return 'Debes ingresar un valor';
+    }
+  
+    return correoControl?.hasError('email') ? 'Correo inválido' : '';
+  }
   
   
   

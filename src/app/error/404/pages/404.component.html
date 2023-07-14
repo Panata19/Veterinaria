@@ -2,12 +2,21 @@
 <div class="container-fluid">
   <!-- 404 Error Text -->
   <div class="text-center">
-    <div class="error mx-auto" data-text="404">404</div>
-    <p class="lead text-gray-800 mb-5">Page Not Found</p>
+    <div class="row">
+      <div class="error mx-5 mx-sm-0 mx-md-auto col-sm-12 col-md-5 text-center text-sm-end text-md-right">
+        <i class="bi bi-x-octagon-fill"></i>
+      </div>
+      <div class="mx-0 mx-md-auto col-sm-12 col-md-7 text-sm-center text-md-start">
+        <div class="error mx-sm-auto mx-md-0"  data-text="404">
+          <span class="">404</span>
+        </div>
+      </div>
+    </div>
+    <p class="lead text-gray-800 mb-5">Página NO encontrada</p>
     <p class="text-gray-500 mb-0">
-      It looks like you found a glitch in the matrix...
+      Parece que has encontrado un fallo en la matriz...
     </p>
-    <a href="index.html">&larr; Back to Dashboard</a>
+    <a routerLink="/dasboard">&larr; Intenta volver al login</a>
   </div>
 </div>
 <!-- /.container-fluid -->

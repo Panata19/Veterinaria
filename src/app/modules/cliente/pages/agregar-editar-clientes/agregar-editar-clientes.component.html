@@ -11,7 +11,8 @@
             <div class="col-md-6">
                 <mat-form-field appearance="outline">
                     <mat-label>Número de Documento</mat-label>
-                    <input formControlName="numDoc" matInput placeholder="Ingresar Número de Documento">   
+                    <input formControlName="numDoc" matInput placeholder="Ingresar Número de Documento">  
+                     
                 </mat-form-field>
               
             </div>
@@ -67,7 +68,11 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Correo (Opcional)</mat-label>
                     <input formControlName="correo" matInput placeholder="Ingresar Correo (Opcional)">
+
                 </mat-form-field>
+                <mat-error>{{getErrorMessage()}}</mat-error>
+                
+
             </div>
 
             <div class="col-md-6">
