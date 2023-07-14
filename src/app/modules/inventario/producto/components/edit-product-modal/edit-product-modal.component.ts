@@ -18,7 +18,7 @@ export class EditProductModalComponent implements OnInit {
   public myForm: FormGroup = this.form.group({
     id: [this.data.id, [Validators.required, Validators.pattern('^[0-9]+$')]],
     name: [this.data.name, Validators.required],
-    image: [this.data.image, Validators.required],
+    image: [this.data.image.url, Validators.required],
     status: [this.data.status, Validators.required],
     category: [this.data.category, Validators.required],
     price: [this.data.price, [Validators.required, Validators.pattern('^[0-9]+$')]],
@@ -146,13 +146,14 @@ export class EditProductModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.comprobandoUrl = true;
-    this.imgPreview = this.data.image;
+    this.imgPreview = this.data.image.url;
   }
 
   submit(){
     this.data.id = this.myForm.get('id')!.value;
     this.data.name = this.myForm.get('name')!.value;
-    this.data.image = this.myForm.get('image')!.value;
+    this.data.image.url = this.myForm.get('image')!.value;
+    this.data.image.loading = true;
     this.data.price = this.myForm.get('price')!.value;
     this.data.category = this.myForm.get('category')!.value;
     this.data.quantitys = this.myForm.get('quantitys')!.value;

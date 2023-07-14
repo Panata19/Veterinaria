@@ -12,8 +12,9 @@ import { ConfirmationModalComponent } from 'src/app/shared/components/confirmati
 import { AddProductModalComponent } from '../../components/add-product-modal/add-product-modal.component';
 import { EditProductModalComponent } from '../../components/edit-product-modal/edit-product-modal.component';
 
-import { ProductoTable } from '../../interfaces/ProductData';
+import { ImageInfo, ProductoTable } from '../../interfaces/ProductData';
 import { ProductsService } from '../../services/products.service';
+
 
 
 @Component({
@@ -43,14 +44,18 @@ export class ProductoComponent implements AfterViewInit  {
   //** Logica Añadir Nuevo Producto **//
   addProduct(){
     let id: number, price: number, quantitys: number;
-    let name: string, image: string, category: string, status:string;
+    let name: string, category: string, status:string;
+    let image: ImageInfo = {
+      url: '',
+      loading: true
+    }
     let buttons: boolean = false;
 
     const dialogRef = this.dialog.open(AddProductModalComponent, {
       data: {
         id: id!,
         name: name!,
-        image: image!,
+        image: image,
         price: price!,
         category: category!,
         quantitys: quantitys!,
@@ -75,7 +80,11 @@ export class ProductoComponent implements AfterViewInit  {
   //** Logica Editar Nuevo Producto **//
   EditProduct(row: ProductoTable){
     let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
-    let name: string = row.name, image: string = row.image, category: string = row.category, status:string = row.status;
+    let name: string = row.name, category: string = row.category, status:string = row.status;
+    let image: ImageInfo = {
+      url: row.image.url,
+      loading: true
+    }
     let buttons: boolean = row.buttons;
 
     const dialogRef = this.dialog.open(EditProductModalComponent, {

@@ -12,7 +12,7 @@ import { ConfirmationModalComponent } from 'src/app/shared/components/confirmati
 import { AddSuministrosModalComponent } from '../../components/add-suministros-modal/add-suministros-modal.component';
 import { EditSuministrosModalComponent } from '../../components/edit-suministros-modal/edit-suministros-modal.component';
 
-import { SuministroTable } from '../../interfaces/SuministroData';
+import { ImageInfo, SuministroTable } from '../../interfaces/SuministroData';
 import { SuministroService } from '../../services/suministros.service';
 
 
@@ -43,14 +43,18 @@ export class SuministrosComponent implements AfterViewInit {
   //** Logica Añadir Nuevo Suministro **//
   addSuministro(){
     let id: number, price: number, quantitys: number;
-    let name: string, image: string, category: string, status:string;
+    let name: string, category: string, status:string;
+    let image: ImageInfo = {
+      url: '',
+      loading: true
+    };
     let buttons: boolean = false;
 
     const dialogRef = this.dialog.open(AddSuministrosModalComponent, {
       data: {
         id: id!,
         name: name!,
-        image: image!,
+        image: image,
         price: price!,
         category: category!,
         quantitys: quantitys!,
@@ -75,7 +79,11 @@ export class SuministrosComponent implements AfterViewInit {
   //** Logica Editar Nuevo Suministro **//
   EditSuministro(row: SuministroTable){
     let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
-    let name: string = row.name, image: string = row.image, category: string = row.category, status:string = row.status;
+    let name: string = row.name, category: string = row.category, status:string = row.status;
+    let image: ImageInfo = {
+      url: row.image.url,
+      loading: true
+    };
     let buttons: boolean = row.buttons;
 
     const dialogRef = this.dialog.open(EditSuministrosModalComponent, {

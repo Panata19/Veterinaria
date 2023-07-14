@@ -16,7 +16,7 @@ const routes: Routes = [
       {
         path: 'inventario',
         loadChildren: () => import('./modules/inventario/inventario.module').then(m => m.InventarioModule),
-        canLoad: [NavegationGuard]
+//        canLoad: [NavegationGuard]
       },
       {
         path: 'tienda',
@@ -33,8 +33,7 @@ const routes: Routes = [
       },    
       {
         path: 'cliente',
-        loadChildren: () => import('./modules/cliente/cliente.module').then(module => module.ClienteModule),
-        
+        loadChildren: () => import('./modules/cliente/cliente.module').then(module => module.ClienteModule),   
       },
       {
         path: 'paciente',

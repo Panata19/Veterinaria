@@ -59,7 +59,10 @@ export class ProductsService {
       ' ' +
       NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
       '.';
-    let image:string = IMAGE[Math.round(Math.random() * (IMAGE.length - 1))];
+    let image = {
+      url: '../assets/img/'+IMAGE[Math.round(Math.random() * (IMAGE.length - 1))],
+      loading: true
+    };
     let status: string;
     let price: number = Math.round(Math.random() * 100);
     let quantitys:number = Math.round(Math.random() * 100);
@@ -83,7 +86,7 @@ export class ProductsService {
     return {
       id: id,
       name: name,
-      image: '../assets/img/'+image,
+      image: image,
       price: price,
       category: category,
       quantitys: quantitys,
