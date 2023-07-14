@@ -35,8 +35,7 @@ const routes: Routes = [
       },
       {
         path: 'hospitalizacion',
-        loadChildren: () => import('./modules/hospitalizacion/hospitalizacion.module').then(m => m.HospitalizacionModule),
-        canLoad: [NavegationGuard]
+        loadChildren: () => import('./modules/hospitalizacion/hospitalizacion.module').then(m => m.HospitalizacionModule)
       },
       {
         path: 'historialClinico',
