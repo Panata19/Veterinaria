@@ -2,7 +2,7 @@ export interface Paciente {
     id?: number;   
     nombre: string; 
     sexo: string;    
-    edad: number; 
+    Fechadenacimiento: Date; 
     raza: string;
     peso: number 
 }

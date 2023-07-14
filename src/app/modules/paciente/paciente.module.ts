@@ -4,6 +4,7 @@ import { ListadoPacComponent } from './pages/listado-pac/listado-pac.component';
 import { AgregarEditarPacientesComponent } from './pages/agregar-editar-pacientes/agregar-editar-pacientes.component';
 import { PacienteRoutingModule } from './paciente-routing.module';
 import { MaterialModule } from 'src/app/material/material.module';
+import { ConfirmacionComponent } from './pages/Verificacion/confirmacion/confirmacion.component';
 
 
 
@@ -11,7 +12,8 @@ import { MaterialModule } from 'src/app/material/material.module';
   declarations: [
    
     ListadoPacComponent,
-    AgregarEditarPacientesComponent
+    AgregarEditarPacientesComponent,
+    ConfirmacionComponent
   ],
   imports: [
     CommonModule,

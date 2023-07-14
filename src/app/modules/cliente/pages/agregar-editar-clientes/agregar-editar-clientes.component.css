@@ -1,5 +1,5 @@
 .margin{
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .mat-form-field{
@@ -7,6 +7,9 @@
     margin: 5px;
 }
 
-.btnGuardar{
+.btn{
 margin-right: 20px;
+
 }
+
+

@@ -1,65 +1,64 @@
 <div class="container">
     <mat-toolbar>
         <span>
-            {{operacion}} cliente
+            <h2 mat-dialog-title>{{ modo === 'agregar' ? 'Agregar' : 'Editar' }} Paciente</h2>
+
         </span>
     </mat-toolbar>
 
     <mat-card class="margin">
-        <form [formGroup]="form" (ngSubmit)="agregarEditarCliente()">
-            <mat-grid-list cols="2" rowHeight="100px">
+        <form [formGroup]="form"  class="row g-3">
 
-                <mat-grid-tile>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Nombre</mat-label>
-                        <input formControlName="nombre" matInput placeholder="Ingresar Nombre">
-                    </mat-form-field>
-                </mat-grid-tile>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input formControlName="nombre" matInput placeholder="Ingresar Nombre">
+                </mat-form-field>
+            </div>
 
-                <mat-grid-tile>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Apellido</mat-label>
-                        <input formControlName="apellido" matInput placeholder="Ingresar Apellido">
-                    </mat-form-field>
-                </mat-grid-tile>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellido</mat-label>
+                    <input formControlName="apellido" matInput placeholder="Ingresar Apellido">
+                </mat-form-field>
+            </div>
 
-                <mat-grid-tile>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Edad</mat-label>
-                        <input type="number" formControlName="edad" matInput placeholder="Ingresar Edad">
-                    </mat-form-field>
-                </mat-grid-tile>
+            <div class="col-md-6">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="datepicker" formControlName="edad"
+                        placeholder="Ingresar Fecha de nacimiento">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker></mat-datepicker>
+                </mat-form-field>
+            </div>
 
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    <mat-form-field>
-                        <mat-label>Sexo</mat-label>
-                        <mat-select formControlName="sexo" >
-                          <mat-option *ngFor="let item of sexo" [value]="item">
+            <div class="col-md-6">
+                <mat-form-field>
+                    <mat-label>Sexo</mat-label>
+                    <mat-select formControlName="sexo">
+                        <mat-option *ngFor="let item of sexo" [value]="item">
                             {{item}}
-                          </mat-option>
-                        </mat-select>
-                        
-                      </mat-form-field>                  
-                </mat-grid-tile>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
-                <mat-grid-tile>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Nacionalidad</mat-label>
-                        <input formControlName="nacionalidad"  matInput placeholder="Ingresar Nacionalidad">
-                    </mat-form-field>
-                </mat-grid-tile>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nacionalidad</mat-label>
+                    <input formControlName="nacionalidad" matInput placeholder="Ingresar Nacionalidad">
+                </mat-form-field>
+            </div>
 
-                <mat-grid-tile [colspan]="2">
-                    <button [disabled]="form.invalid" type="submit" class="btnGuardar" mat-raised-button color="primary">Guardar</button>
-                    <button  mat-raised-button routerLink="/cliente/listado">volver</button>
+          
 
-
-                </mat-grid-tile>
-            </mat-grid-list>
         </form>
-
-
+      
     </mat-card>
-
-
-</div>>
+    <br>
+      <div class="col-12" style="text-align: center;">
+            <button [disabled]="form.invalid" (click)="guardar()" class="btn btn-primary"  style="color: white" >{{ modo === 'agregar' ? 'Agregar' : 'Guardar' }}</button>
+            <button class="btn btn-secondary" (click)="cancelar()">Volver</button>
+        </div>
+</div>
