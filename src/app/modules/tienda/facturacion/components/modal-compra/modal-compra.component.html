@@ -107,7 +107,11 @@
                 [matAutocomplete]="auto"
                 placeholder="Buscar...">
               <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredClients | async" [value]="option.nombres +' '+ option.apellidos">
+                <mat-option 
+                  *ngFor="let option of filteredClients | async" 
+                  [value]="option.nombres +' '+ option.apellidos"
+                  (onSelectionChange)="selecction(option)"
+                >
                   {{option.nombres}} {{option.apellidos}}
                 </mat-option>
               </mat-autocomplete>

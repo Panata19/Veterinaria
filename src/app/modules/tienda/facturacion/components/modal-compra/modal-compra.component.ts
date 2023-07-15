@@ -65,7 +65,8 @@ export class ModalCompraComponent implements OnInit {
       .observe('(min-width: 800px)')
       .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
   }
-
+  
+  //** Cierra modal sin obtener Datos **//
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -101,6 +102,10 @@ export class ModalCompraComponent implements OnInit {
       console.log('Es el segundo Check')
       this.Clients = this.ClienteService.getCliente();
     }
+  }
+
+  selecction(seleccition: Cliente): void{
+    console.log(seleccition);
   }
 
   aumentar(): void{
