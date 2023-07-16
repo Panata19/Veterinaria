@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CompraData } from '../../interfaces/CompraProducto';
+import { CompraData, CompraPaso1 } from '../../interfaces/CompraProducto';
 
 import { StepperOrientation } from '@angular/material/stepper';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -18,12 +18,17 @@ import { ClienteService } from 'src/app/modules/cliente/service/cliente.service'
 })
 export class ModalCompraComponent implements OnInit {
   
-  cantidadTotal: number = 1;
-  precio!: number;
-  valorIva!: number;
-  precioTotal!: number;
+  //** Variables Compra **//
+  
   iva: number = 12;
-  numero = 100
+  compra: CompraPaso1 = {
+    cantidadTotal: 1,
+    precio: 0,
+    valorIva: 0,
+    precioTotal: 0,
+    iva: this.iva,
+  }
+  compraCliente!: Cliente;
 
   warning: boolean = false;
   label: string = '';
@@ -37,15 +42,15 @@ export class ModalCompraComponent implements OnInit {
 
   //** Variables para Forms  **//
   firstFormGroup = this._formBuilder.group({
-    cantidad: [this.cantidadTotal, [Validators.required, Validators.min(1)]],
+    cantidad: [this.compra.cantidadTotal, [Validators.required, Validators.min(1)]],
   });
 
   secondFormGroup = this._formBuilder.group({
-    numDoc: [ '', [Validators.pattern('^[0-9]{10}$')]],
-    nombre: [ '', [Validators.maxLength(30)]],
-    apellido: [ '', [Validators.maxLength(30)]],
-    telefono: [ '', [Validators.pattern('^[0-9]{10}$')]],
-    direccion: [ '', [Validators.maxLength(30)]],  
+    numDoc: [ '', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+    nombre: [ '', [Validators.required, Validators.maxLength(30)]],
+    apellido: [ '', [Validators.required, Validators.maxLength(30)]],
+    telefono: [ '', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+    direccion: [ '', [Validators.required, Validators.maxLength(30)]],  
     correo: [ '', Validators.email],
   });
 
@@ -65,9 +70,9 @@ export class ModalCompraComponent implements OnInit {
   ) {
     //** Primer Calculo de Costos **//
     if(data.quantitys > 0){
-      this.precio = data.price;
-      this.calcularIva(this.precio);
-      this.precioTotal = Math.round((this.precio + this.valorIva)*100) /100 ;
+      this.compra.precio = data.price;
+      this.calcularIva(this.compra.precio);
+      this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva)*100) /100 ;
     }
     //** Stepper Responsive **//
     this.stepperOrientation = breakpointObserver
@@ -103,65 +108,69 @@ export class ModalCompraComponent implements OnInit {
     });
   }
 
-  onStepChange(event: any) {
+  onStepChange(event: any): void {
     //** Paso 2 **//
     if (event.selectedIndex === 1) {
       //** Llamar Clientes **//
       this.Clients = this.ClienteService.getCliente();
     }
   }
-
-  selecction(selection: Cliente): void{
-    console.log(selection, "Seleccion");
-
-    // Establecer nuevos valores en los formularios utilizando setValue()
+  // Establecer nuevos valores del Cliente Seleccionado
+  selecction(selection: Cliente): void{  
     this.secondFormGroup.setValue({
       numDoc: selection.numDocumento ,
       nombre: selection.nombreCliente,
       apellido: selection.apellidosCliente,
       telefono: selection.telefono,
       direccion: selection.direccion,
-      correo: selection.correo,
+      correo: selection.correo !== '' ? selection.correo : 'No tiene Correo',
     });
+    // Obtener todos los Datos  del Cliente
+    this.compraCliente = this.secondFormGroup.value;
+    console.log(this.compraCliente);
   }
 
-  aumentar(): void{
-    if(this.data.quantitys > this.cantidadTotal ){
-      this.precio = this.precio + this.data.price;
-      this.cantidadTotal = this.cantidadTotal + 1;
-      this.firstFormGroup.get('cantidad')?.setValue(this.cantidadTotal);
-      this.calcularIva(this.precio);
-      this.precioTotal = Math.round((this.precio + this.valorIva) * 100) / 100;
-    } else {
-      this.advertencia();
+  aumentar(): void {
+    if (this.data.quantitys <= this.compra.cantidadTotal) {
       this.label = 'Aumentar';
+      this.advertencia();
+      return;
     }
+
+    this.compra.precio += this.data.price;
+    this.compra.cantidadTotal++;
+    this.firstFormGroup.get('cantidad')?.setValue(this.compra.cantidadTotal);
+    this.calcularIva(this.compra.precio);
+    this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
   }
 
-  disminuir(): void{
-    if(this.cantidadTotal > 0 ){
-      this.precio = this.precio - this.data.price;
-      this.cantidadTotal = this.cantidadTotal - 1;
-      this.firstFormGroup.get('cantidad')?.setValue(this.cantidadTotal);
-      this.calcularIva(this.precio);
-      this.precioTotal = Math.round((this.precio + this.valorIva) * 100) / 100;
-    } else {
-      this.advertencia();
+
+  disminuir(): void {
+    if (this.compra.cantidadTotal <= 0) {
       this.label = 'Disminuir';
+      this.advertencia();
+      return;
     }
+  
+    this.compra.precio -= this.data.price;
+    this.compra.cantidadTotal--;
+    this.firstFormGroup.get('cantidad')?.setValue(this.compra.cantidadTotal);
+    this.calcularIva(this.compra.precio);
+    this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
   }
+  
 
   private advertencia(){
       this.warning = true;
       setTimeout(()=> {
         this.warning = false
         this.label = '';
-      }, 4200);
+      }, 3200);
   }
 
   calcularIva( valor: number, iva: number = this.iva): void{
     const valorIva = (valor * iva) / 100;
-    this.valorIva = Math.round(valorIva * 100) / 100;
+    this.compra.valorIva = Math.round(valorIva * 100) / 100;
   }
 
   message(): string {
@@ -169,15 +178,15 @@ export class ModalCompraComponent implements OnInit {
   }
 
   comprar(){
-
+    console.log(this.compra)
   }
 
   reset(){
-    this.cantidadTotal = 1;
-    this.precio = this.data.price;
-    this.calcularIva(this.precio);
-    this.firstFormGroup.get('cantidad')?.setValue(this.cantidadTotal);
-    this.precioTotal = Math.round((this.precio + this.valorIva) * 100) / 100;
+    this.compra.cantidadTotal = 1;
+    this.compra.precio = this.data.price;
+    this.calcularIva(this.compra.precio);
+    this.firstFormGroup.get('cantidad')?.setValue(this.compra.cantidadTotal);
+    this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
   }
 
 }

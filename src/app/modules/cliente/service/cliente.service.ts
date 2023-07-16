@@ -7,7 +7,7 @@ import { Cliente } from '../interface/cliente.interface';
 })
 export class ClienteService {
   private cliente: Cliente[] = [
-    { id: 1, numDocumento: "123456789", nombreCliente: "John", apellidosCliente: "Gerson", sexo: "Masculino", telefono: "0923456789", direccion: "Calle Principal 123", correo: "john@example.com", fechaNac: new Date(2002, 3, 8), nacionalidad: "Ecuatoriana" },
+    { id: 1, numDocumento: "123456789", nombreCliente: "John", apellidosCliente: "Gerson", sexo: "Masculino", telefono: "0923456789", direccion: "Calle Principal 123", correo: "", fechaNac: new Date(2002, 3, 8), nacionalidad: "Ecuatoriana" },
     { id: 2, numDocumento: "987654321", nombreCliente: "Fiorella", apellidosCliente: "Achi Limones", sexo: "Femenino", telefono: "0987654321", direccion: "Avenida Central 456", correo: "fiorella@example.com", fechaNac: new Date(2001, 9, 27), nacionalidad: "Ecuatoriana" },
     { id: 3, numDocumento: "567890123", nombreCliente: "Marco", apellidosCliente: "Ati Carpio", sexo: "Masculino", telefono: "0967890123", direccion: "Plaza Mayor 789", correo: "@example.com",fechaNac: new Date(1990, 6, 17), nacionalidad: "Española" },
     { id: 4, numDocumento: "321654987", nombreCliente: "Pedro", apellidosCliente: "Zambrano Moreno", sexo: "Masculino", telefono: "0921654987", direccion: "Calle Secundaria 456",  correo: "@example.com",fechaNac: new Date(1970, 7, 23), nacionalidad: "Argentina" },

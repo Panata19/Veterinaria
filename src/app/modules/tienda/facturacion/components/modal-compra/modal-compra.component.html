@@ -41,7 +41,9 @@
               </div>
               <div class="col m-auto px-0 px-sm-auto col-2 col-sm-2 col-md-2">
                 <div class="row gap-4 align-items-center" >
-                  <span class="col-12 fs-5 px-0 px-sm-auto text-secondary-emphasis price align-self-start">${{data.price}} </span>
+                  <span class="col-12 fs-5 px-0 px-sm-auto text-secondary-emphasis price align-self-start">
+                    ${{data.price}} 
+                  </span>
                   <div class="col-12 price px-0 px-sm-auto align-self-end">
                     <button
                       matRipple
@@ -71,12 +73,12 @@
           <div class="border mt-2 rounded border-gray"><!-- Div Costo Total -->
             <h3 class="border-bottom fs-6 fw-bold border-gray mx-2 px-2 mb-2">Cuenta:</h3>
             <div class="ms-2 p-1">
-              <p class="m-0">Precio:          ${{precio}}</p>
+              <p class="m-0">Precio:          ${{compra.precio}}</p>
               <p class="m-0">Cantidad:  
-                <input class="w-min" matInput placeholder="0" formControlName="cantidad" readonly>
+                <input class="w-min" matInput placeholder="3" formControlName="cantidad" readonly>
               </p>
-              <p >Iva {{iva}}% :  {{valorIva}}</p>
-              <p class="fw-bold fs-6">Total: <span class="fs-5">${{precioTotal}}</span></p>
+              <p >Iva {{compra.iva}}% :  {{compra.valorIva}}</p>
+              <p class="fw-bold fs-6">Total: <span class="fs-5">${{compra.precioTotal}}</span></p>
               <div *ngIf="warning" class="bg-danger rounded">
                 <h3 class="fs-5 text-white p-0 text-center">No se puede {{message()}} más la cantidad</h3>
               </div>
@@ -122,10 +124,16 @@
             <div class="col-md-6">
               <mat-form-field appearance="outline">
                   <mat-label>Número de Documento</mat-label>
-                  <input formControlName="numDoc" matInput placeholder="Número de Documento" readonly>  
-                   
+                  <input formControlName="numDoc" matInput placeholder="Número de Documento" readonly> 
               </mat-form-field>
             </div>
+
+            <div class="col-md-6">
+              <mat-form-field appearance="outline">
+                  <mat-label>Teléfono</mat-label>
+                  <input formControlName="telefono" matInput placeholder="Teléfono" readonly>
+              </mat-form-field>
+          </div>
 
             <div class="col-md-6">
                 <mat-form-field appearance="outline">
@@ -138,13 +146,6 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Apellido</mat-label>
                     <input formControlName="apellido" matInput placeholder="Apellido" readonly>
-                </mat-form-field>
-            </div>
-
-            <div class="col-md-6">
-                <mat-form-field appearance="outline">
-                    <mat-label>Teléfono</mat-label>
-                    <input formControlName="telefono" matInput placeholder="Teléfono" readonly>
                 </mat-form-field>
             </div>
 
@@ -188,6 +189,7 @@
   <button mat-button 
     class="btn-success" 
     [disabled]="!firstFormGroup.valid || !secondFormGroup.valid || !thirdFormGroup.valid"
-    [mat-dialog-close]="data" 
+    [mat-dialog-close]="data"
+    (click)="comprar()"
   >Comprar</button>
 </mat-dialog-actions>
