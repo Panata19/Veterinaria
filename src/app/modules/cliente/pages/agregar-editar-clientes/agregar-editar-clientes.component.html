@@ -1,13 +1,21 @@
 <div class="container">
     <mat-toolbar>
         <span>
-            <h2 mat-dialog-title>{{ modo === 'agregar' ? 'Agregar' : 'Editar' }} Paciente</h2>
-
+            <h2 mat-dialog-title>{{ modo === 'agregar' ? 'Agregar' : 'Editar' }} Cliente</h2>
         </span>
     </mat-toolbar>
 
     <mat-card class="margin">
-        <form [formGroup]="form"  class="row g-3">
+        <form [formGroup]="form" class="row g-3">
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Número de Documento</mat-label>
+                    <input formControlName="numDoc" matInput placeholder="Ingresar Número de Documento">  
+                     
+                </mat-form-field>
+              
+            </div>
 
             <div class="col-md-6">
                 <mat-form-field appearance="outline">
@@ -25,9 +33,9 @@
 
             <div class="col-md-6">
                 <mat-form-field>
-                    <input matInput [matDatepicker]="datepicker" formControlName="edad"
+                    <mat-label>Fecha de nacimiento</mat-label>
+                    <input matInput [matDatepicker]="datepicker" formControlName="fechaNac"
                         placeholder="Ingresar Fecha de nacimiento">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
                     <mat-datepicker #datepicker></mat-datepicker>
                 </mat-form-field>
@@ -37,11 +45,34 @@
                 <mat-form-field>
                     <mat-label>Sexo</mat-label>
                     <mat-select formControlName="sexo">
-                        <mat-option *ngFor="let item of sexo" [value]="item">
-                            {{item}}
-                        </mat-option>
+                        <mat-option *ngFor="let item of sexo" [value]="item">{{item}}</mat-option>
                     </mat-select>
                 </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Teléfono</mat-label>
+                    <input formControlName="telefono" matInput placeholder="Ingresar Teléfono">
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dirección</mat-label>
+                    <input formControlName="direccion" matInput placeholder="Ingresar Dirección">
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Correo (Opcional)</mat-label>
+                    <input formControlName="correo" matInput placeholder="Ingresar Correo (Opcional)">
+
+                </mat-form-field>
+                <mat-error>{{getErrorMessage()}}</mat-error>
+                
+
             </div>
 
             <div class="col-md-6">
@@ -51,14 +82,12 @@
                 </mat-form-field>
             </div>
 
-          
-
         </form>
-      
     </mat-card>
     <br>
-      <div class="col-12" style="text-align: center;">
-            <button [disabled]="form.invalid" (click)="guardar()" class="btn btn-primary"  style="color: white" >{{ modo === 'agregar' ? 'Agregar' : 'Guardar' }}</button>
-            <button class="btn btn-secondary" (click)="cancelar()">Volver</button>
-        </div>
+    <div class="col-12" style="text-align: center;">
+        <button [disabled]="form.invalid" (click)="guardar()" class="btn btn-primary" style="color: white">{{ modo ===
+            'agregar' ? 'Agregar' : 'Guardar' }}</button>
+        <button class="btn btn-secondary" (click)="cancelar()">Volver</button>
+    </div>
 </div>

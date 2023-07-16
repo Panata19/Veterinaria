@@ -76,7 +76,6 @@ export class ModalCompraComponent implements OnInit {
       startWith(''),
       map(value => {
         let resp = this._filter(value || '');
-        console.log(resp);
         return resp;
       }),
     );
@@ -87,8 +86,8 @@ export class ModalCompraComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return this.Clients.filter(Cliente => {
-      const userNameMatch = Cliente.nombres.toLowerCase().includes(filterValue);
-      const apellidoMatch = Cliente.apellidos.toLowerCase().includes(filterValue);
+      const userNameMatch = Cliente.nombreCliente.toLowerCase().includes(filterValue);
+      const apellidoMatch = Cliente.apellidosCliente.toLowerCase().includes(filterValue);
       const idMatch = Cliente?.id === parseInt(filterValue);
 
       return userNameMatch || apellidoMatch || idMatch;
@@ -99,13 +98,12 @@ export class ModalCompraComponent implements OnInit {
     //** Paso 2 **//
     if (event.selectedIndex === 1) {
       //** Llamar Clientes **//
-      console.log('Es el segundo Check')
       this.Clients = this.ClienteService.getCliente();
     }
   }
 
   selecction(seleccition: Cliente): void{
-    console.log(seleccition);
+    console.log(seleccition, "Seleccion");
   }
 
   aumentar(): void{

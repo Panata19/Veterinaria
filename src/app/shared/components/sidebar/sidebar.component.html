@@ -112,17 +112,17 @@
         data-parent="#accordionSidebar"
       >
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Gestion Screens:</h6>
+          <h6 class="collapse-header">Mantenedores:</h6>
           <a 
-            class="collapse-item {{URL.includes('bodega')?'active':''}}" 
-            routerLink="/cliente/listado"
+            class="collapse-item {{URL.includes('cliente')?'active':''}}" 
             (click)="useNavigation()"
-          >Mantenimiento de Cliente.</a>
+            routerLink="/cliente/listado"           
+          >Cliente</a>
           <a 
-            class="collapse-item {{URL.includes('productos')?'active':''}}" 
-            routerLink="/paciente/listado"
+            class="collapse-item {{URL.includes('paciente')?'active':''}}" 
             (click)="useNavigation()"
-          >Mantenimiento Paciente.  </a>
+            routerLink="/paciente/listado"          
+          >Paciente</a>
 
         
           <div class="collapse-divider"></div>
@@ -168,6 +168,7 @@
         >Suministros</a>
         <div class="collapse-divider"></div>
       </div>
+
     </div>
   </li>
 
