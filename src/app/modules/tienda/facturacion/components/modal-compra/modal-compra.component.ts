@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompraData } from '../../interfaces/CompraProducto';
 
 import { StepperOrientation } from '@angular/material/stepper';
@@ -24,7 +24,7 @@ export class ModalCompraComponent implements OnInit {
   precioTotal!: number;
   iva: number = 12;
   numero = 100
-  
+
   warning: boolean = false;
   label: string = '';
 
@@ -35,13 +35,22 @@ export class ModalCompraComponent implements OnInit {
   filteredClients!: Observable<Cliente[]>;
   
 
-  //** Variables para Funcionar **//
+  //** Variables para Forms  **//
   firstFormGroup = this._formBuilder.group({
     cantidad: [this.cantidadTotal, [Validators.required, Validators.min(1)]],
   });
+
   secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+    numDoc: [ '', [Validators.pattern('^[0-9]{10}$')]],
+    nombre: [ '', [Validators.maxLength(30)]],
+    apellido: [ '', [Validators.maxLength(30)]],
+    telefono: [ '', [Validators.pattern('^[0-9]{10}$')]],
+    direccion: [ '', [Validators.maxLength(30)]],  
+    correo: [ '', Validators.email],
   });
+
+  
+
   thirdFormGroup = this._formBuilder.group({
     thirdCtrl: ['ok', Validators.required],
   });
@@ -102,8 +111,18 @@ export class ModalCompraComponent implements OnInit {
     }
   }
 
-  selecction(seleccition: Cliente): void{
-    console.log(seleccition, "Seleccion");
+  selecction(selection: Cliente): void{
+    console.log(selection, "Seleccion");
+
+    // Establecer nuevos valores en los formularios utilizando setValue()
+    this.secondFormGroup.setValue({
+      numDoc: selection.numDocumento ,
+      nombre: selection.nombreCliente,
+      apellido: selection.apellidosCliente,
+      telefono: selection.telefono,
+      direccion: selection.direccion,
+      correo: selection.correo,
+    });
   }
 
   aumentar(): void{

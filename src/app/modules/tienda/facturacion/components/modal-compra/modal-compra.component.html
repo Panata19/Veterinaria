@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Comprar {{data.name}}</h1>
-<section mat-dialog-content class="px-0 px-sm-auto">
+<main mat-dialog-content class="px-0 px-sm-auto">
   <mat-stepper
     class="example-stepper"
     (selectionChange)="onStepChange($event)"
@@ -100,7 +100,7 @@
           
         >
           <div class="col px-0 px-sm-auto">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline"><!-- Buscador Cliente -->
               <mat-label>Buscar Usuario</mat-label>
               <input matInput 
                 [formControl]="searchTerm"
@@ -117,12 +117,52 @@
               </mat-autocomplete>
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
+          </div><!-- Fin Buscador Cliente -->
+          <div class="row mx-3">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline">
+                  <mat-label>Número de Documento</mat-label>
+                  <input formControlName="numDoc" matInput placeholder="Número de Documento" readonly>  
+                   
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input formControlName="nombre" matInput placeholder="Nombre" readonly>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellido</mat-label>
+                    <input formControlName="apellido" matInput placeholder="Apellido" readonly>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Teléfono</mat-label>
+                    <input formControlName="telefono" matInput placeholder="Teléfono" readonly>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dirección</mat-label>
+                    <input formControlName="direccion" matInput placeholder="Dirección" readonly>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Correo (Opcional)</mat-label>
+                    <input formControlName="correo" matInput placeholder="Correo (Opcional)" readonly>
+
+                </mat-form-field>
+            </div>
           </div>
-          <mat-form-field>
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                  required>
-          </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button matStepperNext>Next</button>
@@ -142,7 +182,7 @@
 
   </mat-stepper>
   
-</section>
+</main>
 <mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">No, Gracias</button>
   <button mat-button 
