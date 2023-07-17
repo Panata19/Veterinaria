@@ -78,3 +78,31 @@ div.card.wdth-L {
   border-color: #c3c4c5 !important;
 }
 
+.width-dialog {
+  width: 90vw;
+}
+
+@media (max-width: 575.98px) {
+  .width-dialog {
+    width: 90vw;
+  }
+}
+
+@media (min-width: 576px) {
+  .width-dialog {
+    width: 80vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .width-dialog {
+    width: 70vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .width-dialog {
+    width: 20vw;
+  }
+}
+  

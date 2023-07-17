@@ -1,7 +1,6 @@
 <h1 mat-dialog-title>Comprar {{data.name}}</h1>
 <main mat-dialog-content class="px-0 px-sm-auto">
   <mat-stepper
-    class="example-stepper"
     (selectionChange)="onStepChange($event)"
     [orientation]="(stepperOrientation | async)!"
     #stepper
@@ -75,7 +74,7 @@
             <div class="ms-2 p-1">
               <p class="m-0">Precio:          ${{compra.precio}}</p>
               <p class="m-0">Cantidad:  
-                <input class="w-min" matInput placeholder="3" formControlName="cantidad" readonly>
+                <input class="" matInput placeholder="3" formControlName="cantidad" readonly>
               </p>
               <p >Iva {{compra.iva}}% :  {{compra.valorIva}}</p>
               <p class="fw-bold fs-6">Total: <span class="fs-5">${{compra.precioTotal}}</span></p>
@@ -99,7 +98,6 @@
     >
       <ng-template matStepContent>
         <form [formGroup]="secondFormGroup"
-          
         >
           <div class="col px-0 px-sm-auto">
             <mat-form-field appearance="outline"><!-- Buscador Cliente -->

@@ -111,6 +111,9 @@ export class FacturacionComponent implements OnInit {
   //** Modal Comprar **//
   procesoCompra(Producto: CompraData): void{
     const dialogRef = this.dialog.open(ModalCompraComponent, {
+      width: '700px', 
+      height: 'auto',
+      panelClass: 'width-dialog',
       data: {
         id: Producto.id,
         name: Producto.name, 
