@@ -129,7 +129,7 @@ export class FacturacionComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      
     });
   }
 

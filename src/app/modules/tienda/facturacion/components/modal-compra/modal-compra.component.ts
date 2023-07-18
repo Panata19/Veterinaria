@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Cliente } from 'src/app/modules/cliente/interface/cliente.interface';
 import { ClienteService } from 'src/app/modules/cliente/service/cliente.service';
+import { TiendaService } from '../../services/tienda.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class ModalCompraComponent implements OnInit {
   //** Variables Compra **//
   
   iva: number = 12;
+  
   compra: CompraPaso1 = {
     cantidadTotal: 1,
     precio: 0,
@@ -28,6 +30,7 @@ export class ModalCompraComponent implements OnInit {
     precioTotal: 0,
     iva: this.iva,
   }
+
   compraCliente!: Cliente;
 
   warning: boolean = false;
@@ -59,6 +62,13 @@ export class ModalCompraComponent implements OnInit {
   thirdFormGroup = this._formBuilder.group({
     thirdCtrl: ['ok', Validators.required],
   });
+
+  CompraData: any = {
+    Producto: this.data,
+    Cantidad: this.compra,
+    user: this.secondFormGroup.value
+  }
+
   stepperOrientation: Observable<StepperOrientation>;
 
   constructor(
@@ -66,7 +76,8 @@ export class ModalCompraComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: CompraData,
     private _formBuilder: FormBuilder,
     breakpointObserver: BreakpointObserver,
-    public ClienteService: ClienteService
+    private ClienteService: ClienteService,
+    private TiendaService: TiendaService
   ) {
     //** Primer Calculo de Costos **//
     if(data.quantitys > 0){
@@ -178,7 +189,13 @@ export class ModalCompraComponent implements OnInit {
   }
 
   comprar(){
-    console.log(this.compra)
+    if(this.CompraData?.Producto && this.CompraData?.Cantidad && this.CompraData?.user){
+      console.log(this.CompraData)
+    }else {
+      console.log('Falto un dato');
+
+    }
+    
   }
 
   reset(){
