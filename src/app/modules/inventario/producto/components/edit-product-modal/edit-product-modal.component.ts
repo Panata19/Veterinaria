@@ -34,9 +34,9 @@ export class EditProductModalComponent implements OnInit {
   
   //** Opciones Para el DropDown Select **//
   Types: SelectTypes[] = [
-    {value: 'IN STOCK', viewValue: 'IN STOCK'},
-    {value: 'LOW STOCK', viewValue: 'LOW STOCK'},
-    {value: 'OUT OF STOCK', viewValue: 'OUT OF STOCK'},
+    {value: 'DISPONIBLE', viewValue: 'DISPONIBLE'},
+    {value: 'BAJO STOCK', viewValue: 'BAJO STOCK'},
+    {value: 'AGOTADO', viewValue: 'AGOTADO'},
   ];
   selectedType = this.Types[2].value;
 

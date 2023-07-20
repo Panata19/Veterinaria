@@ -1,6 +1,7 @@
 <h1 mat-dialog-title>Comprar {{data.name}}</h1>
 <main mat-dialog-content class="px-0 px-sm-auto">
   <mat-stepper
+    linear 
     (selectionChange)="onStepChange($event)"
     [orientation]="(stepperOrientation | async)!"
     #stepper
@@ -74,7 +75,7 @@
             <div class="ms-2 p-1">
               <p class="m-0">Precio:          ${{compra.precio}}</p>
               <p class="m-0">Cantidad:  
-                <input class="" matInput placeholder="3" formControlName="cantidad" readonly>
+                <input class="w-fc" matInput placeholder="3" formControlName="cantidad" readonly>
               </p>
               <p >Iva {{compra.iva}}% :  {{compra.valorIva}}</p>
               <p class="fw-bold fs-6">Total: <span class="fs-5">${{compra.precioTotal}}</span></p>
@@ -84,10 +85,9 @@
             </div>
           </div>
           
-          
-          <div>
-            <button mat-button matStepperNext>Next</button>
-          </div>
+          <mat-dialog-actions align="end">
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </mat-dialog-actions>
         </form>
       </ng-template>
     </mat-step><!-- Fin Primer Paso --> 
@@ -122,72 +122,121 @@
             <div class="col-md-6">
               <mat-form-field appearance="outline">
                   <mat-label>Número de Documento</mat-label>
-                  <input formControlName="numDoc" matInput placeholder="Número de Documento" readonly> 
+                  <input formControlName="numDoc" matInput placeholder="Número de Documento"> 
               </mat-form-field>
             </div>
 
             <div class="col-md-6">
               <mat-form-field appearance="outline">
                   <mat-label>Teléfono</mat-label>
-                  <input formControlName="telefono" matInput placeholder="Teléfono" readonly>
+                  <input formControlName="telefono" matInput placeholder="Teléfono">
               </mat-form-field>
-          </div>
+            </div>
 
             <div class="col-md-6">
                 <mat-form-field appearance="outline">
                     <mat-label>Nombre</mat-label>
-                    <input formControlName="nombre" matInput placeholder="Nombre" readonly>
+                    <input formControlName="nombre" matInput placeholder="Nombre">
                 </mat-form-field>
             </div>
 
             <div class="col-md-6">
                 <mat-form-field appearance="outline">
                     <mat-label>Apellido</mat-label>
-                    <input formControlName="apellido" matInput placeholder="Apellido" readonly>
+                    <input formControlName="apellido" matInput placeholder="Apellido">
                 </mat-form-field>
             </div>
 
             <div class="col-md-6">
                 <mat-form-field appearance="outline">
                     <mat-label>Dirección</mat-label>
-                    <input formControlName="direccion" matInput placeholder="Dirección" readonly>
+                    <input formControlName="direccion" matInput placeholder="Dirección">
                 </mat-form-field>
             </div>
 
             <div class="col-md-6">
                 <mat-form-field appearance="outline">
                     <mat-label>Correo (Opcional)</mat-label>
-                    <input formControlName="correo" matInput placeholder="Correo (Opcional)" readonly>
-
+                    <input formControlName="correo" matInput placeholder="Correo (Opcional)">
                 </mat-form-field>
             </div>
           </div>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
+          <mat-dialog-actions align="end">
+            <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </mat-dialog-actions>
         </form>
       </ng-template>
     </mat-step> <!-- Fin Segundo Paso -->
     <!-- Tercer Paso -->
-    <mat-step [stepControl]="thirdFormGroup" label="Fill out your phone number">
+    <mat-step 
+      [stepControl]="thirdFormGroup"
+      label="Fill out your phone number"
+      >
       <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p> 
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()" (click)="reset()">Reset</button>
+        <div class="border row p-3 border-gray rounded">
+          <div class="col border-end border-gray"><!-- Cliente -->
+            <h2>Resumen</h2>
+            <form [formGroup]="thirdFormGroup">
+              <mat-form-field appearance="outline">
+                <mat-label>Nombre Completo</mat-label>
+                <input formControlName="nombre" matInput placeholder="Nombre" readonly>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Dirección</mat-label>
+                <input formControlName="direccion" matInput placeholder="Dirección" readonly>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Teléfono</mat-label>
+                <input formControlName="telefono" matInput placeholder="Teléfono" readonly>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Correo (Opcional)</mat-label>
+                <input formControlName="correo" matInput placeholder="Correo (Opcional)" readonly>
+             </mat-form-field>
+            </form>
+          </div>
+          <div class="col"><!-- Products -->
+            <div class="text-center">
+              <img 
+                width="190px"
+                [src]="CompraData.Producto.image.url"
+                [alt]="'Preview compra '+CompraData.Producto.name"
+              >
+            </div>
+            <div class="mt-2">
+              <p>Nombre: {{CompraData.Producto.name}}</p>
+              <p>Cantidad: {{CompraData.Cantidad.cantidadTotal}}</p>
+              <p>Precio Unitario: <span class="fw-bold"> ${{CompraData.Producto.price}}</span></p>
+              <p
+                class="fs-6 fw-bold"
+              >
+              Total: <span class="fs-5" >${{CompraData.Cantidad.precioTotal}}</span></p>
+            </div>
+          </div>
+
         </div>
+        <mat-dialog-actions class="row">
+          <div class="col justify-content-start">
+            <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" (click)="stepper.reset()" (click)="reset()">Reset</button>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <button mat-stroked-button color="warn" (click)="onNoClick()">No, Cancelar</button>
+            <button mat-button 
+              class="btn-success" 
+              [disabled]="!firstFormGroup.valid || !secondFormGroup.valid || !thirdFormGroup.valid"
+              [mat-dialog-close]="data"
+              (click)="comprar()"
+              [matTooltip]="labelToolTip"
+              matTooltipPosition="above"
+            >Comprar</button>
+          </div>
+        </mat-dialog-actions>
+        
     </mat-step> <!-- Fin Tercer Paso -->
 
   </mat-stepper>
   
 </main>
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onNoClick()">No, Gracias</button>
-  <button mat-button 
-    class="btn-success" 
-    [disabled]="!firstFormGroup.valid || !secondFormGroup.valid || !thirdFormGroup.valid"
-    [mat-dialog-close]="data"
-    (click)="comprar()"
-  >Comprar</button>
-</mat-dialog-actions>
+

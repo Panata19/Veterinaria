@@ -64,16 +64,16 @@ export class TiendaService {
 
     switch (true) {
       case quantitys > 10:
-        status = 'IN STOCK';
+        status = 'DISPONIBLE';
         break;
       case quantitys > 0 && quantitys <= 10:
-        status = "LOW STOCK";
+        status = 'BAJO STOCK';
         break;
       case quantitys === 0:
-        status = "OUT OF STOCK"
+        status = 'AGOTADO';
         break;
       default:
-        status = "UNKNOWN"
+        status = 'UNKNOWN';
         break;
     }
 

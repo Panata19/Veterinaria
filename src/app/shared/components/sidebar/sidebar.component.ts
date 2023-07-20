@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { NavegationService } from 'src/app/modules/inventario/service/navigation.service';
 
 declare let jQuery: any;
 
@@ -19,7 +18,10 @@ declare let jQuery: any;
 export class SidebarComponent implements OnInit {
   URL: string = ''
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private NavegationService: NavegationService) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    ) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -33,14 +35,10 @@ export class SidebarComponent implements OnInit {
     this.initializeSidebar();
   }
 
-  useNavigation(){
-    this.NavegationService.isNavegation(true);
-  }
-
   parseRoute(route: ActivatedRoute): string {
     let url = '';
     route.children.forEach(child => {
-      url += '/' + child.snapshot.url.map(segment => segment.path).join('/');
+     url += '/' + child.snapshot.url.map(segment => segment.path).join('/');
       url = this.parseRoute(child) + url;
     });
     return url;

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { TiendaService } from '../../services/tienda.service';
@@ -12,10 +11,7 @@ import { ModalCompraComponent } from '../../components/modal-compra/modal-compra
   templateUrl: './facturacion.component.html',
   styleUrls: ['./facturacion.component.css']
 })
-export class FacturacionComponent implements OnInit {
-  
-  
-  imageLoading: boolean = true;
+export class FacturacionComponent  {
 
   //** Variables para filtrar **//
   searchTerm: string = '';
@@ -45,21 +41,6 @@ export class FacturacionComponent implements OnInit {
     this.Products = TiendaService.getProducts();
     this.length = this.Products.length;
     this.filterProducts()
-  }
-
-  ngOnInit(): void {}
-
-  onImageLoad(): void {
-    this.imageLoading = false;
-  }
-  
-  onImageError(): void {
-    this.imageLoading = false;
-  }
-
-  onImageProgress(event: any): void{
-    console.log(event);
-    console.log('img')
   }
 
   //** Metodo para filtrar las cards **//

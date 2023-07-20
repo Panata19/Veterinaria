@@ -35,6 +35,7 @@ export class ModalCompraComponent implements OnInit {
 
   warning: boolean = false;
   label: string = '';
+  labelToolTip: string = 'Completa los pasos primero';
 
   //** Variables para filtrar **//
   
@@ -57,17 +58,19 @@ export class ModalCompraComponent implements OnInit {
     correo: [ '', Validators.email],
   });
 
-  
-
-  thirdFormGroup = this._formBuilder.group({
-    thirdCtrl: ['ok', Validators.required],
-  });
-
   CompraData: any = {
     Producto: this.data,
     Cantidad: this.compra,
     user: this.secondFormGroup.value
   }
+
+  thirdFormGroup = this._formBuilder.group({
+    nombre: ['', [Validators.required, Validators.maxLength(30)]],
+    direccion: ['', [Validators.required, Validators.maxLength(30)]],  
+    telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+    correo: ['', Validators.email],
+  });
+  
 
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -125,6 +128,28 @@ export class ModalCompraComponent implements OnInit {
       //** Llamar Clientes **//
       this.Clients = this.ClienteService.getCliente();
     }
+    if(!this.firstFormGroup.valid || !this.secondFormGroup.valid || !this.thirdFormGroup.valid){
+      this.labelToolTip = 'Completa los pasos primero';
+    } else {
+      this.labelToolTip = 'Listo para comprar';
+    }
+    // Establecer nuevos valores en el formulario
+    this.thirdFormGroup.patchValue({
+      nombre: this.secondFormGroup.get('nombre')?.value+' '+this.secondFormGroup.get('apellido')?.value,
+      direccion: this.secondFormGroup.get('direccion')?.value,
+      telefono: this.secondFormGroup.get('telefono')?.value,
+      correo: this.secondFormGroup.get('correo')?.value
+    });
+    this.thirdFormGroup.get('nombre')?.setValue(
+      this.secondFormGroup.get('nombre')?.value+' '+
+      this.secondFormGroup.get('apellido')?.value);
+    this.thirdFormGroup.get('direccion')?.setValue(
+      this.secondFormGroup.get('direccion')?.value);
+    this.thirdFormGroup.get('telefono')?.setValue(
+      this.secondFormGroup.get('telefono')?.value);
+    this.thirdFormGroup.get('correo')?.setValue(
+      this.secondFormGroup.get('correo')?.value);
+    
   }
   // Establecer nuevos valores del Cliente Seleccionado
   selecction(selection: Cliente): void{  
@@ -154,7 +179,6 @@ export class ModalCompraComponent implements OnInit {
     this.calcularIva(this.compra.precio);
     this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
   }
-
 
   disminuir(): void {
     if (this.compra.cantidadTotal <= 0) {

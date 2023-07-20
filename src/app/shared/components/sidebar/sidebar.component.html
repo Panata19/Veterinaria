@@ -107,20 +107,18 @@
       </a>
       <div
         id="collapseGestion"
-        class="collapse {{URL.includes('Gestion')?'show':''}}"
+        class="collapse {{URL.includes('Gestion')?'show':''}} z-3"
         aria-labelledby="headingPages"
         data-parent="#accordionSidebar"
       >
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Mantenedores:</h6>
-          <a 
+          <a
             class="collapse-item {{URL.includes('cliente')?'active':''}}" 
-            (click)="useNavigation()"
             routerLink="/cliente/listado"           
           >Cliente</a>
           <a 
             class="collapse-item {{URL.includes('paciente')?'active':''}}" 
-            (click)="useNavigation()"
             routerLink="/paciente/listado"          
           >Paciente</a>
 
@@ -154,16 +152,13 @@
         <h6 class="collapse-header">Inventario Screens:</h6>
         <a 
           class="collapse-item {{URL.includes('bodega')?'active':''}}" 
-          (click)="useNavigation()"
           routerLink="/inventario/bodega"
         >Bodega</a>
         <a 
           class="collapse-item {{URL.includes('productos')?'active':''}}" 
-          (click)="useNavigation()"
           routerLink="/inventario/productos"
         >Producto</a>
         <a class="collapse-item {{URL.includes('suministros')?'active':''}}"
-          (click)="useNavigation()"  
           routerLink="/inventario/suministros"
         >Suministros</a>
         <div class="collapse-divider"></div>
@@ -196,7 +191,6 @@
         <h6 class="collapse-header">Tienda Screens:</h6>
         <a 
           class="collapse-item {{URL.includes('tienda')?'active':''}}" 
-          (click)="useNavigation()"
           routerLink="/tienda"
         >Tienda</a>
         <div class="collapse-divider"></div>
@@ -227,12 +221,10 @@
         <h6 class="collapse-header">Hospitalizacion Screens:</h6>
         <a 
           class="collapse-item {{URL.includes('hospitalizacion')?'active':''}}" 
-          (click)="useNavigation()"
           routerLink="/hospitalizacion">
           Hospitazacion</a>
         <a 
           class="collapse-item {{URL.includes('historialClinico')?'active':''}}" 
-          (click)="useNavigation()"
           routerLink="/historialClinico">
           Historia Clinica</a>
         <div class="collapse-divider"></div>
