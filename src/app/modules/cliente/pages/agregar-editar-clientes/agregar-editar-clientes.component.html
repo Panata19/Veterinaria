@@ -1,103 +1,97 @@
-<div class="container">
-    <mat-toolbar>
-        <span>
-            <h2 mat-dialog-title>{{ modo === 'agregar' ? 'Agregar' : 'Editar' }} Cliente</h2>
-        </span>
-    </mat-toolbar>
+<mat-toolbar>
+    <span>
+        <h2 mat-dialog-title>{{ modo === 'agregar' ? 'Agregar' : 'Editar' }} Cliente</h2>
+    </span>
+</mat-toolbar>
 
-    <mat-card class="margin">
-        <form [formGroup]="form" class="row g-3">
+<mat-card class="margin" class="modal-body">
+    <form [formGroup]="form" class="row g-3">
 
-            <div class="col-md-6">
-                <mat-form-field appearance="outline">
-                    <mat-label>Número de Documento</mat-label>
-                    <input formControlName="numDoc" matInput placeholder="Ingresar Número de Documento">  
-                   
-                </mat-form-field>
-              
-            </div>
+        <div class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Número de Documento</mat-label>
+                <input formControlName="numDoc" matInput placeholder="Ingresar Número de Documento">
+            </mat-form-field>
+        </div>
 
-            <div class="col-md-6" *ngIf="modo === 'editar'">
-                <mat-form-field>
-                  <mat-label>Estado</mat-label>
-                  <mat-select formControlName="estado">
+
+        <div class="col-md-6" *ngIf="modo === 'editar'">
+            <mat-form-field  appearance="outline">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado">
                     <mat-option [value]="true">Activo</mat-option>
                     <mat-option [value]="false">Inactivo</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-          
+                </mat-select>
+            </mat-form-field>
+        </div>
+     
 
-            <div class="col-md-6">
-                <mat-form-field appearance="outline">
-                    <mat-label>Nombre</mat-label>
-                    <input formControlName="nombre" matInput placeholder="Ingresar Nombre">
-                </mat-form-field>
-            </div>
+        <div class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input formControlName="nombre" matInput placeholder="Ingresar Nombre">
+            </mat-form-field>
+        </div>
 
-            <div class="col-md-6">
-                <mat-form-field appearance="outline">
-                    <mat-label>Apellido</mat-label>
-                    <input formControlName="apellido" matInput placeholder="Ingresar Apellido">
-                </mat-form-field>
-            </div>
+        <div class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Apellido</mat-label>
+                <input formControlName="apellido" matInput placeholder="Ingresar Apellido">
+            </mat-form-field>
+        </div>
 
-            <div class="col-md-6">
-                <mat-form-field>
-                    <mat-label>Fecha de nacimiento</mat-label>
-                    <input matInput [matDatepicker]="datepicker" formControlName="fechaNac"
-                        placeholder="Ingresar Fecha de nacimiento">
-                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-                    <mat-datepicker #datepicker></mat-datepicker>
-                </mat-form-field>
-            </div>
+        <div class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input matInput [matDatepicker]="datepicker" formControlName="fechaNac"
+                    placeholder="Ingresar Fecha de nacimiento">
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker></mat-datepicker>
+            </mat-form-field>
+        </div>
 
-            <div class="col-md-6">
-                <mat-form-field>
-                    <mat-label>Sexo</mat-label>
-                    <mat-select formControlName="sexo">
-                        <mat-option *ngFor="let item of sexo" [value]="item">{{item}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
+        <div class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Sexo</mat-label>
+                <mat-select formControlName="sexo">
+                    <mat-option *ngFor="let item of sexo" [value]="item">{{item}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
-            <div class="col-md-6">
-                <mat-form-field appearance="outline">
-                    <mat-label>Teléfono</mat-label>
-                    <input formControlName="telefono" matInput placeholder="Ingresar Teléfono">
-                </mat-form-field>
-            </div>
+        <div class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Teléfono</mat-label>
+                <input formControlName="telefono" matInput placeholder="Ingresar Teléfono">
+            </mat-form-field>
+        </div>
 
-            <div class="col-md-6">
-                <mat-form-field appearance="outline">
-                    <mat-label>Dirección</mat-label>
-                    <input formControlName="direccion" matInput placeholder="Ingresar Dirección">
-                </mat-form-field>
-            </div>
+        <div class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Dirección</mat-label>
+                <input formControlName="direccion" matInput placeholder="Ingresar Dirección">
+            </mat-form-field>
+        </div>
 
-            <div class="col-md-6">
-                <mat-form-field appearance="outline">
-                    <mat-label>Correo (Opcional)</mat-label>
-                    <input formControlName="correo" matInput placeholder="Ingresar Correo (Opcional)">
-                    <mat-error>{{getErrorMessage()}}</mat-error> 
-                </mat-form-field>
-                
+        <div class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Correo (Opcional)</mat-label>
+                <input formControlName="correo" matInput placeholder="Ingresar Correo (Opcional)">
+                <mat-error>{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
 
-            </div>
+        <div class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Nacionalidad</mat-label>
+                <input formControlName="nacionalidad" matInput placeholder="Ingresar Nacionalidad">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-card>
 
-            <div class="col-md-6">
-                <mat-form-field appearance="outline">
-                    <mat-label>Nacionalidad</mat-label>
-                    <input formControlName="nacionalidad" matInput placeholder="Ingresar Nacionalidad">
-                </mat-form-field>
-            </div>
-
-        </form>
-    </mat-card>
-    <br>
-    <div class="col-12" style="text-align: center;">
-        <button [disabled]="form.invalid" (click)="guardar()" class="btn btn-primary" style="color: white">{{ modo ===
-            'agregar' ? 'Agregar' : 'Guardar' }}</button>
-        <button class="btn btn-secondary" (click)="cancelar()">Volver</button>
-    </div>
+<div class="col-12" style="text-align: center;">
+    <button [disabled]="form.invalid" (click)="guardar()" class="btn btn-primary" style="color: white">{{ modo ===
+        'agregar' ? 'Agregar' : 'Guardar' }}</button>
+    <button class="btn btn-secondary" (click)="cancelar()">Volver</button>
 </div>

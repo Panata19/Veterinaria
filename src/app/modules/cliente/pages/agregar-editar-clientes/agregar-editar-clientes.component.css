@@ -9,8 +9,16 @@
 
 .btn{
 margin-right: 20px;
+margin-top: 20px;
 
 }
 
+.modal-body{
+    height: 550px;
+    width: 100%;
+    overflow-y: auto;
+  }
 
+
+  
 
