@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProductoData,   } from '../interfaces/ProductData';
+import { CompraPaso1 } from '../interfaces/CompraProducto';
+import { estadoStock } from 'src/app/shared/libs/Stock';
 
 
 //** Datos Quemados **//
@@ -101,36 +103,21 @@ export class TiendaService {
     return this.productsDB;
   }
 
-  compraProdutcto(Producto: ProductoData){
+  compraProducto(Producto: ProductoData, Cantidad: CompraPaso1){
     console.log(Producto);
-    this.EditProduct(Producto, 1);
+    this.EditProduct(Producto, Cantidad.cantidadTotal);
 
   }
 
-  private EditProduct(editProduct: ProductoData, Quantitys: number){     
+  private EditProduct(editProduct: ProductoData, Cantidad: number){     
     // Encuent elra índice del objeto en el array utilizando el ID
     const index = this.productsDB.findIndex(obj => obj.id === editProduct.id);
-
+    // Accede al objeto utilizando el índice encontrado
     if (index !== -1) {
-      // Accede al objeto utilizando el índice encontrado
-      switch (true) {
-        case editProduct.quantitys > 10:
-          editProduct.status = 'IN STOCK';
-          break;
-        case editProduct.quantitys > 0 && editProduct.quantitys <= 10:
-          editProduct.status = "LOW STOCK";
-          break;
-        case editProduct.quantitys === 0:
-          editProduct.status = "OUT OF STOCK"
-          break;
-        default:
-          editProduct.status = "UNKNOWN"
-          break;
-      }
-
-      this.productsDB[index].status = editProduct.status;
-      this.productsDB[index].quantitys= editProduct.quantitys - Quantitys;
       // Realiza las modificaciones necesarias en el objeto
+      this.productsDB[index].quantitys= editProduct.quantitys - Cantidad;
+      this.productsDB[index].status = estadoStock(this.productsDB[index].quantitys);
+      
     } else {
       console.log('No se encontró el objeto con el ID especificado');
     }

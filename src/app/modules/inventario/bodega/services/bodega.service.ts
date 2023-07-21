@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BodegaData, BodegaTable } from '../interfaces/BodegaData';
+import { estadoStock } from 'src/app/shared/libs/Stock';
 
 
 //** Datos Quemados **//
@@ -64,25 +65,10 @@ export class BodegaService {
       url: '../assets/img/'+IMAGE[Math.round(Math.random() * (IMAGE.length - 1))],
       loading: true
     };
-    let status: string;
+    
     let price: number = Math.round(Math.random() * 100);
     let quantitys:number = Math.round(Math.random() * 100);
     let category: string = CATEGORYS[Math.round(Math.random() * (CATEGORYS.length - 1))];
-
-    switch (true) {
-      case quantitys > 10:
-        status = 'DISPONIBLE';
-        break;
-      case quantitys > 0 && quantitys <= 10:
-        status = 'BAJO STOCK';
-        break;
-      case quantitys === 0:
-        status = 'AGOTADO';
-        break;
-      default:
-        status = "UNKNOWN";
-        break;
-    }
 
     return {
       id: id,
@@ -91,7 +77,7 @@ export class BodegaService {
       price: price,
       category: category,
       quantitys: quantitys,
-      status: status,
+      status: estadoStock(quantitys),
     };
   }
 

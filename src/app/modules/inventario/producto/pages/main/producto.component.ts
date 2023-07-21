@@ -155,7 +155,7 @@ export class ProductoComponent implements AfterViewInit  {
     
   }
   //** Crea SnackBar con estilos **//
-  snackbar(label: string, style: string){
+  private snackbar(label: string, style: string): void{
     this._snackBar.open(label, 'Cerrar', {
       horizontalPosition: 'right',
       verticalPosition: 'bottom',

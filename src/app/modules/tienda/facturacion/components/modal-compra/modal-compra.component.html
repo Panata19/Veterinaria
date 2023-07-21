@@ -199,19 +199,28 @@
           <div class="col"><!-- Products -->
             <div class="text-center">
               <img 
-                width="190px"
+                width="130px"
                 [src]="CompraData.Producto.image.url"
                 [alt]="'Preview compra '+CompraData.Producto.name"
               >
             </div>
-            <div class="mt-2">
-              <p>Nombre: {{CompraData.Producto.name}}</p>
-              <p>Cantidad: {{CompraData.Cantidad.cantidadTotal}}</p>
-              <p>Precio Unitario: <span class="fw-bold"> ${{CompraData.Producto.price}}</span></p>
-              <p
-                class="fs-6 fw-bold"
-              >
-              Total: <span class="fs-5" >${{CompraData.Cantidad.precioTotal}}</span></p>
+            <div class="mt-4">
+              <div class="d-flex justify-content-between">
+                <p>Producto:</p>
+                <p  class="fs-6 fw-bold">{{CompraData.Producto.name}}</p>
+              </div>
+              <div class="d-flex justify-content-between">
+                <p>Cantidad:</p>
+                <p class="fs-6 fw-bold">{{CompraData.Cantidad.cantidadTotal}}</p>
+              </div>
+              <div class="d-flex justify-content-between">
+                <p>Precio Unitario:</p>
+                <p class="fs-6 fw-bold">${{CompraData.Producto.price}}</p>
+              </div>
+              <div class="d-flex justify-content-between">
+                <p class="fs-6 fw-bold">Total:</p>  
+                <p class="fs-5 fw-bold">${{CompraData.Cantidad.precioTotal}}</p>
+              </div>
             </div>
           </div>
 

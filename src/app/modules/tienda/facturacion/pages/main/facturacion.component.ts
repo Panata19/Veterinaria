@@ -5,6 +5,7 @@ import { TiendaService } from '../../services/tienda.service';
 import { ProductoData } from '../../interfaces/ProductData';
 import { CompraData } from '../../interfaces/CompraProducto';
 import { ModalCompraComponent } from '../../components/modal-compra/modal-compra.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-facturacion',
@@ -37,7 +38,7 @@ export class FacturacionComponent  {
 
   pageEvent!: PageEvent;
 
-  constructor(private TiendaService: TiendaService, public dialog: MatDialog) { 
+  constructor(private TiendaService: TiendaService, public dialog: MatDialog, private _snackBar: MatSnackBar) { 
     this.Products = TiendaService.getProducts();
     this.length = this.Products.length;
     this.filterProducts()
@@ -74,9 +75,6 @@ export class FacturacionComponent  {
       this.Grid = !this.Grid;
       this.List = !this.List;
     }
-    console.log('Grid', this.Grid)
-    console.log('List', this.List)
-    console.log('----')
   }
   //** Cambiar a Vista Lista **//
   viewList(): void {
@@ -84,9 +82,6 @@ export class FacturacionComponent  {
       this.Grid = !this.Grid;
       this.List = !this.List;
     }
-    console.log('List', this.List)
-    console.log('Grid', this.Grid)
-    console.log('----')
   }
 
   //** Modal Comprar **//
@@ -110,7 +105,23 @@ export class FacturacionComponent  {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      
+      console.log(result)
+      if(result === null||undefined){
+        this.Products = this.TiendaService.getProducts();
+        this.length = this.Products.length;
+        this.filterProducts()
+        this.snackbar('¡Compra realizada con Exito!','success');
+      }
+      this.snackbar('¡Compra Cancelada!','danger');
+    });
+  }
+
+  private snackbar(label: string, style: string): void{
+    this._snackBar.open(label, 'Cerrar', {
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      duration: 2000,
+      panelClass: `snackbar-custom-${style}`
     });
   }
 

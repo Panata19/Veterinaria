@@ -20,7 +20,7 @@ const routes: Routes = [
       {
         path: 'usuarios',
         loadChildren: () => import('./modules/usuario/usuario.module').then(m => m.UsuarioModule),
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
       },
       {
         path: 'inventario',
@@ -35,37 +35,38 @@ const routes: Routes = [
       {
         path: 'hospitalizacion',
         loadChildren: () => import('./modules/hospitalizacion/hospitalizacion.module').then(m => m.HospitalizacionModule),
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
       },
       {
         path: 'historialClinico',
         loadChildren: () => import('./modules/historialClinico/historial-clinico.module').then(m => m.HistorialClinicoModule),
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
       },    
       {
         path: 'cliente',
         loadChildren: () => import('./modules/cliente/cliente.module').then(module => module.ClienteModule),   
-        canActivate: [AuthGuard] 
+        //canActivate: [AuthGuard] 
       },
       {
         path: 'paciente',
         loadChildren: () => import('./modules/paciente/paciente.module').then(module => module.PacienteModule),
-        canActivate: [AuthGuard]
+        //canActivate: [AuthGuard]
       },
       {
         path: 'citas',
         loadChildren: () => import('./modules/citas/citas.module').then(module => module.CitasModule),
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
       },
-      {
-        path: 'error',
-        loadChildren: () => import('./error/error.module').then(m => m.ErrorModule),  
-      },
-      {
-        path: '**',
-        redirectTo: 'error'
-      },
+      
     ]
+  },
+  {
+    path: 'error',
+    loadChildren: () => import('./error/error.module').then(m => m.ErrorModule),  
+  },
+  {
+    path: '**',
+    redirectTo: 'error'
   },
 ];
 

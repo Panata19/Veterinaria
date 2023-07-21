@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { CompraData, CompraPaso1 } from '../../interfaces/CompraProducto';
 
 import { StepperOrientation } from '@angular/material/stepper';
@@ -58,19 +58,18 @@ export class ModalCompraComponent implements OnInit {
     correo: [ '', Validators.email],
   });
 
-  CompraData: any = {
-    Producto: this.data,
-    Cantidad: this.compra,
-    user: this.secondFormGroup.value
-  }
-
   thirdFormGroup = this._formBuilder.group({
     nombre: ['', [Validators.required, Validators.maxLength(30)]],
     direccion: ['', [Validators.required, Validators.maxLength(30)]],  
     telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
     correo: ['', Validators.email],
   });
-  
+
+  CompraData: any = {
+    Producto: this.data,
+    Cantidad: this.compra,
+    user: this.secondFormGroup.value
+  }
 
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -159,7 +158,7 @@ export class ModalCompraComponent implements OnInit {
       apellido: selection.apellidosCliente,
       telefono: selection.telefono,
       direccion: selection.direccion,
-      correo: selection.correo !== '' ? selection.correo : 'No tiene Correo',
+      correo: selection.correo,
     });
     // Obtener todos los Datos  del Cliente
     this.compraCliente = this.secondFormGroup.value;
@@ -215,9 +214,9 @@ export class ModalCompraComponent implements OnInit {
   comprar(){
     if(this.CompraData?.Producto && this.CompraData?.Cantidad && this.CompraData?.user){
       console.log(this.CompraData)
+      this.TiendaService.compraProducto(this.CompraData.Producto,this.CompraData.Cantidad)
     }else {
       console.log('Falto un dato');
-
     }
     
   }
