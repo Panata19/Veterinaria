@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Cliente } from '../../interface/cliente.interface';
 
 import { MatTableDataSource } from '@angular/material/table';
@@ -25,19 +25,17 @@ import { MatSort} from '@angular/material/sort';
 export class ListadoCliComponent implements OnInit {
 
   listcliente: Cliente[] = [];
+  isMobile = false;
+  searchValue: string = '';
 
-  displayedColumns: string[] = ['numDocumento', 'nombreCliente', 'apellidosCliente', 'direccion', 'telefono', 'correo', 'sexo', 'fechaNac', 'nacionalidad', 'acciones'];
+
+  displayedColumns: string[] = ['numDocumento', 'nombreCliente', 'apellidosCliente', 'direccion', 'telefono', 'correo', 'sexo', 'fechaNac', 'nacionalidad', 'estado', 'acciones'];
   dataSource!: MatTableDataSource<Cliente>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-
-
-
- 
   operacion: string = 'Agregar';
-
 
 
   constructor(private _clienteService: ClienteService,
@@ -47,12 +45,25 @@ export class ListadoCliComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarcliente();  
+    this.detectMobile();
 
+  }
+
+  detectMobile() {
+    this.isMobile = window.innerWidth <= 767;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.detectMobile();
+    this.ngAfterViewInit()
   }
 
 
   cargarcliente() {
-    this.listcliente = this._clienteService.getCliente();
+    const clientesActivos = this._clienteService.getCliente().filter(cliente => cliente.estado);    
+    const clientesInactivos = this._clienteService.getCliente().filter(cliente => !cliente.estado);  
+    this.listcliente = [...clientesActivos, ...clientesInactivos];
     this.dataSource = new MatTableDataSource(this.listcliente)
     
 
@@ -65,11 +76,31 @@ export class ListadoCliComponent implements OnInit {
 
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
+  
+    if (this.isMobile) {
+      this.applyMobileFilter(filterValue);
+    }
+  }
+
+  applyMobileFilter(filterValue: string) {
+    this.listcliente = this.dataSource.data.filter(
+      (cliente) =>
+        cliente.nombreCliente.toLowerCase().includes(filterValue) ||
+        cliente.apellidosCliente.toLowerCase().includes(filterValue) ||
+        cliente.numDocumento.toLowerCase().includes(filterValue)
+    );
+  }
+  
+  
+
   abrirModalAgregar(): void {
     const dialogRef = this.dialog.open(AgregarEditarClientesComponent, {
       width: '700px', 
       height: 'auto',
-      data: { modo: 'agregar' } // Enviamos un objeto con el modo 'agregar' al modal
+      data: { modo: 'agregar' } 
     });
   
     dialogRef.afterClosed().subscribe((result: Cliente) => {
@@ -84,8 +115,6 @@ export class ListadoCliComponent implements OnInit {
           verticalPosition: 'bottom',
         });
       }
-
-
 
     });
   }
@@ -139,33 +168,29 @@ export class ListadoCliComponent implements OnInit {
   }
   
 
+ 
 
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  eliminarCliente(id: number) {
+  eliminarCliente(id: number | undefined) {
     const dialogRef = this.dialog.open(ConfirmacionComponent, {
       width: '300px',
       data: '¿Está seguro de que desea eliminar este cliente?',
     });
-  
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this._clienteService.deleteCliente(id);
-        this.cargarcliente();
-        this.ngAfterViewInit()
-  
-        this._snackBar.open('El cliente fue eliminado con éxito', '', {
-          duration: 3000,
-          horizontalPosition: 'right',
-          verticalPosition: 'bottom',
-        });
-  
-       
+        const cliente = this.listcliente.find(c => c.id === id);
+        if (cliente) {
+          cliente.estado = false;
+          this.editarcliente(cliente);
+          this._snackBar.open('El cliente fue marcado como inactivo con éxito', '', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+          });
+        }
       }
+      this.cargarcliente();
+      this.ngAfterViewInit();
     });
   }
 

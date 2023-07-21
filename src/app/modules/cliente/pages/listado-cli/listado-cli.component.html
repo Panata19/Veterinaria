@@ -1,23 +1,62 @@
+<div class="card">
+    <div class="col-md-6  justify-content-start">
+        <button matRipple type="button" class="btn btn-success btn-icon-split" (click)="abrirModalAgregar()">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Nuevo</span>
+        </button>
+    </div>
+</div>
+<br>
+<div class="row ">
+    <mat-form-field appearance="outline" class="col-md-2">
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar..." #input>
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+</div>
+
+
 <div *ngIf="listcliente.length > 0">
-    <div class="card">
-        <div class="col-md-6 d-inline-flex justify-content-start margin">
-            <button matRipple type="button" class="btn btn-success btn-icon-split" (click)="abrirModalAgregar()">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Nuevo</span>
-            </button>
+
+    <!-- Cards para dispositivos móviles -->
+    <div class="cards-container" *ngIf="isMobile">
+
+        <div class="card" *ngFor="let cliente of listcliente">
+            <div class="card-header">
+                <h3>{{ cliente.nombreCliente }} {{ cliente.apellidosCliente }}</h3>
+            </div>
+            <div class="card-content">
+                <p><strong>Cedula o Ruc:</strong> {{ cliente.numDocumento }}</p>
+                <p><strong>Direccion:</strong> {{ cliente.direccion }}</p>
+                <p><strong>Telefono:</strong> {{ cliente.telefono }}</p>
+                <p><strong>Correo:</strong> {{ cliente.correo }}</p>
+                <p><strong>Sexo:</strong> {{ cliente.sexo }}</p>
+                <p style="text-align: center;"
+                    [ngClass]="{'estado-activo': cliente.estado, 'estado-inactivo': !cliente.estado}">
+                    {{ cliente.estado ? 'Activo' : 'Inactivo' }}
+                </p>
+
+
+            </div>
+            <div class="card-actions">
+                <button (click)="abrirModalEditar(cliente)" class="btn btn-primary pointer" matTooltip="Editar">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="btn btn-danger pointer" (click)="eliminarCliente(cliente.id)" matTooltip="Eliminar">
+                    <i class="bi bi-trash-fill"></i>
+                </button>
+            </div>
         </div>
     </div>
 
-    <mat-form-field>
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John" #input>
-    </mat-form-field>
+
+
 
     <div class="mat-elevation-z8 Scroll">
 
-        <table mat-table [dataSource]="dataSource" matSort>
+        <table mat-table [dataSource]="dataSource" matSort *ngIf="!isMobile">
 
             <!-- nombre -->
             <ng-container matColumnDef="numDocumento">
@@ -61,6 +100,7 @@
                 <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
             </ng-container>
 
+
             <!-- edad -->
             <ng-container matColumnDef="fechaNac">
                 <th mat-header-cell *matHeaderCellDef>Fecha de nacimiento </th>
@@ -73,6 +113,18 @@
                 <th mat-header-cell *matHeaderCellDef> Nacionalidad </th>
                 <td mat-cell *matCellDef="let element"> {{element.nacionalidad}} </td>
             </ng-container>
+
+            <!-- Estado -->
+
+            <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                <td mat-cell *matCellDef="let element">
+                    <span [ngClass]="{'estado-activo': element.estado, 'estado-inactivo': !element.estado}">
+                        {{ element.estado ? 'Activo' : 'Inactivo' }}
+                    </span>
+                </td>
+            </ng-container>
+
 
             <!-- Acciones -->
             <ng-container matColumnDef="acciones">
@@ -103,11 +155,11 @@
         </table>
 
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-            aria-label="Select page of periodic elements">
+            aria-label="Select page of periodic elements" [hidden]="isMobile">
         </mat-paginator>
 
     </div>
 </div>
 
-<h2 *ngIf="listcliente.length == 0">No hay resultados de clientes para mostrar <br> <button
-        (click)="abrirModalAgregar()" mat-raised-button color="primary">Agregar</button> </h2>
+<h2 *ngIf="listcliente.length == 0">No hay resultados de clientes para mostrar <br></h2>
+

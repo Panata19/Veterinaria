@@ -9,7 +9,9 @@ export interface Cliente {
     direccion: string;
     correo?: string;
     fechaNac: Date;
-    nacionalidad: string;  
+    nacionalidad: string;
+    estado: boolean;
+    fechaCreacion: Date;  
 }
 
 

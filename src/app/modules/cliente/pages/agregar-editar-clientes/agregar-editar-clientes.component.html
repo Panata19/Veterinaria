@@ -12,10 +12,21 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Número de Documento</mat-label>
                     <input formControlName="numDoc" matInput placeholder="Ingresar Número de Documento">  
-                     
+                   
                 </mat-form-field>
               
             </div>
+
+            <div class="col-md-6" *ngIf="modo === 'editar'">
+                <mat-form-field>
+                  <mat-label>Estado</mat-label>
+                  <mat-select formControlName="estado">
+                    <mat-option [value]="true">Activo</mat-option>
+                    <mat-option [value]="false">Inactivo</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+          
 
             <div class="col-md-6">
                 <mat-form-field appearance="outline">
@@ -68,9 +79,8 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Correo (Opcional)</mat-label>
                     <input formControlName="correo" matInput placeholder="Ingresar Correo (Opcional)">
-
+                    <mat-error>{{getErrorMessage()}}</mat-error> 
                 </mat-form-field>
-                <mat-error>{{getErrorMessage()}}</mat-error>
                 
 
             </div>
