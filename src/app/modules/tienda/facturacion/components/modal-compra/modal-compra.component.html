@@ -13,8 +13,8 @@
     >
       <ng-template matStepContent>
         <form [formGroup]="firstFormGroup">
-          <div class="card wdth-L border-gray border" > <!-- Cards -->
-            <div class="row g-0">
+          <div class="card border-gray border" > <!-- Cards -->
+            <div class="row">
               <div class="col my-auto col-4 col-sm-4 col-md-3 pe-0" > 
                 <img
                     class="img-fluid shade rounded my-2 m-0"
@@ -77,7 +77,7 @@
               <p class="m-0">Cantidad:  
                 <input class="w-fc" matInput placeholder="3" formControlName="cantidad" readonly>
               </p>
-              <p >Iva {{compra.iva}}% :  {{compra.valorIva}}</p>
+              <p >Iva {{compra.iva}}% :  ${{compra.valorIva}}</p>
               <p class="fw-bold fs-6">Total: <span class="fs-5">${{compra.precioTotal}}</span></p>
               <div *ngIf="warning" class="bg-danger rounded">
                 <h3 class="fs-5 text-white p-0 text-center">No se puede {{message()}} más la cantidad</h3>

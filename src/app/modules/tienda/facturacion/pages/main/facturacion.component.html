@@ -119,7 +119,7 @@
                [pageIndex]="pageIndex"
                aria-label="Select page">
       </mat-paginator>
-      <div class="demo-data">
+      <div class="demo-data d-none">
         <div> Output event: {{(pageEvent | json) || 'No events dispatched yet'}} </div>
         <div> getNumberOfPages: {{paginator.getNumberOfPages()}} </div>
       </div>

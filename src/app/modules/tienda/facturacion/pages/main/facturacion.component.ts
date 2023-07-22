@@ -106,13 +106,15 @@ export class FacturacionComponent  {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result)
-      if(result === null||undefined){
+      if(result !== undefined){
         this.Products = this.TiendaService.getProducts();
         this.length = this.Products.length;
         this.filterProducts()
         this.snackbar('¡Compra realizada con Exito!','success');
+      } else {
+        this.snackbar('¡Compra Cancelada!','danger');  
       }
-      this.snackbar('¡Compra Cancelada!','danger');
+      
     });
   }
 

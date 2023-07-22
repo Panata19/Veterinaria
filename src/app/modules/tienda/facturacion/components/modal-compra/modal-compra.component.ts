@@ -162,7 +162,6 @@ export class ModalCompraComponent implements OnInit {
     });
     // Obtener todos los Datos  del Cliente
     this.compraCliente = this.secondFormGroup.value;
-    console.log(this.compraCliente);
   }
 
   aumentar(): void {
