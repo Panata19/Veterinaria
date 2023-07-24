@@ -13,24 +13,24 @@
     >
       <ng-template matStepContent>
         <form [formGroup]="firstFormGroup">
-          <div class="card border-gray border" > <!-- Cards -->
-            <div class="row">
-              <div class="col my-auto col-4 col-sm-4 col-md-3 pe-0" > 
+          <div class="card border-secondary border" > <!-- Cards -->
+            <div class="row px-1 px-sm-auto">
+              <div class="col px-4 px-sm-auto pe-sm-0 my-auto col-12 col-sm-4 col-md-3" > 
                 <img
                     class="img-fluid shade rounded my-2 m-0"
                     [src]="data.image.url"
                     alt="{{data.name}} - {{data.category}}"
                     (load)="data.image.loading = false"
                     onerror="this.src='../assets/img/Artboard.svg'"
-                  >
-                  <mat-progress-bar *ngIf="data.image.loading" mode="indeterminate"></mat-progress-bar>
+                >
+                <mat-progress-bar *ngIf="data.image.loading" mode="indeterminate"></mat-progress-bar>
               </div>
-              <div class="col overflow-auto col-6 col-sm-6 col-md-7" >
+              <div class="overflow-auto col-12 col-sm-5 col-md-6" >
                 <div class="card-body px-0 px-sm-auto py-auto" >
                   <h2 class="card-title fs-4 fw-semibold">{{ data.name }}</h2>
-                  <p class="card-text text-body-secondary">
-                      Existen: {{data.quantitys}}
-                    </p>
+                  <p class="card-text text-body-secondary" [ngClass]="{'text-danger':error}">
+                      {{error?'Solo Existen:':'Existen:'}} {{data.quantitys}}
+                  </p>
                   <div>
                     <span class="me-3">
                       <i class="bi bi-tag tag align-middle"></i>{{data.category}}
@@ -39,30 +39,43 @@
                   </div>
                 </div>
               </div>
-              <div class="col m-auto px-0 px-sm-auto col-2 col-sm-2 col-md-2">
-                <div class="row gap-4 align-items-center" >
+              <div class="col m-auto px-sm-auto col-12 col-sm-3 col-md-3">
+                <div class="align-items-center" >
                   <span class="col-12 fs-5 px-0 px-sm-auto text-secondary-emphasis price align-self-start">
                     ${{data.price}} 
                   </span>
-                  <div class="col-12 price px-0 px-sm-auto align-self-end">
+                  <div class="d-flex flex-row mb-3 price px-0 px-sm-auto">
                     <button
                       matRipple
                       type="button"
-                      class="btn btn-light border-gray shade"
+                      class="btn btn-light border border-secondary rw-0 rounded-start"
+                      [ngClass]="{'border-danger':error}"
                       (click)="disminuir()"
                     >
                       <span class="icon text-black">
-                        <i class="bi bi-dash-lg"></i>
+                        <i class="bi bi-dash-lg" [ngClass]="{'text-danger':error}"></i>
                       </span>
                     </button>
+                    <div 
+                      class="w-10 border border-secondary d-flex text-center align-items-center"
+                      [ngClass]="{'border-danger text-danger':error}"
+                    >
+                      <input 
+                        class="fs-5 w-fc " 
+                        matInput placeholder="3" 
+                        formControlName="cantidad"
+                        (ngModelChange)="changes()"
+                      >
+                    </div>
                     <button
                       matRipple
                       type="button"
-                      class="btn btn-light border-gray shade"
+                      class="btn btn-light border-secondary rw-0 rounded-end"
+                      [ngClass]="{'border-danger':error}"
                       (click)="aumentar()"
                     >
                       <span class="icon text-black">
-                        <i class="bi bi-plus-lg"></i>
+                        <i class="bi bi-plus-lg" [ngClass]="{'text-danger':error}"></i>
                       </span>
                     </button>
                   </div>
@@ -70,15 +83,28 @@
               </div>
             </div>
           </div>
-          <div class="border mt-2 rounded border-gray"><!-- Div Costo Total -->
-            <h3 class="border-bottom fs-6 fw-bold border-gray mx-2 px-2 mb-2">Cuenta:</h3>
+          <div class="border mt-2 rounded border-secondary"><!-- Div Costo Total -->
+            <h3 class="border-bottom fs-6 fw-bold border-secondary mx-2 px-2 mb-2">Cuenta:</h3>
             <div class="ms-2 p-1">
-              <p class="m-0">Precio:          ${{compra.precio}}</p>
-              <p class="m-0">Cantidad:  
-                <input class="w-fc" matInput placeholder="3" formControlName="cantidad" readonly>
+              <p class="m-0 placeholder-glow">Cantidad:
+                <span [ngClass]="{'placeholder col-4 col-sm-2':error}">
+                  {{ error?'':this.firstFormGroup.get('cantidad')?.value}}
+                </span>
               </p>
-              <p >Iva {{compra.iva}}% :  ${{compra.valorIva}}</p>
-              <p class="fw-bold fs-6">Total: <span class="fs-5">${{compra.precioTotal}}</span></p>
+              <p class="m-0 placeholder-glow">SubTotal: 
+                <span [ngClass]="{'placeholder col-4 col-sm-2':error}">
+                  {{ error?'':'$'+compra.precio}}
+                </span>
+              </p>
+              <p class="placeholder-glow"> Iva {{compra.iva}}%:
+                <span [ngClass]="{'placeholder col-4 col-sm-2':error}">
+                  {{ error?'':compra.valorIva}}
+                </span> 
+              </p>
+              <p class="fw-bold fs-6 placeholder-glow">Total: 
+                <span class="fs-5" [ngClass]="{'placeholder col-4 col-sm-2':error}"
+                >{{error?'':'$'+compra.precioTotal}}</span>
+              </p>
               <div *ngIf="warning" class="bg-danger rounded">
                 <h3 class="fs-5 text-white p-0 text-center">No se puede {{message()}} más la cantidad</h3>
               </div>
@@ -86,7 +112,7 @@
           </div>
           
           <mat-dialog-actions align="end">
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <button mat-raised-button color="primary" [disabled]="firstFormGroup.invalid" matStepperNext>Next</button>
           </mat-dialog-actions>
         </form>
       </ng-template>
@@ -174,8 +200,8 @@
       label="Fill out your phone number"
       >
       <ng-template matStepLabel>Done</ng-template>
-        <div class="border row p-3 border-gray rounded">
-          <div class="col border-end border-gray"><!-- Cliente -->
+        <div class="border row p-3 border-secondary rounded">
+          <div class="col border-end border-secondary"><!-- Cliente -->
             <h2>Resumen</h2>
             <form [formGroup]="thirdFormGroup">
               <mat-form-field appearance="outline">
@@ -211,7 +237,7 @@
               </div>
               <div class="d-flex justify-content-between">
                 <p>Cantidad:</p>
-                <p class="fs-6 fw-bold">{{CompraData.Cantidad.cantidadTotal}}</p>
+                <p class="fs-6 fw-bold">{{CompraData.Cantidad.cantidad}}</p>
               </div>
               <div class="d-flex justify-content-between">
                 <p>Precio Unitario:</p>

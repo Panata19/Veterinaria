@@ -7,8 +7,8 @@ import { StepperOrientation } from '@angular/material/stepper';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+
 import { Cliente } from 'src/app/modules/cliente/interface/cliente.interface';
-import { ClienteService } from 'src/app/modules/cliente/service/cliente.service';
 import { TiendaService } from '../../services/tienda.service';
 
 
@@ -22,14 +22,7 @@ export class ModalCompraComponent implements OnInit {
   //** Variables Compra **//
   
   iva: number = 12;
-  
-  compra: CompraPaso1 = {
-    cantidadTotal: 1,
-    precio: 0,
-    valorIva: 0,
-    precioTotal: 0,
-    iva: this.iva,
-  }
+  error: boolean = false;
 
   compraCliente!: Cliente;
 
@@ -46,8 +39,16 @@ export class ModalCompraComponent implements OnInit {
 
   //** Variables para Forms  **//
   firstFormGroup = this._formBuilder.group({
-    cantidad: [this.compra.cantidadTotal, [Validators.required, Validators.min(1)]],
+    cantidad: [1, [Validators.required, Validators.min(1), Validators.max(this.data.quantitys)]],
   });
+  
+  compra: CompraPaso1 = {
+    cantidad: this.firstFormGroup.get('cantidad')?.value,
+    precio: this.data.price,
+    valorIva: 0,
+    iva: this.iva,
+    precioTotal: 0,
+  }
 
   secondFormGroup = this._formBuilder.group({
     numDoc: [ '', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
@@ -78,9 +79,9 @@ export class ModalCompraComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: CompraData,
     private _formBuilder: FormBuilder,
     breakpointObserver: BreakpointObserver,
-    private ClienteService: ClienteService,
     private TiendaService: TiendaService
   ) {
+    console.log(this.data.quantitys)
     //** Primer Calculo de Costos **//
     if(data.quantitys > 0){
       this.compra.precio = data.price;
@@ -125,7 +126,7 @@ export class ModalCompraComponent implements OnInit {
     //** Paso 2 **//
     if (event.selectedIndex === 1) {
       //** Llamar Clientes **//
-      this.Clients = this.ClienteService.getCliente();
+      this.Clients = this.TiendaService.getCliente();
     }
     if(!this.firstFormGroup.valid || !this.secondFormGroup.valid || !this.thirdFormGroup.valid){
       this.labelToolTip = 'Completa los pasos primero';
@@ -165,29 +166,29 @@ export class ModalCompraComponent implements OnInit {
   }
 
   aumentar(): void {
-    if (this.data.quantitys <= this.compra.cantidadTotal) {
+    if (this.data.quantitys <= this.firstFormGroup.get('cantidad')?.value) {
       this.label = 'Aumentar';
       this.advertencia();
       return;
     }
 
     this.compra.precio += this.data.price;
-    this.compra.cantidadTotal++;
-    this.firstFormGroup.get('cantidad')?.setValue(this.compra.cantidadTotal);
+    this.firstFormGroup.get('cantidad')?.setValue(
+      parseInt(this.firstFormGroup.get('cantidad')?.value) +1);
     this.calcularIva(this.compra.precio);
     this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
   }
 
   disminuir(): void {
-    if (this.compra.cantidadTotal <= 0) {
+    if (this.firstFormGroup.get('cantidad')?.value <= 0) {
       this.label = 'Disminuir';
       this.advertencia();
       return;
     }
   
     this.compra.precio -= this.data.price;
-    this.compra.cantidadTotal--;
-    this.firstFormGroup.get('cantidad')?.setValue(this.compra.cantidadTotal);
+    this.firstFormGroup.get('cantidad')?.setValue(
+      parseInt(this.firstFormGroup.get('cantidad')?.value) -1);
     this.calcularIva(this.compra.precio);
     this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
   }
@@ -213,7 +214,7 @@ export class ModalCompraComponent implements OnInit {
   comprar(){
     if(this.CompraData?.Producto && this.CompraData?.Cantidad && this.CompraData?.user){
       console.log(this.CompraData)
-      this.TiendaService.compraProducto(this.CompraData.Producto,this.CompraData.Cantidad)
+      this.TiendaService.compraProducto(this.CompraData);
     }else {
       console.log('Falto un dato');
     }
@@ -221,11 +222,25 @@ export class ModalCompraComponent implements OnInit {
   }
 
   reset(){
-    this.compra.cantidadTotal = 1;
+    this.searchTerm.setValue('');
     this.compra.precio = this.data.price;
     this.calcularIva(this.compra.precio);
-    this.firstFormGroup.get('cantidad')?.setValue(this.compra.cantidadTotal);
+    this.firstFormGroup.get('cantidad')?.setValue(1)
     this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
+  }
+
+  changes(): void{
+    if(this.firstFormGroup.get('cantidad')?.value >= this.data.quantitys) {
+      this.error = true;
+    } else if(this.firstFormGroup.get('cantidad')?.value === '') {
+      this.error = true;
+    } else {
+      this.error = false;
+
+      this.compra.precio = this.data.price * parseInt(this.firstFormGroup.get('cantidad')?.value);
+      this.calcularIva(this.compra.precio);
+      this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
+    }
   }
 
 }

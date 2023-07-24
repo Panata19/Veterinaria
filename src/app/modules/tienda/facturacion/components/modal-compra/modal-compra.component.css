@@ -4,3 +4,9 @@
 .w-fc{
   width: fit-content;
 }
+.w-10{
+  width: 40px;
+}
+.rw-0{
+  border-radius: 0;
+}

@@ -4,7 +4,7 @@ export interface CompraData extends ProductoData{
 }
 
 export interface CompraPaso1{
-  cantidadTotal: number;
+  cantidad: number;
   precio: number;
   valorIva: number;
   precioTotal: number;
