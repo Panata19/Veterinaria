@@ -125,8 +125,8 @@
       <ng-template matStepContent>
         <form [formGroup]="secondFormGroup"
         >
-          <div class="col px-0 px-sm-auto">
-            <mat-form-field appearance="outline"><!-- Buscador Cliente -->
+          <div class="col px-0">
+            <mat-form-field appearance="outline" class="mw-100" ><!-- Buscador Cliente -->
               <mat-label>Buscar Usuario</mat-label>
               <input matInput 
                 [formControl]="searchTerm"
@@ -144,47 +144,47 @@
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
           </div><!-- Fin Buscador Cliente -->
-          <div class="row mx-3">
-            <div class="col-md-6">
-              <mat-form-field appearance="outline">
-                  <mat-label>Número de Documento</mat-label>
-                  <input formControlName="numDoc" matInput placeholder="Número de Documento"> 
+          <div class="row mx-0 mx-sm-3">
+            <div class="col-md-6 px-0 px-sm-auto">
+              <mat-form-field appearance="outline" class="mw-100">
+                <mat-label>Número de Documento</mat-label>
+                <input formControlName="numDoc" matInput placeholder="Número de Documento"> 
               </mat-form-field>
             </div>
 
-            <div class="col-md-6">
-              <mat-form-field appearance="outline">
-                  <mat-label>Teléfono</mat-label>
-                  <input formControlName="telefono" matInput placeholder="Teléfono">
+            <div class="col-md-6 px-0 px-sm-auto">
+              <mat-form-field appearance="outline" class="mw-100">
+                <mat-label>Teléfono</mat-label>
+                <input formControlName="telefono" matInput placeholder="Teléfono">
               </mat-form-field>
             </div>
 
-            <div class="col-md-6">
-                <mat-form-field appearance="outline">
-                    <mat-label>Nombre</mat-label>
-                    <input formControlName="nombre" matInput placeholder="Nombre">
-                </mat-form-field>
+            <div class="col-md-6 px-0 px-sm-auto">
+              <mat-form-field appearance="outline" class="mw-100">
+                <mat-label>Nombre</mat-label>
+                <input formControlName="nombre" matInput placeholder="Nombre">
+              </mat-form-field>
             </div>
 
-            <div class="col-md-6">
-                <mat-form-field appearance="outline">
-                    <mat-label>Apellido</mat-label>
-                    <input formControlName="apellido" matInput placeholder="Apellido">
-                </mat-form-field>
+            <div class="col-md-6 px-0 px-sm-auto">
+              <mat-form-field appearance="outline" class="mw-100">
+                <mat-label>Apellido</mat-label>
+                <input formControlName="apellido" matInput placeholder="Apellido">
+              </mat-form-field>
             </div>
 
-            <div class="col-md-6">
-                <mat-form-field appearance="outline">
-                    <mat-label>Dirección</mat-label>
-                    <input formControlName="direccion" matInput placeholder="Dirección">
-                </mat-form-field>
+            <div class="col-md-6 px-0 px-sm-auto">
+              <mat-form-field appearance="outline" class="mw-100">
+                <mat-label>Dirección</mat-label>
+                <input formControlName="direccion" matInput placeholder="Dirección">
+              </mat-form-field>
             </div>
 
-            <div class="col-md-6">
-                <mat-form-field appearance="outline">
-                    <mat-label>Correo (Opcional)</mat-label>
-                    <input formControlName="correo" matInput placeholder="Correo (Opcional)">
-                </mat-form-field>
+            <div class="col-md-6 px-0 px-sm-auto">
+              <mat-form-field appearance="outline" class="mw-100">
+                <mat-label>Correo (Opcional)</mat-label>
+                <input formControlName="correo" matInput placeholder="Correo (Opcional)">
+              </mat-form-field>
             </div>
           </div>
           <mat-dialog-actions align="end">
@@ -201,22 +201,22 @@
       >
       <ng-template matStepLabel>Done</ng-template>
         <div class="border row p-3 border-secondary rounded">
-          <div class="col border-end border-secondary"><!-- Cliente -->
+          <div class="col px-0 px-sm-auto border-end border-secondary"><!-- Cliente -->
             <h2>Resumen</h2>
             <form [formGroup]="thirdFormGroup">
-              <mat-form-field appearance="outline">
+              <mat-form-field appearance="outline" class="mw-100">
                 <mat-label>Nombre Completo</mat-label>
                 <input formControlName="nombre" matInput placeholder="Nombre" readonly>
               </mat-form-field>
-              <mat-form-field appearance="outline">
+              <mat-form-field appearance="outline" class="mw-100">
                 <mat-label>Dirección</mat-label>
                 <input formControlName="direccion" matInput placeholder="Dirección" readonly>
               </mat-form-field>
-              <mat-form-field appearance="outline">
+              <mat-form-field appearance="outline" class="mw-100">
                 <mat-label>Teléfono</mat-label>
                 <input formControlName="telefono" matInput placeholder="Teléfono" readonly>
               </mat-form-field>
-              <mat-form-field appearance="outline">
+              <mat-form-field appearance="outline" class="mw-100">
                 <mat-label>Correo (Opcional)</mat-label>
                 <input formControlName="correo" matInput placeholder="Correo (Opcional)" readonly>
              </mat-form-field>
