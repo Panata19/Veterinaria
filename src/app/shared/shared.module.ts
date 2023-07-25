@@ -4,10 +4,13 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LogoutModalComponent } from './components/logout-modal/logout-modal.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { InventarioRoutingModule } from '../modules/inventario/inventario-routing.module';
+
 import { MaterialModule } from '../modules/material/material.module';
 import { TitleCardComponent } from './cards/title-card/title-card.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-delete-modal.component';
+
+import { PacienteRoutingModule } from '../modules/paciente/paciente-routing.module';
 
 
 
@@ -18,19 +21,21 @@ import { MenuComponent } from './components/menu/menu.component';
     LogoutModalComponent,
     FooterComponent,
     TitleCardComponent,
-    MenuComponent
+    MenuComponent,
+    ConfirmationModalComponent
   ],
   imports: [
     CommonModule,
-    InventarioRoutingModule,
-    MaterialModule
+    MaterialModule,
+    PacienteRoutingModule
   ],
   exports: [
     SidebarComponent,
     NavbarComponent,
     LogoutModalComponent,
     FooterComponent,
-    TitleCardComponent
+    TitleCardComponent,
+    ConfirmationModalComponent
   ],
 })
 export class SharedModule { }

@@ -24,7 +24,20 @@ const routes: Routes = [
       },
       {
         path: 'inventario',
-        loadChildren: () => import('./modules/inventario/inventario.module').then(m => m.InventarioModule),
+        children: [
+          {
+            path: 'bodega',
+            loadChildren: () => import('./modules/inventario/bodega/bodega.module').then(m => m.BodegaModule),
+          },
+          {
+            path: 'productos',
+            loadChildren: () => import('./modules/inventario/producto/producto.module').then(m => m.ProductoModule),
+          },
+          {
+            path: 'suministros',
+            loadChildren: () => import('./modules/inventario/suministros/suministros.module').then(m => m.SuministrosModule),
+          }
+        ]
         //canActivate: [AuthGuard],
       },
       {
