@@ -117,10 +117,10 @@
             <mat-label>Estatus:</mat-label>
             <mat-select 
               required
-              formControlName="status"
+              formControlName="stock"
             >
               <mat-select-trigger>
-                <div [innerHTML]="myForm.get('status')!.value||'' | badges"></div>
+                <div [innerHTML]="myForm.get('stock')!.value||'' | badges"></div>
               </mat-select-trigger>
               <mat-option selec [value]="option.value" *ngFor="let option of Types">
                 <div [innerHTML]="option.viewValue | badges"></div>

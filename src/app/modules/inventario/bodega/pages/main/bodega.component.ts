@@ -24,7 +24,7 @@ import { BodegaService } from '../../services/bodega.service';
 })
 export class BodegaComponent implements AfterViewInit{
 
-  displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'status','buttons'];
+  displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'stock','buttons'];
   dataSource: MatTableDataSource<BodegaTable>;
   selection: SelectionModel<BodegaTable>;
   users!:BodegaTable[];
@@ -44,7 +44,7 @@ export class BodegaComponent implements AfterViewInit{
   //** Logica Añadir Nuevo Bodegao **//
   addBodega(){
     let id: number, price: number, quantitys: number;
-    let name: string, category: string, status:string;
+    let name: string, category: string, stock:string;
     let image: ImageInfo = {
       url: '',
       loading: true
@@ -59,7 +59,7 @@ export class BodegaComponent implements AfterViewInit{
         price: price!,
         category: category!,
         quantitys: quantitys!,
-        status: status!,
+        stock: stock!,
         buttons: buttons
       },
     });
@@ -80,7 +80,7 @@ export class BodegaComponent implements AfterViewInit{
   //** Logica Editar Nuevo Bodegao **//
   EditBodega(row: BodegaTable){
     let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
-    let name: string = row.name, category: string = row.category, status:string = row.status;
+    let name: string = row.name, category: string = row.category, stock:string = row.stock;
     let image: ImageInfo = {
       url: row.image.url,
       loading: true
@@ -95,7 +95,7 @@ export class BodegaComponent implements AfterViewInit{
         price: price,
         category: category,
         quantitys: quantitys,
-        status: status,
+        stock: stock,
         buttons: buttons
       },
     });

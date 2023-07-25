@@ -5,7 +5,7 @@ export interface ProductoData {
   price: number;
   category: string;
   quantitys: number;
-  status: string;
+  stock: string;
 }
 
 export interface ProductoTable extends ProductoData {

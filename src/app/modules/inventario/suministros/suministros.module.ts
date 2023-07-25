@@ -13,7 +13,7 @@ import { EditSuministrosModalComponent } from './components/edit-suministros-mod
 import { SuministrosRoutingModule } from './suministros-routing.module';
 
 import { MatProgressBarModule} from '@angular/material/progress-bar'; 
-import { SuministroPaginatorIntl } from './components/suministros-paginator-intl/suministro-paginator-intl';
+import { SuministroPaginatorIntl } from './components/custom-paginator/suministro-paginator-intl';
 import { SuministrosComponent } from './pages/main/suministros.component';
 
 

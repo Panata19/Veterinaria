@@ -19,7 +19,7 @@ export class EditProductModalComponent implements OnInit {
     id: [this.data.id, [Validators.required, Validators.pattern('^[0-9]+$')]],
     name: [this.data.name, Validators.required],
     image: [this.data.image.url, Validators.required],
-    status: [this.data.status, Validators.required],
+    stock: [this.data.stock, Validators.required],
     category: [this.data.category, Validators.required],
     price: [this.data.price, [Validators.required, Validators.pattern('^[0-9]+$')]],
     quantitys: [this.data.quantitys, [Validators.required, Validators.pattern('^[0-9]+$')]],
@@ -51,7 +51,7 @@ export class EditProductModalComponent implements OnInit {
     price: false,
     category: false,
     quantitys: false,
-    status: false,
+    stock: false,
   }
   //** Mensajes de Error **//
   checklabel = {
@@ -61,7 +61,7 @@ export class EditProductModalComponent implements OnInit {
     price: '',
     category: '',
     quantitys: '',
-    status: '',
+    stock: '',
   }
 
   //** Validaciones para Campos - Checks y Clears **//
@@ -122,19 +122,19 @@ export class EditProductModalComponent implements OnInit {
   checkCantidadxEstatus(quantitys: AbstractControl | null){
     switch (true) {
       case quantitys!.value > 10:
-        this.myForm.get('status')!.setValue('IN STOCK');
+        this.myForm.get('stock')!.setValue('IN STOCK');
         break;
       case quantitys!.value > 0 && quantitys!.value <= 10:
-        this.myForm.get('status')!.setValue('LOW STOCK');
+        this.myForm.get('stock')!.setValue('LOW STOCK');
         break;
       case quantitys!.value === 0:
-        this.myForm.get('status')!.setValue('OUT OF STOCK');
+        this.myForm.get('stock')!.setValue('OUT OF STOCK');
         break;
     }
   }
 
   compruebaUrl(image: any): void{
-    if(image?.status === 'VALID'){
+    if(image?.stock === 'VALID'){
       this.comprobandoUrl = image?.value.endsWith(".png") || image?.value.endsWith(".jpg");
       this.imgPreview = image?.value;
     }
@@ -157,7 +157,7 @@ export class EditProductModalComponent implements OnInit {
     this.data.price = this.myForm.get('price')!.value;
     this.data.category = this.myForm.get('category')!.value;
     this.data.quantitys = this.myForm.get('quantitys')!.value;
-    this.data.status = this.myForm.get('status')!.value;
+    this.data.stock = this.myForm.get('stock')!.value;
   }
 
 }

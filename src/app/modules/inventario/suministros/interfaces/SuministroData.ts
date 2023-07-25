@@ -5,7 +5,7 @@ export interface SuministroData {
   price: number;
   category: string;
   quantitys: number;
-  status: string;
+  stock: string;
 }
 
 export interface SuministroTable extends SuministroData{

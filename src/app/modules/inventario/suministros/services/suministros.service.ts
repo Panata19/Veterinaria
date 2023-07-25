@@ -76,7 +76,7 @@ export class SuministroService {
       price: price,
       category: category,
       quantitys: quantitys,
-      status: estadoStock(quantitys),
+      stock: estadoStock(quantitys),
     };
   }
 
@@ -134,7 +134,7 @@ export class SuministroService {
       // Accede al objeto utilizando el índice encontrado
       this.productsDB[index].id = editSuministro.id;
       this.productsDB[index].name = editSuministro.name;
-      this.productsDB[index].status= editSuministro.status;
+      this.productsDB[index].stock= editSuministro.stock;
       this.productsDB[index].quantitys= editSuministro.quantitys;
       this.productsDB[index].image= editSuministro.image;
       this.productsDB[index].price= editSuministro.price;

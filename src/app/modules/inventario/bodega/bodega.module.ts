@@ -11,7 +11,7 @@ import { AddBodegaModalComponent } from './components/add-bodega-modal/add-bodeg
 import { EditBodegaModalComponent } from './components/edit-bodega-modal/edit-bodega-modal.component';
 
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
-import { BodegaPaginatorIntl } from './components/bodega-paginator-intl/bodega-paginator-intl';
+import { BodegaPaginatorIntl } from './components/custom-paginator/bodega-paginator-intl';
 import { BodegaComponent } from './pages/main/bodega.component';
 
 

@@ -11,7 +11,7 @@ import { EditProductModalComponent } from './components/edit-product-modal/edit-
 import { AddProductModalComponent } from './components/add-product-modal/add-product-modal.component';
 
 import { MatPaginatorIntl } from '@angular/material/paginator';
-import { ProductoPaginatorIntl } from './components/producto-paginator-intl/producto-paginator-intl';
+import { ProductoPaginatorIntl } from './components/custom-paginator/producto-paginator-intl';
 import { ProductoComponent } from './pages/main/producto.component';
 
 

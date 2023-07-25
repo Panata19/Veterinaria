@@ -77,7 +77,7 @@ export class BodegaService {
       price: price,
       category: category,
       quantitys: quantitys,
-      status: estadoStock(quantitys),
+      stock: estadoStock(quantitys),
     };
   }
 
@@ -136,7 +136,7 @@ export class BodegaService {
       // Accede al objeto utilizando el índice encontrado
       this.productsDB[index].id = editBodega.id;
       this.productsDB[index].name = editBodega.name;
-      this.productsDB[index].status= editBodega.status;
+      this.productsDB[index].stock= editBodega.stock;
       this.productsDB[index].quantitys= editBodega.quantitys;
       this.productsDB[index].image= editBodega.image;
       this.productsDB[index].price= editBodega.price;

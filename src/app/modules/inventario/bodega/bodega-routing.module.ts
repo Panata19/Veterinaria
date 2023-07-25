@@ -5,11 +5,11 @@ import { BodegaComponent } from './pages/main/bodega.component';
 
 const routes: Routes = [
   {
-    path: 'Home',
+    path: '',
     component: BodegaComponent
   },
   {
-    path: '**', redirectTo: 'Home'
+    path: '**', redirectTo: ''
   }
 ]
 

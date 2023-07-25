@@ -24,7 +24,7 @@ import { ProductsService } from '../../services/products.service';
 })
 export class ProductoComponent implements AfterViewInit  {
   
-  displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'status','buttons'];
+  displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'stock','buttons'];
   dataSource: MatTableDataSource<ProductoTable>;
   selection: SelectionModel<ProductoTable>;
   users!:ProductoTable[];
@@ -44,7 +44,7 @@ export class ProductoComponent implements AfterViewInit  {
   //** Logica Añadir Nuevo Producto **//
   addProduct(){
     let id: number, price: number, quantitys: number;
-    let name: string, category: string, status:string;
+    let name: string, category: string, stock:string;
     let image: ImageInfo = {
       url: '',
       loading: true
@@ -59,7 +59,7 @@ export class ProductoComponent implements AfterViewInit  {
         price: price!,
         category: category!,
         quantitys: quantitys!,
-        status: status!,
+        stock: stock!,
         buttons: buttons
       },
     });
@@ -80,7 +80,7 @@ export class ProductoComponent implements AfterViewInit  {
   //** Logica Editar Nuevo Producto **//
   EditProduct(row: ProductoTable){
     let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
-    let name: string = row.name, category: string = row.category, status:string = row.status;
+    let name: string = row.name, category: string = row.category, stock:string = row.stock;
     let image: ImageInfo = {
       url: row.image.url,
       loading: true
@@ -95,7 +95,7 @@ export class ProductoComponent implements AfterViewInit  {
         price: price,
         category: category,
         quantitys: quantitys,
-        status: status,
+        stock: stock,
         buttons: buttons
       },
     });

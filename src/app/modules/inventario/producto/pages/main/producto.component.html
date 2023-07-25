@@ -113,15 +113,15 @@
     <!-- Quantitys Column -->
     <ng-container matColumnDef="quantitys">
       <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header>
-        Quantity
+        Cantidad
       </th>
       <td mat-cell *matCellDef="let row">{{ row.quantitys }}</td>
     </ng-container>
 
-    <!-- Status Column -->
-    <ng-container matColumnDef="status">
+    <!-- Stock Column -->
+    <ng-container matColumnDef="stock">
       <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header>
-        Status
+        Stock
       </th>
       <td mat-cell *matCellDef="let row">
         <div [innerHTML]="row | status"></div>

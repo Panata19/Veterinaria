@@ -76,7 +76,7 @@ export class ProductsService {
       price: price,
       category: category,
       quantitys: quantitys,
-      status: estadoStock(quantitys),
+      stock: estadoStock(quantitys),
     };
   }
 
@@ -135,12 +135,12 @@ export class ProductsService {
       // Accede al objeto utilizando el índice encontrado
       this.productsDB[index].id = editProduct.id;
       this.productsDB[index].name = editProduct.name;
-      this.productsDB[index].status= editProduct.status;
-      this.productsDB[index].quantitys= editProduct.quantitys;
-      this.productsDB[index].image= editProduct.image;
-      this.productsDB[index].price= editProduct.price;
-      this.productsDB[index].category= editProduct.category;
-      this.productsDB[index].buttons= editProduct.buttons;
+      this.productsDB[index].stock = editProduct.stock;
+      this.productsDB[index].quantitys = editProduct.quantitys;
+      this.productsDB[index].image = editProduct.image;
+      this.productsDB[index].price = editProduct.price;
+      this.productsDB[index].category = editProduct.category;
+      this.productsDB[index].buttons = editProduct.buttons;
 
       // Realiza las modificaciones necesarias en el objeto
     } else {

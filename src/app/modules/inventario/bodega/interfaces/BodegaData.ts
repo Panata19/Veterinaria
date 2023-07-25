@@ -5,7 +5,7 @@ export interface BodegaData {
   price: number;
   category: string;
   quantitys: number;
-  status: string;
+  stock: string;
 }
 
 export interface BodegaTable extends BodegaData {

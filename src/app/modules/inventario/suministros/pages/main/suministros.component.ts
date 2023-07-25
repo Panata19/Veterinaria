@@ -24,7 +24,7 @@ import { SuministroService } from '../../services/suministros.service';
 export class SuministrosComponent implements AfterViewInit {
 
   
-  displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'status','buttons'];
+  displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'stock','buttons'];
   dataSource: MatTableDataSource<SuministroTable>;
   selection: SelectionModel<SuministroTable>;
   users!:SuministroTable[];
@@ -79,7 +79,7 @@ export class SuministrosComponent implements AfterViewInit {
   //** Logica Editar Nuevo Suministro **//
   EditSuministro(row: SuministroTable){
     let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
-    let name: string = row.name, category: string = row.category, status:string = row.status;
+    let name: string = row.name, category: string = row.category, status:string = row.stock;
     let image: ImageInfo = {
       url: row.image.url,
       loading: true
