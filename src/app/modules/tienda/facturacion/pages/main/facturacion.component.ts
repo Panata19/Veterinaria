@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+
+import { Store } from '@ngrx/store';
+import { agregarObjeto, eliminarObjeto } from '../../services/app.actions';
+import { AppState, Objeto } from '../../services/app.state';
+
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { TiendaService } from '../../services/tienda.service';
@@ -37,11 +42,29 @@ export class FacturacionComponent  {
   disabled = false;
 
   pageEvent!: PageEvent;
-
-  constructor(private TiendaService: TiendaService, public dialog: MatDialog, private _snackBar: MatSnackBar) { 
+  
+  objetos!: Objeto[];
+  constructor(
+    private TiendaService: TiendaService,
+    public dialog: MatDialog, private _snackBar: MatSnackBar,
+    private store: Store<{ app: AppState }>) { 
+    
+      this.store.select(state => state.app.objetos).subscribe(objetos => {
+      console.log(objetos);
+      this.objetos = objetos;
+    });
+    
     this.Products = TiendaService.getProducts();
     this.length = this.Products.length;
-    this.filterProducts()
+    this.filterProducts()    
+  }
+
+  agregarCarrito(objeto: Objeto) {
+    this.store.dispatch(agregarObjeto({ objeto }));
+  }
+
+  eliminarCarrito(id: number) {
+    this.store.dispatch(eliminarObjeto({ id }));
   }
 
   //** Metodo para filtrar las cards **//

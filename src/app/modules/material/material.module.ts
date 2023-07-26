@@ -26,7 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge'; 
-
+import { MatSidenavModule } from '@angular/material/sidenav'; 
 
 
 @NgModule({
@@ -58,7 +58,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatTooltipModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatSidenavModule
   ],
 })
 export class MaterialModule {}

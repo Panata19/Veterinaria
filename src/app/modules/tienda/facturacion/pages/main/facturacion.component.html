@@ -10,7 +10,7 @@
     <button
       matRipple  type="button"
       class="btn btn-primary rounded-circle shade p-auto w50 h50 me-4"
-      matBadge="8+" matBadgePosition="above after" matBadgeColor="warn">
+      [matBadge]="objetos.length" matBadgePosition="above after" matBadgeColor="warn">
       <mat-icon class="align-middle">shopping_cart</mat-icon>
     </button>
     <mat-button-toggle-group aria-label="Font Style" class="border border-gray" >
@@ -102,7 +102,8 @@
             [ngClass]="{'col-5': Grid,'col-12 align-self-end': List}" >
               <button mat-mini-fab color="primary" class="btn-primary" 
                 aria-label="Boton Añadir carrito"  [disabled]="item.quantitys <= 0"
-                (click)="procesoCompra(item)">
+                (click)="procesoCompra(item)"
+                (click)="agregarCarrito({id:1,nombre:'King'})">
                 <mat-icon> add_shopping_cart </mat-icon>
               </button>
             </div>
@@ -112,16 +113,16 @@
     </div>
     <!--- Paginator --->
     <mat-paginator #paginator
-               class="demo-paginator"
-               (page)="handlePageEvent($event)"
-               [length]="length"
-               [pageSize]="pageSize"
-               [disabled]="disabled"
-               [showFirstLastButtons]="showFirstLastButtons"
-               [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
-               [hidePageSize]="hidePageSize"
-               [pageIndex]="pageIndex"
-               aria-label="Select page">
+                class="demo-paginator"
+                (page)="handlePageEvent($event)"
+                [length]="length"
+                [pageSize]="pageSize"
+                [disabled]="disabled"
+                [showFirstLastButtons]="showFirstLastButtons"
+                [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+                [hidePageSize]="hidePageSize"
+                [pageIndex]="pageIndex"
+                aria-label="Select page">
       </mat-paginator>
       <div class="demo-data d-none">
         <div> Output event: {{(pageEvent | json) || 'No events dispatched yet'}} </div>
