@@ -6,8 +6,14 @@
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
-  <div class="col text-end">
-    <mat-button-toggle-group aria-label="Font Style" >
+  <div class="col d-flex align-items-center justify-content-end">
+    <button
+      matRipple  type="button"
+      class="btn btn-primary rounded-circle shade p-auto w50 h50 me-4"
+      matBadge="8+" matBadgePosition="above after" matBadgeColor="warn">
+      <mat-icon class="align-middle">shopping_cart</mat-icon>
+    </button>
+    <mat-button-toggle-group aria-label="Font Style" class="border border-gray" >
       <mat-button-toggle 
         value="view_list" 
         aria-label="List View"
@@ -20,7 +26,6 @@
         >view_list</mat-icon>
       </mat-button-toggle>
       <mat-button-toggle 
-        
         value="view_grid" 
         aria-label="Grid View"
         (change)="viewGrid()"
@@ -91,15 +96,14 @@
             class="row gap-4 align-items-center"
             [ngClass]="{'justify-content-between mb-3': Grid }"
           >
-            <span class="col fs-5 px-0 px-sm-auto text-secondary-emphasis price" [ngClass]="{'align-self-start': List}" > ${{item.price}} </span>
-            <div class="col price px-0 px-sm-auto" [ngClass]="{'align-self-end': List}" >
-              <button
-                type="button"
-                class="btn btn-primary rounded-circle shade p-auto"
-                [disabled]="item.quantitys <= 0"
-                (click)="procesoCompra(item)"
-              >
-                <i class="bi bi-cart"></i>
+            <span class="fs-5 px-0 px-sm-auto text-secondary-emphasis price" 
+            [ngClass]="{'col-5': Grid,'col-12 align-self-start': List}" > ${{item.price}} </span>
+            <div class="col-12 price px-0 px-sm-auto" 
+            [ngClass]="{'col-5': Grid,'col-12 align-self-end': List}" >
+              <button mat-mini-fab color="primary" class="btn-primary" 
+                aria-label="Boton Añadir carrito"  [disabled]="item.quantitys <= 0"
+                (click)="procesoCompra(item)">
+                <mat-icon> add_shopping_cart </mat-icon>
               </button>
             </div>
           </div>

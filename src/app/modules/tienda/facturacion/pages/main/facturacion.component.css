@@ -19,6 +19,22 @@ div.card.wdth-L {
   padding: auto;
 }
 
+.w50{ width: 50px; }
+.h50{ height: 50px; }
+.btnAdd{ 
+  box-sizing: content-box;
+  width: auto;
+  height: auto;
+}
+
+.btn-primary{
+  background-color: #2e59d9 !important;
+}
+
+.mat-icon{
+  font-size: 25px;
+}
+
 /* Media query para pantallas mayores a xl */
 @media (min-width: 1200px) {
   div.card.wdth-G {
