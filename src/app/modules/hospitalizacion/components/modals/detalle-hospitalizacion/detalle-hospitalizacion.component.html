@@ -1,4 +1,5 @@
-<div class="container_datails">
+<section class="container_datails">
+    <!-- Detalles Paciente -->
     <div class="container_detail">
         <div class="detail_title">
             <div class="detail_icon">
@@ -9,30 +10,31 @@
         <div class="detail_body">
             <div class="detail_text">
                 <h3>Nombre: </h3>
-                <p>connie</p>
+                <p>{{ hospitalizacion.paciente.nombrePaciente }}</p>
             </div>
             <div class="detail_text">
                 <h3>Tipo: </h3>
-                <p>perro</p>
+                <p>{{ hospitalizacion.paciente.tipoPaciente.tipoPaciente }}</p>
             </div>
             <div class="detail_text">
                 <h3>raza: </h3>
-                <p>pequine</p>
+                <p>{{ hospitalizacion.paciente.raza }}</p>
             </div>
             <div class="detail_text">
                 <h3>Fecha Nacimiento: </h3>
-                <p>2020-06-12</p>
+                <p>{{ hospitalizacion.paciente.fechaNac | date}}</p>
             </div>
             <div class="detail_text">
                 <h3>Edad: </h3>
-                <p>2</p>
+                <p>{{ hospitalizacion.paciente.edad }}</p>
             </div>
             <div class="detail_text">
                 <h3>Sexo: </h3>
-                <p>Hembra</p>
+                <p>{{ hospitalizacion.paciente.sexo }}</p>
             </div>
         </div>
     </div>
+    <!-- Detalles Hospitalizacion -->
     <div class="container_detail">
         <div class="detail_title">
             <div class="detail_icon">
@@ -43,18 +45,19 @@
         <div class="detail_body">
             <div class="detail_text">
                 <h3>Motivo:</h3>
-                <p>Fractura de pata</p>
+                <p>{{ hospitalizacion.motivo }}</p>
             </div>
             <div class="detail_text">
                 <h3>Fecha de Ingreso:</h3>
-                <p>2023-07-13</p>
+                <p>{{ hospitalizacion.fechaIngreso | date}}</p>
             </div>
             <div class="detail_text">
                 <h3>Fecha de salida:</h3>
-                <p>2023-07-15</p>
+                <p>{{ hospitalizacion.fechaSalida | date}}</p>
             </div>
         </div>
     </div>
+    <!-- Detalles Cirugía -->
     <div class="container_detail">
         <div class="detail_title">
             <div class="detail_icon">
@@ -77,4 +80,4 @@
             </div>
         </div>
     </div>
-</div>
+</section>

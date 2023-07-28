@@ -40,13 +40,13 @@
 
     <ng-container matColumnDef="fechaNac">
       <th mat-header-cell 
-          *matHeaderCellDef> Edad </th>
+          *matHeaderCellDef> Fecha Nacimiento </th>
       <td mat-cell *matCellDef="let data"> {{data.fechaNac}} </td>
     </ng-container>
     
     <ng-container matColumnDef="opciones">
       <th mat-header-cell 
-          *matHeaderCellDef> Edad </th>
+          *matHeaderCellDef> opciones </th>
       <td mat-cell class="cell_options" *matCellDef="let data"> 
         <button (click)="irPaginaHistorialClinicaPaciente()" 
                 class="btn btn-primary btn_detalles_hospitalizacion">

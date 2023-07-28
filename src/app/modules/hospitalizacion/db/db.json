@@ -2,18 +2,18 @@
   "pacientes": [
     {
       "idPaciente": 1,
-      "nombreMascota": "Max",
-      "tipoMascota": "Perro",
+      "nombrePaciente": "Max",
+      "tipoPaciente": "Perro",
       "raza": "Labrador Retriever",
       "edad": 5,
       "sexo": "masculino",
-      "fechaNac": "2018-07-08",
+      "fechaNac": "2022-06-06",
       "id": 1
     },
     {
       "idPaciente": 2,
-      "nombreMascota": "Luna",
-      "tipoMascota": "Gato",
+      "nombrePaciente": "Luna",
+      "tipoPaciente": "Gato",
       "raza": "Siamés",
       "edad": 3,
       "sexo": "femenino",
@@ -22,8 +22,8 @@
     },
     {
       "idPaciente": 3,
-      "nombreMascota": "Bobby",
-      "tipoMascota": "Perro",
+      "nombrePaciente": "Bobby",
+      "tipoPaciente": "Perro",
       "raza": "Bulldog Francés",
       "edad": 2,
       "sexo": "masculino",
@@ -32,8 +32,8 @@
     },
     {
       "idPaciente": 4,
-      "nombreMascota": "Nala",
-      "tipoMascota": "Gato",
+      "nombrePaciente": "Nala",
+      "tipoPaciente": "Gato",
       "raza": "Persa",
       "edad": 4,
       "sexo": "femenino",
@@ -42,8 +42,8 @@
     },
     {
       "idPaciente": 5,
-      "nombreMascota": "Rocky",
-      "tipoMascota": "Perro",
+      "nombrePaciente": "Rocky",
+      "tipoPaciente": "Perro",
       "raza": "Golden Retriever",
       "edad": 7,
       "sexo": "masculino",
@@ -52,8 +52,8 @@
     },
     {
       "idPaciente": 6,
-      "nombreMascota": "Coco",
-      "tipoMascota": "Perro",
+      "nombrePaciente": "Coco",
+      "tipoPaciente": "Perro",
       "raza": "Chihuahua",
       "edad": 1,
       "sexo": "masculino",
@@ -62,8 +62,8 @@
     },
     {
       "idPaciente": 7,
-      "nombreMascota": "Simba",
-      "tipoMascota": "Gato",
+      "nombrePaciente": "Simba",
+      "tipoPaciente": "Gato",
       "raza": "Bengalí",
       "edad": 2,
       "sexo": "masculino",
@@ -72,8 +72,8 @@
     },
     {
       "idPaciente": 8,
-      "nombreMascota": "Milo",
-      "tipoMascota": "Perro",
+      "nombrePaciente": "Milo",
+      "tipoPaciente": "Perro",
       "raza": "Border Collie",
       "edad": 4,
       "sexo": "masculino",
@@ -82,8 +82,8 @@
     },
     {
       "idPaciente": 9,
-      "nombreMascota": "Lola",
-      "tipoMascota": "Gato",
+      "nombrePaciente": "Lola",
+      "tipoPaciente": "Gato",
       "raza": "Maine Coon",
       "edad": 6,
       "sexo": "femenino",
@@ -92,8 +92,8 @@
     },
     {
       "idPaciente": 10,
-      "nombreMascota": "Bella",
-      "tipoMascota": "Perro",
+      "nombrePaciente": "Bella",
+      "tipoPaciente": "Perro",
       "raza": "Poodle",
       "edad": 3,
       "sexo": "femenino",
@@ -102,8 +102,8 @@
     },
     {
       "idPaciente": 11,
-      "nombreMascota": "Tom",
-      "tipoMascota": "Gato",
+      "nombrePaciente": "Tom",
+      "tipoPaciente": "Gato",
       "raza": "Azul Ruso",
       "edad": 5,
       "sexo": "masculino",
@@ -112,8 +112,8 @@
     },
     {
       "idPaciente": 12,
-      "nombreMascota": "Lucky",
-      "tipoMascota": "Perro",
+      "nombrePaciente": "Lucky",
+      "tipoPaciente": "Perro",
       "raza": "Shih Tzu",
       "edad": 2,
       "sexo": "masculino",
@@ -122,8 +122,8 @@
     },
     {
       "idPaciente": 13,
-      "nombreMascota": "Lucy",
-      "tipoMascota": "Gato",
+      "nombrePaciente": "Lucy",
+      "tipoPaciente": "Gato",
       "raza": "Ragdoll",
       "edad": 4,
       "sexo": "femenino",
@@ -132,8 +132,8 @@
     },
     {
       "idPaciente": 14,
-      "nombreMascota": "Charlie",
-      "tipoMascota": "Perro",
+      "nombrePaciente": "Charlie",
+      "tipoPaciente": "Perro",
       "raza": "Bichón Maltés",
       "edad": 3,
       "sexo": "masculino",
@@ -142,8 +142,8 @@
     },
     {
       "idPaciente": 15,
-      "nombreMascota": "Mia",
-      "tipoMascota": "Gato",
+      "nombrePaciente": "Mia",
+      "tipoPaciente": "Gato",
       "raza": "Angora",
       "edad": 2,
       "sexo": "femenino",
@@ -151,6 +151,7 @@
       "id": 15
     }
   ],
+
   "medicos": [
     {
       "idMedico": 1,
@@ -243,33 +244,262 @@
       "especialidad": "especilaidad 2"
     }
   ],
+
   "hospitalizaciones": [
     {
+      "id": 1,
       "idHospitalizacion": 1,
-      "idPaciente": 1,
-      "fechaIngreso": "2023-07-09",
-      "fechaSalida": "2023-07-10",
-      "motivo": "Dolor estomacal",
-      "id": 1
+      "paciente": {
+          "idPaciente": 3,
+          "nombrePaciente": "Max",
+          "fechaNac": "2022-06-06T00:00:00",
+          "edad": 1,
+          "raza": "Bulldog",
+          "sexo": "masculino",
+          "tipoPaciente": {
+              "idTipoPaciente": 1,
+              "tipoPaciente": "Perro",
+              "estadoTipoPaciente": "A"
+          },
+          "Cliente": {
+              "idCliente": 3,
+              "numDocumento": "4567867867",
+              "nombreCliente": "Melanie",
+              "apellidoCliente": "Pierina",
+              "fechaNac": "1995-02-08T00:00:00",
+              "telefono": "4844654",
+              "direccion": "Guayaquil",
+              "correo": "melanie@gmail.com",
+              "estadoCliente": "A",
+              "idUsuario": 3
+          },
+          "estadoPaciente": "A"
+      },
+      "fechaIngreso": "2023-07-16T00:00:00",
+      "fechaSalida": "2023-07-16T00:00:00",
+      "motivo": "Pata lastimada",
+      "estadoHosPaciente": "A"
     },
     {
+      "id": 2,
       "idHospitalizacion": 2,
-      "idPaciente": 2,
-      "fechaIngreso": "2023-07-09",
-      "fechaSalida": "2023-07-10",
-      "motivo": "daño molar",
-      "id": 2
+      "paciente": {
+          "idPaciente": 2,
+          "nombrePaciente": "Luna",
+          "fechaNac": "2020-07-08T00:00:00",
+          "edad": 1,
+          "raza": "Siamés",
+          "sexo": "femenino",
+          "tipoPaciente": {
+              "idTipoPaciente": 1,
+              "tipoPaciente": "gato",
+              "estadoTipoPaciente": "A"
+          },
+          "Cliente": {
+              "idCliente": 3,
+              "numDocumento": "4567867867",
+              "nombreCliente": "Melanie",
+              "apellidoCliente": "Pierina",
+              "fechaNac": "1995-02-08T00:00:00",
+              "telefono": "4844654",
+              "direccion": "Guayaquil",
+              "correo": "melanie@gmail.com",
+              "estadoCliente": "A",
+              "idUsuario": 3
+          },
+          "estadoPaciente": "A"
+      },
+      "fechaIngreso": "2023-07-16T00:00:00",
+      "fechaSalida": "2023-07-16T00:00:00",
+      "motivo": "Desparasitación",
+      "estadoHosPaciente": "A"
     },
     {
+      "id": 3,
       "idHospitalizacion": 3,
-      "idPaciente": 1,
-      "fechaIngreso": "2023-07-10",
-      "fechaSalida": "2023-07-11",
-      "motivo": "dsadsa",
-      "id": 3
+      "paciente": {
+          "idPaciente": 3,
+          "nombrePaciente": "Bobby",
+          "fechaNac": "2021-07-08T00:00:00",
+          "edad": 1,
+          "raza": "Bulldog Francés",
+          "sexo": "masculino",
+          "tipoPaciente": {
+              "idTipoPaciente": 1,
+              "tipoPaciente": "perro",
+              "estadoTipoPaciente": "A"
+          },
+          "Cliente": {
+              "idCliente": 3,
+              "numDocumento": "4567867867",
+              "nombreCliente": "Melanie",
+              "apellidoCliente": "Pierina",
+              "fechaNac": "1995-02-08T00:00:00",
+              "telefono": "4844654",
+              "direccion": "Guayaquil",
+              "correo": "melanie@gmail.com",
+              "estadoCliente": "A",
+              "idUsuario": 3
+          },
+          "estadoPaciente": "A"
+      },
+      "fechaIngreso": "2023-07-16T00:00:00",
+      "fechaSalida": "2023-07-16T00:00:00",
+      "motivo": "Desparasitación",
+      "estadoHosPaciente": "A"
+    },
+    {
+      "id": 4,
+      "idHospitalizacion": 4,
+      "paciente": {
+          "idPaciente": 4,
+          "nombrePaciente": "Nala",
+          "fechaNac": "2019-07-08T00:00:00",
+          "edad": 1,
+          "raza": "Persa",
+          "sexo": "femenino",
+          "tipoPaciente": {
+              "idTipoPaciente": 1,
+              "tipoPaciente": "gato",
+              "estadoTipoPaciente": "A"
+          },
+          "Cliente": {
+              "idCliente": 3,
+              "numDocumento": "4567867867",
+              "nombreCliente": "Melanie",
+              "apellidoCliente": "Pierina",
+              "fechaNac": "1995-02-08T00:00:00",
+              "telefono": "4844654",
+              "direccion": "Guayaquil",
+              "correo": "melanie@gmail.com",
+              "estadoCliente": "A",
+              "idUsuario": 3
+          },
+          "estadoPaciente": "A"
+      },
+      "fechaIngreso": "2023-07-16T00:00:00",
+      "fechaSalida": "2023-07-16T00:00:00",
+      "motivo": "Desparasitación",
+      "estadoHosPaciente": "A"
+    },
+    {
+      "id": 5,
+      "idHospitalizacion": 5,
+      "paciente": {
+          "idPaciente": 5,
+          "nombrePaciente": "Rocky",
+          "fechaNac": "2016-07-08T00:00:00",
+          "edad": 1,
+          "raza": "Golden Retriever",
+          "sexo": "masculino",
+          "tipoPaciente": {
+              "idTipoPaciente": 1,
+              "tipoPaciente": "perro",
+              "estadoTipoPaciente": "A"
+          },
+          "Cliente": {
+              "idCliente": 3,
+              "numDocumento": "4567867867",
+              "nombreCliente": "Melanie",
+              "apellidoCliente": "Pierina",
+              "fechaNac": "1995-02-08T00:00:00",
+              "telefono": "4844654",
+              "direccion": "Guayaquil",
+              "correo": "melanie@gmail.com",
+              "estadoCliente": "A",
+              "idUsuario": 3
+          },
+          "estadoPaciente": "A"
+      },
+      "fechaIngreso": "2023-07-16T00:00:00",
+      "fechaSalida": "2023-07-16T00:00:00",
+      "motivo": "Desparasitación",
+      "estadoHosPaciente": "A"
+    },
+    {
+      "id": 6,
+      "idHospitalizacion": 6,
+      "paciente": {
+          "idPaciente": 6,
+          "nombrePaciente": "Coco",
+          "fechaNac": "2022-07-08T00:00:00",
+          "edad": 1,
+          "raza": "Chihuahua",
+          "sexo": "masculino",
+          "tipoPaciente": {
+              "idTipoPaciente": 1,
+              "tipoPaciente": "perro",
+              "estadoTipoPaciente": "A"
+          },
+          "Cliente": {
+              "idCliente": 3,
+              "numDocumento": "4567867867",
+              "nombreCliente": "Melanie",
+              "apellidoCliente": "Pierina",
+              "fechaNac": "1995-02-08T00:00:00",
+              "telefono": "4844654",
+              "direccion": "Guayaquil",
+              "correo": "melanie@gmail.com",
+              "estadoCliente": "A",
+              "idUsuario": 3
+          },
+          "estadoPaciente": "A"
+      },
+      "fechaIngreso": "2023-07-17T00:00:00",
+      "fechaSalida": "2023-07-17T00:00:00",
+      "motivo": "Desparasitación",
+      "estadoHosPaciente": "A"
     }
   ],
-  
+
+  "cirugias": [
+    {
+      "idHosCirugia": 5,
+      "paciente": {
+          "idPaciente": 1,
+          "nombrePaciente": "Max",
+          "fechaNac": "2020-02-01T00:00:00",
+          "edad": 3,
+          "raza": "Labrador",
+          "tipoPaciente": {
+              "idTipoPaciente": 1,
+              "tipoPaciente": "Perro",
+              "estadoTipoPaciente": "A"
+          },
+          "idCliente": {
+              "idCliente": 1,
+              "numDocumento": "0925741220",
+              "nombreCliente": "Ivan",
+              "apellidoCliente": "Rendon",
+              "fechaNac": "2000-03-27T00:00:00",
+              "telefono": "2551425",
+              "direccion": "Duran",
+              "correo": "ivan@gmail.com",
+              "estadoCliente": "A",
+              "idUsuario": null
+          },
+          "estadoPaciente": "A"
+      },
+      "tipoCirugia": {
+          "idHosTipoCirugia": 2,
+          "tipoCirugia": "Cirugia de corazon",
+          "estadoTipoCirugia": "A"
+      },
+      "fechaProgramada": "2023-07-11T00:00:00",
+      "doctor": {
+          "idDoctor": 2,
+          "nombre": "Doctor Rodrigo",
+          "idUsuario": 3,
+          "cedula": "0925759813",
+          "edad": 60,
+          "telefono": "46548412",
+          "especialidad": "Cirujano",
+          "estadoDoctor": "A"
+      },
+      "estadoCirugia":"A"
+    }
+  ],
+
   "tipoCirugias": [
     {
       "idTipoCirugia": 1,

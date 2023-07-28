@@ -42,7 +42,7 @@ export class RegistroHospitalizacionComponent implements OnInit {
   ngOnInit(): void {
     this.hs.allPacientes.subscribe(pacientes => this.pacientes = pacientes);
     this.hs.allMedicos.subscribe(medicos => this.medicos = medicos);
-    this.hs.allHospitalizaciones.subscribe(hospitalizaciones => this.hospitalizaciones = hospitalizaciones);
+    // this.hs.allHospitalizaciones.subscribe(hospitalizaciones => this.hospitalizaciones = hospitalizaciones);
     this.hs.allTipoCirugias.subscribe(tipoCirugias => this.tiposCirugia = tipoCirugias);
   }
 
@@ -121,7 +121,7 @@ export class RegistroHospitalizacionComponent implements OnInit {
 
     if(!nombre || !fechaNac) return;
 
-    const paciente = this.pacientes.find(p => p.nombreMascota.toLowerCase().trim() === nombre.toLowerCase().trim() && 
+    const paciente = this.pacientes.find(p => p.nombrePaciente.toLowerCase().trim() === nombre.toLowerCase().trim() && 
                                               new Date(fechaNac).getTime() === new Date(p.fechaNac).getTime()
     );
     
@@ -130,7 +130,7 @@ export class RegistroHospitalizacionComponent implements OnInit {
     this.formularioRegistroHospitalizacion.patchValue({
       idPaciente: paciente?.idPaciente,
       raza:       paciente?.raza,
-      tipo:       paciente?.tipoMascota,
+      tipo:       paciente?.tipoPaciente.tipoPaciente,
       sexo:       paciente?.sexo,
       edad:       paciente?.edad
     });
@@ -149,7 +149,7 @@ export class RegistroHospitalizacionComponent implements OnInit {
 
     const {idHospitalizacion, idPaciente, fechaIngreso, fechaSalida, motivo} = this.formularioRegistroHospitalizacion.value;
     const nuevaHospitalizacion = { idHospitalizacion, idPaciente, fechaIngreso, fechaSalida, motivo };
-    this.hs.registrarNuevaHospitalizacion(nuevaHospitalizacion).subscribe(hospitalizacion => console.log(hospitalizacion));
+    // this.hs.registrarNuevaHospitalizacion(nuevaHospitalizacion).subscribe(hospitalizacion => console.log(hospitalizacion));
   }
 }
 

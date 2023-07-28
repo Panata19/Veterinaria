@@ -5,28 +5,13 @@
     color: #fff;
     max-height: max-content;
   }
-
-  h1{
-    border-bottom: 1px solid gray ;
-  }
   
-  .card{
-    padding:.5rem;
-  }
-  
-  .card_body{
+  .card-body{
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
   }
-  
-  .container-body-buttons{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
   
   .bi-file-text{
     font-size: 6rem;
@@ -58,6 +43,9 @@
     gap: .5rem;
   }
   
+  .container_buttons_navigation button{
+    width: max-content;
+  }
   
   .container_filter{
     display: flex;

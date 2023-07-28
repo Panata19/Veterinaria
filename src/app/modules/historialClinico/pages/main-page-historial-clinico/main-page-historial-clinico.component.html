@@ -1,10 +1,13 @@
 <div class="p-3">
-    <!-- Titulo -->
-    <app-title-card titulo = 'Historia Clínica'></app-title-card>
+  <!-- Titulo -->
+  <app-title-card titulo = 'Historia Clínica'></app-title-card>
+</div>
 
-  </div>
-  <div class="mb-4">
-    <div class="table-responsive p-3">
-      <app-table></app-table>
-    </div>
-  </div>
+<section *ngIf="!isMobile; else: tableMobile">
+  <!-- Tabla de escritorio -->
+  <app-table-desktop></app-table-desktop>
+</section>
+<!-- Tabla mobile -->
+<ng-template #tableMobile>
+  <app-table-mobile></app-table-mobile>
+</ng-template>
