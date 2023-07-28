@@ -18,7 +18,6 @@
                            class="form-control form-control-user"
                            placeholder="Nombre paciente" 
                            formControlName="nombre"
-                           id="nombre"
                            (change)="cargarCampos()"/>
                     <span *ngIf="campoNoValido('nombre')" class="text-form text-danger">
                         {{ validarCamposSoloLetras('nombre') }}

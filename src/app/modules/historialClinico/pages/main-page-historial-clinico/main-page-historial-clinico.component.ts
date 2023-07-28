@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,6 +7,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-page-historial-clinico.component.css']
 })
 export class MainPageHistorialClinicoComponent {
+  isMobile: boolean = false;
 
+  constructor(){ }
 
+  ngOnInit(): void {
+    this.onResize;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.isMobile = window.innerWidth < 768; // Puedes ajustar este valor según tu definición de tamaño móvil
+  }
 }

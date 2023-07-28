@@ -38,5 +38,16 @@ export class HistorialClinicoService {
     { idHistoriaCli: 8, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
     { idHistoriaCli: 9, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
     { idHistoriaCli: 10, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
+    { idHistoriaCli: 11, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
+    { idHistoriaCli: 12, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
+    { idHistoriaCli: 13, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
+    { idHistoriaCli: 14, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
+    { idHistoriaCli: 15, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
+    { idHistoriaCli: 16, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
+    { idHistoriaCli: 17, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
+    { idHistoriaCli: 18, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
+    { idHistoriaCli: 19, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
+    { idHistoriaCli: 20, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
+    { idHistoriaCli: 21, fechaIngreso: new Date(arreglarFecha('06/07/2023'))},
   ]
 }

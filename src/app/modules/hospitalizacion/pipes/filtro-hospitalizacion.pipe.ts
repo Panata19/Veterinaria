@@ -1,16 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Hospitalizacion } from '../interfaces/hospitalizacion.interface';
 import { arreglarFecha } from 'src/app/shared/Validaciones/validaciones';
-import { Hospitalizacion } from '../../hospitalizacion/interfaces/hospitalizacion.interface';
 
 @Pipe({
-  name: 'filtroHistorialClinico'
+  name: 'filtroHospitalizacion'
 })
-export class FiltroHistorialClinicoPipe implements PipeTransform {
 
+export class FiltroHospitalizacionPipe implements PipeTransform {
+  
   hospitalizacionesFiltradas: Hospitalizacion[] = [];
 
   transform(hospitalizaciones: Hospitalizacion[], filtro: string, page: number, entradas: string, tipoInput?: string, 
-            nombreInput ?: string): Hospitalizacion[] {
+            nombreInput?: string): Hospitalizacion[] {
 
     if (!filtro){
       return [...hospitalizaciones].slice(page, page + +entradas);
@@ -35,5 +36,5 @@ export class FiltroHistorialClinicoPipe implements PipeTransform {
     
     return [...this.hospitalizacionesFiltradas].slice(page, page + +entradas);
   }
-  
+
 }

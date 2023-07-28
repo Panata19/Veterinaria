@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { HistorialClinicoService } from '../../services/historial-clinico.service';
 import { Router } from '@angular/router';
-import { Hospitalizacion } from 'src/app/modules/hospitalizacion/interfaces/hospitalizacion.interface';
-import { ModalEliminarHistorialComponent } from '../../components/modals/modal-eliminar/modal-eliminar.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { DetalleHospitalizacionComponent } from 'src/app/modules/hospitalizacion/components/modals/detalle-hospitalizacion/detalle-hospitalizacion.component';
-import { TipoInputs } from 'src/app/modules/hospitalizacion/interfaces/tipoInputs';
-import { OpcionesInput } from 'src/app/modules/hospitalizacion/interfaces/opcionesInput.interface';
-import { TipoFiltros } from 'src/app/modules/hospitalizacion/interfaces/tipoFiltros.interface';
-import { HosipitalizacionService } from 'src/app/modules/hospitalizacion/services/hosipitalizacion.service';
+import { Hospitalizacion } from '../../../interfaces/hospitalizacion.interface';
+import { OpcionesInput } from '../../../interfaces/opcionesInput.interface';
+import { TipoFiltros } from '../../../interfaces/tipoFiltros.interface';
+import { TipoInputs } from '../../../interfaces/tipoInputs';
+import { HosipitalizacionService } from '../../../services/hosipitalizacion.service';
+import { DetalleHospitalizacionComponent } from '../../modals/detalle-hospitalizacion/detalle-hospitalizacion.component';
+import { ModalEliminarhospitalizacionComponent } from '../../modals/modal-eliminar/modal-eliminar.component';
+
+
 
 @Component({
-  selector: 'app-historial-clinico-paciente',
-  templateUrl: './historial-clinico-paciente.component.html',
-  styleUrls: ['./historial-clinico-paciente.component.css']
+  selector: 'app-table-mobile',
+  templateUrl: './table-mobile.component.html',
+  styleUrls: ['./table-mobile.component.css']
 })
-export class HistorialClinicoPacienteComponent implements OnInit {
+export class TableMobileComponent implements OnInit {
 
   entradas!             : string;
   page!                 : number;
@@ -34,6 +35,13 @@ export class HistorialClinicoPacienteComponent implements OnInit {
     this.filtroSeleccionado = "";    
     this.hs.allHospitalizaciones.subscribe(hospitalizaciones => this.dataHospitalizaciones = hospitalizaciones );
     this.tipoFiltros = [
+      { 
+        valor: 'nombrePaciente', 
+        texto: 'Nombre Paciente' 
+      }, 
+      { valor: 'fechaNac', 
+        texto: 'Fecha Nacimiento' 
+      },
       {
         valor: 'fechaIngreso',
         texto: 'Fecha Ingreso'
@@ -41,6 +49,8 @@ export class HistorialClinicoPacienteComponent implements OnInit {
     ];
     this.tipoInputs = {
       ''              : { tipo: 'text', placeholder: 'Buscar...', disable: true }, 
+      'nombrePaciente': { tipo: 'text', placeholder: 'Buscar Paciente', disable: false},
+      'fechaNac'      : { tipo: 'date', nombre: 'fechaNac', disable: false },
       'fechaIngreso'  : { tipo: 'date', nombre: 'fechaIngreso', disable: false },
       'todos'         : { tipo: '', placeholder: '', disable: true}
     };
@@ -79,8 +89,8 @@ export class HistorialClinicoPacienteComponent implements OnInit {
     });
   }
 
-  eliminarDetallesHospitalizacion():MatDialogRef<ModalEliminarHistorialComponent>{
-    return this.matDialog.open(ModalEliminarHistorialComponent, {
+  eliminarDetallesHospitalizacion():MatDialogRef<ModalEliminarhospitalizacionComponent>{
+    return this.matDialog.open(ModalEliminarhospitalizacionComponent, {
       width: '600px',
       height: '100px'
     });

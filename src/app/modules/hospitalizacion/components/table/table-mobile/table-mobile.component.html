@@ -1,6 +1,5 @@
     <!-- contenedor principal-->
     <div class="px-2">
-      <h1 class="p-2 mb-4">Historiales Clínicos de Max</h1>
         <!-- Contenerdor principal del filtro y el selector de vista -->
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
         <!-- Contenedor del selector de entradas -->
@@ -38,7 +37,7 @@
           <!-- contenedor de todas los cards -->
           <div class="card container_card p-lg-4">
             <!-- Contnedor de la card -->
-            <div *ngFor="let hospitalizacion of allHospitalizacion | filtroHistorialClinico:textoFiltro:page:entradas:inputSeleccionado.tipo:
+            <div *ngFor="let hospitalizacion of allHospitalizacion | filtroHospitalizacion:textoFiltro:page:entradas:inputSeleccionado.tipo:
                           inputSeleccionado.nombre" 
             class="card mb-3">   
                 <div class="card_body">
@@ -46,10 +45,11 @@
                         <i class="bi bi-file-text"></i>
                     </div>
                     <div class="card-body-text">
-                        <h2>Historial Clínico # {{ hospitalizacion.idHospitalizacion}}</h2>
+                        <h2>Hospitalización # {{ hospitalizacion.idHospitalizacion}}</h2>
                         <h4>Paciente: {{ hospitalizacion.paciente.nombrePaciente }}</h4>
-                        <h4>Fecha Ingreso: {{ hospitalizacion.fechaIngreso | date }}</h4> 
+                        <h4>FechaIngreso: {{ hospitalizacion.fechaIngreso | date }}</h4> 
                         <h4>Tipo mascota: {{ hospitalizacion.paciente.tipoPaciente.tipoPaciente }}</h4>
+                        <h4>Motivo: {{ hospitalizacion.motivo }}</h4>
                     </div>
                 </div>
                 <div class="container-body-buttons">
@@ -59,7 +59,7 @@
             </div>               
           </div>
           <div class="container_pagination">
-            <span *ngIf="+entradas > (allHospitalizacion | filtroHistorialClinico:textoFiltro:page:entradas:inputSeleccionado.tipo).length;
+            <span *ngIf="+entradas > (allHospitalizacion | filtroHospitalizacion:textoFiltro:page:entradas:inputSeleccionado.tipo).length;
                   then mostrarEntradasImpares
                   else mostrarEntradasPares">
             </span>
@@ -70,7 +70,7 @@
             </ng-template>
             <ng-template #mostrarEntradasImpares>
               <div class="fs-6">
-                Mostrando {{page + 1}} - {{ page + (allHospitalizacion | filtroHistorialClinico:textoFiltro:page:entradas).length }}
+                Mostrando {{page + 1}} - {{ page + (allHospitalizacion | filtroHospitalizacion:textoFiltro:page:entradas).length }}
                 de {{ dataHospitalizaciones.length }}
               </div>  
             </ng-template>
@@ -82,7 +82,7 @@
                       Anterior </button>
               <button class="btn btn-outline-primary" 
                       (click)="paginaSiguiente()"
-                      [disabled]="+entradas > (allHospitalizacion | filtroHistorialClinico:textoFiltro:page:entradas:inputSeleccionado.tipo).length"> 
+                      [disabled]="+entradas > (allHospitalizacion | filtroHospitalizacion:textoFiltro:page:entradas:inputSeleccionado.tipo).length"> 
                       Siguiente 
                       <i class="bi bi-arrow-right"></i></button>
             </div>
