@@ -13,5 +13,5 @@ export const eliminarObjeto = createAction(
 
 export const cambiarPrecio = createAction(
   '[Objeto] Cambiar Precio',
-  props<{ id: number; detalles: CompraDetalles }>()
+  props<{ id: number; StoreState: boolean; Detalles: CompraDetalles }>()
 );

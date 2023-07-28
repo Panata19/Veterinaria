@@ -17,14 +17,15 @@ export const appReducer = createReducer(
     ...state,
     objetos: state.objetos.filter(objeto => objeto.Producto.id !== id)
   })),
-  on(cambiarPrecio, (state, { id, detalles }) => ({
+  on(cambiarPrecio, (state, { id, StoreState, Detalles }) => ({
     ...state,
     objetos: state.objetos.map(objeto => {
       if (objeto.Producto.id === id) {
         return {
           ...objeto,
+          StoreState: StoreState,
           Detalles: {
-            ...detalles,
+            ...Detalles,
           }
         };
       }

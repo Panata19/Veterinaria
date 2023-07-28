@@ -5,7 +5,7 @@ export interface AppState {
 }
 
 export interface Objeto extends CompraData{
-
+  StoreState: boolean;  
 }
 
 export interface CompraDetalles extends Detalles {

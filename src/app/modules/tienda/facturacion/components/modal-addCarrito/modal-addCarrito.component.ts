@@ -181,8 +181,10 @@ export class ModalAddCarritoComponent implements OnInit {
   }
 
   ActualziarCarrito(){
-    this.matlabel = 'No'
-    this.store.dispatch(cambiarPrecio({ id: this.data.id, detalles: this.AddCarrito.Compra.Detalles }));
+    this.store.dispatch(cambiarPrecio({ id: this.data.id, 
+                                        StoreState: true, 
+                                        Detalles: this.AddCarrito.Compra.Detalles 
+                                      }));
   }
 
 }
