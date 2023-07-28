@@ -11,7 +11,12 @@ export const eliminarObjeto = createAction(
   props<{ id: number }>()
 );
 
-export const cambiarPrecio = createAction(
+export const editarCarrito = createAction(
   '[Objeto] Cambiar Precio',
-  props<{ id: number; StoreState: boolean; Detalles: CompraDetalles }>()
+  props<{ id: number; enCarrito: boolean ; Detalles: CompraDetalles }>()
+);
+
+export const cambioCarrito = createAction(
+  '[Objeto] Cambiar Carrito',
+  props<{ id: number; status: boolean }>()
 );

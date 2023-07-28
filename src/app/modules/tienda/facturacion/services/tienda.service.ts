@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StoreProduct } from '../interfaces/ProductData';
+import { StoreProduct } from '../interfaces/CompraProducto';
 import { Detalles } from '../interfaces/CompraProducto';
 import { estadoStock } from 'src/app/shared/libs/Stock';
 import { ClienteService } from 'src/app/modules/cliente/service/cliente.service';

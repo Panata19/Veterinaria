@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import { agregarObjeto, eliminarObjeto, cambiarPrecio } from './app.actions';
-import { AppState, Objeto } from './app.state';
-import { Detalles } from '../interfaces/CompraProducto';
+import { agregarObjeto, eliminarObjeto, editarCarrito, cambioCarrito } from './app.actions';
+import { AppState } from './app.state';
+
 
 const initialState: AppState = {
   objetos: []
@@ -15,15 +15,27 @@ export const appReducer = createReducer(
   })),
   on(eliminarObjeto, (state, { id }) => ({
     ...state,
-    objetos: state.objetos.filter(objeto => objeto.Producto.id !== id)
+    objetos: state.objetos.filter(objeto => objeto.Compra.Producto.id !== id)
   })),
-  on(cambiarPrecio, (state, { id, StoreState, Detalles }) => ({
+  on(cambioCarrito, (state, { id, status }) => ({
     ...state,
     objetos: state.objetos.map(objeto => {
-      if (objeto.Producto.id === id) {
+      if (objeto.Compra.Producto.id === id) {
         return {
           ...objeto,
-          StoreState: StoreState,
+          enCarrito: status,
+        };
+      }
+      return objeto;
+    })
+  })),
+  on(editarCarrito, (state, { id, enCarrito, Detalles }) => ({
+    ...state,
+    objetos: state.objetos.map(objeto => {
+      if (objeto.Compra.Producto.id === id) {
+        return {
+          ...objeto,
+          enCarrito: enCarrito,
           Detalles: {
             ...Detalles,
           }

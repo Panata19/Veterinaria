@@ -104,9 +104,9 @@
             [ngClass]="{'col-5': Grid,'col-12 align-self-end': List}" >
               <button mat-mini-fab color="primary" class="btn-primary"
                 [ngClass]="{'btn-success': checkStado(item.id)}" 
-                aria-label="Boton Añadir carrito"  [disabled]="item.quantitys <= 0 || item.price <= 0"
-                (click)="addCarrito(item)">
-                <!-- -->
+                aria-label="Boton Añadir carrito"  (click)="addCarrito(item)"
+                [disabled]="item.quantitys <= 0 || item.price <= 0"
+              >
                 <mat-icon> 
                   {{ checkStado(item.id) ? 'shopping_cart_checkout':'add_shopping_cart' }}
                 </mat-icon>

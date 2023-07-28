@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { agregarObjeto, eliminarObjeto } from '../../services/app.actions';
+import { agregarObjeto, cambioCarrito, eliminarObjeto } from '../../services/app.actions';
 import { AppState, Objeto } from '../../services/app.state';
 
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { TiendaService } from '../../services/tienda.service';
-import { StoreProduct } from '../../interfaces/ProductData';
+import { StoreProduct } from '../../interfaces/CompraProducto';
 import { Product } from '../../interfaces/CompraProducto';
 import { ModalAddCarritoComponent } from '../../components/modal-addCarrito/modal-addCarrito.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -56,7 +56,6 @@ export class FacturacionComponent  {
     this.store.select(state => state.app.objetos).subscribe(objetos => {
       console.log(objetos);
       this.StoreStado = objetos;
-      
     });
     
     this.Products = TiendaService.getProducts();
@@ -65,15 +64,15 @@ export class FacturacionComponent  {
   }
 
   checkStado(id:number): boolean{
-    return this.checkCarrito(this.StoreStado, id );
-  }
-
-  checkCarrito(array: any[], id: number): boolean {
-    return array.some(item => item.Producto.id === id);
+    const objetoEncontrado = this.StoreStado.find(obj => obj.Compra.Producto.id === id);
+    return objetoEncontrado ? objetoEncontrado.enCarrito : false;
   }
 
   agregarCarrito(objeto: Objeto) {
     this.store.dispatch(agregarObjeto({ objeto }));
+    this.store.dispatch(cambioCarrito({ id: objeto.Compra.Producto.id,
+      status: true,
+    }));
   }
 
   eliminarCarrito(id: number) {
@@ -144,26 +143,28 @@ export class FacturacionComponent  {
     dialogRef.afterClosed().subscribe(result => {
       console.log(result)
       if(result !== undefined){
-        if(result === 'ActualizoCarrito'){
-          this.snackbar('¡Se Actualizo el carrito con Exito!','success');
-        }
-        
-        if(result?.agregarCarrito){
-          this.agregarCarrito(result.Compra);
-          this.snackbar('¡Se añadio al carrito con Exito!','success');
-        } else if(!result?.agregarCarrito){
-          this.eliminarCarrito(result.Compra.Producto.id);
-          this.snackbar('¡Se Elimino del carrito con Exito!','success');
+        switch (result.tipo) {
+          case 'Agregando':
+            this.agregarCarrito(result.element);
+            this.snackbar('¡Se añadio al carrito con Exito!','success');
+            break;
+          case 'Actualizando':
+            this.snackbar('¡Se Actualizo el carrito con Exito!','success');
+            break;
+          case 'Eliminando':
+            this.eliminarCarrito(result.element.Compra.Producto.id);
+            this.snackbar('¡Se Elimino del carrito con Exito!','danger');
+            break;
+          default:
+            break;
         }
         
         this.Products = this.TiendaService.getProducts();
         this.length = this.Products.length;
         this.filterProducts();
       } else {
-        this.snackbar('¡No añadio al carrito!','danger');  
-        console.log('Cambio');
+        this.snackbar('¡No realizo cambios!','danger');  
       }
-      
     });
   }
 
@@ -173,16 +174,16 @@ export class FacturacionComponent  {
       height: 'auto',
       panelClass: 'width-dialog',
       data: {
-        id: this.StoreStado[0].Producto.id,
-        name: this.StoreStado[0].Producto.name, 
+        id: this.StoreStado[0].Compra.Producto.id,
+        name: this.StoreStado[0].Compra.Producto.name, 
         image: {
-          url: this.StoreStado[0].Producto.image.url,
+          url: this.StoreStado[0].Compra.Producto.image.url,
           loading: true
         },
-        price: this.StoreStado[0].Producto.price,
-        category: this.StoreStado[0].Producto.category,
-        quantitys: this.StoreStado[0].Producto.quantitys,
-        stock: this.StoreStado[0].Producto.stock,
+        price: this.StoreStado[0].Compra.Producto.price,
+        category: this.StoreStado[0].Compra.Producto.category,
+        quantitys: this.StoreStado[0].Compra.Producto.quantitys,
+        stock: this.StoreStado[0].Compra.Producto.stock,
       },
     });
 
