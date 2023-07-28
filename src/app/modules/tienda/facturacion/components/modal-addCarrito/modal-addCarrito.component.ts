@@ -56,6 +56,7 @@ export class ModalAddCarritoComponent implements OnInit {
   }
 
   LiveCarrito: boolean = false;
+  matlabel = 'ActualizoCarrito';
 
   constructor(
     public dialogRef: MatDialogRef<ModalAddCarritoComponent>,
@@ -69,12 +70,15 @@ export class ModalAddCarritoComponent implements OnInit {
       this.AddCarrito.agregarCarrito = !this.checkCarrito(this.StoreStado, this.data.id);
       this.LiveCarrito = this.checkCarrito(this.StoreStado, this.data.id);
     });
-    if(this.LiveCarrito){
+    //** Primer Calculo de Costos **//
+    if(this.LiveCarrito){ //* Esta en el Carrito
       let index: number = this.StoreStado.findIndex(item => item.Producto.id === this.data.id);
       this.Detalles = {...this.StoreStado[index].Detalles};
+      this.Detalles = {...this.StoreStado[index].Detalles};
+      this.Compra.Detalles = this.Detalles;
+      this.AddCarrito.Compra = this.Compra;
       this.formAddCarrito.get('cantidad')?.setValue(this.StoreStado[index].Detalles.cantidad);
-    } else if(!this.LiveCarrito){
-      //** Primer Calculo de Costos **//
+    } else if(!this.LiveCarrito){//* Fuera del Carrito 
       if(data.quantitys > 0){
         this.Detalles.precio = data.price;
         this.calcularIva(this.Detalles.precio);
@@ -102,20 +106,9 @@ export class ModalAddCarritoComponent implements OnInit {
       return;
     }
     this.AumentarLogica();
-    /** 
-    if(this.AddCarrito.agregarCarrito){//Añade cuando aun no esta en el Carrito
-      this.AumentarLogica();
-    } else if(!this.AddCarrito.agregarCarrito){ //Actualiza cuando esta en el Carrito
-      
-      let StateDetalles = this.AumentarState();
-      this.store.dispatch(cambiarPrecio({ id: this.data.id, detalles: StateDetalles }));
-    }
-    */
-   
   }
 
   private AumentarLogica(){
-    //Original
     this.Detalles.precio += this.data.price;
     this.formAddCarrito.get('cantidad')?.setValue(
       parseInt(this.formAddCarrito.get('cantidad')?.value) +1);
@@ -126,24 +119,6 @@ export class ModalAddCarritoComponent implements OnInit {
     this.Compra.Detalles = this.Detalles;
   }
 
-  private AumentarState(): Detalles{
-    this.Detalles.precio += this.data.price;
-    let index: number = this.StoreStado.findIndex(item => item.Producto.id === this.data.id);
-    // parseInt(this.formAddCarrito.get('cantidad')?.value),
-    let StateCosto = this.StoreStado[index].Detalles.precio + this.data.price;
-    let StateIva = this.calcularStateIva(StateCosto,this.iva);
-    let StateCantidad = this.StoreStado[index].Detalles.cantidad;
-    
-    let StateDetalles: Detalles = {
-      cantidad: StateCantidad + 1,
-      precio: StateCosto,
-      valorIva: StateIva,
-      iva: this.iva,
-      precioTotal: Math.round((StateCosto + StateIva) * 100) / 100,
-    }
-    return StateDetalles;
-  }
-
   disminuir(): void {
     if (this.formAddCarrito.get('cantidad')?.value <= 0) {
       this.label = 'Disminuir';
@@ -151,14 +126,6 @@ export class ModalAddCarritoComponent implements OnInit {
       return;
     }
     this.DisminuirLogica();
-    /*
-    if(this.AddCarrito.agregarCarrito) {
-      this.DisminuirLogica();
-    } else if(!this.AddCarrito.agregarCarrito) {
-      let StateDetalles = this.DisminuirState();
-      this.store.dispatch(cambiarPrecio({ id: this.data.id, detalles: StateDetalles }));
-    }
-    */
   }
 
   private DisminuirLogica(){
@@ -171,25 +138,7 @@ export class ModalAddCarritoComponent implements OnInit {
     this.Detalles.precioTotal = Math.round((this.Detalles.precio + this.Detalles.valorIva) * 100) / 100;
 
     this.Compra.Detalles = this.Detalles;
-  }
-
-  private DisminuirState(): Detalles{
-    let index: number = this.StoreStado.findIndex(item => item.Producto.id === this.data.id);
-    // parseInt(this.formAddCarrito.get('cantidad')?.value),
-    let price = this.StoreStado[index].Detalles.precio;
-    let StateCosto = price - this.data.price;
-    let StateIva = this.calcularStateIva(StateCosto,this.iva);
-    let StateCantidad = this.StoreStado[index].Detalles.cantidad;
-    
-    let StateDetalles: Detalles = {
-      cantidad: StateCantidad - 1,
-      precio: StateCosto,
-      valorIva: StateIva,
-      iva: this.iva,
-      precioTotal: Math.round((StateCosto + StateIva) * 100) / 100,
-    }
-    return StateDetalles;
-  }
+  }  
 
   private advertencia(){
       this.warning = true;
@@ -220,17 +169,20 @@ export class ModalAddCarritoComponent implements OnInit {
       this.error = true;
     } else {
       this.error = false;
-      this.AddCarrito.Compra = this.Compra;
       
       this.Detalles.cantidad = parseInt(this.formAddCarrito.get('cantidad')?.value);
       this.Detalles.precio = this.data.price * parseInt(this.formAddCarrito.get('cantidad')?.value);
       this.calcularIva(this.Detalles.precio);
       this.Detalles.precioTotal = Math.round((this.Detalles.precio + this.Detalles.valorIva) * 100) / 100;
+      
+      this.Compra.Detalles = this.Detalles;
+      this.AddCarrito.Compra = this.Compra;
     }
   }
 
   ActualziarCarrito(){
-
+    this.matlabel = 'No'
+    this.store.dispatch(cambiarPrecio({ id: this.data.id, detalles: this.AddCarrito.Compra.Detalles }));
   }
 
 }

@@ -11,8 +11,8 @@
       matRipple  type="button"
       (click)="abrirCarrito()"
       class="btn btn-primary rounded-circle shade p-auto w50 h50 me-4"
-      [disabled]="objetos.length === 0"
-      [matBadge]="objetos.length" matBadgePosition="above after" matBadgeColor="warn">
+      [disabled]="StoreStado.length === 0"
+      [matBadge]="StoreStado.length" matBadgePosition="above after" matBadgeColor="warn">
       <mat-icon class="align-middle">shopping_cart</mat-icon>
     </button>
     <mat-button-toggle-group aria-label="Font Style" class="border border-gray" >
@@ -102,10 +102,14 @@
             [ngClass]="{'col-5': Grid,'col-12 align-self-start': List}" > ${{item.price}} </span>
             <div class="col-12 price px-0 px-sm-auto" 
             [ngClass]="{'col-5': Grid,'col-12 align-self-end': List}" >
-              <button mat-mini-fab color="primary" class="btn-primary" 
-                aria-label="Boton Añadir carrito"  [disabled]="item.quantitys <= 0"
+              <button mat-mini-fab color="primary" class="btn-primary"
+                [ngClass]="{'btn-success': checkStado(item.id)}" 
+                aria-label="Boton Añadir carrito"  [disabled]="item.quantitys <= 0 || item.price <= 0"
                 (click)="addCarrito(item)">
-                <mat-icon> add_shopping_cart </mat-icon>
+                <!-- -->
+                <mat-icon> 
+                  {{ checkStado(item.id) ? 'shopping_cart_checkout':'add_shopping_cart' }}
+                </mat-icon>
               </button>
             </div>
           </div>

@@ -31,6 +31,10 @@ div.card.wdth-L {
   background-color: #2e59d9 !important;
 }
 
+.btn-success{
+  background-color: #16833D !important;
+}
+
 .mat-icon{
   font-size: 25px;
 }

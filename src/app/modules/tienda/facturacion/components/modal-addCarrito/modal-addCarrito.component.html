@@ -105,8 +105,8 @@
       [disabled]="formAddCarrito.invalid" cdkFocusInitial
       type="submit" [mat-dialog-close]="AddCarrito">
     {{this.AddCarrito.agregarCarrito?'Añadir Carrito':'Eliminar de Carrito'}}</button>
-    <button mat-raised-button color="primary"
-      (click)="ActualziarCarrito()"
+    <button *ngIf="LiveCarrito" mat-raised-button color="primary"
+      (click)="ActualziarCarrito()" [mat-dialog-close]="AddCarrito"
     >Actualizar Carrito</button>
   </mat-dialog-actions>
 </form>

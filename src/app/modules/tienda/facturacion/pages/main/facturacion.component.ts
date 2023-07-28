@@ -45,7 +45,9 @@ export class FacturacionComponent  {
 
   pageEvent!: PageEvent;
   
-  objetos!: Objeto[];
+  StoreStado!: Objeto[];
+  LiveCarrito: boolean = false;
+
   constructor(
     private TiendaService: TiendaService,
     public dialog: MatDialog, private _snackBar: MatSnackBar,
@@ -53,12 +55,21 @@ export class FacturacionComponent  {
   ){ 
     this.store.select(state => state.app.objetos).subscribe(objetos => {
       console.log(objetos);
-      this.objetos = objetos;
+      this.StoreStado = objetos;
+      
     });
     
     this.Products = TiendaService.getProducts();
     this.length = this.Products.length;
     this.filterProducts()    
+  }
+
+  checkStado(id:number): boolean{
+    return this.checkCarrito(this.StoreStado, id );
+  }
+
+  checkCarrito(array: any[], id: number): boolean {
+    return array.some(item => item.Producto.id === id);
   }
 
   agregarCarrito(objeto: Objeto) {
@@ -133,18 +144,24 @@ export class FacturacionComponent  {
     dialogRef.afterClosed().subscribe(result => {
       console.log(result)
       if(result !== undefined){
-        if(result.agregarCarrito){
+        if(result === 'ActualizoCarrito'){
+          this.snackbar('¡Se Actualizo el carrito con Exito!','success');
+        }
+        
+        if(result?.agregarCarrito){
           this.agregarCarrito(result.Compra);
-        } else {
+          this.snackbar('¡Se añadio al carrito con Exito!','success');
+        } else if(!result?.agregarCarrito){
           this.eliminarCarrito(result.Compra.Producto.id);
+          this.snackbar('¡Se Elimino del carrito con Exito!','success');
         }
         
         this.Products = this.TiendaService.getProducts();
         this.length = this.Products.length;
-        this.filterProducts()
-        this.snackbar('¡Se añadio al carrito con Exito!','success');
+        this.filterProducts();
       } else {
         this.snackbar('¡No añadio al carrito!','danger');  
+        console.log('Cambio');
       }
       
     });
@@ -156,16 +173,16 @@ export class FacturacionComponent  {
       height: 'auto',
       panelClass: 'width-dialog',
       data: {
-        id: this.objetos[0].Producto.id,
-        name: this.objetos[0].Producto.name, 
+        id: this.StoreStado[0].Producto.id,
+        name: this.StoreStado[0].Producto.name, 
         image: {
-          url: this.objetos[0].Producto.image.url,
+          url: this.StoreStado[0].Producto.image.url,
           loading: true
         },
-        price: this.objetos[0].Producto.price,
-        category: this.objetos[0].Producto.category,
-        quantitys: this.objetos[0].Producto.quantitys,
-        stock: this.objetos[0].Producto.stock,
+        price: this.StoreStado[0].Producto.price,
+        category: this.StoreStado[0].Producto.category,
+        quantitys: this.StoreStado[0].Producto.quantitys,
+        stock: this.StoreStado[0].Producto.stock,
       },
     });
 
