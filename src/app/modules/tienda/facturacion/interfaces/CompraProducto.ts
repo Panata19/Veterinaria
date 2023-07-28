@@ -1,12 +1,21 @@
-import { ProductoData } from "./ProductData";
+import { StoreProduct } from "./ProductData";
 
-export interface CompraData extends ProductoData{
+export interface CompraData {
+  Producto: Product,
+  Detalles: Detalles
 }
+//CompraData
+export interface Product extends StoreProduct {
 
-export interface CompraPaso1{
+}
+export interface Detalles{
   cantidad: number;
   precio: number;
+  iva: number ;
   valorIva: number;
   precioTotal: number;
-  iva: number ;
+}
+
+export interface prueba{
+  id: number
 }

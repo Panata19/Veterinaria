@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Comprar {{data.name}}</h1>
+<h1 mat-dialog-title>Carrito de compras</h1>
 <main mat-dialog-content class="px-0 px-sm-auto">
   <mat-stepper
     linear 
@@ -18,31 +18,31 @@
               <div class="col px-4 px-sm-auto pe-sm-0 my-auto col-12 col-sm-4 col-md-3" > 
                 <img
                     class="img-fluid shade rounded my-2 m-0"
-                    [src]="data.image.url"
-                    alt="{{data.name}} - {{data.category}}"
-                    (load)="data.image.loading = false"
+                    [src]="newData.image.url"
+                    alt="{{newData.name}} - {{newData.category}}"
+                    (load)="loadingImage()"
                     onerror="this.src='../assets/img/Artboard.svg'"
                 >
-                <mat-progress-bar *ngIf="data.image.loading" mode="indeterminate"></mat-progress-bar>
+                <mat-progress-bar *ngIf="newData.image.loading" mode="indeterminate"></mat-progress-bar>
               </div>
               <div class="overflow-auto col-12 col-sm-5 col-md-6" >
                 <div class="card-body px-0 px-sm-auto py-auto" >
-                  <h2 class="card-title fs-4 fw-semibold">{{ data.name }}</h2>
+                  <h2 class="card-title fs-4 fw-semibold">{{ newData.name }}</h2>
                   <p class="card-text text-body-secondary" [ngClass]="{'text-danger':error}">
-                      {{error?'Solo Existen:':'Existen:'}} {{data.quantitys}}
+                      {{error?'Solo Existen:':'Existen:'}} {{newData.quantitys}}
                   </p>
                   <div>
                     <span class="me-3">
-                      <i class="bi bi-tag tag align-middle"></i>{{data.category}}
+                      <i class="bi bi-tag tag align-middle"></i>{{newData.category}}
                     </span>
-                    <span [innerHTML]="data.status | badges"></span>
+                    <span [innerHTML]="newData.stock | badges"></span>
                   </div>
                 </div>
               </div>
               <div class="col m-auto px-sm-auto col-12 col-sm-3 col-md-3">
                 <div class="align-items-center" >
                   <span class="col-12 fs-5 px-0 px-sm-auto text-secondary-emphasis price align-self-start">
-                    ${{data.price}} 
+                    ${{newData.price}} 
                   </span>
                   <div class="d-flex flex-row mb-3 price px-0 px-sm-auto">
                     <button
@@ -261,7 +261,7 @@
             <button mat-button 
               class="btn-success" 
               [disabled]="!firstFormGroup.valid || !secondFormGroup.valid || !thirdFormGroup.valid"
-              [mat-dialog-close]="data"
+              [mat-dialog-close]="newData"
               (click)="comprar()"
               [matTooltip]="labelToolTip"
               matTooltipPosition="above"

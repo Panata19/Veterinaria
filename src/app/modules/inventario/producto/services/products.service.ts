@@ -46,7 +46,8 @@ const CATEGORYS = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness'];
 })
 export class ProductsService {
 
-  productsDB = Array.from({length: 100}, (_, k) => this.convertToData(k + 1))
+  productsDBTable = Array.from({length: 100}, (_, k) => this.convertToData(k + 1))
+  productsDB = Array.from({length: 100}, (_, k) => this.createNewProduct(k + 1))
   //constructor() {}
 
   /**
@@ -94,7 +95,11 @@ export class ProductsService {
   * TODO: Metodo Improvisado para llamar a TODOS los Productos - Se Debe Refactorizar con la DB
   **/
 
-  getProducts():ProductoTable[] {
+  getProductsTable():ProductoTable[] {
+    return this.productsDBTable;
+  }
+
+  getProducts():ProductoData[] {
     return this.productsDB;
   }
 
@@ -104,8 +109,8 @@ export class ProductsService {
   * @param product: envia el producto completo para eliminarlo de la DB
   **/
   deleteProduct(productoEliminar:ProductoData){
-    this.productsDB = this.productsDB.filter(item => item.id !== productoEliminar.id );
-    return this.productsDB;
+    this.productsDBTable = this.productsDBTable.filter(item => item.id !== productoEliminar.id );
+    return this.productsDBTable;
   }
 
   /**
@@ -118,7 +123,7 @@ export class ProductsService {
       ...newProduct,
       buttons: true
     };
-    this.productsDB.push(ListoXTabla);
+    this.productsDBTable.push(ListoXTabla);
   }
 
   /**
@@ -129,25 +134,25 @@ export class ProductsService {
   EditProduct(editProduct: ProductoTable){    
     
     // Encuent elra índice del objeto en el array utilizando el ID
-    const index = this.productsDB.findIndex(obj => obj.id === editProduct.id);
+    const index = this.productsDBTable.findIndex(obj => obj.id === editProduct.id);
 
     if (index !== -1) {
       // Accede al objeto utilizando el índice encontrado
-      this.productsDB[index].id = editProduct.id;
-      this.productsDB[index].name = editProduct.name;
-      this.productsDB[index].stock = editProduct.stock;
-      this.productsDB[index].quantitys = editProduct.quantitys;
-      this.productsDB[index].image = editProduct.image;
-      this.productsDB[index].price = editProduct.price;
-      this.productsDB[index].category = editProduct.category;
-      this.productsDB[index].buttons = editProduct.buttons;
+      this.productsDBTable[index].id = editProduct.id;
+      this.productsDBTable[index].name = editProduct.name;
+      this.productsDBTable[index].stock = editProduct.stock;
+      this.productsDBTable[index].quantitys = editProduct.quantitys;
+      this.productsDBTable[index].image = editProduct.image;
+      this.productsDBTable[index].price = editProduct.price;
+      this.productsDBTable[index].category = editProduct.category;
+      this.productsDBTable[index].buttons = editProduct.buttons;
 
       // Realiza las modificaciones necesarias en el objeto
     } else {
       console.log('No se encontró el objeto con el ID especificado');
     }
 
-    return this.productsDB;
+    return this.productsDBTable;
   }
 
 }

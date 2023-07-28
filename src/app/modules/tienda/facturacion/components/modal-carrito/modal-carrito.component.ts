@@ -1,7 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
-import { CompraData, CompraPaso1 } from '../../interfaces/CompraProducto';
+import { prueba, Product, Detalles } from '../../interfaces/CompraProducto';
 
 import { StepperOrientation } from '@angular/material/stepper';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -13,12 +15,11 @@ import { TiendaService } from '../../services/tienda.service';
 
 
 @Component({
-  selector: 'app-modal-compra',
-  templateUrl: './modal-compra.component.html',
-  styleUrls: ['./modal-compra.component.css']
+  selector: 'app-modal-carrito',
+  templateUrl: './modal-carrito.component.html',
+  styleUrls: ['./modal-carrito.component.css']
 })
-export class ModalCompraComponent implements OnInit {
-  
+export class ModalCarritoComponent implements OnInit{
   //** Variables Compra **//
   
   iva: number = 12;
@@ -36,15 +37,29 @@ export class ModalCompraComponent implements OnInit {
   Clients: Cliente[] = []; 
   filteredClients!: Observable<Cliente[]>;
   
+  public Imgs = {
+    url: "../assets/img/brown-purse.jpg", 
+    loading: false,
+  }
+
+  public newData: Product = {
+    category: "Electrónica",
+    id: 1,
+    image: this.Imgs,
+    name: "Thomas T.",
+    price: 2,
+    quantitys: 9,
+    stock: "BAJO STOCK",
+  };
 
   //** Variables para Forms  **//
   firstFormGroup = this._formBuilder.group({
-    cantidad: [1, [Validators.required, Validators.min(1), Validators.max(this.data.quantitys)]],
+    cantidad: [1, [Validators.required, Validators.min(1), Validators.max(this.newData.quantitys)]],
   });
   
-  compra: CompraPaso1 = {
+  compra: Detalles = {
     cantidad: this.firstFormGroup.get('cantidad')?.value,
-    precio: this.data.price,
+    precio: this.newData.price,
     valorIva: 0,
     iva: this.iva,
     precioTotal: 0,
@@ -66,25 +81,25 @@ export class ModalCompraComponent implements OnInit {
     correo: ['', Validators.email],
   });
 
+  stepperOrientation: Observable<StepperOrientation>;
+  
   CompraData: any = {
-    Producto: this.data,
+    Producto: this.newData,
     Cantidad: this.compra,
     user: this.secondFormGroup.value
   }
 
-  stepperOrientation: Observable<StepperOrientation>;
-
   constructor(
-    public dialogRef: MatDialogRef<ModalCompraComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: CompraData,
+    public dialogRef: MatDialogRef<ModalCarritoComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Product,
     private _formBuilder: FormBuilder,
     breakpointObserver: BreakpointObserver,
     private TiendaService: TiendaService
   ) {
-    console.log(this.data.quantitys)
+    
     //** Primer Calculo de Costos **//
-    if(data.quantitys > 0){
-      this.compra.precio = data.price;
+    if(this.newData.quantitys > 0){
+      this.compra.precio = this.newData.price;
       this.calcularIva(this.compra.precio);
       this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva)*100) /100 ;
     }
@@ -93,13 +108,14 @@ export class ModalCompraComponent implements OnInit {
       .observe('(min-width: 800px)')
       .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
   }
-  
+
   //** Cierra modal sin obtener Datos **//
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   ngOnInit(): void { 
+    this.newData = this.data;
     this.filteredClients = this.searchTerm.valueChanges.pipe(
       startWith(''),
       map(value => {
@@ -140,6 +156,9 @@ export class ModalCompraComponent implements OnInit {
       telefono: this.secondFormGroup.get('telefono')?.value,
       correo: this.secondFormGroup.get('correo')?.value
     });
+    
+    this.compra.cantidad = this.firstFormGroup.get('cantidad')?.value;
+
     this.thirdFormGroup.get('nombre')?.setValue(
       this.secondFormGroup.get('nombre')?.value+' '+
       this.secondFormGroup.get('apellido')?.value);
@@ -166,13 +185,13 @@ export class ModalCompraComponent implements OnInit {
   }
 
   aumentar(): void {
-    if (this.data.quantitys <= this.firstFormGroup.get('cantidad')?.value) {
+    if (this.newData.quantitys <= this.firstFormGroup.get('cantidad')?.value) {
       this.label = 'Aumentar';
       this.advertencia();
       return;
     }
 
-    this.compra.precio += this.data.price;
+    this.compra.precio += this.newData.price;
     this.firstFormGroup.get('cantidad')?.setValue(
       parseInt(this.firstFormGroup.get('cantidad')?.value) +1);
     this.calcularIva(this.compra.precio);
@@ -186,7 +205,7 @@ export class ModalCompraComponent implements OnInit {
       return;
     }
   
-    this.compra.precio -= this.data.price;
+    this.compra.precio -= this.newData.price;
     this.firstFormGroup.get('cantidad')?.setValue(
       parseInt(this.firstFormGroup.get('cantidad')?.value) -1);
     this.calcularIva(this.compra.precio);
@@ -223,24 +242,26 @@ export class ModalCompraComponent implements OnInit {
 
   reset(){
     this.searchTerm.setValue('');
-    this.compra.precio = this.data.price;
+    this.compra.precio = this.newData.price;
     this.calcularIva(this.compra.precio);
     this.firstFormGroup.get('cantidad')?.setValue(1)
     this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
   }
 
   changes(): void{
-    if(this.firstFormGroup.get('cantidad')?.value >= this.data.quantitys) {
+    if(this.firstFormGroup.get('cantidad')?.value >= this.newData.quantitys) {
       this.error = true;
     } else if(this.firstFormGroup.get('cantidad')?.value === '') {
       this.error = true;
     } else {
       this.error = false;
 
-      this.compra.precio = this.data.price * parseInt(this.firstFormGroup.get('cantidad')?.value);
+      this.compra.precio = this.newData.price * parseInt(this.firstFormGroup.get('cantidad')?.value);
       this.calcularIva(this.compra.precio);
       this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
     }
   }
+
+  loadingImage(): void {  this.newData.image.loading = false;    }
 
 }

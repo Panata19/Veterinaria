@@ -10,9 +10,9 @@ import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 import { PaginatePipe } from './facturacion/pipe/paginate.pipe';
 
-import { ModalCompraComponent } from './facturacion/components/modal-compra/modal-compra.component';
-
 import { FacturacionComponent } from './facturacion/pages/main/facturacion.component';
+import { ModalAddCarritoComponent } from './facturacion/components/modal-addCarrito/modal-addCarrito.component';
+import { ModalCarritoComponent } from './facturacion/components/modal-carrito/modal-carrito.component';
 
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatPaginatorIntl } from '@angular/material/paginator';
@@ -21,11 +21,14 @@ import { ProductoPaginatorIntl } from './facturacion/components/custom-paginator
 import { appReducer } from './facturacion/services/app.reducer';
 
 
+
+
 @NgModule({
   declarations: [
     FacturacionComponent,
     PaginatePipe,
-    ModalCompraComponent
+    ModalAddCarritoComponent,
+    ModalCarritoComponent
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Objeto } from './app.state';
+import { CompraDetalles, Objeto } from './app.state';
 
 export const agregarObjeto = createAction(
   '[Objeto] Agregar',
@@ -9,4 +9,9 @@ export const agregarObjeto = createAction(
 export const eliminarObjeto = createAction(
   '[Objeto] Eliminar',
   props<{ id: number }>()
+);
+
+export const cambiarPrecio = createAction(
+  '[Objeto] Cambiar Precio',
+  props<{ id: number; detalles: CompraDetalles }>()
 );

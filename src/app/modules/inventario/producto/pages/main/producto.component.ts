@@ -34,7 +34,7 @@ export class ProductoComponent implements AfterViewInit  {
   constructor(private ProductsService: ProductsService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
 
     //** Get Data **/
-    this.users = this.ProductsService.getProducts();
+    this.users = this.ProductsService.getProductsTable();
 
     //** Assign the data to the data source for the table to render  **/
     this.dataSource = new MatTableDataSource(this.users);

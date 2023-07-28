@@ -1,0 +1,113 @@
+<h1 mat-dialog-title>Comprar {{data.name}}</h1>
+
+<form [formGroup]="formAddCarrito">
+  <div class="card border-secondary border" > <!-- Cards -->
+    <div class="row px-1 px-sm-auto">
+      <div class="col px-4 px-sm-auto pe-sm-0 my-auto col-12 col-sm-4 col-md-3" > 
+        <img
+            class="img-fluid shade rounded my-2 m-0"
+            [src]="data.image.url"
+            alt="{{data.name}} - {{data.category}}"
+            (load)="data.image.loading = false"
+            onerror="this.src='../assets/img/Artboard.svg'"
+        >
+        <mat-progress-bar *ngIf="data.image.loading" mode="indeterminate"></mat-progress-bar>
+      </div>
+      <div class="overflow-auto col-12 col-sm-5 col-md-6" >
+        <div class="card-body px-0 px-sm-auto py-auto" >
+          <h2 class="card-title fs-4 fw-semibold">{{ data.name }}</h2>
+          <p class="card-text text-body-secondary" [ngClass]="{'text-danger':error}">
+              {{error?'Solo Existen:':'Existen:'}} {{data.quantitys}}
+          </p>
+          <div>
+            <span class="me-3">
+              <i class="bi bi-tag tag align-middle"></i>{{data.category}}
+            </span>
+            <span [innerHTML]="data.stock | badges"></span>
+          </div>
+        </div>
+      </div>
+      <div class="col m-auto px-sm-auto col-12 col-sm-3 col-md-3">
+        <div class="align-items-center" >
+          <span class="col-12 fs-5 px-0 px-sm-auto text-secondary-emphasis price align-self-start">
+            ${{data.price}} 
+          </span>
+          <div class="d-flex flex-row mb-3 price px-0 px-sm-auto">
+            <button
+              matRipple
+              type="button"
+              class="btn btn-light border border-secondary rw-0 rounded-start"
+              [ngClass]="{'border-danger':error}"
+              (click)="disminuir()"
+            >
+              <span class="icon text-black">
+                <i class="bi bi-dash-lg" [ngClass]="{'text-danger':error}"></i>
+              </span>
+            </button>
+            <div 
+              class="w-10 border border-secondary d-flex text-center align-items-center"
+              [ngClass]="{'border-danger text-danger':error}"
+            >
+              <input 
+                class="fs-5 w-fc " 
+                matInput placeholder="3" 
+                formControlName="cantidad"
+                (ngModelChange)="changes()"
+              >
+            </div>
+            <button
+              matRipple
+              type="button"
+              class="btn btn-light border-secondary rw-0 rounded-end"
+              [ngClass]="{'border-danger':error}"
+              (click)="aumentar()"
+            >
+              <span class="icon text-black">
+                <i class="bi bi-plus-lg" [ngClass]="{'text-danger':error}"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="border mt-2 rounded border-secondary"><!-- Div Costo Total -->
+    <h3 class="border-bottom fs-6 fw-bold border-secondary mx-2 px-2 mb-2">Cuenta:</h3>
+    <div class="ms-2 p-1">
+      <p class="m-0 placeholder-glow">Cantidad:
+        <span [ngClass]="{'placeholder col-4 col-sm-2':error}">
+          {{ error?'':this.formAddCarrito.get('cantidad')?.value}}
+        </span>
+      </p>
+      <p class="m-0 placeholder-glow">SubTotal: 
+        <span [ngClass]="{'placeholder col-4 col-sm-2':error}">
+          {{ error?'':'$'+Detalles.precio}}
+        </span>
+      </p>
+      <p class="placeholder-glow"> Iva {{Detalles.iva}}%:
+        <span [ngClass]="{'placeholder col-4 col-sm-2':error}">
+          {{ error?'':Detalles.valorIva}}
+        </span> 
+      </p>
+      <p class="fw-bold fs-6 placeholder-glow">Total: 
+        <span class="fs-5" [ngClass]="{'placeholder col-4 col-sm-2':error}"
+        >{{error?'':'$'+Detalles.precioTotal}}</span>
+      </p>
+      <div *ngIf="warning" class="bg-danger rounded">
+        <h3 class="fs-5 text-white p-0 text-center">No se puede {{message()}} más la cantidad</h3>
+      </div>
+    </div>
+  </div>
+  
+  <mat-dialog-actions align="end">
+    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+    <button mat-raised-button color="primary"
+      [disabled]="formAddCarrito.invalid" cdkFocusInitial
+      type="submit" [mat-dialog-close]="AddCarrito">
+    {{this.AddCarrito.agregarCarrito?'Añadir Carrito':'Eliminar de Carrito'}}</button>
+    <button mat-raised-button color="primary"
+      (click)="ActualziarCarrito()"
+    >Actualizar Carrito</button>
+  </mat-dialog-actions>
+</form>
+
