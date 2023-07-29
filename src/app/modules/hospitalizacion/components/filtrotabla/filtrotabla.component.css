@@ -1,0 +1,12 @@
+.container_filter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
+.container_select{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}

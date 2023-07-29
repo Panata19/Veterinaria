@@ -1,0 +1,24 @@
+<div class="p-3">
+  <!-- Titulo -->
+  <h1 class="p-2 mb-4">Hospitalización</h1>
+  <div class="d-flex justify-content-end align-items-center gap-4">
+    <!-- Boton de registrar hospitalización -->
+    <app-boton-nueva-hospitalizacion></app-boton-nueva-hospitalizacion>
+  </div>
+</div>
+<section *ngIf="!isMobile; else: tableMobile">
+  <!-- Tabla de escritorio -->
+  <app-table-desktop></app-table-desktop>
+</section>
+<!-- Tabla mobile -->
+<ng-template #tableMobile>
+  <app-table-mobile></app-table-mobile>
+</ng-template>
+
+
+
+
+
+
+
+

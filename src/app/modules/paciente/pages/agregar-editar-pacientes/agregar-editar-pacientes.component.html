@@ -1,0 +1,76 @@
+<div class="container">
+    <mat-toolbar>
+        <span>
+            <h2 mat-dialog-title>{{ modo === 'agregar' ? 'Agregar' : 'Editar' }} Paciente</h2>
+
+        </span>
+    </mat-toolbar>
+
+    <mat-card class="margin">
+        <form [formGroup]="pacienteForm"  class="row g-3">
+           
+          
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input formControlName="nombre" matInput placeholder="Ingresar Nombre">
+                    </mat-form-field>
+                </div>
+                
+
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Raza</mat-label>
+                        <input formControlName="raza" matInput placeholder="Ingresar Apellido">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field>
+                      <input matInput [matDatepicker]="datepicker" formControlName="Fechadenacimiento"
+                          placeholder="Ingresar Fecha de nacimiento">
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                      <mat-datepicker #datepicker></mat-datepicker>
+                  </mat-form-field>
+              </div>
+
+
+
+
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-label>Sexo</mat-label>
+                        <mat-select formControlName="sexo" >
+                          <mat-option *ngFor="let item of sexo" [value]="item">
+                            {{item}}
+                          </mat-option>
+                        </mat-select>
+                        
+                      </mat-form-field>                  
+                </div>
+
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Peso</mat-label>
+                        <input formControlName="peso"  matInput placeholder="Ingresar Nacionalidad">
+                    </mat-form-field>
+                </div>
+
+             
+            
+
+
+        </form>
+        
+
+    </mat-card>
+    <br>
+    <div class="col-12" style="text-align: center;">
+        <button mat-button [disabled]="pacienteForm.invalid" (click)="guardar()" class="btn btn-primary" style="color: white">{{ modo === 'agregar' ? 'Agregar' : 'Guardar' }}</button>
+        <button  mat-raised-button (click)="cancelar()">volver</button>
+
+    </div>
+
+
+</div>>

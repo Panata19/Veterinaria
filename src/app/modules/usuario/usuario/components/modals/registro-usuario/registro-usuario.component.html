@@ -1,0 +1,79 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Agregar Nuevo Usuario</h2>
+            <button type="button" class="close" (click)="closeModal()">
+                <span>&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="usuarioForm">
+                <div class="form-group">
+                    <label for="nombreUsuario">Nombre de Usuario</label>
+                    <input type="text" class="form-control" id="nombreUsuario" formControlName="nombreUsuario"
+                        name="nombreUsuario" [(ngModel)]="nombreUsuario">
+                    <div *ngIf="usuarioForm.get('nombreUsuario')?.touched && usuarioForm.get('nombreUsuario')?.invalid"
+                        class="text-danger">
+                        <div *ngIf="usuarioForm.get('nombreUsuario')?.errors?.['required']">El nombre de usuario es
+                            obligatorio.</div>
+                        <div *ngIf="usuarioForm.get('nombreUsuario')?.errors?.['minlength']">El nombre de usuario debe
+                            tener al menos 8 caracteres.</div>
+                        <div *ngIf="usuarioForm.get('nombreUsuario')?.errors?.['maxlength']">El nombre de usuario no
+                            puede tener más de 13 caracteres.</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contrasenia">Contraseña</label>
+                    <div class="input-group">
+                        <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control" id="contrasenia"
+                            formControlName="contrasenia" name="contrasenia" [(ngModel)]="contrasenia">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button"
+                                (click)="togglePasswordVisibility()">
+                                <i class="fas"
+                                    [ngClass]="{ 'fa-eye': showPassword, 'fa-eye-slash': !showPassword }"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="progress mt-2">
+                        <div class="progress-bar" [ngClass]="getPasswordStrengthClass()" role="progressbar"
+                            [style.width.%]="getPasswordStrengthPercentage()"></div>
+                    </div>
+                    <div *ngIf="usuarioForm.get('contrasenia')?.touched && usuarioForm.get('contrasenia')?.invalid"
+                        class="text-danger">
+                        <div *ngIf="usuarioForm.get('contrasenia')?.errors?.['required']">La contraseña es obligatoria.
+                        </div>
+                        <div *ngIf="usuarioForm.get('contrasenia')?.errors?.['minlength']">La contraseña debe tener al
+                            menos 8 caracteres.</div>
+                        <div *ngIf="usuarioForm.get('contrasenia')?.errors?.['maxlength']">La contraseña no puede tener
+                            más de 20 caracteres.</div>
+                    </div>
+                    <div class="text-muted mt-2">
+                        Seguridad de contraseña: {{ getPasswordStrengthText() }}
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label for="correo">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="correo" formControlName="correo" name="correo"
+                        [(ngModel)]="correo">
+                    <div *ngIf="usuarioForm.get('correo')?.touched && usuarioForm.get('correo')?.invalid"
+                        class="text-danger">
+                        <div *ngIf="usuarioForm.get('correo')?.errors?.['required']">El correo electrónico es
+                            obligatorio.</div>
+                        <div *ngIf="usuarioForm.get('correo')?.errors?.['email']">El correo electrónico no es válido.
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+            <button type="button" class="btn btn-primary" [disabled]="usuarioForm.invalid">Guardar</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,182 @@
+<!-- Default Card Example -->
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-12 d-inline-flex justify-content-start">
+        <button
+          matRipple
+          type="button"
+          class="btn btn-success shade btn-icon-split"
+          (click)="addProduct()"
+        >
+          <span class="icon text-white-50">
+            <i class="bi bi-plus-circle"></i>
+          </span>
+          <span class="text">Nuevo</span>
+        </button>
+        <button
+          matRipple
+          type="button"
+          matTooltip="Eliminar Filas Marcadas"
+          matTooltipPosition="right"
+          [disabled]="removeButton()"
+          class="btn btn-danger shade"
+          (click)="removeProduct()"
+        >
+          <span class="icon text-white-50">
+            <i class="fas fa-trash-alt"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="mat-elevation-z8 overflow-auto bg-white mb-2 mb-sm-4" tabindex="0">
+  <mat-form-field appearance="outline">
+    <mat-label>Buscar</mat-label>
+    <input matInput type="search" (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort class="border-top" aria-label="Tabla Productos">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th scope="col" mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? toggleAllRows() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+          [aria-label]="checkboxLabel()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header>
+        Name
+      </th>
+      <td mat-cell *matCellDef="let row">{{ row.name | titlecase }}</td>
+    </ng-container>
+
+    <!-- Image Column -->
+    <ng-container matColumnDef="image">
+      <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header>
+        Image
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <img
+          class="shadow-4" 
+          [src]="row.image.url"
+          [alt]="row.name"
+          (load)="row.image.loading = false"
+          onerror="this.src='../assets/img/Artboard.svg'"
+          width="60"
+        >
+        <mat-progress-bar *ngIf="row.image.loading" mode="indeterminate"></mat-progress-bar>
+      </td>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header>
+        Price
+      </th>
+      <td mat-cell *matCellDef="let row">$ {{ row.price }}</td>
+    </ng-container>
+
+    <!-- Category Column -->
+    <ng-container matColumnDef="category">
+      <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header>
+        Category
+      </th>
+      <td mat-cell *matCellDef="let row">{{ row.category }}</td>
+    </ng-container>
+
+    <!-- Quantitys Column -->
+    <ng-container matColumnDef="quantitys">
+      <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header>
+        Quantity
+      </th>
+      <td mat-cell *matCellDef="let row">{{ row.quantitys }}</td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header>
+        Status
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <div [innerHTML]="row | status"></div>
+      </td>
+    </ng-container>
+
+    <!-- Buttons Column -->
+    <ng-container matColumnDef="buttons">
+      <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header>
+        
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="">
+          <button
+            matRipple
+            type="button"
+            matTooltip="Editar"
+            matTooltipPosition="left"
+            (click)="EditProduct(row)"
+            class="btn btn-primary shade"
+          >
+            <span class="icon text-white-50">
+              <i class="fas fa-pen-alt"></i>
+            </span>
+          </button>
+          <button
+            matRipple
+            type="button"
+            matTooltip="Eliminar"
+            matTooltipPosition="right"
+            (click)="removeProduct(row)"
+            class="btn btn-danger shade"
+          >
+            <span class="icon text-white-50">
+              <i class="fas fa-trash-alt"></i>
+            </span>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    showFirstLastButtons="true"
+    aria-label="Select page of users"
+  ></mat-paginator>
+</section>
