@@ -1,26 +1,27 @@
 import { Component } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { agregarObjeto, cambioCarrito, eliminarObjeto } from '../../services/app.actions';
+import {
+  agregarObjeto,
+  cambioCarrito,
+  eliminarObjeto,
+} from '../../services/app.actions';
 import { AppState, Objeto } from '../../services/app.state';
 
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { TiendaService } from '../../services/tienda.service';
-import { StoreProduct } from '../../interfaces/CompraProducto';
-import { Product } from '../../interfaces/CompraProducto';
+import { StoreProduct, Product } from '../../interfaces/CompraProducto';
 import { ModalAddCarritoComponent } from '../../components/modal-addCarrito/modal-addCarrito.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModalCarritoComponent } from '../../components/modal-carrito/modal-carrito.component';
 
-
 @Component({
   selector: 'app-facturacion',
   templateUrl: './facturacion.component.html',
-  styleUrls: ['./facturacion.component.css']
+  styleUrls: ['./facturacion.component.css'],
 })
-export class FacturacionComponent  {
-
+export class FacturacionComponent {
   //** Variables para filtrar **//
   searchTerm: string = '';
   filteredProducts: StoreProduct[] = [];
@@ -31,7 +32,7 @@ export class FacturacionComponent  {
   //** Variables para las Vistas  **//
   List: boolean = true;
   Grid: boolean = false;
-  
+
   //**  Variables Paginación **//
   length: number = 50;
   pageSize = 8;
@@ -44,52 +45,63 @@ export class FacturacionComponent  {
   disabled = false;
 
   pageEvent!: PageEvent;
-  
+
   StoreStado!: Objeto[];
   LiveCarrito: boolean = false;
 
   constructor(
     private TiendaService: TiendaService,
-    public dialog: MatDialog, private _snackBar: MatSnackBar,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
     private store: Store<{ app: AppState }>
-  ){ 
-    this.store.select(state => state.app.objetos).subscribe(objetos => {
-      console.log(objetos);
-      this.StoreStado = objetos;
-    });
-    
+  ) {
+    this.store
+      .select((state) => state.app.objetos)
+      .subscribe((objetos) => {
+        console.log(objetos);
+        this.StoreStado = objetos;
+      });
+
     this.Products = TiendaService.getProducts();
     this.length = this.Products.length;
-    this.filterProducts()    
+    this.filterProducts();
   }
 
-  checkStado(id:number): boolean{
-    const objetoEncontrado = this.StoreStado.find(obj => obj.Compra.Producto.id === id);
+  checkStado(id: number): boolean {
+    const objetoEncontrado = this.StoreStado.find(
+      (obj) => obj.Compra.Producto.id === id
+    );
     return objetoEncontrado ? objetoEncontrado.enCarrito : false;
   }
 
   agregarCarrito(objeto: Objeto) {
     this.store.dispatch(agregarObjeto({ objeto }));
-    this.store.dispatch(cambioCarrito({ id: objeto.Compra.Producto.id,
-      status: true,
-    }));
+    this.store.dispatch(
+      cambioCarrito({ id: objeto.Compra.Producto.id, status: true })
+    );
   }
 
   eliminarCarrito(id: number) {
-    console.log('Eliminando')
+    console.log('Eliminando');
     this.store.dispatch(eliminarObjeto({ id }));
   }
 
   //** Metodo para filtrar las cards **//
   filterProducts(): void {
-    this.filteredProducts = this.Products.filter(product => {
-      const productNameMatch = product.name.toLowerCase().includes(this.searchTerm.toLowerCase());
-      const categoryMatch = product.category.toLowerCase().includes(this.searchTerm.toLowerCase());
-      const statusMatch = product.stock.toLowerCase().includes(this.searchTerm.toLowerCase());
+    this.filteredProducts = this.Products.filter((product) => {
+      const productNameMatch = product.name
+        .toLowerCase()
+        .includes(this.searchTerm.toLowerCase());
+      const categoryMatch = product.category
+        .toLowerCase()
+        .includes(this.searchTerm.toLowerCase());
+      const statusMatch = product.stock
+        .toLowerCase()
+        .includes(this.searchTerm.toLowerCase());
       return productNameMatch || categoryMatch || statusMatch;
     });
     this.length = this.filteredProducts.length;
-    this.pageIndex = 0
+    this.pageIndex = 0;
   }
 
   //** Parte del Paginador **//
@@ -102,36 +114,38 @@ export class FacturacionComponent  {
   //** Establece las paginas **//
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+      this.pageSizeOptions = setPageSizeOptionsInput
+        .split(',')
+        .map((str) => +str);
     }
   }
   //** Cambiar a Vista Grid **//
-  viewGrid(): void{
-    if(this.Grid === false){
+  viewGrid(): void {
+    if (this.Grid === false) {
       this.Grid = !this.Grid;
       this.List = !this.List;
     }
   }
   //** Cambiar a Vista Lista **//
   viewList(): void {
-    if(this.List === false){
+    if (this.List === false) {
       this.Grid = !this.Grid;
       this.List = !this.List;
     }
   }
 
   //** Modal Comprar **//
-  addCarrito(Producto: Product): void{
+  addCarrito(Producto: Product): void {
     const dialogRef = this.dialog.open(ModalAddCarritoComponent, {
-      width: '700px', 
+      width: '700px',
       height: 'auto',
       panelClass: 'width-dialog',
       data: {
         id: Producto.id,
-        name: Producto.name, 
+        name: Producto.name,
         image: {
           url: Producto.image.url,
-          loading: true
+          loading: true,
         },
         price: Producto.price,
         category: Producto.category,
@@ -140,45 +154,45 @@ export class FacturacionComponent  {
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
-      if(result !== undefined){
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result !== undefined) {
         switch (result.tipo) {
           case 'Agregando':
             this.agregarCarrito(result.element);
-            this.snackbar('¡Se añadio al carrito con Exito!','success');
+            this.snackbar('¡Se añadio al carrito con Exito!', 'success');
             break;
           case 'Actualizando':
-            this.snackbar('¡Se Actualizo el carrito con Exito!','success');
+            this.snackbar('¡Se Actualizo el carrito con Exito!', 'success');
             break;
           case 'Eliminando':
             this.eliminarCarrito(result.element.Compra.Producto.id);
-            this.snackbar('¡Se Elimino del carrito con Exito!','danger');
+            this.snackbar('¡Se Elimino del carrito con Exito!', 'danger');
             break;
           default:
             break;
         }
-        
+
         this.Products = this.TiendaService.getProducts();
         this.length = this.Products.length;
         this.filterProducts();
       } else {
-        this.snackbar('¡No realizo cambios!','danger');  
+        this.snackbar('¡No realizo cambios!', 'danger');
       }
     });
   }
 
-  abrirCarrito(){
+  abrirCarrito() {
     const dialogRef = this.dialog.open(ModalCarritoComponent, {
-      width: '700px', 
+      width: '700px',
       height: 'auto',
       panelClass: 'width-dialog',
       data: {
         id: this.StoreStado[0].Compra.Producto.id,
-        name: this.StoreStado[0].Compra.Producto.name, 
+        name: this.StoreStado[0].Compra.Producto.name,
         image: {
           url: this.StoreStado[0].Compra.Producto.image.url,
-          loading: true
+          loading: true,
         },
         price: this.StoreStado[0].Compra.Producto.price,
         category: this.StoreStado[0].Compra.Producto.category,
@@ -187,26 +201,24 @@ export class FacturacionComponent  {
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result !== undefined){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== undefined) {
         this.Products = this.TiendaService.getProducts();
         this.length = this.Products.length;
-        this.filterProducts()
-        this.snackbar('¡Compra realizada con Exito!','success');
+        this.filterProducts();
+        this.snackbar('¡Compra realizada con Exito!', 'success');
       } else {
-        this.snackbar('¡Compra Cancelada!','danger');  
+        this.snackbar('¡Compra Cancelada!', 'danger');
       }
-      
     });
   }
 
-  private snackbar(label: string, style: string): void{
+  private snackbar(label: string, style: string): void {
     this._snackBar.open(label, 'Cerrar', {
       horizontalPosition: 'right',
       verticalPosition: 'bottom',
       duration: 2000,
-      panelClass: `snackbar-custom-${style}`
+      panelClass: `snackbar-custom-${style}`,
     });
   }
-
 }

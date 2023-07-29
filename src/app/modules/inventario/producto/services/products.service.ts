@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ProductoData, ProductoTable } from '../interfaces/ProductData';
 import { estadoStock } from 'src/app/shared/libs/Stock';
 
-
 //** Datos Quemados **//
 const NAMES: string[] = [
   'Maia',
@@ -37,38 +36,44 @@ const IMAGE: string[] = [
   'game-controller.jpg',
   'gaming-set.jpg',
   'green-earbuds.jpg',
-  'painted-phone-case.jpg'
-]
+  'painted-phone-case.jpg',
+];
 const CATEGORYS = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness'];
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
-
-  productsDBTable = Array.from({length: 100}, (_, k) => this.convertToData(k + 1))
-  productsDB = Array.from({length: 100}, (_, k) => this.createNewProduct(k + 1))
+  productsDBTable = Array.from({ length: 100 }, (_, k) =>
+    this.convertToData(k + 1)
+  );
+  productsDB = Array.from({ length: 100 }, (_, k) =>
+    this.createNewProduct(k + 1)
+  );
   //constructor() {}
 
   /**
-  * *createNewProduct
-  * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
-  * @param id: Sirve para establecer el id del producto
-  **/
-  private createNewProduct(id: number): ProductoData { 
-    let name:string =
+   * *createNewProduct
+   * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
+   * @param id: Sirve para establecer el id del producto
+   **/
+  private createNewProduct(id: number): ProductoData {
+    let name: string =
       NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
       ' ' +
       NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
       '.';
     let image = {
-      url: '../assets/img/'+IMAGE[Math.round(Math.random() * (IMAGE.length - 1))],
-      loading: true
+      url:
+        '../assets/img/' +
+        IMAGE[Math.round(Math.random() * (IMAGE.length - 1))],
+      loading: true,
     };
 
     let price: number = Math.round(Math.random() * 100);
-    let quantitys:number = Math.round(Math.random() * 100);
-    let category: string = CATEGORYS[Math.round(Math.random() * (CATEGORYS.length - 1))];
+    let quantitys: number = Math.round(Math.random() * 100);
+    let category: string =
+      CATEGORYS[Math.round(Math.random() * (CATEGORYS.length - 1))];
 
     return {
       id: id,
@@ -81,60 +86,63 @@ export class ProductsService {
     };
   }
 
-  private convertToData(index: number): ProductoTable{
-    let NewDatos = { 
+  private convertToData(index: number): ProductoTable {
+    let NewDatos = {
       ...this.createNewProduct(index),
-      buttons: true
+      buttons: true,
     };
-    
+
     return NewDatos;
   }
 
   /**
-  * *getProducts
-  * TODO: Metodo Improvisado para llamar a TODOS los Productos - Se Debe Refactorizar con la DB
-  **/
+   * *getProducts
+   * TODO: Metodo Improvisado para llamar a TODOS los Productos - Se Debe Refactorizar con la DB
+   **/
 
-  getProductsTable():ProductoTable[] {
+  getProductsTable(): ProductoTable[] {
     return this.productsDBTable;
   }
 
-  getProducts():ProductoData[] {
+  getProducts(): ProductoData[] {
     return this.productsDB;
   }
 
   /**
-  * *deleteProduct
-  * TODO: Metodo Improvisado para Eliminar Datos - Se Debe Refactorizar con la DB
-  * @param product: envia el producto completo para eliminarlo de la DB
-  **/
-  deleteProduct(productoEliminar:ProductoData){
-    this.productsDBTable = this.productsDBTable.filter(item => item.id !== productoEliminar.id );
+   * *deleteProduct
+   * TODO: Metodo Improvisado para Eliminar Datos - Se Debe Refactorizar con la DB
+   * @param product: envia el producto completo para eliminarlo de la DB
+   **/
+  deleteProduct(productoEliminar: ProductoData) {
+    this.productsDBTable = this.productsDBTable.filter(
+      (item) => item.id !== productoEliminar.id
+    );
     return this.productsDBTable;
   }
 
   /**
-  * * addProduct
-  * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
-  * @param newProduct: es el nuevo producto para agregarlo a la DB
-  **/
-  addProduct(newProduct: ProductoData){
-    let ListoXTabla = { 
+   * * addProduct
+   * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
+   * @param newProduct: es el nuevo producto para agregarlo a la DB
+   **/
+  addProduct(newProduct: ProductoData) {
+    let ListoXTabla = {
       ...newProduct,
-      buttons: true
+      buttons: true,
     };
     this.productsDBTable.push(ListoXTabla);
   }
 
   /**
-  * * addProduct
-  * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
-  * @param newProduct: es el nuevo producto para agregarlo a la DB
-  **/
-  EditProduct(editProduct: ProductoTable){    
-    
+   * * addProduct
+   * TODO: Metodo Improvisado para llenar Datos - Se Debe Refactorizar con la DB
+   * @param newProduct: es el nuevo producto para agregarlo a la DB
+   **/
+  EditProduct(editProduct: ProductoTable) {
     // Encuent elra índice del objeto en el array utilizando el ID
-    const index = this.productsDBTable.findIndex(obj => obj.id === editProduct.id);
+    const index = this.productsDBTable.findIndex(
+      (obj) => obj.id === editProduct.id
+    );
 
     if (index !== -1) {
       // Accede al objeto utilizando el índice encontrado
@@ -154,5 +162,4 @@ export class ProductsService {
 
     return this.productsDBTable;
   }
-
 }

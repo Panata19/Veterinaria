@@ -4,13 +4,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 import {
   Product,
   Detalles,
-  CompraData,
   StoreElement,
 } from '../../interfaces/CompraProducto';
 
 import { Store } from '@ngrx/store';
 import {
-  agregarObjeto,
   editarCarrito,
   cambioCarrito,
 } from '../../services/app.actions';

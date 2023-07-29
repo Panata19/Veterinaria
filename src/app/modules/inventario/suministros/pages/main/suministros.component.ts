@@ -15,23 +15,34 @@ import { EditSuministrosModalComponent } from '../../components/edit-suministros
 import { ImageInfo, SuministroTable } from '../../interfaces/SuministroData';
 import { SuministroService } from '../../services/suministros.service';
 
-
 @Component({
   selector: 'app-suministros',
   templateUrl: './suministros.component.html',
-  styleUrls: ['./suministros.component.css']
+  styleUrls: ['./suministros.component.css'],
 })
 export class SuministrosComponent implements AfterViewInit {
-
-  
-  displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'stock','buttons'];
+  displayedColumns: string[] = [
+    'select',
+    'id',
+    'name',
+    'image',
+    'price',
+    'category',
+    'quantitys',
+    'stock',
+    'buttons',
+  ];
   dataSource: MatTableDataSource<SuministroTable>;
   selection: SelectionModel<SuministroTable>;
-  users!:SuministroTable[];
+  users!: SuministroTable[];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
-  constructor(private SuministroService: SuministroService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
+
+  constructor(
+    private SuministroService: SuministroService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
+  ) {
     //** Get Data **/
     this.users = this.SuministroService.getSuministros();
 
@@ -39,14 +50,14 @@ export class SuministrosComponent implements AfterViewInit {
     this.dataSource = new MatTableDataSource(this.users);
     this.selection = new SelectionModel<SuministroTable>(true, []);
   }
-  
+
   //** Logica Añadir Nuevo Suministro **//
-  addSuministro(){
+  addSuministro() {
     let id: number, price: number, quantitys: number;
-    let name: string, category: string, status:string;
+    let name: string, category: string, status: string;
     let image: ImageInfo = {
       url: '',
-      loading: true
+      loading: true,
     };
     let buttons: boolean = false;
 
@@ -59,30 +70,33 @@ export class SuministrosComponent implements AfterViewInit {
         category: category!,
         quantitys: quantitys!,
         status: status!,
-        buttons: buttons
+        buttons: buttons,
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if( result !== undefined ){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== undefined) {
         this.SuministroService.addSuministro(result);
-        
-        this.snackbar('!Suministro Agregado con Exito!','success');
+
+        this.snackbar('!Suministro Agregado con Exito!', 'success');
       } else {
-        this.snackbar('¡Suministro NO Agregado!','danger');
+        this.snackbar('¡Suministro NO Agregado!', 'danger');
       }
       this.ngAfterViewInit();
     });
-    
   } /** End AddSuministro **/
 
   //** Logica Editar Nuevo Suministro **//
-  EditSuministro(row: SuministroTable){
-    let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
-    let name: string = row.name, category: string = row.category, status:string = row.stock;
+  EditSuministro(row: SuministroTable) {
+    let id: number = row.id,
+      price: number = row.price,
+      quantitys: number = row.quantitys;
+    let name: string = row.name,
+      category: string = row.category,
+      status: string = row.stock;
     let image: ImageInfo = {
       url: row.image.url,
-      loading: true
+      loading: true,
     };
     let buttons: boolean = row.buttons;
 
@@ -95,70 +109,69 @@ export class SuministrosComponent implements AfterViewInit {
         category: category,
         quantitys: quantitys,
         status: status,
-        buttons: buttons
+        buttons: buttons,
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if( result !== undefined ){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== undefined) {
         this.SuministroService.EditSuministro(result);
-        this.snackbar('!Suministro Editado con Exito!','success');
+        this.snackbar('!Suministro Editado con Exito!', 'success');
       } else {
-        this.snackbar('¡Suministro NO Editado!','danger');
+        this.snackbar('¡Suministro NO Editado!', 'danger');
       }
       this.ngAfterViewInit();
     });
-    
   } /** End EditSuministro **/
 
-
   //** Validación para permitir usar eliminar en Masa **//
-  removeButton(){ return  this.selection.selected.length === 0; }
-  
+  removeButton() {
+    return this.selection.selected.length === 0;
+  }
+
   //** Validación para eliminar en Masa **/
-  removeSuministro(product?:SuministroTable){
+  removeSuministro(product?: SuministroTable) {
     //** Logica Del Modal de confirmación **/
     let confirmation: boolean = false;
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       data: {
-        label: '¿Estas seguro de querer eliminar este Suministro?', 
-        confirmation: confirmation 
+        label: '¿Estas seguro de querer eliminar este Suministro?',
+        confirmation: confirmation,
       },
     });
 
     //** Una vez se cierra el modal **//
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       confirmation = result;
       //** Logica Para Eliminar **/
-      if(confirmation){
-        let selecteds:SuministroTable[] = this.selection.selected;    
-        if(product===undefined){
-          selecteds.forEach( (index) => {
+      if (confirmation) {
+        let selecteds: SuministroTable[] = this.selection.selected;
+        if (product === undefined) {
+          selecteds.forEach((index) => {
             this.selection.deselect(index);
             let newData = this.SuministroService.deleteSuministro(index);
             this.dataSource = new MatTableDataSource(newData);
           });
-        }else{
+        } else {
           let newData = this.SuministroService.deleteSuministro(product!);
           this.dataSource = new MatTableDataSource(newData);
         }
-        this.snackbar('¡Eliminado con Exito!','success');
-      }else{
+        this.snackbar('¡Eliminado con Exito!', 'success');
+      } else {
         //** Abre Snackbar **//
-        this.snackbar('¡Operación Cancelada!','danger');
+        this.snackbar('¡Operación Cancelada!', 'danger');
       }
-      
+
       this.ngAfterViewInit();
-    });    
-    
+    });
   }
   //** Crea SnackBar con estilos **//
-  snackbar(label: string, style: string){
+  snackbar(label: string, style: string) {
     this._snackBar.open(label, 'Cerrar', {
       horizontalPosition: 'right',
       verticalPosition: 'bottom',
       duration: 2000,
-      panelClass: `snackbar-custom-${style}`
+      panelClass: `snackbar-custom-${style}`,
     });
   }
   //** Valida Si el número de elementos seleccionados coincide con el número total de filas. */
@@ -182,9 +195,11 @@ export class SuministrosComponent implements AfterViewInit {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.id
+    }`;
   }
- //** Actualiza la vista de la tabla con los cambios actuales de la DB **/
+  //** Actualiza la vista de la tabla con los cambios actuales de la DB **/
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -198,5 +213,4 @@ export class SuministrosComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
 }

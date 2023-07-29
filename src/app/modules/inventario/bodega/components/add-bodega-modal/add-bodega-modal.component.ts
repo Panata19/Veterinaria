@@ -2,39 +2,45 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BodegaData } from '../../interfaces/BodegaData';
 import { SelectTypes } from '../interfaces/selected.interface';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-add-bodega-modal',
   templateUrl: './add-bodega-modal.component.html',
-  styles: [`
-  .right-align {
-    text-align: right;
-  }
+  styles: [
+    `
+      .right-align {
+        text-align: right;
+      }
 
-  input.right-align::-webkit-outer-spin-button,
-  input.right-align::-webkit-inner-spin-button {
-    display: none;
-  }
+      input.right-align::-webkit-outer-spin-button,
+      input.right-align::-webkit-inner-spin-button {
+        display: none;
+      }
 
-  input.right-align {
-    -moz-appearance: textfield;
-  }
-  
-  .w-img{
-    max-height: 200px;
-    max-width: 300px;
-  }
+      input.right-align {
+        -moz-appearance: textfield;
+      }
 
-  .custom-error {
-    margin-top: 5px;
-    background: white;
-    width: fit-content;
-  }
-  `]
+      .w-img {
+        max-height: 200px;
+        max-width: 300px;
+      }
+
+      .custom-error {
+        margin-top: 5px;
+        background: white;
+        width: fit-content;
+      }
+    `,
+  ],
 })
 export class AddBodegaModalComponent {
-
   public comprobandoUrl: boolean = false;
   public imgPreview: string = '../assets/img/Artboard.svg';
 
@@ -46,25 +52,27 @@ export class AddBodegaModalComponent {
     category: ['', Validators.required],
     price: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     quantitys: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-  })
+  });
 
   constructor(
     public dialogRef: MatDialogRef<AddBodegaModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: BodegaData,
     private form: FormBuilder
-  ) { console.log(this.myForm?.value?.id) }
-  
+  ) {
+    console.log(this.myForm?.value?.id);
+  }
+
   //** Opciones Para el DropDown Select **//
   Types: SelectTypes[] = [
-    {value: 'DISPONIBLE', viewValue: 'DISPONIBLE'},
-    {value: 'BAJO STOCK', viewValue: 'BAJO STOCK'},
-    {value: 'AGOTADO', viewValue: 'AGOTADO'},
+    { value: 'DISPONIBLE', viewValue: 'DISPONIBLE' },
+    { value: 'BAJO STOCK', viewValue: 'BAJO STOCK' },
+    { value: 'AGOTADO', viewValue: 'AGOTADO' },
   ];
   selectedType = this.Types[2].value;
 
   //** Opciones para los RadioButton Categoria **//
   categorys: string[] = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness'];
-  
+
   //** Permite Vaciar el campo con un boton **//
   checkData = {
     id: false,
@@ -74,7 +82,7 @@ export class AddBodegaModalComponent {
     category: false,
     quantitys: false,
     stock: false,
-  }
+  };
   //** Mensajes de Error **//
   checklabel = {
     id: '',
@@ -84,64 +92,80 @@ export class AddBodegaModalComponent {
     category: '',
     quantitys: '',
     stock: '',
-  }
+  };
 
   //** Validaciones para Campos - Checks y Clears **//
-  getErrorMessage(name: string, item: AbstractControl | null) {    
-    let typeValue = name as keyof typeof this.checklabel
-    if(item!.hasError('pattern')) {      
-      this.checklabel[typeValue] = 'El valor debe ser numérico *'; 
-      item!.valid ? this.checkData[typeValue] = true : this.checkData[typeValue] = false;
+  getErrorMessage(name: string, item: AbstractControl | null) {
+    let typeValue = name as keyof typeof this.checklabel;
+    if (item!.hasError('pattern')) {
+      this.checklabel[typeValue] = 'El valor debe ser numérico *';
+      item!.valid
+        ? (this.checkData[typeValue] = true)
+        : (this.checkData[typeValue] = false);
     } else if (item!.hasError('required')) {
       this.checklabel[typeValue] = 'Debes introducir un valor * ';
     } else {
-      this.checklabel[typeValue] = '' 
-      item!.valid ? this.checkData[typeValue] = true : this.checkData[typeValue] = false;
+      this.checklabel[typeValue] = '';
+      item!.valid
+        ? (this.checkData[typeValue] = true)
+        : (this.checkData[typeValue] = false);
     }
   }
 
-  checkID(){
+  checkID() {
     let id = this.myForm.get('id');
     this.getErrorMessage('id', id);
   }
 
-  clearID(){ this.myForm.get('id')!.reset(); }
+  clearID() {
+    this.myForm.get('id')!.reset();
+  }
 
-  checkName(){
+  checkName() {
     let name = this.myForm.get('name');
     this.getErrorMessage('name', name);
   }
 
-  clearName(){ this.myForm.get('name')!.reset();  }
-
-  checkImage(){
-    let image = this.myForm.get('image');
-    this.compruebaUrl(image);
-    image!.valid ? this.checkData.image = true : this.checkData.image = false;
+  clearName() {
+    this.myForm.get('name')!.reset();
   }
 
-  clearImage(){ this.myForm.get('image')!.reset(); }
+  checkImage() {
+    let image = this.myForm.get('image');
+    this.compruebaUrl(image);
+    image!.valid
+      ? (this.checkData.image = true)
+      : (this.checkData.image = false);
+  }
 
-  checkQuantitys(){
+  clearImage() {
+    this.myForm.get('image')!.reset();
+  }
+
+  checkQuantitys() {
     let quantitys = this.myForm.get('quantitys');
     this.checkCantidadxEstatus(quantitys);
     this.getErrorMessage('quantitys', quantitys);
   }
 
-  clearQuantitys(){ this.myForm.get('quantitys')!.reset(); }
+  clearQuantitys() {
+    this.myForm.get('quantitys')!.reset();
+  }
 
-  checkPrice(){
+  checkPrice() {
     let price = this.myForm.get('price');
     this.getErrorMessage('price', price);
   }
 
-  clearPrice(){  this.myForm.get('price')!.reset();  }
-
-  get comprueba(){
-    return this.myForm.valid
+  clearPrice() {
+    this.myForm.get('price')!.reset();
   }
 
-  checkCantidadxEstatus(quantitys: AbstractControl | null){
+  get comprueba() {
+    return this.myForm.valid;
+  }
+
+  checkCantidadxEstatus(quantitys: AbstractControl | null) {
     switch (true) {
       case quantitys!.value > 10:
         this.myForm.get('stock')!.setValue('IN STOCK');
@@ -155,9 +179,12 @@ export class AddBodegaModalComponent {
     }
   }
 
-  compruebaUrl(image: any): void{
-    if(image?.stock === 'VALID'){
-      this.comprobandoUrl = image?.value.endsWith(".png") || image?.value.endsWith(".jpg") || image?.value.endsWith(".svg");
+  compruebaUrl(image: any): void {
+    if (image?.stock === 'VALID') {
+      this.comprobandoUrl =
+        image?.value.endsWith('.png') ||
+        image?.value.endsWith('.jpg') ||
+        image?.value.endsWith('.svg');
       this.imgPreview = image?.value;
     }
   }
@@ -166,7 +193,7 @@ export class AddBodegaModalComponent {
     this.dialogRef.close();
   }
 
-  submit(){
+  submit() {
     this.data.id = this.myForm.get('id')!.value;
     this.data.name = this.myForm.get('name')!.value;
     this.data.image.url = this.myForm.get('image')!.value;
@@ -176,5 +203,4 @@ export class AddBodegaModalComponent {
     this.data.quantitys = this.myForm.get('quantitys')!.value;
     this.data.stock = this.myForm.get('stock')!.value;
   }
-
 }

@@ -15,24 +15,34 @@ import { EditProductModalComponent } from '../../components/edit-product-modal/e
 import { ImageInfo, ProductoTable } from '../../interfaces/ProductData';
 import { ProductsService } from '../../services/products.service';
 
-
-
 @Component({
   selector: 'app-producto',
   templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.css']
+  styleUrls: ['./producto.component.css'],
 })
-export class ProductoComponent implements AfterViewInit  {
-  
-  displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'stock','buttons'];
+export class ProductoComponent implements AfterViewInit {
+  displayedColumns: string[] = [
+    'select',
+    'id',
+    'name',
+    'image',
+    'price',
+    'category',
+    'quantitys',
+    'stock',
+    'buttons',
+  ];
   dataSource: MatTableDataSource<ProductoTable>;
   selection: SelectionModel<ProductoTable>;
-  users!:ProductoTable[];
+  users!: ProductoTable[];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
-  constructor(private ProductsService: ProductsService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
 
+  constructor(
+    private ProductsService: ProductsService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
+  ) {
     //** Get Data **/
     this.users = this.ProductsService.getProductsTable();
 
@@ -40,15 +50,15 @@ export class ProductoComponent implements AfterViewInit  {
     this.dataSource = new MatTableDataSource(this.users);
     this.selection = new SelectionModel<ProductoTable>(true, []);
   }
-  
+
   //** Logica Añadir Nuevo Producto **//
-  addProduct(){
+  addProduct() {
     let id: number, price: number, quantitys: number;
-    let name: string, category: string, stock:string;
+    let name: string, category: string, stock: string;
     let image: ImageInfo = {
       url: '',
-      loading: true
-    }
+      loading: true,
+    };
     let buttons: boolean = false;
 
     const dialogRef = this.dialog.open(AddProductModalComponent, {
@@ -60,31 +70,34 @@ export class ProductoComponent implements AfterViewInit  {
         category: category!,
         quantitys: quantitys!,
         stock: stock!,
-        buttons: buttons
+        buttons: buttons,
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if( result !== undefined ){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== undefined) {
         this.ProductsService.addProduct(result);
-        
-        this.snackbar('¡Producto Agregado con Exito!','success');
+
+        this.snackbar('¡Producto Agregado con Exito!', 'success');
       } else {
-        this.snackbar('¡Producto NO Agregado!','danger');
+        this.snackbar('¡Producto NO Agregado!', 'danger');
       }
       this.ngAfterViewInit();
     });
-    
   } /** End AddProduct **/
 
   //** Logica Editar Nuevo Producto **//
-  EditProduct(row: ProductoTable){
-    let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
-    let name: string = row.name, category: string = row.category, stock:string = row.stock;
+  EditProduct(row: ProductoTable) {
+    let id: number = row.id,
+      price: number = row.price,
+      quantitys: number = row.quantitys;
+    let name: string = row.name,
+      category: string = row.category,
+      stock: string = row.stock;
     let image: ImageInfo = {
       url: row.image.url,
-      loading: true
-    }
+      loading: true,
+    };
     let buttons: boolean = row.buttons;
 
     const dialogRef = this.dialog.open(EditProductModalComponent, {
@@ -96,71 +109,69 @@ export class ProductoComponent implements AfterViewInit  {
         category: category,
         quantitys: quantitys,
         stock: stock,
-        buttons: buttons
+        buttons: buttons,
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if( result !== undefined ){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== undefined) {
         this.ProductsService.EditProduct(result);
-        this.snackbar('¡Producto Editado con Exito!','success');
+        this.snackbar('¡Producto Editado con Exito!', 'success');
       } else {
-        this.snackbar('¡Producto NO Editado!','danger');
+        this.snackbar('¡Producto NO Editado!', 'danger');
       }
       this.ngAfterViewInit();
     });
-    
   } /** End EditProduct **/
 
-
   //** Validación para permitir usar eliminar en Masa **//
-  removeButton(){ return  this.selection.selected.length === 0; }
-  
+  removeButton() {
+    return this.selection.selected.length === 0;
+  }
+
   //** Validación para eliminar en Masa **/
-  removeProduct(product?:ProductoTable){
+  removeProduct(product?: ProductoTable) {
     //** Logica Del Modal de confirmación **/
     let confirmation: boolean = false;
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       data: {
-        label: '¿Estas seguro de querer eliminar este Producto?', 
-        confirmation: confirmation 
+        label: '¿Estas seguro de querer eliminar este Producto?',
+        confirmation: confirmation,
       },
     });
 
     //** Una vez se cierra el modal **//
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       confirmation = result;
       //** Logica Para Eliminar **/
-      if(confirmation){
-        let selecteds:ProductoTable[] = this.selection.selected;    
-        if(product===undefined){
-          selecteds.forEach( (index) => {
+      if (confirmation) {
+        let selecteds: ProductoTable[] = this.selection.selected;
+        if (product === undefined) {
+          selecteds.forEach((index) => {
             this.selection.deselect(index);
             let newData = this.ProductsService.deleteProduct(index);
             this.dataSource = new MatTableDataSource(newData);
           });
-        }else{
+        } else {
           let newData = this.ProductsService.deleteProduct(product!);
           this.dataSource = new MatTableDataSource(newData);
         }
-        this.snackbar('¡Eliminado con Exito!','success');
-      }else{
+        this.snackbar('¡Eliminado con Exito!', 'success');
+      } else {
         //** Abre Snackbar **//
-        this.snackbar('¡Operación Cancelada!','danger');
+        this.snackbar('¡Operación Cancelada!', 'danger');
       }
-      
+
       this.ngAfterViewInit();
     });
-    
-    
   }
   //** Crea SnackBar con estilos **//
-  private snackbar(label: string, style: string): void{
+  private snackbar(label: string, style: string): void {
     this._snackBar.open(label, 'Cerrar', {
       horizontalPosition: 'right',
       verticalPosition: 'bottom',
       duration: 2000,
-      panelClass: `snackbar-custom-${style}`
+      panelClass: `snackbar-custom-${style}`,
     });
   }
   //** Valida Si el número de elementos seleccionados coincide con el número total de filas. */
@@ -184,9 +195,11 @@ export class ProductoComponent implements AfterViewInit  {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.id
+    }`;
   }
- //** Actualiza la vista de la tabla con los cambios actuales de la DB **/
+  //** Actualiza la vista de la tabla con los cambios actuales de la DB **/
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

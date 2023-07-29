@@ -15,24 +15,34 @@ import { EditBodegaModalComponent } from '../../components/edit-bodega-modal/edi
 import { BodegaTable, ImageInfo } from '../../interfaces/BodegaData';
 import { BodegaService } from '../../services/bodega.service';
 
-
-
 @Component({
   selector: 'app-bodega',
   templateUrl: './bodega.component.html',
-  styleUrls: ['./bodega.component.css']
+  styleUrls: ['./bodega.component.css'],
 })
-export class BodegaComponent implements AfterViewInit{
-
-  displayedColumns: string[] = ['select','id', 'name', 'image', 'price', 'category', 'quantitys', 'stock','buttons'];
+export class BodegaComponent implements AfterViewInit {
+  displayedColumns: string[] = [
+    'select',
+    'id',
+    'name',
+    'image',
+    'price',
+    'category',
+    'quantitys',
+    'stock',
+    'buttons',
+  ];
   dataSource: MatTableDataSource<BodegaTable>;
   selection: SelectionModel<BodegaTable>;
-  users!:BodegaTable[];
+  users!: BodegaTable[];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
-  constructor(private BodegaService: BodegaService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
 
+  constructor(
+    private BodegaService: BodegaService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
+  ) {
     //** Get Data **/
     this.users = this.BodegaService.getBodegas();
 
@@ -40,17 +50,17 @@ export class BodegaComponent implements AfterViewInit{
     this.dataSource = new MatTableDataSource(this.users);
     this.selection = new SelectionModel<BodegaTable>(true, []);
   }
-  
+
   //** Logica Añadir Nuevo Bodegao **//
-  addBodega(){
+  addBodega() {
     let id: number, price: number, quantitys: number;
-    let name: string, category: string, stock:string;
+    let name: string, category: string, stock: string;
     let image: ImageInfo = {
       url: '',
-      loading: true
-    }
+      loading: true,
+    };
     let buttons: boolean = false;
-    
+
     const dialogRef = this.dialog.open(AddBodegaModalComponent, {
       data: {
         id: id!,
@@ -60,31 +70,34 @@ export class BodegaComponent implements AfterViewInit{
         category: category!,
         quantitys: quantitys!,
         stock: stock!,
-        buttons: buttons
+        buttons: buttons,
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if( result !== undefined ){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== undefined) {
         this.BodegaService.addBodega(result);
-        
-        this.snackbar('¡Bodega Agregada con Exito!','success');
+
+        this.snackbar('¡Bodega Agregada con Exito!', 'success');
       } else {
-        this.snackbar('¡Bodega NO Agregada!','danger');
+        this.snackbar('¡Bodega NO Agregada!', 'danger');
       }
       this.ngAfterViewInit();
     });
-    
   } /** End AddBodega **/
 
   //** Logica Editar Nuevo Bodegao **//
-  EditBodega(row: BodegaTable){
-    let id: number = row.id, price: number = row.price, quantitys: number = row.quantitys;
-    let name: string = row.name, category: string = row.category, stock:string = row.stock;
+  EditBodega(row: BodegaTable) {
+    let id: number = row.id,
+      price: number = row.price,
+      quantitys: number = row.quantitys;
+    let name: string = row.name,
+      category: string = row.category,
+      stock: string = row.stock;
     let image: ImageInfo = {
       url: row.image.url,
-      loading: true
-    }
+      loading: true,
+    };
     let buttons: boolean = row.buttons;
 
     const dialogRef = this.dialog.open(EditBodegaModalComponent, {
@@ -96,71 +109,69 @@ export class BodegaComponent implements AfterViewInit{
         category: category,
         quantitys: quantitys,
         stock: stock,
-        buttons: buttons
+        buttons: buttons,
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if( result !== undefined ){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== undefined) {
         this.BodegaService.EditBodega(result);
-        this.snackbar('¡Bodega Editada con Exito!','success');
+        this.snackbar('¡Bodega Editada con Exito!', 'success');
       } else {
-        this.snackbar('¡Bodega NO Editada!','danger');
+        this.snackbar('¡Bodega NO Editada!', 'danger');
       }
       this.ngAfterViewInit();
     });
-    
   } /** End EditBodega **/
 
-
   //** Validación para permitir usar eliminar en Masa **//
-  removeButton(){ return  this.selection.selected.length === 0; }
-  
+  removeButton() {
+    return this.selection.selected.length === 0;
+  }
+
   //** Validación para eliminar en Masa **/
-  removeBodega(product?:BodegaTable){
+  removeBodega(product?: BodegaTable) {
     //** Logica Del Modal de confirmación **/
     let confirmation: boolean = false;
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       data: {
-        label: '¿Estas seguro de querer eliminar este Bodegao?', 
-        confirmation: confirmation 
+        label: '¿Estas seguro de querer eliminar este Bodegao?',
+        confirmation: confirmation,
       },
     });
 
     //** Una vez se cierra el modal **//
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       confirmation = result;
       //** Logica Para Eliminar **/
-      if(confirmation){
-        let selecteds:BodegaTable[] = this.selection.selected;    
-        if(product===undefined){
-          selecteds.forEach( (index) => {
+      if (confirmation) {
+        let selecteds: BodegaTable[] = this.selection.selected;
+        if (product === undefined) {
+          selecteds.forEach((index) => {
             this.selection.deselect(index);
             let newData = this.BodegaService.deleteBodega(index);
             this.dataSource = new MatTableDataSource(newData);
           });
-        }else{
+        } else {
           let newData = this.BodegaService.deleteBodega(product!);
           this.dataSource = new MatTableDataSource(newData);
         }
-        this.snackbar('¡Eliminado con Exito!','success');
-      }else{
+        this.snackbar('¡Eliminado con Exito!', 'success');
+      } else {
         //** Abre Snackbar **//
-        this.snackbar('¡Operación Cancelada!','danger');
+        this.snackbar('¡Operación Cancelada!', 'danger');
       }
-      
+
       this.ngAfterViewInit();
     });
-    
-    
   }
   //** Crea SnackBar con estilos **//
-  snackbar(label: string, style: string){
+  snackbar(label: string, style: string) {
     this._snackBar.open(label, 'Cerrar', {
       horizontalPosition: 'right',
       verticalPosition: 'bottom',
       duration: 2000,
-      panelClass: `snackbar-custom-${style}`
+      panelClass: `snackbar-custom-${style}`,
     });
   }
   //** Valida Si el número de elementos seleccionados coincide con el número total de filas. */
@@ -184,9 +195,11 @@ export class BodegaComponent implements AfterViewInit{
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.id
+    }`;
   }
- //** Actualiza la vista de la tabla con los cambios actuales de la DB **/
+  //** Actualiza la vista de la tabla con los cambios actuales de la DB **/
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -200,5 +213,4 @@ export class BodegaComponent implements AfterViewInit{
       this.dataSource.paginator.firstPage();
     }
   }
-  
 }
