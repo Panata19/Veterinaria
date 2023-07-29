@@ -82,7 +82,6 @@ export class HistorialClinicoPacienteComponent implements OnInit {
   eliminarDetallesHospitalizacion():MatDialogRef<ModalEliminarHistorialComponent>{
     return this.matDialog.open(ModalEliminarHistorialComponent, {
       width: '600px',
-      height: '100px'
     });
   }
 }

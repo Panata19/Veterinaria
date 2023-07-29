@@ -1,7 +1,8 @@
 .container_modal_eliminar{
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;;
+    align-items: flex-start;
     gap: 1rem;
 }
 

@@ -84,7 +84,7 @@ export class TableMobileComponent implements OnInit {
   abrirDetallesHospitaliacion(hospitalizacion: Hospitalizacion): MatDialogRef<DetalleHospitalizacionComponent>{
     return this.matDialog.open(DetalleHospitalizacionComponent, {
       width: '1600px',
-      height: '600px',
+      height: '800px',
       data: hospitalizacion
     });
   }
@@ -92,7 +92,6 @@ export class TableMobileComponent implements OnInit {
   eliminarDetallesHospitalizacion():MatDialogRef<ModalEliminarhospitalizacionComponent>{
     return this.matDialog.open(ModalEliminarhospitalizacionComponent, {
       width: '600px',
-      height: '100px'
     });
   }
 }
