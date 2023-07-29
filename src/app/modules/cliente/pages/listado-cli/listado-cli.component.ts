@@ -3,14 +3,13 @@ import { Cliente } from '../../interface/cliente.interface';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { ClienteService } from '../../service/cliente.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarEditarClientesComponent } from '../agregar-editar-clientes/agregar-editar-clientes.component';
-import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+
 import { ConfirmacionComponent } from '../verificacion/confirmacion/confirmacion.component';
+import { MatSort} from '@angular/material/sort';
 
 
 
@@ -27,11 +26,13 @@ export class ListadoCliComponent implements OnInit {
 
   listcliente: Cliente[] = [];
 
-  displayedColumns: string[] = ['nombres', 'apellidos', 'sexo', 'edad', 'nacionalidad', 'acciones'];
+  displayedColumns: string[] = ['numDocumento', 'nombreCliente', 'apellidosCliente', 'direccion', 'telefono', 'correo', 'sexo', 'fechaNac', 'nacionalidad', 'acciones'];
   dataSource!: MatTableDataSource<Cliente>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+
 
 
  
@@ -42,8 +43,7 @@ export class ListadoCliComponent implements OnInit {
   constructor(private _clienteService: ClienteService,
     private _snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute,) { }
+) { }
 
   ngOnInit(): void {
     this.cargarcliente();  
@@ -54,6 +54,7 @@ export class ListadoCliComponent implements OnInit {
   cargarcliente() {
     this.listcliente = this._clienteService.getCliente();
     this.dataSource = new MatTableDataSource(this.listcliente)
+    
 
   }
 
@@ -66,7 +67,7 @@ export class ListadoCliComponent implements OnInit {
 
   abrirModalAgregar(): void {
     const dialogRef = this.dialog.open(AgregarEditarClientesComponent, {
-      width: '1000px', 
+      width: '700px', 
       height: 'auto',
       data: { modo: 'agregar' } // Enviamos un objeto con el modo 'agregar' al modal
     });
@@ -76,14 +77,23 @@ export class ListadoCliComponent implements OnInit {
         this.agregarCliente(result);
         this.cargarcliente()
         this.ngAfterViewInit()
+      } else {
+        this._snackBar.open('El cliente no fue guardado', '', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'bottom',
+        });
       }
+
+
+
     });
   }
 
 
   abrirModalEditar(cliente: Cliente): void {
     const dialogRef = this.dialog.open(AgregarEditarClientesComponent, {
-      width: '1000px', 
+      width: '700px', 
       height: 'auto',
       data: { modo: 'editar', cliente } 
     });
@@ -93,6 +103,12 @@ export class ListadoCliComponent implements OnInit {
         this.editarcliente(result);
         this.cargarcliente()
         this.ngAfterViewInit()
+      }else {
+        this._snackBar.open('No se realizaron cambios', '', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'bottom',
+        });
       }
     });
   }
@@ -118,8 +134,10 @@ export class ListadoCliComponent implements OnInit {
       horizontalPosition: 'right',
       verticalPosition: 'bottom'
     });
-  }
 
+    
+  }
+  
 
 
 
@@ -131,7 +149,7 @@ export class ListadoCliComponent implements OnInit {
   eliminarCliente(id: number) {
     const dialogRef = this.dialog.open(ConfirmacionComponent, {
       width: '300px',
-      data: '¿Está seguro de que desea eliminar este paciente?',
+      data: '¿Está seguro de que desea eliminar este cliente?',
     });
   
     dialogRef.afterClosed().subscribe((result) => {
@@ -146,8 +164,7 @@ export class ListadoCliComponent implements OnInit {
           verticalPosition: 'bottom',
         });
   
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+       
       }
     });
   }

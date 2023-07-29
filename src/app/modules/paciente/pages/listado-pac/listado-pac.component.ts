@@ -20,7 +20,7 @@ export class ListadoPacComponent implements OnInit {
 
   listpaciente: Paciente[] = [];
 
-  displayedColumns: string[] = ['nombres','sexo', 'Fechadenacimiento', 'raza','peso','acciones'];
+  displayedColumns: string[] = ['nombre','sexo', 'Fechadenacimiento', 'tipoPaciente', 'raza','peso','acciones'];
   dataSource!: MatTableDataSource<Paciente>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

@@ -8,16 +8,16 @@ export class PacienteService {
 
   constructor() {/* */ }
   private pacientes: Paciente[] = [
-    { id: 1, nombre: "Juan ", sexo: "Masculino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Labrador", peso: 30 },
-    { id: 2, nombre: "Maria ", sexo: "Femenino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Bulldog", peso: 25 },
-    { id: 3, nombre: "Pedro ", sexo: "Masculino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Golden Retriever", peso: 35 },
-    { id: 4, nombre: "Laura ", sexo: "Femenino",  Fechadenacimiento: new Date(1985, 5, 12), raza: "Chihuahua", peso: 5 },
-    { id: 5, nombre: "Carlos", sexo: "Masculino",  Fechadenacimiento: new Date(1985, 5, 12), raza: "Poodle", peso: 10 },
-    { id: 6, nombre: "Ana ", sexo: "Femenino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Husky Siberiano", peso: 40 },
-    { id: 7, nombre: "Diego ", sexo: "Masculino",  Fechadenacimiento: new Date(1985, 5, 12), raza: "Beagle", peso: 12 },
-    { id: 8, nombre: "Sofia ", sexo: "Femenino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Bichón Frisé", peso: 8 },
-    { id: 9, nombre: "Javier ", sexo: "Masculino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Dálmata", peso: 25 },
-    { id: 10, nombre: "Lucia", sexo: "Femenino",   Fechadenacimiento: new Date(1985, 5, 12), raza: "Bóxer", peso: 30 }
+    { id: 1, nombre: "Juan ", sexo: "Masculino",tipoPaciente: "Perro" ,  Fechadenacimiento: new Date(2015, 5, 5), raza: "Labrador", peso: 30 },
+    { id: 2, nombre: "Maria ", sexo: "Femenino",tipoPaciente: "Perro"  , Fechadenacimiento: new Date(2016, 5, 12), raza: "Bulldog", peso: 25 },
+    { id: 3, nombre: "Pedro ", sexo: "Masculino",tipoPaciente: "Gato"  , Fechadenacimiento: new Date(2020, 5, 6), raza: "Abisinio", peso: 35 },
+    { id: 4, nombre: "Laura ", sexo: "Femenino", tipoPaciente: "Perro" ,Fechadenacimiento: new Date(2018, 5, 4), raza: "Chihuahua", peso: 5 },
+    { id: 5, nombre: "Carlos", sexo: "Masculino",tipoPaciente: "Perro"  ,Fechadenacimiento: new Date(2019, 5, 2), raza: "Poodle", peso: 10 },
+    { id: 6, nombre: "Ana ", sexo: "Femenino", tipoPaciente: "Perro"  ,Fechadenacimiento: new Date(2020, 5, 4), raza: "Husky Siberiano", peso: 40 },
+    { id: 7, nombre: "Diego ", sexo: "Masculino",tipoPaciente: "Gato" , Fechadenacimiento: new Date(2022, 5, 15), raza: "Asiático", peso: 16 },
+    { id: 8, nombre: "Sofia ", sexo: "Femenino",  tipoPaciente: "Gato" ,Fechadenacimiento: new Date(2019, 5, 20), raza: "Balinés", peso: 8 },
+    { id: 9, nombre: "Javier ", sexo: "Masculino", tipoPaciente: "Perro" , Fechadenacimiento: new Date(2018, 5, 26), raza: "Dálmata", peso: 25 },
+    { id: 10, nombre: "Lucia", sexo: "Femenino", tipoPaciente: "Gato"  ,Fechadenacimiento: new Date(2017, 5, 24), raza: "Bengalí", peso: 30 }
   ];
 
 

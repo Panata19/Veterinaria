@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes} from '@angular/router';
 import { InicioPageComponent } from './shared/inicio-page/inicio-page.component';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import { NavegationGuard } from './modules/inventario/guards/navegation.guard';
@@ -17,6 +17,7 @@ const routes: Routes = [
       {
         path: 'auth',
         loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+        
         
       },
       {
@@ -44,20 +45,23 @@ const routes: Routes = [
       {
         path: 'cliente',
         loadChildren: () => import('./modules/cliente/cliente.module').then(module => module.ClienteModule),   
+        canActivate: [AuthGuard] 
       },
       {
         path: 'paciente',
         loadChildren: () => import('./modules/paciente/paciente.module').then(module => module.PacienteModule),
+        canActivate: [AuthGuard]
         
       },
       {
         path: 'citas',
         loadChildren: () => import('./modules/citas/citas.module').then(module => module.CitasModule),
-        
+       
       },
       {
         path: 'error',
-        loadChildren: () => import('./error/error.module').then(m => m.ErrorModule)
+        loadChildren: () => import('./error/error.module').then(m => m.ErrorModule),  
+        
       },
       {
         path: '**',

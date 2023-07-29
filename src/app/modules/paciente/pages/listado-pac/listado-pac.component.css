@@ -24,4 +24,11 @@ table {
   }
   .pointer{
   cursor: pointer;
+  margin-right: 10px;
   }
+
+.margin{
+  margin: 10px;
+  
+}
+  
