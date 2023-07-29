@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { agregarObjeto, eliminarObjeto, editarCarrito, cambioCarrito } from './app.actions';
+import { agregarObjeto, eliminarObjeto, editarCarrito, cambioCarrito, cambioCantidadCarrito } from './app.actions';
 import { AppState } from './app.state';
 
 
@@ -38,6 +38,23 @@ export const appReducer = createReducer(
           enCarrito: enCarrito,
           Detalles: {
             ...Detalles,
+          }
+        };
+      }
+      return objeto;
+    })
+  })),
+  on(cambioCantidadCarrito, (state, { id, Detalles }) => ({
+    ...state,
+    objetos: state.objetos.map(objeto => {
+      if (objeto.Compra.Producto.id === id) {
+        return {
+          ...objeto,
+          Compra:{
+            ...objeto.Compra,
+            Detalles: {
+              ...Detalles,
+            }
           }
         };
       }

@@ -14,6 +14,7 @@ import { Cliente } from 'src/app/modules/cliente/interface/cliente.interface';
 import { TiendaService } from '../../services/tienda.service';
 import { Store } from '@ngrx/store';
 import { AppState, Objeto } from '../../services/app.state';
+import { cambioCantidadCarrito, cambioCarrito } from '../../services/app.actions';
 
 
 @Component({
@@ -38,13 +39,6 @@ export class ModalCarritoComponent implements OnInit{
   searchTerm = new FormControl('');
   Clients: Cliente[] = []; 
   filteredClients!: Observable<Cliente[]>;
-  
-  public Imgs = {
-    url: "../assets/img/brown-purse.jpg", 
-    loading: false,
-  }
-
-  public Carrito!: Objeto[];
 
   //** Variables para Forms  **//
   firstFormGroup = this._formBuilder.group({
@@ -52,8 +46,8 @@ export class ModalCarritoComponent implements OnInit{
   });
   /*
   DetallesFactura = {
-    cantidad: this.Carrito[0].Compra.Detalles.cantidad,
-    precio: this.Carrito[0].Compra.Producto.price,
+    cantidad: this.StoreStado[0].Compra.Detalles.cantidad,
+    precio: this.StoreStado[0].Compra.Producto.price,
     valorIva: 0,
     iva: this.iva,
     precioTotal: 0,
@@ -78,7 +72,7 @@ export class ModalCarritoComponent implements OnInit{
   stepperOrientation: Observable<StepperOrientation>;
   /*
   CompraData: any = {
-    Producto: this.Carrito[0].Compra.Producto,
+    Producto: this.StoreStado[0].Compra.Producto,
     Cantidad: this.compra,
     user: this.secondFormGroup.value
   }*/
@@ -100,8 +94,8 @@ export class ModalCarritoComponent implements OnInit{
       });
 
     //** Primer Calculo de Costos **//
-    /*if(this.Carrito[0].Compra.Producto.quantitys > 0){
-      this.compra.precio = this.Carrito[0].Compra.Producto.price;
+    /*if(this.StoreStado[0].Compra.Producto.quantitys > 0){
+      this.compra.precio = this.StoreStado[0].Compra.Producto.price;
       //this.calcularIva(this.compra.precio);
       this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva)*100) /100 ;
     }*/
@@ -117,7 +111,6 @@ export class ModalCarritoComponent implements OnInit{
   }
 
   ngOnInit(): void { 
-    this.Carrito = this.StoreStado;
     this.filteredClients = this.searchTerm.valueChanges.pipe(
       startWith(''),
       map(value => {
@@ -186,12 +179,13 @@ export class ModalCarritoComponent implements OnInit{
     this.compraCliente = this.secondFormGroup.value;
   }
 
-  aumentar({cantidad, precio, iva, valorIva ,precioTotal } : Detalles, {price} : Product): void {
-    if (this.Carrito[0].Compra.Producto.quantitys <= cantidad) {
+  aumentar({cantidad, precio, iva, valorIva ,precioTotal } : Detalles, {id, price} : Product): void {
+    if (this.StoreStado[0].Compra.Producto.quantitys <= cantidad) {
       this.label = 'Aumentar';
       this.advertencia();
       return;
     }
+    
     ++cantidad;
     precio += price;
 
@@ -199,28 +193,29 @@ export class ModalCarritoComponent implements OnInit{
     valorIva = Math.round(calcIva * 100) / 100;
     
     precioTotal = Math.round((precio + valorIva) * 100) / 100;
+
+    this.store.dispatch(
+      cambioCantidadCarrito({ id, Detalles: {cantidad, precio, iva, valorIva, precioTotal} })
+    );
   }
 
-  disminuir({cantidad, precio, iva, valorIva ,precioTotal } : Detalles, {price} : Product): void {
+  disminuir({cantidad, precio, iva, valorIva ,precioTotal } : Detalles, {id, price} : Product): void {
     if (cantidad <= 0) {
       this.label = 'Disminuir';
       this.advertencia();
       return;
     }
     
-    cantidad--
+    --cantidad
     precio -= price
 
     const calcIva = (precio * iva) / 100;
     valorIva = Math.round(calcIva * 100) / 100;
     
     precioTotal = Math.round((precio + valorIva) * 100) / 100;
-    
-    //this.compra.precio -= this.newData.price;
-    //this.firstFormGroup.get('cantidad')?.setValue(
-    //  parseInt(this.firstFormGroup.get('cantidad')?.value) -1);
-    //this.calcularIva(this.compra.precio);
-    //this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
+    this.store.dispatch(
+      cambioCantidadCarrito({ id, Detalles: {cantidad, precio, iva, valorIva, precioTotal} })
+    );
   }
   
 
@@ -255,7 +250,7 @@ export class ModalCarritoComponent implements OnInit{
     //this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
   }
 
-  changes({cantidad, precio, iva, valorIva ,precioTotal } : Detalles, {price, quantitys} : Product): void {
+  changes({cantidad, precio, iva, valorIva ,precioTotal } : Detalles, {id, price, quantitys} : Product): void {
     if(cantidad >= quantitys) {
       this.error = true;
     } else {
@@ -267,10 +262,10 @@ export class ModalCarritoComponent implements OnInit{
       valorIva = Math.round(calcIva * 100) / 100;
       
       precioTotal = Math.round((precio + valorIva) * 100) / 100;
-
-      //this.compra.precio = this.newData.price * parseInt(this.firstFormGroup.get('cantidad')?.value);
-      //this.calcularIva(this.compra.precio);
-      //this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
+      
+      this.store.dispatch(
+        cambioCantidadCarrito({ id, Detalles: {cantidad, precio, iva, valorIva, precioTotal} })
+      );
     }
   }
 
