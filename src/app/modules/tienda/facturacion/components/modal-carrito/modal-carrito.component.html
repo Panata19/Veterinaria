@@ -134,9 +134,9 @@
           </h3>
           <div class="ms-2 p-1">
             <p class="m-0 placeholder-glow">
-              Cantidad:
+              Cantidad Productos:
               <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-                {{ error ? "" : this.firstFormGroup.get("cantidad")?.value }}
+                {{ error ? "" : this.StoreStado.length }}
               </span>
             </p>
             <p class="m-0 placeholder-glow">
