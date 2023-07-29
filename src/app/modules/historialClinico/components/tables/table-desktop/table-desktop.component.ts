@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { DetalleHospitalizacionComponent } from 'src/app/modules/hospitalizacion/components/modals/detalle-hospitalizacion/detalle-hospitalizacion.component';
+
 import { Hospitalizacion } from 'src/app/modules/hospitalizacion/interfaces/hospitalizacion.interface';
 import { OpcionesInput } from 'src/app/modules/hospitalizacion/interfaces/opcionesInput.interface';
 import { TipoFiltros } from 'src/app/modules/hospitalizacion/interfaces/tipoFiltros.interface';
 import { TipoInputs } from 'src/app/modules/hospitalizacion/interfaces/tipoInputs';
 import { HosipitalizacionService } from 'src/app/modules/hospitalizacion/services/hosipitalizacion.service';
-import { ModalEliminarHistorialComponent } from '../../modals/modal-eliminar/modal-eliminar.component';
 
 @Component({
   selector: 'app-table-desktop',
