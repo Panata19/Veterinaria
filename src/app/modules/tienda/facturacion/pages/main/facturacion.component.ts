@@ -187,18 +187,7 @@ export class FacturacionComponent {
       width: '700px',
       height: 'auto',
       panelClass: 'width-dialog',
-      data: {
-        id: this.StoreStado[0].Compra.Producto.id,
-        name: this.StoreStado[0].Compra.Producto.name,
-        image: {
-          url: this.StoreStado[0].Compra.Producto.image.url,
-          loading: true,
-        },
-        price: this.StoreStado[0].Compra.Producto.price,
-        category: this.StoreStado[0].Compra.Producto.category,
-        quantitys: this.StoreStado[0].Compra.Producto.quantitys,
-        stock: this.StoreStado[0].Compra.Producto.stock,
-      },
+      data: true,
     });
 
     dialogRef.afterClosed().subscribe((result) => {

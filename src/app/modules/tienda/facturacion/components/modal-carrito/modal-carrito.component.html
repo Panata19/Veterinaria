@@ -1,277 +1,367 @@
 <h1 mat-dialog-title>Carrito de compras</h1>
 <main mat-dialog-content class="px-0 px-sm-auto">
   <mat-stepper
-    linear 
+    linear
     (selectionChange)="onStepChange($event)"
     [orientation]="(stepperOrientation | async)!"
     #stepper
   >
     <!-- Primer Paso -->
     <mat-step
-      [stepControl]="firstFormGroup" 
-      label="Escoge la Cantidad" errorMessage="Llena la cantidad"
+      [stepControl]="firstFormGroup"
+      label="Escoge la Cantidad"
+      errorMessage="Llena la cantidad"
     >
       <ng-template matStepContent>
-        <form [formGroup]="firstFormGroup">
-          <div class="card border-secondary border" > <!-- Cards -->
-            <div class="row px-1 px-sm-auto">
-              <div class="col px-4 px-sm-auto pe-sm-0 my-auto col-12 col-sm-4 col-md-3" > 
-                <img
-                    class="img-fluid shade rounded my-2 m-0"
-                    [src]="newData.image.url"
-                    alt="{{newData.name}} - {{newData.category}}"
-                    (load)="loadingImage()"
-                    onerror="this.src='../assets/img/Artboard.svg'"
-                >
-                <mat-progress-bar *ngIf="newData.image.loading" mode="indeterminate"></mat-progress-bar>
-              </div>
-              <div class="overflow-auto col-12 col-sm-5 col-md-6" >
-                <div class="card-body px-0 px-sm-auto py-auto" >
-                  <h2 class="card-title fs-4 fw-semibold">{{ newData.name }}</h2>
-                  <p class="card-text text-body-secondary" [ngClass]="{'text-danger':error}">
-                      {{error?'Solo Existen:':'Existen:'}} {{newData.quantitys}}
-                  </p>
-                  <div>
-                    <span class="me-3">
-                      <i class="bi bi-tag tag align-middle"></i>{{newData.category}}
-                    </span>
-                    <span [innerHTML]="newData.stock | badges"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="col m-auto px-sm-auto col-12 col-sm-3 col-md-3">
-                <div class="align-items-center" >
-                  <span class="col-12 fs-5 px-0 px-sm-auto text-secondary-emphasis price align-self-start">
-                    ${{newData.price}} 
-                  </span>
-                  <div class="d-flex flex-row mb-3 price px-0 px-sm-auto">
-                    <button
-                      matRipple
-                      type="button"
-                      class="btn btn-light border border-secondary rw-0 rounded-start"
-                      [ngClass]="{'border-danger':error}"
-                      (click)="disminuir()"
-                    >
-                      <span class="icon text-black">
-                        <i class="bi bi-dash-lg" [ngClass]="{'text-danger':error}"></i>
-                      </span>
-                    </button>
-                    <div 
-                      class="w-10 border border-secondary d-flex text-center align-items-center"
-                      [ngClass]="{'border-danger text-danger':error}"
-                    >
-                      <input 
-                        class="fs-5 w-fc " 
-                        matInput placeholder="3" 
-                        formControlName="cantidad"
-                        (ngModelChange)="changes()"
-                      >
-                    </div>
-                    <button
-                      matRipple
-                      type="button"
-                      class="btn btn-light border-secondary rw-0 rounded-end"
-                      [ngClass]="{'border-danger':error}"
-                      (click)="aumentar()"
-                    >
-                      <span class="icon text-black">
-                        <i class="bi bi-plus-lg" [ngClass]="{'text-danger':error}"></i>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="border mt-2 rounded border-secondary"><!-- Div Costo Total -->
-            <h3 class="border-bottom fs-6 fw-bold border-secondary mx-2 px-2 mb-2">Cuenta:</h3>
-            <div class="ms-2 p-1">
-              <p class="m-0 placeholder-glow">Cantidad:
-                <span [ngClass]="{'placeholder col-4 col-sm-2':error}">
-                  {{ error?'':this.firstFormGroup.get('cantidad')?.value}}
-                </span>
-              </p>
-              <p class="m-0 placeholder-glow">SubTotal: 
-                <span [ngClass]="{'placeholder col-4 col-sm-2':error}">
-                  {{ error?'':'$'+compra.precio}}
-                </span>
-              </p>
-              <p class="placeholder-glow"> Iva {{compra.iva}}%:
-                <span [ngClass]="{'placeholder col-4 col-sm-2':error}">
-                  {{ error?'':compra.valorIva}}
-                </span> 
-              </p>
-              <p class="fw-bold fs-6 placeholder-glow">Total: 
-                <span class="fs-5" [ngClass]="{'placeholder col-4 col-sm-2':error}"
-                >{{error?'':'$'+compra.precioTotal}}</span>
-              </p>
-              <div *ngIf="warning" class="bg-danger rounded">
-                <h3 class="fs-5 text-white p-0 text-center">No se puede {{message()}} más la cantidad</h3>
-              </div>
-            </div>
-          </div>
-          
-          <mat-dialog-actions align="end">
-            <button mat-raised-button color="primary" [disabled]="firstFormGroup.invalid" matStepperNext>Next</button>
-          </mat-dialog-actions>
-        </form>
-      </ng-template>
-    </mat-step><!-- Fin Primer Paso --> 
-    <!-- Segundo Paso -->
-    <mat-step 
-      [stepControl]="secondFormGroup" 
-      label="Escoge el Cliente" errorMessage="Llena el Cliente"
-    >
-      <ng-template matStepContent>
-        <form [formGroup]="secondFormGroup"
+        <div
+          *ngFor="let element of Carrito"
+          class="card border-secondary border"
         >
+          <!-- Cards -->
+          <div class="row px-1 px-sm-auto">
+            <div
+              class="col px-4 px-sm-auto pe-sm-0 my-auto col-12 col-sm-4 col-md-3"
+            >
+              <img
+                class="img-fluid shade rounded my-2 m-0"
+                [src]="element.Compra.Producto.image.url"
+                alt="{{ element.Compra.Producto.name }} - {{
+                  element.Compra.Producto.category
+                }}"
+                (load)="loadingImage(element.Compra.Producto.image.loading)"
+                onerror="this.src='../assets/img/Artboard.svg'"
+              />
+              <mat-progress-bar
+                *ngIf="element.Compra.Producto.image.loading"
+                mode="indeterminate"
+              ></mat-progress-bar>
+            </div>
+            <div class="overflow-auto col-12 col-sm-5 col-md-6">
+              <div class="card-body px-0 px-sm-auto py-auto">
+                <h2 class="card-title fs-4 fw-semibold">
+                  {{ element.Compra.Producto.name }}
+                </h2>
+                <p
+                  class="card-text text-body-secondary"
+                  [ngClass]="{ 'text-danger': error }"
+                >
+                  {{ error ? "Solo Existen:" : "Existen:" }}
+                  {{ element.Compra.Producto.quantitys }}
+                </p>
+                <div>
+                  <span class="me-3">
+                    <i class="bi bi-tag tag align-middle"></i
+                    >{{ element.Compra.Producto.category }}
+                  </span>
+                  <span
+                    [innerHTML]="element.Compra.Producto.stock | badges"
+                  ></span>
+                </div>
+              </div>
+            </div>
+            <div class="col m-auto px-sm-auto col-12 col-sm-3 col-md-3">
+              <div class="align-items-center">
+                <span
+                  class="col-12 fs-5 px-0 px-sm-auto text-secondary-emphasis price align-self-start"
+                >
+                  ${{ element.Compra.Producto.price }}
+                </span>
+                <div class="d-flex flex-row mb-3 price px-0 px-sm-auto">
+                  <button
+                    matRipple
+                    type="button"
+                    class="btn btn-light border border-secondary rw-0 rounded-start"
+                    [ngClass]="{ 'border-danger': error }"
+                    (click)="
+                      disminuir(
+                        element.Compra.Detalles,
+                        element.Compra.Producto
+                      )
+                    "
+                  >
+                    <span class="icon text-black">
+                      <i
+                        class="bi bi-dash-lg"
+                        [ngClass]="{ 'text-danger': error }"
+                      ></i>
+                    </span>
+                  </button>
+                  <div
+                    class="w-10 border border-secondary d-flex text-center align-items-center"
+                    [ngClass]="{ 'border-danger text-danger': error }"
+                  >
+                    <input
+                      class="fs-5 w-fc"
+                      matInput
+                      placeholder="3"
+                      [(ngModel)]="element.Compra.Detalles.cantidad"
+                      (ngModelChange)="
+                        changes(
+                          element.Compra.Detalles,
+                          element.Compra.Producto
+                        )
+                      "
+                    />
+                  </div>
+                  <button
+                    matRipple
+                    type="button"
+                    class="btn btn-light border-secondary rw-0 rounded-end"
+                    [ngClass]="{ 'border-danger': error }"
+                    (click)="
+                      aumentar(element.Compra.Detalles, element.Compra.Producto)
+                    "
+                  >
+                    <span class="icon text-black">
+                      <i
+                        class="bi bi-plus-lg"
+                        [ngClass]="{ 'text-danger': error }"
+                      ></i>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border mt-2 rounded border-secondary">
+          <!-- Div Costo Total -->
+          <h3
+            class="border-bottom fs-6 fw-bold border-secondary mx-2 px-2 mb-2"
+          >
+            Cuenta:
+          </h3>
+          <div class="ms-2 p-1">
+            <p class="m-0 placeholder-glow">
+              Cantidad:
+              <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
+                {{ error ? "" : this.firstFormGroup.get("cantidad")?.value }}
+              </span>
+            </p>
+            <p class="m-0 placeholder-glow">
+              SubTotal:
+              <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
+                'error?'':'$'+element.Compra.Detalles.precio'
+              </span>
+            </p>
+            <p class="placeholder-glow">
+              Iva compra.iva%:
+              <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
+                error?'':compra.valorIva
+              </span>
+            </p>
+            <p class="fw-bold fs-6 placeholder-glow">
+              Total:
+              <span
+                class="fs-5"
+                [ngClass]="{ 'placeholder col-4 col-sm-2': error }"
+              >
+                error?'':'$'+compra.precioTotal</span
+              >
+            </p>
+            <div *ngIf="warning" class="bg-danger rounded">
+              <h3 class="fs-5 text-white p-0 text-center">
+                No se puede {{ message() }} más la cantidad
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <mat-dialog-actions align="end">
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </mat-dialog-actions>
+      </ng-template> </mat-step
+    ><!-- Fin Primer Paso -->
+    <!-- Segundo Paso -->
+    <mat-step
+      [stepControl]="secondFormGroup"
+      label="Escoge el Cliente"
+      errorMessage="Llena el Cliente"
+    >
+      <ng-template matStepContent>
+        <form [formGroup]="secondFormGroup">
           <div class="col px-0">
-            <mat-form-field appearance="outline" class="mw-100" ><!-- Buscador Cliente -->
+            <mat-form-field appearance="outline" class="mw-100"
+              ><!-- Buscador Cliente -->
               <mat-label>Buscar Usuario</mat-label>
-              <input matInput 
+              <input
+                matInput
                 [formControl]="searchTerm"
                 [matAutocomplete]="auto"
-                placeholder="Buscar...">
+                placeholder="Buscar..."
+              />
               <mat-autocomplete #auto="matAutocomplete">
-                <mat-option 
-                  *ngFor="let option of filteredClients | async" 
-                  [value]="option.nombreCliente +' '+ option.apellidosCliente"
+                <mat-option
+                  *ngFor="let option of filteredClients | async"
+                  [value]="option.nombreCliente + ' ' + option.apellidosCliente"
                   (onSelectionChange)="selecction(option)"
                 >
-                  {{option.nombreCliente}} {{option.apellidosCliente}}
+                  {{ option.nombreCliente }} {{ option.apellidosCliente }}
                 </mat-option>
               </mat-autocomplete>
               <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
-          </div><!-- Fin Buscador Cliente -->
+          </div>
+          <!-- Fin Buscador Cliente -->
           <div class="row mx-0 mx-sm-3">
             <div class="col-md-6 px-0 px-sm-auto">
               <mat-form-field appearance="outline" class="mw-100">
                 <mat-label>Número de Documento</mat-label>
-                <input formControlName="numDoc" matInput placeholder="Número de Documento"> 
+                <input
+                  formControlName="numDoc"
+                  matInput
+                  placeholder="Número de Documento"
+                />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 px-0 px-sm-auto">
               <mat-form-field appearance="outline" class="mw-100">
                 <mat-label>Teléfono</mat-label>
-                <input formControlName="telefono" matInput placeholder="Teléfono">
+                <input
+                  formControlName="telefono"
+                  matInput
+                  placeholder="Teléfono"
+                />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 px-0 px-sm-auto">
               <mat-form-field appearance="outline" class="mw-100">
                 <mat-label>Nombre</mat-label>
-                <input formControlName="nombre" matInput placeholder="Nombre">
+                <input formControlName="nombre" matInput placeholder="Nombre" />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 px-0 px-sm-auto">
               <mat-form-field appearance="outline" class="mw-100">
                 <mat-label>Apellido</mat-label>
-                <input formControlName="apellido" matInput placeholder="Apellido">
+                <input
+                  formControlName="apellido"
+                  matInput
+                  placeholder="Apellido"
+                />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 px-0 px-sm-auto">
               <mat-form-field appearance="outline" class="mw-100">
                 <mat-label>Dirección</mat-label>
-                <input formControlName="direccion" matInput placeholder="Dirección">
+                <input
+                  formControlName="direccion"
+                  matInput
+                  placeholder="Dirección"
+                />
               </mat-form-field>
             </div>
 
             <div class="col-md-6 px-0 px-sm-auto">
               <mat-form-field appearance="outline" class="mw-100">
                 <mat-label>Correo (Opcional)</mat-label>
-                <input formControlName="correo" matInput placeholder="Correo (Opcional)">
+                <input
+                  formControlName="correo"
+                  matInput
+                  placeholder="Correo (Opcional)"
+                />
               </mat-form-field>
             </div>
           </div>
           <mat-dialog-actions align="end">
-            <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <button mat-stroked-button color="primary" matStepperPrevious>
+              Back
+            </button>
+            <button mat-raised-button color="primary" matStepperNext>
+              Next
+            </button>
           </mat-dialog-actions>
         </form>
       </ng-template>
-    </mat-step> <!-- Fin Segundo Paso -->
+    </mat-step>
+    <!-- Fin Segundo Paso -->
     <!-- Tercer Paso -->
-    <mat-step 
-      [stepControl]="thirdFormGroup"
-      label="Fill out your phone number"
-      >
+    <mat-step [stepControl]="thirdFormGroup" label="Fill out your phone number">
       <ng-template matStepLabel>Done</ng-template>
-        <div class="border row p-3 border-secondary rounded">
-          <div class="col px-0 px-sm-auto border-end border-secondary"><!-- Cliente -->
-            <h2>Resumen</h2>
-            <form [formGroup]="thirdFormGroup">
-              <mat-form-field appearance="outline" class="mw-100">
-                <mat-label>Nombre Completo</mat-label>
-                <input formControlName="nombre" matInput placeholder="Nombre" readonly>
-              </mat-form-field>
-              <mat-form-field appearance="outline" class="mw-100">
-                <mat-label>Dirección</mat-label>
-                <input formControlName="direccion" matInput placeholder="Dirección" readonly>
-              </mat-form-field>
-              <mat-form-field appearance="outline" class="mw-100">
-                <mat-label>Teléfono</mat-label>
-                <input formControlName="telefono" matInput placeholder="Teléfono" readonly>
-              </mat-form-field>
-              <mat-form-field appearance="outline" class="mw-100">
-                <mat-label>Correo (Opcional)</mat-label>
-                <input formControlName="correo" matInput placeholder="Correo (Opcional)" readonly>
-             </mat-form-field>
-            </form>
-          </div>
-          <div class="col"><!-- Products -->
-            <div class="text-center">
-              <img 
-                width="130px"
-                [src]="CompraData.Producto.image.url"
-                [alt]="'Preview compra '+CompraData.Producto.name"
-              >
-            </div>
-            <div class="mt-4">
-              <div class="d-flex justify-content-between">
-                <p>Producto:</p>
-                <p  class="fs-6 fw-bold">{{CompraData.Producto.name}}</p>
-              </div>
-              <div class="d-flex justify-content-between">
-                <p>Cantidad:</p>
-                <p class="fs-6 fw-bold">{{CompraData.Cantidad.cantidad}}</p>
-              </div>
-              <div class="d-flex justify-content-between">
-                <p>Precio Unitario:</p>
-                <p class="fs-6 fw-bold">${{CompraData.Producto.price}}</p>
-              </div>
-              <div class="d-flex justify-content-between">
-                <p class="fs-6 fw-bold">Total:</p>  
-                <p class="fs-5 fw-bold">${{CompraData.Cantidad.precioTotal}}</p>
-              </div>
-            </div>
-          </div>
-
+      <div class="border row p-3 border-secondary rounded">
+        <div class="col px-0 px-sm-auto border-end border-secondary">
+          <!-- Cliente -->
+          <h2>Resumen</h2>
+          <form [formGroup]="thirdFormGroup">
+            <mat-form-field appearance="outline" class="mw-100">
+              <mat-label>Nombre Completo</mat-label>
+              <input
+                formControlName="nombre"
+                matInput
+                placeholder="Nombre"
+                readonly
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="mw-100">
+              <mat-label>Dirección</mat-label>
+              <input
+                formControlName="direccion"
+                matInput
+                placeholder="Dirección"
+                readonly
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="mw-100">
+              <mat-label>Teléfono</mat-label>
+              <input
+                formControlName="telefono"
+                matInput
+                placeholder="Teléfono"
+                readonly
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="mw-100">
+              <mat-label>Correo (Opcional)</mat-label>
+              <input
+                formControlName="correo"
+                matInput
+                placeholder="Correo (Opcional)"
+                readonly
+              />
+            </mat-form-field>
+          </form>
         </div>
-        <mat-dialog-actions class="row">
-          <div class="col justify-content-start">
-            <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
-            <button mat-raised-button color="primary" (click)="stepper.reset()" (click)="reset()">Reset</button>
-          </div>
-          <div class="col d-flex justify-content-end">
-            <button mat-stroked-button color="warn" (click)="onNoClick()">No, Cancelar</button>
-            <button mat-button 
-              class="btn-success" 
-              [disabled]="!firstFormGroup.valid || !secondFormGroup.valid || !thirdFormGroup.valid"
-              [mat-dialog-close]="newData"
-              (click)="comprar()"
-              [matTooltip]="labelToolTip"
-              matTooltipPosition="above"
-            >Comprar</button>
-          </div>
-        </mat-dialog-actions>
-        
-    </mat-step> <!-- Fin Tercer Paso -->
-
+      </div>
+      <mat-dialog-actions class="row">
+        <div class="col justify-content-start">
+          <button mat-stroked-button color="primary" matStepperPrevious>
+            Back
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="stepper.reset()"
+            (click)="reset()"
+          >
+            Reset
+          </button>
+        </div>
+        <div class="col d-flex justify-content-end">
+          <button mat-stroked-button color="warn" (click)="onNoClick()">
+            No, Cancelar
+          </button>
+          <button
+            mat-button
+            class="btn-success"
+            [disabled]="
+              !firstFormGroup.valid ||
+              !secondFormGroup.valid ||
+              !thirdFormGroup.valid
+            "
+            [mat-dialog-close]="true"
+            (click)="comprar()"
+            [matTooltip]="labelToolTip"
+            matTooltipPosition="above"
+          >
+            Comprar
+          </button>
+        </div>
+      </mat-dialog-actions>
+    </mat-step>
+    <!-- Fin Tercer Paso -->
   </mat-stepper>
-  
 </main>
-

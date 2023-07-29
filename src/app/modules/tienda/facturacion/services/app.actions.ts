@@ -20,3 +20,8 @@ export const cambioCarrito = createAction(
   '[Objeto] Cambiar Carrito',
   props<{ id: number; status: boolean }>()
 );
+
+export const cambioCantidadCarrito = createAction(
+  '[Objeto] Cambia Cantidad y Costos',
+  props<{ id: number; status: boolean }>()
+);

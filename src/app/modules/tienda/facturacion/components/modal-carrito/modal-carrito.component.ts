@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
-import { prueba, Product, Detalles } from '../../interfaces/CompraProducto';
+import { Product, Detalles } from '../../interfaces/CompraProducto';
 
 import { StepperOrientation } from '@angular/material/stepper';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -12,6 +12,8 @@ import { map, startWith } from 'rxjs/operators';
 
 import { Cliente } from 'src/app/modules/cliente/interface/cliente.interface';
 import { TiendaService } from '../../services/tienda.service';
+import { Store } from '@ngrx/store';
+import { AppState, Objeto } from '../../services/app.state';
 
 
 @Component({
@@ -42,28 +44,20 @@ export class ModalCarritoComponent implements OnInit{
     loading: false,
   }
 
-  public newData: Product = {
-    category: "Electrónica",
-    id: 1,
-    image: this.Imgs,
-    name: "Thomas T.",
-    price: 2,
-    quantitys: 9,
-    stock: "BAJO STOCK",
-  };
+  public Carrito!: Objeto[];
 
   //** Variables para Forms  **//
   firstFormGroup = this._formBuilder.group({
-    cantidad: [1, [Validators.required, Validators.min(1), Validators.max(this.newData.quantitys)]],
+    cantidad: [1, [Validators.required, Validators.min(1)]],
   });
-  
-  compra: Detalles = {
-    cantidad: this.firstFormGroup.get('cantidad')?.value,
-    precio: this.newData.price,
+  /*
+  DetallesFactura = {
+    cantidad: this.Carrito[0].Compra.Detalles.cantidad,
+    precio: this.Carrito[0].Compra.Producto.price,
     valorIva: 0,
     iva: this.iva,
     precioTotal: 0,
-  }
+  }*/
 
   secondFormGroup = this._formBuilder.group({
     numDoc: [ '', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
@@ -82,27 +76,35 @@ export class ModalCarritoComponent implements OnInit{
   });
 
   stepperOrientation: Observable<StepperOrientation>;
-  
+  /*
   CompraData: any = {
-    Producto: this.newData,
+    Producto: this.Carrito[0].Compra.Producto,
     Cantidad: this.compra,
     user: this.secondFormGroup.value
-  }
+  }*/
+  StoreStado!: Objeto[];
 
   constructor(
     public dialogRef: MatDialogRef<ModalCarritoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Product,
+    @Inject(MAT_DIALOG_DATA) public data: boolean,
     private _formBuilder: FormBuilder,
     breakpointObserver: BreakpointObserver,
-    private TiendaService: TiendaService
+    private TiendaService: TiendaService,
+    private store: Store<{ app: AppState }>
   ) {
-    
+    this.store
+      .select((state) => state.app.objetos)
+      .subscribe((objetos) => {
+        console.log(objetos);
+        this.StoreStado = objetos;
+      });
+
     //** Primer Calculo de Costos **//
-    if(this.newData.quantitys > 0){
-      this.compra.precio = this.newData.price;
-      this.calcularIva(this.compra.precio);
+    /*if(this.Carrito[0].Compra.Producto.quantitys > 0){
+      this.compra.precio = this.Carrito[0].Compra.Producto.price;
+      //this.calcularIva(this.compra.precio);
       this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva)*100) /100 ;
-    }
+    }*/
     //** Stepper Responsive **//
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -115,7 +117,7 @@ export class ModalCarritoComponent implements OnInit{
   }
 
   ngOnInit(): void { 
-    this.newData = this.data;
+    this.Carrito = this.StoreStado;
     this.filteredClients = this.searchTerm.valueChanges.pipe(
       startWith(''),
       map(value => {
@@ -144,7 +146,7 @@ export class ModalCarritoComponent implements OnInit{
       //** Llamar Clientes **//
       this.Clients = this.TiendaService.getCliente();
     }
-    if(!this.firstFormGroup.valid || !this.secondFormGroup.valid || !this.thirdFormGroup.valid){
+    if(!this.secondFormGroup.valid || !this.thirdFormGroup.valid){
       this.labelToolTip = 'Completa los pasos primero';
     } else {
       this.labelToolTip = 'Listo para comprar';
@@ -157,7 +159,7 @@ export class ModalCarritoComponent implements OnInit{
       correo: this.secondFormGroup.get('correo')?.value
     });
     
-    this.compra.cantidad = this.firstFormGroup.get('cantidad')?.value;
+    //this.compra.cantidad = this.firstFormGroup.get('cantidad')?.value;
 
     this.thirdFormGroup.get('nombre')?.setValue(
       this.secondFormGroup.get('nombre')?.value+' '+
@@ -184,32 +186,41 @@ export class ModalCarritoComponent implements OnInit{
     this.compraCliente = this.secondFormGroup.value;
   }
 
-  aumentar(): void {
-    if (this.newData.quantitys <= this.firstFormGroup.get('cantidad')?.value) {
+  aumentar({cantidad, precio, iva, valorIva ,precioTotal } : Detalles, {price} : Product): void {
+    if (this.Carrito[0].Compra.Producto.quantitys <= cantidad) {
       this.label = 'Aumentar';
       this.advertencia();
       return;
     }
+    ++cantidad;
+    precio += price;
 
-    this.compra.precio += this.newData.price;
-    this.firstFormGroup.get('cantidad')?.setValue(
-      parseInt(this.firstFormGroup.get('cantidad')?.value) +1);
-    this.calcularIva(this.compra.precio);
-    this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
+    const calcIva = (precio * iva) / 100;
+    valorIva = Math.round(calcIva * 100) / 100;
+    
+    precioTotal = Math.round((precio + valorIva) * 100) / 100;
   }
 
-  disminuir(): void {
-    if (this.firstFormGroup.get('cantidad')?.value <= 0) {
+  disminuir({cantidad, precio, iva, valorIva ,precioTotal } : Detalles, {price} : Product): void {
+    if (cantidad <= 0) {
       this.label = 'Disminuir';
       this.advertencia();
       return;
     }
-  
-    this.compra.precio -= this.newData.price;
-    this.firstFormGroup.get('cantidad')?.setValue(
-      parseInt(this.firstFormGroup.get('cantidad')?.value) -1);
-    this.calcularIva(this.compra.precio);
-    this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
+    
+    cantidad--
+    precio -= price
+
+    const calcIva = (precio * iva) / 100;
+    valorIva = Math.round(calcIva * 100) / 100;
+    
+    precioTotal = Math.round((precio + valorIva) * 100) / 100;
+    
+    //this.compra.precio -= this.newData.price;
+    //this.firstFormGroup.get('cantidad')?.setValue(
+    //  parseInt(this.firstFormGroup.get('cantidad')?.value) -1);
+    //this.calcularIva(this.compra.precio);
+    //this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
   }
   
 
@@ -221,47 +232,48 @@ export class ModalCarritoComponent implements OnInit{
       }, 3200);
   }
 
-  calcularIva( valor: number, iva: number = this.iva): void{
-    const valorIva = (valor * iva) / 100;
-    this.compra.valorIva = Math.round(valorIva * 100) / 100;
-  }
-
   message(): string {
     return this.label;
   }
 
   comprar(){
+    /*
     if(this.CompraData?.Producto && this.CompraData?.Cantidad && this.CompraData?.user){
       console.log(this.CompraData)
       this.TiendaService.compraProducto(this.CompraData);
     }else {
       console.log('Falto un dato');
     }
-    
+    */
   }
 
   reset(){
     this.searchTerm.setValue('');
-    this.compra.precio = this.newData.price;
-    this.calcularIva(this.compra.precio);
-    this.firstFormGroup.get('cantidad')?.setValue(1)
-    this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
+    //this.compra.precio = this.newData.price;
+    //this.calcularIva(this.compra.precio);
+    //this.firstFormGroup.get('cantidad')?.setValue(1)
+    //this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
   }
 
-  changes(): void{
-    if(this.firstFormGroup.get('cantidad')?.value >= this.newData.quantitys) {
-      this.error = true;
-    } else if(this.firstFormGroup.get('cantidad')?.value === '') {
+  changes({cantidad, precio, iva, valorIva ,precioTotal } : Detalles, {price, quantitys} : Product): void {
+    if(cantidad >= quantitys) {
       this.error = true;
     } else {
       this.error = false;
+      
+      precio = cantidad * price;
 
-      this.compra.precio = this.newData.price * parseInt(this.firstFormGroup.get('cantidad')?.value);
-      this.calcularIva(this.compra.precio);
-      this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
+      const calcIva = (precio * iva) / 100;
+      valorIva = Math.round(calcIva * 100) / 100;
+      
+      precioTotal = Math.round((precio + valorIva) * 100) / 100;
+
+      //this.compra.precio = this.newData.price * parseInt(this.firstFormGroup.get('cantidad')?.value);
+      //this.calcularIva(this.compra.precio);
+      //this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
     }
   }
 
-  loadingImage(): void {  this.newData.image.loading = false;    }
+  loadingImage(loading: boolean): void {  loading = false;    }
 
 }
