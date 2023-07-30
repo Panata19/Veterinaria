@@ -21,7 +21,7 @@
                       name="filtroSeleccionado"
                       (change)="seleccionarFiltro()">
                 <option value="" selected>Todos</option>
-                <option *ngFor="let filtro of tipoFiltros" [value]="filtro.valor">{{ filtro.texto }}</option>
+                <option *ngFor="let filtro of TIPOS_FILTROS" [value]="filtro.valor">{{ filtro.texto }}</option>
               </select>
               <input [type]= "inputSeleccionado.tipo" 
                      class="form-control" 

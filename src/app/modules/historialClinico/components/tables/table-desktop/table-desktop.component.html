@@ -18,7 +18,7 @@
                         <td>{{ hospitalizacion.paciente.nombrePaciente }}</td>
                         <td>{{ hospitalizacion.paciente.tipoPaciente.tipoPaciente }}</td>
                         <td>{{ hospitalizacion.motivo }}</td>
-                        <td>{{ hospitalizacion.fechaIngreso }}</td>
+                        <td>{{ hospitalizacion.fechaIngreso | date}}</td>
                         <td class="container_buttons">
                           <button (click)="abrirHistorialesClinicos()" class="btn btn-primary" type="button">
                             <i class="bi bi-file-text"></i>
