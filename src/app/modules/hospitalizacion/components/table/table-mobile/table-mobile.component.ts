@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 import { Hospitalizacion } from '../../../interfaces/hospitalizacion.interface';
 import { OpcionesInput } from '../../../interfaces/opcionesInput.interface';
 import { TipoFiltros } from '../../../interfaces/tipoFiltros.interface';
@@ -8,6 +9,7 @@ import { TipoInputs } from '../../../interfaces/tipoInputs';
 import { HosipitalizacionService } from '../../../services/hosipitalizacion.service';
 import { DetalleHospitalizacionComponent } from '../../modals/detalle-hospitalizacion/detalle-hospitalizacion.component';
 import { ModalEliminarhospitalizacionComponent } from '../../modals/modal-eliminar/modal-eliminar.component';
+import { TIPO_FILTROS_HOSPITALIZACION } from 'src/app/shared/config/config';
 
 
 
@@ -25,7 +27,7 @@ export class TableMobileComponent implements OnInit {
   tipoInputs!           : TipoInputs;
   filtroSeleccionado!   : string;
   inputSeleccionado!    : OpcionesInput;
-  tipoFiltros!          : TipoFiltros[];
+  TIPOS_FILTROS!          : TipoFiltros[];
   
   constructor(private hs: HosipitalizacionService, private router: Router,  private matDialog: MatDialog) { }
 
@@ -34,19 +36,7 @@ export class TableMobileComponent implements OnInit {
     this.entradas = "5";
     this.filtroSeleccionado = "";    
     this.hs.allHospitalizaciones.subscribe(hospitalizaciones => this.dataHospitalizaciones = hospitalizaciones );
-    this.tipoFiltros = [
-      { 
-        valor: 'nombrePaciente', 
-        texto: 'Nombre Paciente' 
-      }, 
-      { valor: 'fechaNac', 
-        texto: 'Fecha Nacimiento' 
-      },
-      {
-        valor: 'fechaIngreso',
-        texto: 'Fecha Ingreso'
-      }
-    ];
+    this.TIPOS_FILTROS = TIPO_FILTROS_HOSPITALIZACION; 
     this.tipoInputs = {
       ''              : { tipo: 'text', placeholder: 'Buscar...', disable: true }, 
       'nombrePaciente': { tipo: 'text', placeholder: 'Buscar Paciente', disable: false},
