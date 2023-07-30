@@ -13,3 +13,10 @@ export const TIPO_FILTROS_HOSPITALIZACION = [
   { valor: 'fechaNac',       texto: 'Fecha Nacimiento' },
   { valor: 'fechaIngreso',   texto: 'Fecha Ingreso' }
 ];
+
+export const TIPO_FILTROS_HISTORIALCLINICO = [
+  { valor: 'nombrePaciente', texto: 'Nombre Paciente' }, 
+  { valor: 'fechaNac',       texto: 'Fecha Nacimiento' },
+  { valor: 'fechaIngreso',   texto: 'Fecha Ingreso' }
+];
+
