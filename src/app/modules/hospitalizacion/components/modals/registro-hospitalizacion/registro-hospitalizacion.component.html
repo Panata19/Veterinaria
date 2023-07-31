@@ -1,4 +1,7 @@
-<div class="row">
+<!-- Botón para cerrar el modal-->
+<app-boton-cerrar-modal [dialogRef]="dialogRefRegistroHosp"></app-boton-cerrar-modal>
+<div class="row container_registro">
+    <!-- Contenedor del formulario -->
     <form (ngSubmit)="registrarHospitalizacion()" autocomplete="off" [formGroup]="formularioRegistroHospitalizacion">
         <div class="row mt-4">
             <!-- Seccion datos Paciente -->
@@ -33,19 +36,6 @@
                            (change)="cargarCampos()"/>
                     <span *ngIf="campoNoValido('fechaNac')" class="text-form text-danger">
                         {{validarFecha('fechaNac')}}
-                    </span>
-                </div>
-                <!-- Campo edad paciente -->
-                <div class="form-group">
-                    <label for="edad" class="form-label">Edad</label>
-                    <input type="number" 
-                           class="form-control form-control-user"
-                           placeholder="Edad" 
-                           formControlName="edad"
-                           min="0"
-                           id="edad"/>
-                    <span *ngIf="campoNoValido('edad')" class="text-form text-danger">
-                        {{ validarCamposSoloNumeros('edad') }}
                     </span>
                 </div>
                 <!-- Campo tipo de paciente (perro, gato, conejo etc)-->

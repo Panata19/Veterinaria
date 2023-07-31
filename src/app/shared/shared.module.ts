@@ -8,7 +8,7 @@ import { InventarioRoutingModule } from '../modules/inventario/inventario-routin
 import { MaterialModule } from '../modules/material/material.module';
 import { TitleCardComponent } from './cards/title-card/title-card.component';
 import { MenuComponent } from './components/menu/menu.component';
-
+import { BotonCerrarModalComponent } from './buttons/boton-cerrar-modal/boton-cerrar-modal.component';
 
 
 @NgModule({
@@ -18,7 +18,8 @@ import { MenuComponent } from './components/menu/menu.component';
     LogoutModalComponent,
     FooterComponent,
     TitleCardComponent,
-    MenuComponent
+    MenuComponent,
+    BotonCerrarModalComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +31,9 @@ import { MenuComponent } from './components/menu/menu.component';
     NavbarComponent,
     LogoutModalComponent,
     FooterComponent,
-    TitleCardComponent
+    TitleCardComponent,
+    BotonCerrarModalComponent
   ],
 })
+
 export class SharedModule { }

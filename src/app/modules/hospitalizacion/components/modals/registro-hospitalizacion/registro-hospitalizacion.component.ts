@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { arreglarFecha, soloLetrasPattern, soloNumerosPattern } from 'src/app/shared/Validaciones/validaciones';
+
+import { arreglarFecha, soloLetrasPattern } from 'src/app/shared/Validaciones/validaciones';
 import { HosipitalizacionService } from '../../../services/hosipitalizacion.service';
 import { Paciente } from '../../../interfaces/paciente.interface';
 import { Medico } from '../../../interfaces/medico.interface';
 import { Hospitalizacion } from '../../../interfaces/hospitalizacion.interface';
 import { TipoCirugias } from '../../../interfaces/tipoCirugias.interface';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-registro-hospitalizacion',
@@ -27,7 +29,6 @@ export class RegistroHospitalizacionComponent implements OnInit {
     raza:              ['', [Validators.required, Validators.pattern(soloLetrasPattern)]],
     tipo:              ['', [Validators.required, Validators.pattern(soloLetrasPattern)]],
     sexo:              ['', [Validators.required, Validators.pattern(soloLetrasPattern)]],
-    edad:              ['', [Validators.required, Validators.pattern(soloNumerosPattern)]],
     idHospitalizacion: [''],
     motivo:            ['', [Validators.required, Validators.pattern(soloLetrasPattern)]],
     fechaIngreso:      ['', [Validators.required, this.fechaMayorActual]],
@@ -37,7 +38,10 @@ export class RegistroHospitalizacionComponent implements OnInit {
     fechaProgramada:   ['', [Validators.required, this.fechaMayorActual]]
   }) ; 
  
-  constructor(private fb: FormBuilder, private hs: HosipitalizacionService ) { }
+  constructor(private fb: FormBuilder, 
+              private hs: HosipitalizacionService, 
+              public dialogRefRegistroHosp: MatDialogRef<RegistroHospitalizacionComponent>
+             ) { }
 
   ngOnInit(): void {
     this.hs.allPacientes.subscribe(pacientes => this.pacientes = pacientes);
@@ -64,7 +68,7 @@ export class RegistroHospitalizacionComponent implements OnInit {
   //SECCION DE VALIDACIONES
 
   //Este método evalúa si un campo es invalido y ha sido tocado(clic sobre el campo).
-  campoNoValido(campo: string){
+  campoNoValido(campo: string): boolean | undefined{
     return this.formularioRegistroHospitalizacion.get(campo)?.invalid &&
            this.formularioRegistroHospitalizacion.get(campo)?.touched;
   }
@@ -104,7 +108,7 @@ export class RegistroHospitalizacionComponent implements OnInit {
     return '';
   }
 
-  ValidarOpcionSeleccionada(campo: string){
+  ValidarOpcionSeleccionada(campo: string): string{
     const errors = this.formularioRegistroHospitalizacion.get(campo)?.errors;
 
     if(errors?.['required']) return '*No ha seleccionado una opción';
@@ -132,12 +136,11 @@ export class RegistroHospitalizacionComponent implements OnInit {
       raza:       paciente?.raza,
       tipo:       paciente?.tipoPaciente.tipoPaciente,
       sexo:       paciente?.sexo,
-      edad:       paciente?.edad
     });
   }
   
   // Este método registra una nueva hospitalización
-  registrarHospitalizacion(){
+  registrarHospitalizacion(): void{
     if(this.formularioRegistroHospitalizacion.invalid){
       this.formularioRegistroHospitalizacion.markAllAsTouched();
       return;
@@ -151,6 +154,7 @@ export class RegistroHospitalizacionComponent implements OnInit {
     const nuevaHospitalizacion = { idHospitalizacion, idPaciente, fechaIngreso, fechaSalida, motivo };
     // this.hs.registrarNuevaHospitalizacion(nuevaHospitalizacion).subscribe(hospitalizacion => console.log(hospitalizacion));
   }
+
 }
 
 

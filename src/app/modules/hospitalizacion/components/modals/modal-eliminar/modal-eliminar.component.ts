@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-modal-eliminar-hospitalizacion',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalEliminarhospitalizacionComponent implements OnInit {
 
-  constructor() { }
+  constructor( public dialogRefEliminarRegistroHosp: MatDialogRef<ModalEliminarhospitalizacionComponent> ) { }
 
   ngOnInit(): void {
   }

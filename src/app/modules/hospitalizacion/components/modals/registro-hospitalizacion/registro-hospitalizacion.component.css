@@ -1,8 +1,10 @@
 h2{
-    border-bottom: 1px solid #222;
-    padding-bottom: .5rem ;
+    color: var(--dark);
+    border-bottom: 1px solid var(--blue);
+    padding-bottom: .5rem;
 }
 
 label{
     font-size: 1rem;
 }
+

@@ -18,6 +18,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { TableDesktopComponent } from './components/table/table-desktop/table-desktop.component';
 import { TableMobileComponent } from './components/table/table-mobile/table-mobile.component';
 import { FiltrotablaComponent } from './components/filtrotabla/filtrotabla.component';
+import { ModalEliminarhospitalizacionComponent } from './components/modals/modal-eliminar/modal-eliminar.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { FiltrotablaComponent } from './components/filtrotabla/filtrotabla.compo
     FiltroHospitalizacionPipe,
     TableDesktopComponent,
     TableMobileComponent,
-    FiltrotablaComponent
+    FiltrotablaComponent,
+    ModalEliminarhospitalizacionComponent
   ],
   
   imports: [

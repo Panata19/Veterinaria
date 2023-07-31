@@ -18,6 +18,7 @@ import { FiltroHistorialClinicoPipe } from './pipes/filtro-historial-clinico.pip
 import { TableDesktopComponent } from './components/tables/table-desktop/table-desktop.component';
 import { TableMobileComponent } from './components/tables/table-mobile/table-mobile.component';
 import { FiltroTablaComponent } from './components/filtro-tabla/filtro-tabla.component';
+import { ModalEliminarHistorialComponent } from './components/modals/modal-eliminar/modal-eliminar.component';
 
 @NgModule({
   declarations: [  
@@ -27,7 +28,8 @@ import { FiltroTablaComponent } from './components/filtro-tabla/filtro-tabla.com
     FiltroHistorialClinicoPipe,
     TableDesktopComponent,
     TableMobileComponent,
-    FiltroTablaComponent
+    FiltroTablaComponent,
+    ModalEliminarHistorialComponent
   ],
   
   imports: [ 
