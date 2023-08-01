@@ -1,17 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
-import {
-  Product,
-  Detalles,
-  StoreElement,
-} from '../../interfaces/CompraProducto';
+import { Product, StoreElement } from '../../interfaces/CompraProducto';
 
 import { Store } from '@ngrx/store';
-import {
-  editarCarrito,
-  cambioCarrito,
-} from '../../services/app.actions';
+import { editarCarrito, cambioCarrito, cambioCantidadCarrito } from '../../services/app.actions';
 import { AppState, Objeto } from '../../services/app.state';
 
 import { Cliente } from 'src/app/modules/cliente/interface/cliente.interface';
@@ -33,7 +26,7 @@ export class ModalAddCarritoComponent implements OnInit {
   label: string = '';
   labelToolTip: string = 'Completa los pasos primero';
 
-  //** Variables para Forms  **//
+
   formAddCarrito = this._formBuilder.group({
     cantidad: [
       1,
@@ -44,7 +37,7 @@ export class ModalAddCarritoComponent implements OnInit {
       ],
     ],
   });
-
+  /*
   Detalles: Detalles = {
     cantidad: parseInt(this.formAddCarrito.get('cantidad')?.value),
     precio: this.data.price,
@@ -52,14 +45,20 @@ export class ModalAddCarritoComponent implements OnInit {
     iva: this.iva,
     precioTotal: 0,
   };
-
+  */
   StoreStado!: Objeto[];
 
   AddCarrito: StoreElement = {
     enCarrito: false,
     Compra: {
       Producto: this.data,
-      Detalles: this.Detalles,
+      Detalles: {
+        cantidad: parseInt(this.formAddCarrito.get('cantidad')?.value),
+        precio: this.data.price,
+        valorIva: 0,
+        iva: this.iva,
+        precioTotal: 0,
+      },
     },
   };
 
@@ -74,35 +73,38 @@ export class ModalAddCarritoComponent implements OnInit {
     this.store
       .select((state) => state.app.objetos)
       .subscribe((objetos) => {
-        console.log(objetos);
         this.StoreStado = objetos;
 
         this.LiveCarrito = this.checkCarrito(this.data.id);
       });
     //** Primer Calculo de Costos **//
+    console.log("Esta en carrito:",this.LiveCarrito);
     if (this.LiveCarrito) {
       //* Esta en el Carrito
       let index: number = this.StoreStado.findIndex(
         (item) => item.Compra.Producto.id === this.data.id
       );
-
       this.AddCarrito.enCarrito = this.checkCarrito(this.data.id);
 
-      this.Detalles = { ...this.StoreStado[index].Compra.Detalles };
-      this.Detalles = { ...this.StoreStado[index].Compra.Detalles };
-      this.AddCarrito.Compra.Detalles = this.Detalles;
-
+      this.AddCarrito.Compra.Detalles = {
+        ...this.StoreStado[index].Compra.Detalles,
+      };
+      
       this.formAddCarrito
         .get('cantidad')
         ?.setValue(this.StoreStado[index].Compra.Detalles.cantidad);
+
     } else if (!this.LiveCarrito) {
       //* Fuera del Carrito
       if (data.quantitys > 0) {
-        this.Detalles.precio = data.price;
-        this.calcularIva(this.Detalles.precio);
-        this.Detalles.precioTotal =
-          Math.round((this.Detalles.precio + this.Detalles.valorIva) * 100) /
-          100;
+        this.AddCarrito.Compra.Detalles.precio = data.price;
+        this.calcularIva(this.AddCarrito.Compra.Detalles.precio);
+        this.AddCarrito.Compra.Detalles.precioTotal =
+          Math.round(
+            (this.AddCarrito.Compra.Detalles.precio +
+              this.AddCarrito.Compra.Detalles.valorIva) *
+              100
+          ) / 100;
       }
     }
   }
@@ -128,18 +130,21 @@ export class ModalAddCarritoComponent implements OnInit {
   }
 
   private AumentarLogica() {
-    this.Detalles.precio += this.data.price;
+    this.AddCarrito.Compra.Detalles.precio += this.data.price;
     this.formAddCarrito
       .get('cantidad')
       ?.setValue(parseInt(this.formAddCarrito.get('cantidad')?.value) + 1);
-    this.Detalles.cantidad = parseInt(
+    this.AddCarrito.Compra.Detalles.cantidad = parseInt(
       this.formAddCarrito.get('cantidad')?.value
     );
-    this.calcularIva(this.Detalles.precio);
-    this.Detalles.precioTotal =
-      Math.round((this.Detalles.precio + this.Detalles.valorIva) * 100) / 100;
-
-    this.AddCarrito.Compra.Detalles = this.Detalles;
+    
+    this.calcularIva(this.AddCarrito.Compra.Detalles.precio);
+    this.AddCarrito.Compra.Detalles.precioTotal =
+      Math.round(
+        (this.AddCarrito.Compra.Detalles.precio +
+          this.AddCarrito.Compra.Detalles.valorIva) *
+          100
+      ) / 100;
   }
 
   disminuir(): void {
@@ -153,18 +158,20 @@ export class ModalAddCarritoComponent implements OnInit {
 
   private DisminuirLogica() {
     //Original
-    this.Detalles.precio -= this.data.price;
+    this.AddCarrito.Compra.Detalles.precio -= this.data.price;
     this.formAddCarrito
       .get('cantidad')
       ?.setValue(parseInt(this.formAddCarrito.get('cantidad')?.value) - 1);
-    this.Detalles.cantidad = parseInt(
+    this.AddCarrito.Compra.Detalles.cantidad = parseInt(
       this.formAddCarrito.get('cantidad')?.value
     );
-    this.calcularIva(this.Detalles.precio);
-    this.Detalles.precioTotal =
-      Math.round((this.Detalles.precio + this.Detalles.valorIva) * 100) / 100;
-
-    this.AddCarrito.Compra.Detalles = this.Detalles;
+    this.calcularIva(this.AddCarrito.Compra.Detalles.precio);
+    this.AddCarrito.Compra.Detalles.precioTotal =
+      Math.round(
+        (this.AddCarrito.Compra.Detalles.precio +
+          this.AddCarrito.Compra.Detalles.valorIva) *
+          100
+      ) / 100;
   }
 
   private advertencia() {
@@ -177,7 +184,7 @@ export class ModalAddCarritoComponent implements OnInit {
 
   calcularIva(valor: number, iva: number = this.iva): void {
     const valorIva = (valor * iva) / 100;
-    this.Detalles.valorIva = Math.round(valorIva * 100) / 100;
+    this.AddCarrito.Compra.Detalles.valorIva = Math.round(valorIva * 100) / 100;
   }
 
   calcularStateIva(valor: number, iva: number = this.iva): number {
@@ -197,16 +204,18 @@ export class ModalAddCarritoComponent implements OnInit {
     } else {
       this.error = false;
 
-      this.Detalles.cantidad = parseInt(
+      this.AddCarrito.Compra.Detalles.cantidad = parseInt(
         this.formAddCarrito.get('cantidad')?.value
       );
-      this.Detalles.precio =
+      this.AddCarrito.Compra.Detalles.precio =
         this.data.price * parseInt(this.formAddCarrito.get('cantidad')?.value);
-      this.calcularIva(this.Detalles.precio);
-      this.Detalles.precioTotal =
-        Math.round((this.Detalles.precio + this.Detalles.valorIva) * 100) / 100;
-
-      this.AddCarrito.Compra.Detalles = this.Detalles;
+      this.calcularIva(this.AddCarrito.Compra.Detalles.precio);
+      this.AddCarrito.Compra.Detalles.precioTotal =
+        Math.round(
+          (this.AddCarrito.Compra.Detalles.precio +
+            this.AddCarrito.Compra.Detalles.valorIva) *
+            100
+        ) / 100;
     }
   }
 
@@ -230,10 +239,11 @@ export class ModalAddCarritoComponent implements OnInit {
   }
 
   actualizarCarrito() {
+    console.log("Detalles",this.AddCarrito.Compra.Detalles);
+    console.log("Estado",this.StoreStado)
     this.store.dispatch(
-      editarCarrito({
+      cambioCantidadCarrito({
         id: this.data.id,
-        enCarrito: this.encontrarPosicion(),
         Detalles: this.AddCarrito.Compra.Detalles,
       })
     );

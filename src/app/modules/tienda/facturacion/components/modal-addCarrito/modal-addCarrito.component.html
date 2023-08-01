@@ -96,19 +96,19 @@
       <p class="m-0 placeholder-glow">
         Cantidad:
         <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-          {{ error ? "" : this.formAddCarrito.get("cantidad")?.value }}
+          {{ error ? "" : formAddCarrito.get("cantidad")?.value }}
         </span>
       </p>
       <p class="m-0 placeholder-glow">
         SubTotal:
         <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-          {{ error ? "" : "$" + Detalles.precio }}
+          {{ error ? "" : "$" + AddCarrito.Compra.Detalles.precio }}
         </span>
       </p>
       <p class="placeholder-glow">
-        Iva {{ Detalles.iva }}%:
+        Iva {{ AddCarrito.Compra.Detalles.iva }}%:
         <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-          {{ error ? "" : Detalles.valorIva }}
+          {{ error ? "" : AddCarrito.Compra.Detalles.valorIva }}
         </span>
       </p>
       <p class="fw-bold fs-6 placeholder-glow">
@@ -116,7 +116,7 @@
         <span
           class="fs-5"
           [ngClass]="{ 'placeholder col-4 col-sm-2': error }"
-          >{{ error ? "" : "$" + Detalles.precioTotal }}</span
+          >{{ error ? "" : "$" + AddCarrito.Compra.Detalles.precioTotal }}</span
         >
       </p>
       <div *ngIf="warning" class="bg-danger rounded">

@@ -89,7 +89,7 @@ export class ModalCarritoComponent implements OnInit{
     this.store
       .select((state) => state.app.objetos)
       .subscribe((objetos) => {
-        console.log(objetos);
+        
         this.StoreStado = objetos;
       });
 
