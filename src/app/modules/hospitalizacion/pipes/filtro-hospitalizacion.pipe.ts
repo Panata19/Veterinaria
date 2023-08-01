@@ -10,8 +10,13 @@ export class FiltroHospitalizacionPipe implements PipeTransform {
   
   hospitalizacionesFiltradas: Hospitalizacion[] = [];
 
-  transform(hospitalizaciones: Hospitalizacion[], filtro: string, page: number, entradas: string, tipoInput?: string, 
-            nombreInput?: string): Hospitalizacion[] {
+  transform(hospitalizaciones: Hospitalizacion[], 
+            filtro: string, 
+            page: number, 
+            entradas: string, 
+            tipoInput?: string, 
+            nombreInput?: string
+            ): Hospitalizacion[] {
 
     if (!filtro){
       return [...hospitalizaciones].slice(page, page + +entradas);

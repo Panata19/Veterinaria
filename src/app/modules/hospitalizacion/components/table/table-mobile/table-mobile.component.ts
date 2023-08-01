@@ -9,7 +9,7 @@ import { TipoInputs } from '../../../interfaces/tipoInputs';
 import { HosipitalizacionService } from '../../../services/hosipitalizacion.service';
 import { DetalleHospitalizacionComponent } from '../../modals/detalle-hospitalizacion/detalle-hospitalizacion.component';
 import { ModalEliminarhospitalizacionComponent } from '../../modals/modal-eliminar/modal-eliminar.component';
-import { TIPO_FILTROS_HOSPITALIZACION } from 'src/app/shared/config/config';
+import { TIPO_FILTROS_HOSPITALIZACION, TIPO_IMPUTS_HOSPITALIZACION } from 'src/app/shared/config/config';
 
 
 
@@ -24,7 +24,7 @@ export class TableMobileComponent implements OnInit {
   page!                 : number;
   textoFiltro!          : string;
   dataHospitalizaciones : Hospitalizacion[] = [];
-  tipoInputs!           : TipoInputs;
+  TIPO_INPUTS!           : TipoInputs;
   filtroSeleccionado!   : string;
   inputSeleccionado!    : OpcionesInput;
   TIPOS_FILTROS!          : TipoFiltros[];
@@ -37,15 +37,9 @@ export class TableMobileComponent implements OnInit {
     this.filtroSeleccionado = "";    
     this.hs.allHospitalizaciones.subscribe(hospitalizaciones => this.dataHospitalizaciones = hospitalizaciones );
     this.TIPOS_FILTROS = TIPO_FILTROS_HOSPITALIZACION; 
-    this.tipoInputs = {
-      ''              : { tipo: 'text', placeholder: 'Buscar...', disable: true }, 
-      'nombrePaciente': { tipo: 'text', placeholder: 'Buscar Paciente', disable: false},
-      'fechaNac'      : { tipo: 'date', nombre: 'fechaNac', disable: false },
-      'fechaIngreso'  : { tipo: 'date', nombre: 'fechaIngreso', disable: false },
-      'todos'         : { tipo: '', placeholder: '', disable: true}
-    };
+    this.TIPO_INPUTS = TIPO_IMPUTS_HOSPITALIZACION;
 
-    this.inputSeleccionado = this.tipoInputs[''];
+    this.inputSeleccionado = this.TIPO_INPUTS[''];
   }
 
   irPaginaHistorialClinicaPaciente(){
@@ -68,7 +62,7 @@ export class TableMobileComponent implements OnInit {
 
   seleccionarFiltro(): void{
     this.textoFiltro = '';
-    this.inputSeleccionado = this.tipoInputs[this.filtroSeleccionado];
+    this.inputSeleccionado = this.TIPO_INPUTS[this.filtroSeleccionado];
   }
 
   abrirDetallesHospitaliacion(hospitalizacion: Hospitalizacion): MatDialogRef<DetalleHospitalizacionComponent>{

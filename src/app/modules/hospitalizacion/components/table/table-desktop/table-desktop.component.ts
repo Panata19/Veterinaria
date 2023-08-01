@@ -9,6 +9,7 @@ import { TipoInputs } from '../../../interfaces/tipoInputs';
 import { HosipitalizacionService } from '../../../services/hosipitalizacion.service';
 import { DetalleHospitalizacionComponent } from '../../modals/detalle-hospitalizacion/detalle-hospitalizacion.component';
 import { ModalEliminarhospitalizacionComponent } from '../../modals/modal-eliminar/modal-eliminar.component';
+import { TIPO_IMPUTS_HOSPITALIZACION } from 'src/app/shared/config/config';
 
 @Component({
   selector: 'app-table-desktop',
@@ -22,7 +23,7 @@ export class TableDesktopComponent implements OnInit {
   page!                 : number;
   textoFiltro!          : string;
   dataHospitalizaciones : Hospitalizacion[] = [];
-  tipoInputs!           : TipoInputs;
+  TIPO_INPUTS!          : TipoInputs;
   filtroSeleccionado!   : string;
   inputSeleccionado!    : OpcionesInput;
   tipoFiltros!          : TipoFiltros[];
@@ -35,15 +36,9 @@ export class TableDesktopComponent implements OnInit {
     this.filtroSeleccionado = "";    
     this.hs.allHospitalizaciones.subscribe(hospitalizaciones => this.dataHospitalizaciones = hospitalizaciones );
 
-    this.tipoInputs = {
-      ''              : { tipo: 'text', placeholder: 'Buscar...', disable: true }, 
-      'nombrePaciente': { tipo: 'text', placeholder: 'Buscar Paciente', disable: false},
-      'fechaNac'      : { tipo: 'date', nombre: 'fechaNac', disable: false },
-      'fechaIngreso'  : { tipo: 'date', nombre: 'fechaIngreso', disable: false },
-      'todos'         : { tipo: '', placeholder: '', disable: true}
-    };
+    this.TIPO_INPUTS = TIPO_IMPUTS_HOSPITALIZACION;
 
-    this.inputSeleccionado = this.tipoInputs[''];
+    this.inputSeleccionado = this.TIPO_INPUTS[''];
   }
 
   irPaginaHistorialClinicaPaciente(){

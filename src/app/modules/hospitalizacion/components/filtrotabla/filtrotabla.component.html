@@ -16,6 +16,7 @@
             </div> 
             <!-- Contenedor del input buscar -->
             <div class="container_filter">
+              <!-- SELECT DE FILTROS -->
               <select class="form-select"
                       [(ngModel)]="filtroSeleccionado"
                       name="filtroSeleccionado"
@@ -23,6 +24,7 @@
                 <option value="" selected>Todos</option>
                 <option *ngFor="let filtro of TIPOS_FILTROS" [value]="filtro.valor">{{ filtro.texto }}</option>
               </select>
+              <!-- INPUT DE BÚSQUEDA -->
               <input [type]= "inputSeleccionado.tipo" 
                      class="form-control" 
                      [(ngModel)]="textoFiltro" 

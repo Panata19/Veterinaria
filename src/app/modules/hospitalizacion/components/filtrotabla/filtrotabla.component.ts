@@ -3,7 +3,7 @@ import { Hospitalizacion } from '../../interfaces/hospitalizacion.interface';
 import { OpcionesInput } from '../../interfaces/opcionesInput.interface';
 import { TipoFiltros } from '../../interfaces/tipoFiltros.interface';
 import { TipoInputs } from '../../interfaces/tipoInputs';
-import { TIPO_FILTROS_HOSPITALIZACION } from 'src/app/shared/config/config';
+import { TIPO_FILTROS_HOSPITALIZACION, TIPO_IMPUTS_HOSPITALIZACION } from 'src/app/shared/config/config';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class FiltrotablaComponent implements OnInit {
   page!                 : number;
   textoFiltro!          : string;
   dataHospitalizaciones : Hospitalizacion[] = [];
-  tipoInputs!           : TipoInputs;
+  TIPO_INPUTS!           : TipoInputs;
   filtroSeleccionado!   : string;
   inputSeleccionado!    : OpcionesInput;
   TIPOS_FILTROS!        : TipoFiltros[];
@@ -33,19 +33,13 @@ export class FiltrotablaComponent implements OnInit {
     this.entradas = "5";
     this.filtroSeleccionado = "";        
     this.TIPOS_FILTROS = TIPO_FILTROS_HOSPITALIZACION;
-    this.tipoInputs = {
-      ''              : { tipo: 'text', placeholder: 'Buscar...', disable: true }, 
-      'nombrePaciente': { tipo: 'text', placeholder: 'Buscar Paciente', disable: false},
-      'fechaNac'      : { tipo: 'date', nombre: 'fechaNac', disable: false },
-      'fechaIngreso'  : { tipo: 'date', nombre: 'fechaIngreso', disable: false },
-      'todos'         : { tipo: '', placeholder: '', disable: true}
-    };
+    this.TIPO_INPUTS = TIPO_IMPUTS_HOSPITALIZACION;
 
-    this.inputSeleccionado = this.tipoInputs[''];
+    this.inputSeleccionado = this.TIPO_INPUTS[''];
   }
 
   seleccionarFiltro(): void{
-    this.inputSeleccionado = this.tipoInputs[this.filtroSeleccionado];
+    this.inputSeleccionado = this.TIPO_INPUTS[this.filtroSeleccionado];
     this.textoFiltro = ''
     this.obtenerTextoFiltro.emit(this.textoFiltro);
     this.obtenerFiltro.emit(this.inputSeleccionado);
