@@ -40,7 +40,7 @@ export class ModalAddCarritoComponent implements OnInit {
   /*
   Detalles: Detalles = {
     cantidad: parseInt(this.formAddCarrito.get('cantidad')?.value),
-    precio: this.data.price,
+    subTotal: this.data.price,
     valorIva: 0,
     iva: this.iva,
     precioTotal: 0,
@@ -54,7 +54,7 @@ export class ModalAddCarritoComponent implements OnInit {
       Producto: this.data,
       Detalles: {
         cantidad: parseInt(this.formAddCarrito.get('cantidad')?.value),
-        precio: this.data.price,
+        subTotal: this.data.price,
         valorIva: 0,
         iva: this.iva,
         precioTotal: 0,
@@ -97,11 +97,11 @@ export class ModalAddCarritoComponent implements OnInit {
     } else if (!this.LiveCarrito) {
       //* Fuera del Carrito
       if (data.quantitys > 0) {
-        this.AddCarrito.Compra.Detalles.precio = data.price;
-        this.calcularIva(this.AddCarrito.Compra.Detalles.precio);
+        this.AddCarrito.Compra.Detalles.subTotal = data.price;
+        this.calcularIva(this.AddCarrito.Compra.Detalles.subTotal);
         this.AddCarrito.Compra.Detalles.precioTotal =
           Math.round(
-            (this.AddCarrito.Compra.Detalles.precio +
+            (this.AddCarrito.Compra.Detalles.subTotal +
               this.AddCarrito.Compra.Detalles.valorIva) *
               100
           ) / 100;
@@ -130,7 +130,7 @@ export class ModalAddCarritoComponent implements OnInit {
   }
 
   private AumentarLogica() {
-    this.AddCarrito.Compra.Detalles.precio += this.data.price;
+    this.AddCarrito.Compra.Detalles.subTotal += this.data.price;
     this.formAddCarrito
       .get('cantidad')
       ?.setValue(parseInt(this.formAddCarrito.get('cantidad')?.value) + 1);
@@ -138,10 +138,10 @@ export class ModalAddCarritoComponent implements OnInit {
       this.formAddCarrito.get('cantidad')?.value
     );
     
-    this.calcularIva(this.AddCarrito.Compra.Detalles.precio);
+    this.calcularIva(this.AddCarrito.Compra.Detalles.subTotal);
     this.AddCarrito.Compra.Detalles.precioTotal =
       Math.round(
-        (this.AddCarrito.Compra.Detalles.precio +
+        (this.AddCarrito.Compra.Detalles.subTotal +
           this.AddCarrito.Compra.Detalles.valorIva) *
           100
       ) / 100;
@@ -158,17 +158,17 @@ export class ModalAddCarritoComponent implements OnInit {
 
   private DisminuirLogica() {
     //Original
-    this.AddCarrito.Compra.Detalles.precio -= this.data.price;
+    this.AddCarrito.Compra.Detalles.subTotal -= this.data.price;
     this.formAddCarrito
       .get('cantidad')
       ?.setValue(parseInt(this.formAddCarrito.get('cantidad')?.value) - 1);
     this.AddCarrito.Compra.Detalles.cantidad = parseInt(
       this.formAddCarrito.get('cantidad')?.value
     );
-    this.calcularIva(this.AddCarrito.Compra.Detalles.precio);
+    this.calcularIva(this.AddCarrito.Compra.Detalles.subTotal);
     this.AddCarrito.Compra.Detalles.precioTotal =
       Math.round(
-        (this.AddCarrito.Compra.Detalles.precio +
+        (this.AddCarrito.Compra.Detalles.subTotal +
           this.AddCarrito.Compra.Detalles.valorIva) *
           100
       ) / 100;
@@ -207,12 +207,12 @@ export class ModalAddCarritoComponent implements OnInit {
       this.AddCarrito.Compra.Detalles.cantidad = parseInt(
         this.formAddCarrito.get('cantidad')?.value
       );
-      this.AddCarrito.Compra.Detalles.precio =
+      this.AddCarrito.Compra.Detalles.subTotal =
         this.data.price * parseInt(this.formAddCarrito.get('cantidad')?.value);
-      this.calcularIva(this.AddCarrito.Compra.Detalles.precio);
+      this.calcularIva(this.AddCarrito.Compra.Detalles.subTotal);
       this.AddCarrito.Compra.Detalles.precioTotal =
         Math.round(
-          (this.AddCarrito.Compra.Detalles.precio +
+          (this.AddCarrito.Compra.Detalles.subTotal +
             this.AddCarrito.Compra.Detalles.valorIva) *
             100
         ) / 100;

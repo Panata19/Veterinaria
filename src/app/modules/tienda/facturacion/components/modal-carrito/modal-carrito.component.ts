@@ -14,7 +14,7 @@ import { Cliente } from 'src/app/modules/cliente/interface/cliente.interface';
 import { TiendaService } from '../../services/tienda.service';
 import { Store } from '@ngrx/store';
 import { AppState, Objeto } from '../../services/app.state';
-import { cambioCantidadCarrito, cambioCarrito } from '../../services/app.actions';
+import { cambioCantidadCarrito } from '../../services/app.actions';
 
 
 @Component({
@@ -47,7 +47,7 @@ export class ModalCarritoComponent implements OnInit{
   /*
   DetallesFactura = {
     cantidad: this.StoreStado[0].Compra.Detalles.cantidad,
-    precio: this.StoreStado[0].Compra.Producto.price,
+    subTotal: this.StoreStado[0].Compra.Producto.price,
     valorIva: 0,
     iva: this.iva,
     precioTotal: 0,
@@ -93,12 +93,6 @@ export class ModalCarritoComponent implements OnInit{
         this.StoreStado = objetos;
       });
 
-    //** Primer Calculo de Costos **//
-    /*if(this.StoreStado[0].Compra.Producto.quantitys > 0){
-      this.compra.precio = this.StoreStado[0].Compra.Producto.price;
-      //this.calcularIva(this.compra.precio);
-      this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva)*100) /100 ;
-    }*/
     //** Stepper Responsive **//
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -144,6 +138,7 @@ export class ModalCarritoComponent implements OnInit{
     } else {
       this.labelToolTip = 'Listo para comprar';
     }
+    
     // Establecer nuevos valores en el formulario
     this.thirdFormGroup.patchValue({
       nombre: this.secondFormGroup.get('nombre')?.value+' '+this.secondFormGroup.get('apellido')?.value,
@@ -151,8 +146,6 @@ export class ModalCarritoComponent implements OnInit{
       telefono: this.secondFormGroup.get('telefono')?.value,
       correo: this.secondFormGroup.get('correo')?.value
     });
-    
-    //this.compra.cantidad = this.firstFormGroup.get('cantidad')?.value;
 
     this.thirdFormGroup.get('nombre')?.setValue(
       this.secondFormGroup.get('nombre')?.value+' '+
@@ -179,45 +172,69 @@ export class ModalCarritoComponent implements OnInit{
     this.compraCliente = this.secondFormGroup.value;
   }
 
-  aumentar({cantidad, precio, iva, valorIva ,precioTotal } : Detalles, {id, price} : Product): void {
+  aumentar({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, price} : Product): void {
     if (this.StoreStado[0].Compra.Producto.quantitys <= cantidad) {
       this.label = 'Aumentar';
       this.advertencia();
       return;
     }
-    
     ++cantidad;
-    precio += price;
-
-    const calcIva = (precio * iva) / 100;
-    valorIva = Math.round(calcIva * 100) / 100;
-    
-    precioTotal = Math.round((precio + valorIva) * 100) / 100;
+    subTotal += price;
+    valorIva = this.logicaIva(subTotal, iva);
+    precioTotal = Math.round((subTotal + valorIva) * 100) / 100;
 
     this.store.dispatch(
-      cambioCantidadCarrito({ id, Detalles: {cantidad, precio, iva, valorIva, precioTotal} })
+      cambioCantidadCarrito({ id, Detalles: {cantidad, subTotal, iva, valorIva, precioTotal} })
     );
   }
 
-  disminuir({cantidad, precio, iva, valorIva ,precioTotal } : Detalles, {id, price} : Product): void {
+  disminuir({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, price} : Product): void {
     if (cantidad <= 0) {
       this.label = 'Disminuir';
       this.advertencia();
       return;
     }
-    
     --cantidad
-    precio -= price
+    subTotal -= price
+    valorIva = this.logicaIva(subTotal, iva);
+    precioTotal = Math.round((subTotal + valorIva) * 100) / 100;
 
-    const calcIva = (precio * iva) / 100;
-    valorIva = Math.round(calcIva * 100) / 100;
-    
-    precioTotal = Math.round((precio + valorIva) * 100) / 100;
     this.store.dispatch(
-      cambioCantidadCarrito({ id, Detalles: {cantidad, precio, iva, valorIva, precioTotal} })
+      cambioCantidadCarrito({ id, Detalles: {cantidad, subTotal, iva, valorIva, precioTotal} })
     );
   }
   
+  private logicaIva(subTotal: number, iva:number): number{
+    const calcIva = (subTotal * iva) / 100;
+    return Math.round(calcIva * 100) / 100;
+  }
+  
+  SubTotal(): number{
+    let subTotal:number = 0;  
+    this.StoreStado.forEach((Producto) => {
+      subTotal += Producto.Compra.Detalles.subTotal;
+    });
+    subTotal = Math.round(subTotal * 100) / 100;
+    return subTotal;
+  }
+
+  Iva(): number{
+    let ivaTotal:number = 0;  
+    this.StoreStado.forEach((Producto) => {
+      ivaTotal += Producto.Compra.Detalles.valorIva;
+    });
+    ivaTotal = Math.round(ivaTotal * 100) / 100;
+    return ivaTotal;
+  }
+
+  Total(): number{
+    let Total:number = 0;
+    this.StoreStado.forEach((Producto) => {
+      Total += Producto.Compra.Detalles.precioTotal;
+    });
+    Total = Math.round(Total * 100) / 100;
+    return Total;
+  }
 
   private advertencia(){
       this.warning = true;
@@ -244,27 +261,24 @@ export class ModalCarritoComponent implements OnInit{
 
   reset(){
     this.searchTerm.setValue('');
-    //this.compra.precio = this.newData.price;
-    //this.calcularIva(this.compra.precio);
+    //this.compra.subTotal = this.newData.price;
+    //this.calcularIva(this.compra.subTotal);
     //this.firstFormGroup.get('cantidad')?.setValue(1)
-    //this.compra.precioTotal = Math.round((this.compra.precio + this.compra.valorIva) * 100) / 100;
+    //this.compra.precioTotal = Math.round((this.compra.subTotal + this.compra.valorIva) * 100) / 100;
   }
 
-  changes({cantidad, precio, iva, valorIva ,precioTotal } : Detalles, {id, price, quantitys} : Product): void {
+  changes({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, price, quantitys} : Product): void {
     if(cantidad >= quantitys) {
       this.error = true;
     } else {
       this.error = false;
       
-      precio = cantidad * price;
-
-      const calcIva = (precio * iva) / 100;
-      valorIva = Math.round(calcIva * 100) / 100;
-      
-      precioTotal = Math.round((precio + valorIva) * 100) / 100;
+      subTotal = cantidad * price;
+      valorIva = this.logicaIva(subTotal, iva);
+      precioTotal = Math.round((subTotal + valorIva) * 100) / 100;
       
       this.store.dispatch(
-        cambioCantidadCarrito({ id, Detalles: {cantidad, precio, iva, valorIva, precioTotal} })
+        cambioCantidadCarrito({ id, Detalles: {cantidad, subTotal, iva, valorIva, precioTotal} })
       );
     }
   }

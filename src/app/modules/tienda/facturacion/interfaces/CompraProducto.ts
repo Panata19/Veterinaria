@@ -9,7 +9,7 @@ export interface Product extends ProductoData {  }
 
 export interface Detalles{
   cantidad: number;
-  precio: number;
+  subTotal: number;
   iva: number ;
   valorIva: number;
   precioTotal: number;
@@ -19,7 +19,6 @@ export interface prueba{ //Cambiar pa Modal-Carrito
   id: number
 }
 
-
 export interface StoreProduct extends ProductoData{
   
 }
@@ -28,5 +27,4 @@ export interface StoreElement{
   enCarrito: boolean,
   Compra: CompraData
 }
-
 

@@ -9,7 +9,7 @@
     <!-- Primer Paso -->
     <mat-step
       [stepControl]="firstFormGroup"
-      label="Escoge la Cantidad"
+      label="Productos"
       errorMessage="Llena la cantidad"
     >
       <ng-template matStepContent>
@@ -142,13 +142,13 @@
             <p class="m-0 placeholder-glow">
               SubTotal:
               <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-                'error?'':'$'+element.Compra.Detalles.precio'
+                {{error ? "": '$'+SubTotal() }}
               </span>
             </p>
             <p class="placeholder-glow">
-              Iva compra.iva%:
+              Iva {{iva}}%:
               <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-                error?'':compra.valorIva
+                {{error?'': Iva()}}
               </span>
             </p>
             <p class="fw-bold fs-6 placeholder-glow">
@@ -157,7 +157,7 @@
                 class="fs-5"
                 [ngClass]="{ 'placeholder col-4 col-sm-2': error }"
               >
-                error?'':'$'+compra.precioTotal</span
+                {{error?'':'$'+Total()}}</span
               >
             </p>
             <div *ngIf="warning" class="bg-danger rounded">
