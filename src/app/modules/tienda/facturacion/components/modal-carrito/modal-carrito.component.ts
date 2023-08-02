@@ -76,7 +76,7 @@ export class ModalCarritoComponent implements OnInit{
     Cantidad: this.compra,
     user: this.secondFormGroup.value
   }*/
-  StoreStado!: Objeto[];
+  public StoreStado!: Objeto[];
 
   constructor(
     public dialogRef: MatDialogRef<ModalCarritoComponent>,
@@ -267,12 +267,14 @@ export class ModalCarritoComponent implements OnInit{
     //this.compra.precioTotal = Math.round((this.compra.subTotal + this.compra.valorIva) * 100) / 100;
   }
 
-  changes({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, price, quantitys} : Product): void {
+  changes({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, price, quantitys} : Product, value:string): void {
+    console.log("Input",value);
     if(cantidad > quantitys || cantidad < 0 ) {
       this.error = true;
     } else {
       this.error = false;
       
+      cantidad = parseInt(value);
       subTotal = cantidad * price;
       valorIva = this.logicaIva(subTotal, iva);
       precioTotal = Math.round((subTotal + valorIva) * 100) / 100;

@@ -94,11 +94,12 @@
                       class="fs-5 w-fc"
                       matInput
                       placeholder="3"
-                      [(ngModel)]="element.Compra.Detalles.cantidad"
+                      [ngModel]="element.Compra.Detalles.cantidad"
                       (ngModelChange)="
                         changes(
                           element.Compra.Detalles,
-                          element.Compra.Producto
+                          element.Compra.Producto,
+                          $event
                         )
                       "
                     />
