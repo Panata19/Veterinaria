@@ -22,9 +22,9 @@
           <h2 class="card-title fs-4 fw-semibold">{{ data.name }}</h2>
           <p
             class="card-text text-body-secondary"
-            [ngClass]="{ 'text-danger': error }"
+            [ngClass]="{ 'text-danger': formAddCarrito.invalid }"
           >
-            {{ error ? "Solo Existen:" : "Existen:" }} {{ data.quantitys }}
+            {{ formAddCarrito.invalid ? "Solo Existen:" : "Existen:" }} {{ data.quantitys }}
           </p>
           <div>
             <span class="me-3">
@@ -46,19 +46,19 @@
               matRipple
               type="button"
               class="btn btn-light border border-secondary rw-0 rounded-start"
-              [ngClass]="{ 'border-danger': error }"
+              [ngClass]="{ 'border-danger': formAddCarrito.invalid }"
               (click)="disminuir()"
             >
               <span class="icon text-black">
                 <i
                   class="bi bi-dash-lg"
-                  [ngClass]="{ 'text-danger': error }"
+                  [ngClass]="{ 'text-danger': formAddCarrito.invalid }"
                 ></i>
               </span>
             </button>
             <div
               class="w-10 border border-secondary d-flex text-center align-items-center"
-              [ngClass]="{ 'border-danger text-danger': error }"
+              [ngClass]="{ 'border-danger text-danger': formAddCarrito.invalid }"
             >
               <input
                 class="fs-5 w-fc"
@@ -72,13 +72,13 @@
               matRipple
               type="button"
               class="btn btn-light border-secondary rw-0 rounded-end"
-              [ngClass]="{ 'border-danger': error }"
+              [ngClass]="{ 'border-danger': formAddCarrito.invalid }"
               (click)="aumentar()"
             >
               <span class="icon text-black">
                 <i
                   class="bi bi-plus-lg"
-                  [ngClass]="{ 'text-danger': error }"
+                  [ngClass]="{ 'text-danger': formAddCarrito.invalid }"
                 ></i>
               </span>
             </button>
@@ -95,28 +95,28 @@
     <div class="ms-2 p-1">
       <p class="m-0 placeholder-glow">
         Cantidad:
-        <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-          {{ error ? "" : formAddCarrito.get("cantidad")?.value }}
+        <span [ngClass]="{ 'placeholder col-4 col-sm-2': formAddCarrito.invalid }">
+          {{ formAddCarrito.invalid ? "" : formAddCarrito.get("cantidad")?.value }}
         </span>
       </p>
       <p class="m-0 placeholder-glow">
         SubTotal:
-        <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-          {{ error ? "" : "$" + AddCarrito.Compra.Detalles.subTotal }}
+        <span [ngClass]="{ 'placeholder col-4 col-sm-2': formAddCarrito.invalid }">
+          {{ formAddCarrito.invalid ? "" : "$" + AddCarrito.Compra.Detalles.subTotal }}
         </span>
       </p>
       <p class="placeholder-glow">
         Iva {{ AddCarrito.Compra.Detalles.iva }}%:
-        <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-          {{ error ? "" : AddCarrito.Compra.Detalles.valorIva }}
+        <span [ngClass]="{ 'placeholder col-4 col-sm-2': formAddCarrito.invalid }">
+          {{ formAddCarrito.invalid ? "" : AddCarrito.Compra.Detalles.valorIva }}
         </span>
       </p>
       <p class="fw-bold fs-6 placeholder-glow">
         Total:
         <span
           class="fs-5"
-          [ngClass]="{ 'placeholder col-4 col-sm-2': error }"
-          >{{ error ? "" : "$" + AddCarrito.Compra.Detalles.precioTotal }}</span
+          [ngClass]="{ 'placeholder col-4 col-sm-2': formAddCarrito.invalid }"
+          >{{ formAddCarrito.invalid ? "" : "$" + AddCarrito.Compra.Detalles.precioTotal }}</span
         >
       </p>
       <div *ngIf="warning" class="bg-danger rounded">
@@ -128,41 +128,51 @@
   </div>
 
   <mat-dialog-actions align="end">
-    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+    <button mat-raised-button (click)="onNoClick()" 
+      matTooltip="Cerrar Modal"
+      matTooltipPosition="above">
+      Cancelar</button>
 
     <button
       *ngIf="!LiveCarrito"
       mat-raised-button
       color="primary"
+      type="submit"
+      cdkFocusInitial
       (click)="agregarCarrito()"
       [disabled]="formAddCarrito.invalid"
-      cdkFocusInitial
-      type="submit"
+      matTooltip="Añadir Carrito"
+      matTooltipPosition="above"
       [mat-dialog-close]="{ tipo: 'Agregando', element: AddCarrito }"
     >
-      Añadir Carrito
+      Añadir
     </button>
 
     <button
       *ngIf="LiveCarrito"
       mat-raised-button
-      color="primary"
-      [disabled]="formAddCarrito.invalid"
-      cdkFocusInitial
       type="submit"
+      color="primary"
+      cdkFocusInitial
+      matTooltip="Eliminar de Carrito"
+      matTooltipPosition="above"
       [mat-dialog-close]="{ tipo: 'Eliminando', element: AddCarrito }"
     >
-      Eliminar de Carrito
+      Eliminar
     </button>
 
     <button
       *ngIf="LiveCarrito"
       mat-raised-button
       color="primary"
+      cdkFocusInitial
+      matTooltip="Actualizar Carrito"
+      matTooltipPosition="above"
       (click)="actualizarCarrito()"
+      [disabled]="formAddCarrito.invalid"
       [mat-dialog-close]="{ tipo: 'Actualizando', element: AddCarrito }"
     >
-      Actualizar Carrito
+      Actualizar
     </button>
   </mat-dialog-actions>
 </form>

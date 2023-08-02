@@ -90,7 +90,7 @@ export class ModalCarritoComponent implements OnInit{
       .select((state) => state.app.objetos)
       .subscribe((objetos) => {
         
-        this.StoreStado = objetos;
+        this.StoreStado = [...objetos];
       });
 
     //** Stepper Responsive **//
@@ -268,7 +268,7 @@ export class ModalCarritoComponent implements OnInit{
   }
 
   changes({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, price, quantitys} : Product): void {
-    if(cantidad >= quantitys) {
+    if(cantidad > quantitys || cantidad < 0 ) {
       this.error = true;
     } else {
       this.error = false;

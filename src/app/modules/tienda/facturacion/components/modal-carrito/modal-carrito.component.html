@@ -148,7 +148,7 @@
             <p class="placeholder-glow">
               Iva {{iva}}%:
               <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-                {{error?'': Iva()}}
+                {{error?'': '$'+Iva()}}
               </span>
             </p>
             <p class="fw-bold fs-6 placeholder-glow">

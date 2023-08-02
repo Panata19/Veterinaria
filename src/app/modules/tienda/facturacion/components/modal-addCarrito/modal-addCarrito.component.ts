@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Product, StoreElement } from '../../interfaces/CompraProducto';
 
 import { Store } from '@ngrx/store';
-import { editarCarrito, cambioCarrito, cambioCantidadCarrito } from '../../services/app.actions';
+import { cambioCarrito, cambioCantidadCarrito } from '../../services/app.actions';
 import { AppState, Objeto } from '../../services/app.state';
 
 import { Cliente } from 'src/app/modules/cliente/interface/cliente.interface';
@@ -18,7 +18,6 @@ export class ModalAddCarritoComponent implements OnInit {
   //** Variables Compra **//
 
   iva: number = 12;
-  error: boolean = false;
 
   compraCliente!: Cliente;
 
@@ -197,13 +196,7 @@ export class ModalAddCarritoComponent implements OnInit {
   }
 
   changes(): void {
-    if (this.formAddCarrito.get('cantidad')?.value >= this.data.quantitys) {
-      this.error = true;
-    } else if (this.formAddCarrito.get('cantidad')?.value === '') {
-      this.error = true;
-    } else {
-      this.error = false;
-
+    if (!this.formAddCarrito.invalid) {
       this.AddCarrito.Compra.Detalles.cantidad = parseInt(
         this.formAddCarrito.get('cantidad')?.value
       );
