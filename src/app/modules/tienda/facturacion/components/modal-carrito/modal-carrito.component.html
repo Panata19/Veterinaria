@@ -16,7 +16,7 @@
         <form [formGroup]="formStep1">
           <div
             *ngFor="let element of StoreStado; let i = index"
-            [formGroupName]="'cantidad_' + i"
+            
             class="card border-secondary border"
           >
             <!-- Cards -->
@@ -45,9 +45,9 @@
                   </h2>
                   <p
                     class="card-text text-body-secondary"
-                    [ngClass]="{ 'text-danger': error }"
+                    [ngClass]="{ 'text-danger': formStep1.get('cantidad_'+i)?.errors }"
                   >
-                    {{ error ? "Solo Existen:" : "Existen:" }}
+                    {{ formStep1.get('cantidad_'+i)?.errors ? "Solo Existen:" : "Existen:" }}
                     {{ element.Compra.Producto.quantitys }}
                   </p>
                   <div>
@@ -73,7 +73,7 @@
                       matRipple
                       type="button"
                       class="btn btn-light border border-secondary rw-0 rounded-start"
-                      [ngClass]="{ 'border-danger': error }"
+                      [ngClass]="{ 'border-danger': formStep1.get('cantidad_'+i)?.errors }"
                       (click)="
                         disminuir(
                           element.Compra.Detalles,
@@ -84,13 +84,13 @@
                       <span class="icon text-black">
                         <i
                           class="bi bi-dash-lg"
-                          [ngClass]="{ 'text-danger': error }"
+                          [ngClass]="{ 'text-danger': formStep1.get('cantidad_'+i)?.errors }"
                         ></i>
                       </span>
                     </button>
                     <div
                       class="w-10 border border-secondary d-flex text-center align-items-center"
-                      [ngClass]="{ 'border-danger text-danger': error }"
+                      [ngClass]="{ 'border-danger text-danger': formStep1.get('cantidad_'+i)?.errors }"
                     >
                       <input
                         class="fs-5 w-fc"
@@ -110,7 +110,7 @@
                       matRipple
                       type="button"
                       class="btn btn-light border-secondary rw-0 rounded-end"
-                      [ngClass]="{ 'border-danger': error }"
+                      [ngClass]="{ 'border-danger': formStep1.get('cantidad_'+i)?.errors }"
                       (click)="
                         aumentar(
                           element.Compra.Detalles, 
@@ -121,7 +121,7 @@
                       <span class="icon text-black">
                         <i
                           class="bi bi-plus-lg"
-                          [ngClass]="{ 'text-danger': error }"
+                          [ngClass]="{ 'text-danger': formStep1.get('cantidad_'+i)?.errors }"
                         ></i>
                       </span>
                     </button>
@@ -141,29 +141,29 @@
           <div class="ms-2 p-1">
             <p class="m-0 placeholder-glow">
               Cantidad Productos:
-              <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-                {{ error ? "" : this.StoreStado.length }}
+              <span [ngClass]="{ 'placeholder col-4 col-sm-2': formStep1.invalid }">
+                {{ formStep1.invalid ? "" : this.StoreStado.length }}
               </span>
             </p>
             <p class="m-0 placeholder-glow">
               SubTotal:
-              <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-                {{error ? "": '$'+SubTotal() }}
+              <span [ngClass]="{ 'placeholder col-4 col-sm-2': formStep1.invalid }">
+                {{ formStep1.invalid ? "": '$'+SubTotal() }}
               </span>
             </p>
             <p class="placeholder-glow">
               Iva {{iva}}%:
-              <span [ngClass]="{ 'placeholder col-4 col-sm-2': error }">
-                {{error?'': '$'+Iva()}}
+              <span [ngClass]="{ 'placeholder col-4 col-sm-2': formStep1.invalid }">
+                {{ formStep1.invalid ?'': '$'+Iva()}}
               </span>
             </p>
             <p class="fw-bold fs-6 placeholder-glow">
               Total:
               <span
                 class="fs-5"
-                [ngClass]="{ 'placeholder col-4 col-sm-2': error }"
+                [ngClass]="{ 'placeholder col-4 col-sm-2': formStep1.invalid }"
               >
-                {{error?'':'$'+Total()}}</span
+                {{formStep1.invalid ?'':'$'+Total()}}</span
               >
             </p>
             <div *ngIf="warning" class="bg-danger rounded">
