@@ -2,8 +2,8 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 
-import { FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Product, Detalles } from '../../interfaces/CompraProducto';
+import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Product, Detalles, StoreElement } from '../../interfaces/CompraProducto';
 
 import { StepperOrientation } from '@angular/material/stepper';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -14,7 +14,7 @@ import { Cliente } from 'src/app/modules/cliente/interface/cliente.interface';
 import { TiendaService } from '../../services/tienda.service';
 import { Store } from '@ngrx/store';
 import { AppState, Objeto } from '../../services/app.state';
-import { cambioCantidadCarrito } from '../../services/app.actions';
+import { cambioCantidadCarrito, eliminarObjeto } from '../../services/app.actions';
 
 
 @Component({
@@ -77,6 +77,7 @@ export class ModalCarritoComponent implements OnInit{
     user: this.secondFormGroup.value
   }*/
   public StoreStado!: Objeto[];
+  formStep1: FormGroup = this._formBuilder.group({});
 
   constructor(
     public dialogRef: MatDialogRef<ModalCarritoComponent>,
@@ -91,7 +92,31 @@ export class ModalCarritoComponent implements OnInit{
       .subscribe((objetos) => {
         
         this.StoreStado = [...objetos];
+       
+        if (this.StoreStado.length === 0) {
+          if(this.formStep1.contains('Error')){
+            this.formStep1.removeControl('Error');
+          } else {
+            const control = new FormControl(50);
+            control.setValidators([
+              Validators.max(2),
+            ]);
+            this.formStep1.addControl('Error', control);
+          }
+        }
       });
+      
+    
+    
+    this.StoreStado.forEach((dato: StoreElement, index: number) => {
+      const control = new FormControl(dato.Compra.Detalles.cantidad);
+        control.setValidators([
+          Validators.required,
+          Validators.min(1),
+          Validators.max(dato.Compra.Producto.quantitys),
+        ]);
+        this.formStep1.addControl('cantidad_'+index, control);
+    });
 
     //** Stepper Responsive **//
     this.stepperOrientation = breakpointObserver
@@ -172,13 +197,15 @@ export class ModalCarritoComponent implements OnInit{
     this.compraCliente = this.secondFormGroup.value;
   }
 
-  aumentar({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, price} : Product): void {
-    if (this.StoreStado[0].Compra.Producto.quantitys <= cantidad) {
+  aumentar({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, quantitys, price} : Product, i: number): void {
+    const value: number = parseInt(this.formStep1.get('cantidad_'+i)?.value);
+    this.formStep1.get('cantidad_'+i)?.setValue(value + 1 );
+    if ( quantitys < value || value <= 0 ) {
       this.label = 'Aumentar';
       this.advertencia();
       return;
     }
-    ++cantidad;
+    cantidad = value;
     subTotal += price;
     valorIva = this.logicaIva(subTotal, iva);
     precioTotal = Math.round((subTotal + valorIva) * 100) / 100;
@@ -188,13 +215,16 @@ export class ModalCarritoComponent implements OnInit{
     );
   }
 
-  disminuir({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, price} : Product): void {
-    if (cantidad <= 0) {
+  disminuir({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, quantitys, price} : Product, i: number): void {
+    const value: number = parseInt(this.formStep1.get('cantidad_'+i)?.value);
+    this.formStep1.get('cantidad_'+i)?.setValue(value - 1 );
+
+    if (value <= 0 || quantitys < value) {
       this.label = 'Disminuir';
       this.advertencia();
       return;
     }
-    --cantidad
+    cantidad = value;
     subTotal -= price
     valorIva = this.logicaIva(subTotal, iva);
     precioTotal = Math.round((subTotal + valorIva) * 100) / 100;
@@ -236,6 +266,10 @@ export class ModalCarritoComponent implements OnInit{
     return Total;
   }
 
+  borrarCarrito(id: number){
+    this.store.dispatch(eliminarObjeto({ id }));
+  }
+
   private advertencia(){
       this.warning = true;
       setTimeout(()=> {
@@ -269,12 +303,13 @@ export class ModalCarritoComponent implements OnInit{
 
   changes({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, price, quantitys} : Product, value:string): void {
     console.log("Input",value);
-    if(cantidad > quantitys || cantidad < 0 ) {
+    let newValue = parseInt(value);
+    if(newValue <= 0 || newValue > quantitys ) {
       this.error = true;
     } else {
       this.error = false;
       
-      cantidad = parseInt(value);
+      cantidad = newValue;
       subTotal = cantidad * price;
       valorIva = this.logicaIva(subTotal, iva);
       precioTotal = Math.round((subTotal + valorIva) * 100) / 100;
