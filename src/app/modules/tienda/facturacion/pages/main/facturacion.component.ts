@@ -82,7 +82,6 @@ export class FacturacionComponent {
   }
 
   eliminarCarrito(id: number) {
-    console.log('Eliminando');
     this.store.dispatch(eliminarObjeto({ id }));
   }
 
@@ -155,7 +154,6 @@ export class FacturacionComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       if (result !== undefined) {
         switch (result.tipo) {
           case 'Agregando':

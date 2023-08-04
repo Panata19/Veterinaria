@@ -8,7 +8,7 @@
   >
     <!-- Primer Paso -->
     <mat-step
-      [stepControl]="firstFormGroup"
+      [stepControl]="formStep1"
       label="Productos"
       errorMessage="Llena la cantidad"
     >
@@ -126,6 +126,18 @@
                       </span>
                     </button>
                   </div>
+                  <button
+                    matRipple
+                    type="button"
+                    matTooltip="Eliminar"
+                    matTooltipPosition="right"
+                    (click)="borrarCarrito(element.Compra.Producto.id)"
+                    class="btn btn-danger shade"
+                  >
+                    <span class="icon text-white-50">
+                      <i class="fas fa-trash-alt"></i>
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -175,7 +187,10 @@
         </div>
 
         <mat-dialog-actions align="end">
-          <button mat-raised-button color="primary" matStepperNext>Next</button>
+          <button mat-raised-button color="primary" 
+          matStepperNext
+          [disabled]="formStep1.invalid || StoreStado.length === 0"
+          >Next</button>
         </mat-dialog-actions>
       </ng-template> </mat-step
     ><!-- Fin Primer Paso -->

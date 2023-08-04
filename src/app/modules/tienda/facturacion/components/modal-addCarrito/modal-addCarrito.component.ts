@@ -77,7 +77,6 @@ export class ModalAddCarritoComponent implements OnInit {
         this.LiveCarrito = this.checkCarrito(this.data.id);
       });
     //** Primer Calculo de Costos **//
-    console.log("Esta en carrito:",this.LiveCarrito);
     if (this.LiveCarrito) {
       //* Esta en el Carrito
       let index: number = this.StoreStado.findIndex(
@@ -232,8 +231,6 @@ export class ModalAddCarritoComponent implements OnInit {
   }
 
   actualizarCarrito() {
-    console.log("Detalles",this.AddCarrito.Compra.Detalles);
-    console.log("Estado",this.StoreStado)
     this.store.dispatch(
       cambioCantidadCarrito({
         id: this.data.id,

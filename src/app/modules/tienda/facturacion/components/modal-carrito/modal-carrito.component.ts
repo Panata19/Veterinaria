@@ -14,7 +14,7 @@ import { Cliente } from 'src/app/modules/cliente/interface/cliente.interface';
 import { TiendaService } from '../../services/tienda.service';
 import { Store } from '@ngrx/store';
 import { AppState, Objeto } from '../../services/app.state';
-import { cambioCantidadCarrito } from '../../services/app.actions';
+import { cambioCantidadCarrito, eliminarObjeto } from '../../services/app.actions';
 
 
 @Component({
@@ -92,18 +92,30 @@ export class ModalCarritoComponent implements OnInit{
       .subscribe((objetos) => {
         
         this.StoreStado = [...objetos];
+       
+        if (this.StoreStado.length === 0) {
+          if(this.formStep1.contains('Error')){
+            this.formStep1.removeControl('Error');
+          } else {
+            const control = new FormControl(50);
+            control.setValidators([
+              Validators.max(2),
+            ]);
+            this.formStep1.addControl('Error', control);
+          }
+        }
       });
       
     
     
-    this.StoreStado.forEach((dato: StoreElement, index: any) => {
+    this.StoreStado.forEach((dato: StoreElement, index: number) => {
       const control = new FormControl(dato.Compra.Detalles.cantidad);
-      control.setValidators([
-        Validators.required,
-        Validators.min(1),
-        Validators.max(dato.Compra.Producto.quantitys),
-      ]);
-      this.formStep1.addControl('cantidad_'+index, control);
+        control.setValidators([
+          Validators.required,
+          Validators.min(1),
+          Validators.max(dato.Compra.Producto.quantitys),
+        ]);
+        this.formStep1.addControl('cantidad_'+index, control);
     });
 
     //** Stepper Responsive **//
@@ -252,6 +264,10 @@ export class ModalCarritoComponent implements OnInit{
     });
     Total = Math.round(Total * 100) / 100;
     return Total;
+  }
+
+  borrarCarrito(id: number){
+    this.store.dispatch(eliminarObjeto({ id }));
   }
 
   private advertencia(){
