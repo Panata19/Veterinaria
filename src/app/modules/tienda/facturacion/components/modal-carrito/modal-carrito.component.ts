@@ -78,6 +78,7 @@ export class ModalCarritoComponent implements OnInit{
   }*/
   public StoreStado!: Objeto[];
   formStep1: FormGroup = this._formBuilder.group({});
+
   constructor(
     public dialogRef: MatDialogRef<ModalCarritoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: boolean,
@@ -184,13 +185,15 @@ export class ModalCarritoComponent implements OnInit{
     this.compraCliente = this.secondFormGroup.value;
   }
 
-  aumentar({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, price} : Product): void {
-    if (this.StoreStado[0].Compra.Producto.quantitys <= cantidad) {
+  aumentar({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, quantitys, price} : Product, i: number): void {
+    const value: number = parseInt(this.formStep1.get('cantidad_'+i)?.value);
+    this.formStep1.get('cantidad_'+i)?.setValue(value + 1 );
+    if ( quantitys < value || value <= 0 ) {
       this.label = 'Aumentar';
       this.advertencia();
       return;
     }
-    ++cantidad;
+    cantidad = value;
     subTotal += price;
     valorIva = this.logicaIva(subTotal, iva);
     precioTotal = Math.round((subTotal + valorIva) * 100) / 100;
@@ -200,13 +203,16 @@ export class ModalCarritoComponent implements OnInit{
     );
   }
 
-  disminuir({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, price} : Product): void {
-    if (cantidad <= 0) {
+  disminuir({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, quantitys, price} : Product, i: number): void {
+    const value: number = parseInt(this.formStep1.get('cantidad_'+i)?.value);
+    this.formStep1.get('cantidad_'+i)?.setValue(value - 1 );
+
+    if (value <= 0 || quantitys < value) {
       this.label = 'Disminuir';
       this.advertencia();
       return;
     }
-    --cantidad
+    cantidad = value;
     subTotal -= price
     valorIva = this.logicaIva(subTotal, iva);
     precioTotal = Math.round((subTotal + valorIva) * 100) / 100;
@@ -281,12 +287,13 @@ export class ModalCarritoComponent implements OnInit{
 
   changes({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, price, quantitys} : Product, value:string): void {
     console.log("Input",value);
-    if(cantidad > quantitys || cantidad < 0 ) {
+    let newValue = parseInt(value);
+    if(newValue <= 0 || newValue > quantitys ) {
       this.error = true;
     } else {
       this.error = false;
       
-      cantidad = parseInt(value);
+      cantidad = newValue;
       subTotal = cantidad * price;
       valorIva = this.logicaIva(subTotal, iva);
       precioTotal = Math.round((subTotal + valorIva) * 100) / 100;
