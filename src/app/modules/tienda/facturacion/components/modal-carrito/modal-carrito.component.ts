@@ -2,8 +2,8 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 
-import { FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Product, Detalles } from '../../interfaces/CompraProducto';
+import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Product, Detalles, StoreElement } from '../../interfaces/CompraProducto';
 
 import { StepperOrientation } from '@angular/material/stepper';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -77,7 +77,7 @@ export class ModalCarritoComponent implements OnInit{
     user: this.secondFormGroup.value
   }*/
   public StoreStado!: Objeto[];
-
+  formStep1: FormGroup = this._formBuilder.group({});
   constructor(
     public dialogRef: MatDialogRef<ModalCarritoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: boolean,
@@ -92,6 +92,18 @@ export class ModalCarritoComponent implements OnInit{
         
         this.StoreStado = [...objetos];
       });
+      
+    
+    
+    this.StoreStado.forEach((dato: StoreElement, index: any) => {
+      const control = new FormControl(dato.Compra.Detalles.cantidad);
+      control.setValidators([
+        Validators.required,
+        Validators.min(1),
+        Validators.max(dato.Compra.Producto.quantitys),
+      ]);
+      this.formStep1.addControl('cantidad_'+index, control);
+    });
 
     //** Stepper Responsive **//
     this.stepperOrientation = breakpointObserver

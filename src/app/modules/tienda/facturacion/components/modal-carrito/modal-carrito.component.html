@@ -13,119 +13,124 @@
       errorMessage="Llena la cantidad"
     >
       <ng-template matStepContent>
-        <div
-          *ngFor="let element of StoreStado"
-          class="card border-secondary border"
-        >
-          <!-- Cards -->
-          <div class="row px-1 px-sm-auto">
-            <div
-              class="col px-4 px-sm-auto pe-sm-0 my-auto col-12 col-sm-4 col-md-3"
-            >
-              <img
-                class="img-fluid shade rounded my-2 m-0"
-                [src]="element.Compra.Producto.image.url"
-                alt="{{ element.Compra.Producto.name }} - {{
-                  element.Compra.Producto.category
-                }}"
-                (load)="loadingImage(element.Compra.Producto.image.loading)"
-                onerror="this.src='../assets/img/Artboard.svg'"
-              />
-              <mat-progress-bar
-                *ngIf="element.Compra.Producto.image.loading"
-                mode="indeterminate"
-              ></mat-progress-bar>
-            </div>
-            <div class="overflow-auto col-12 col-sm-5 col-md-6">
-              <div class="card-body px-0 px-sm-auto py-auto">
-                <h2 class="card-title fs-4 fw-semibold">
-                  {{ element.Compra.Producto.name }}
-                </h2>
-                <p
-                  class="card-text text-body-secondary"
-                  [ngClass]="{ 'text-danger': error }"
-                >
-                  {{ error ? "Solo Existen:" : "Existen:" }}
-                  {{ element.Compra.Producto.quantitys }}
-                </p>
-                <div>
-                  <span class="me-3">
-                    <i class="bi bi-tag tag align-middle"></i
-                    >{{ element.Compra.Producto.category }}
-                  </span>
-                  <span
-                    [innerHTML]="element.Compra.Producto.stock | badges"
-                  ></span>
+        <form [formGroup]="formStep1">
+          <div
+            *ngFor="let element of StoreStado; let i = index"
+            [formGroupName]="'cantidad_' + i"
+            class="card border-secondary border"
+          >
+            <!-- Cards -->
+            <div class="row px-1 px-sm-auto">
+              <div
+                class="col px-4 px-sm-auto pe-sm-0 my-auto col-12 col-sm-4 col-md-3"
+              >
+                <img
+                  class="img-fluid shade rounded my-2 m-0"
+                  [src]="element.Compra.Producto.image.url"
+                  alt="{{ element.Compra.Producto.name }} - {{
+                    element.Compra.Producto.category
+                  }}"
+                  (load)="loadingImage(element.Compra.Producto.image.loading)"
+                  onerror="this.src='../assets/img/Artboard.svg'"
+                />
+                <mat-progress-bar
+                  *ngIf="element.Compra.Producto.image.loading"
+                  mode="indeterminate"
+                ></mat-progress-bar>
+              </div>
+              <div class="overflow-auto col-12 col-sm-5 col-md-6">
+                <div class="card-body px-0 px-sm-auto py-auto">
+                  <h2 class="card-title fs-4 fw-semibold">
+                    {{ element.Compra.Producto.name }}
+                  </h2>
+                  <p
+                    class="card-text text-body-secondary"
+                    [ngClass]="{ 'text-danger': error }"
+                  >
+                    {{ error ? "Solo Existen:" : "Existen:" }}
+                    {{ element.Compra.Producto.quantitys }}
+                  </p>
+                  <div>
+                    <span class="me-3">
+                      <i class="bi bi-tag tag align-middle"></i
+                      >{{ element.Compra.Producto.category }}
+                    </span>
+                    <span
+                      [innerHTML]="element.Compra.Producto.stock | badges"
+                    ></span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col m-auto px-sm-auto col-12 col-sm-3 col-md-3">
-              <div class="align-items-center">
-                <span
-                  class="col-12 fs-5 px-0 px-sm-auto text-secondary-emphasis price align-self-start"
-                >
-                  ${{ element.Compra.Producto.price }}
-                </span>
-                <div class="d-flex flex-row mb-3 price px-0 px-sm-auto">
-                  <button
-                    matRipple
-                    type="button"
-                    class="btn btn-light border border-secondary rw-0 rounded-start"
-                    [ngClass]="{ 'border-danger': error }"
-                    (click)="
-                      disminuir(
-                        element.Compra.Detalles,
-                        element.Compra.Producto
-                      )
-                    "
+              <div class="col m-auto px-sm-auto col-12 col-sm-3 col-md-3">
+                <div class="align-items-center">
+                  <span
+                    class="col-12 fs-5 px-0 px-sm-auto text-secondary-emphasis price align-self-start"
                   >
-                    <span class="icon text-black">
-                      <i
-                        class="bi bi-dash-lg"
-                        [ngClass]="{ 'text-danger': error }"
-                      ></i>
-                    </span>
-                  </button>
-                  <div
-                    class="w-10 border border-secondary d-flex text-center align-items-center"
-                    [ngClass]="{ 'border-danger text-danger': error }"
-                  >
-                    <input
-                      class="fs-5 w-fc"
-                      matInput
-                      placeholder="3"
-                      [ngModel]="element.Compra.Detalles.cantidad"
-                      (ngModelChange)="
-                        changes(
+                    ${{ element.Compra.Producto.price }}
+                  </span>
+                  <div class="d-flex flex-row mb-3 price px-0 px-sm-auto">
+                    <button
+                      matRipple
+                      type="button"
+                      class="btn btn-light border border-secondary rw-0 rounded-start"
+                      [ngClass]="{ 'border-danger': error }"
+                      (click)="
+                        disminuir(
                           element.Compra.Detalles,
-                          element.Compra.Producto,
-                          $event
+                          element.Compra.Producto
                         )
                       "
-                    />
+                    >
+                      <span class="icon text-black">
+                        <i
+                          class="bi bi-dash-lg"
+                          [ngClass]="{ 'text-danger': error }"
+                        ></i>
+                      </span>
+                    </button>
+                    <div
+                      class="w-10 border border-secondary d-flex text-center align-items-center"
+                      [ngClass]="{ 'border-danger text-danger': error }"
+                    >
+                      <input
+                        class="fs-5 w-fc"
+                        matInput
+                        placeholder="3"
+                        [formControlName]="'cantidad_' + i"
+                        (ngModelChange)="
+                          changes(
+                            element.Compra.Detalles,
+                            element.Compra.Producto,
+                            $event
+                          )
+                        "
+                      />
+                    </div>
+                    <button
+                      matRipple
+                      type="button"
+                      class="btn btn-light border-secondary rw-0 rounded-end"
+                      [ngClass]="{ 'border-danger': error }"
+                      (click)="
+                        aumentar(
+                          element.Compra.Detalles, 
+                          element.Compra.Producto
+                        )
+                      "
+                    >
+                      <span class="icon text-black">
+                        <i
+                          class="bi bi-plus-lg"
+                          [ngClass]="{ 'text-danger': error }"
+                        ></i>
+                      </span>
+                    </button>
                   </div>
-                  <button
-                    matRipple
-                    type="button"
-                    class="btn btn-light border-secondary rw-0 rounded-end"
-                    [ngClass]="{ 'border-danger': error }"
-                    (click)="
-                      aumentar(element.Compra.Detalles, element.Compra.Producto)
-                    "
-                  >
-                    <span class="icon text-black">
-                      <i
-                        class="bi bi-plus-lg"
-                        [ngClass]="{ 'text-danger': error }"
-                      ></i>
-                    </span>
-                  </button>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
+        </form>
         <div class="border mt-2 rounded border-secondary">
           <!-- Div Costo Total -->
           <h3
