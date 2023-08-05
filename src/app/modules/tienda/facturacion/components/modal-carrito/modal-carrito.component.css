@@ -10,3 +10,48 @@
 .rw-0{
   border-radius: 0;
 }
+.border-sm-1{
+  border-left: 0px solid #858796 !important;
+}
+.w-sm-100{
+  width: 100%;
+}
+.w-md-100{
+  width: 100%;
+}
+@media (min-width: 576px) {
+  .border-sm-1{
+    border-left: 1px solid #858796 !important;
+  }
+  .w-sm-100{
+    width: auto;
+  }
+  
+}
+@media (min-width: 800px) {
+  .w-md-100{
+    width: auto;
+  }
+}
+
+.additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
+.right-align{
+  text-align: right;
+}
+
+input.right-align::-webkit-outer-spin-button,
+input.right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.right-align {
+  -moz-appearance: textfield;
+}
+
+.container-input mat-form-field {
+  margin-left: 8px;
+}

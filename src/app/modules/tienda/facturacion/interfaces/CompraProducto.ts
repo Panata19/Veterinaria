@@ -28,3 +28,7 @@ export interface StoreElement{
   Compra: CompraData
 }
 
+export interface MetodoPago {
+  id: number;
+  nombre: string;
+}

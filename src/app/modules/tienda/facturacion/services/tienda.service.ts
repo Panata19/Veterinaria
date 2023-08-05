@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StoreProduct } from '../interfaces/CompraProducto';
+import { MetodoPago, StoreProduct } from '../interfaces/CompraProducto';
 import { Detalles } from '../interfaces/CompraProducto';
 import { estadoStock } from 'src/app/shared/libs/Stock';
 import { ClienteService } from 'src/app/modules/cliente/service/cliente.service';
@@ -45,6 +45,15 @@ const IMAGE: string[] = [
 ]
 const CATEGORYS = ['Accesorios', 'Electrónica', 'Ropa', 'Fitness', 'Joyeria'];
 
+//** Simulando Datos de la DB **//
+const MetodPago: MetodoPago[] = [
+  { id: 1, nombre: 'Efectivo' },
+  { id: 2, nombre: 'Tarjeta Debito' },
+  { id: 3, nombre: 'Tarjeta Credito' },
+  { id: 6, nombre: 'Cheque' },
+];
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -79,8 +88,13 @@ export class TiendaService {
 
     return this.productsDB;
   }
+  
   getCliente(): Cliente[]{
     return this._ClienteService.getCliente();
+  }
+
+  getMetodPagos(): MetodoPago[]{
+    return MetodPago;
   }
 
   private deleteProduct(productoEliminar:StoreProduct): StoreProduct[]{

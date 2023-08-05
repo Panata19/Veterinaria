@@ -179,7 +179,7 @@ export class FacturacionComponent {
       }
     });
   }
-
+  //** Modal C **//
   abrirCarrito() {
     const dialogRef = this.dialog.open(ModalCarritoComponent, {
       width: '700px',
@@ -190,6 +190,7 @@ export class FacturacionComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result !== undefined) {
+        console.log(result);
         this.Products = this.TiendaService.getProducts();
         this.length = this.Products.length;
         this.filterProducts();

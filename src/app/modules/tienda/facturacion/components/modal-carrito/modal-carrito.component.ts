@@ -2,8 +2,8 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 
-import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Product, Detalles, StoreElement } from '../../interfaces/CompraProducto';
+import { FormControl, FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
+import { Product, Detalles, StoreElement, MetodoPago } from '../../interfaces/CompraProducto';
 
 import { StepperOrientation } from '@angular/material/stepper';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -40,10 +40,9 @@ export class ModalCarritoComponent implements OnInit{
   Clients: Cliente[] = []; 
   filteredClients!: Observable<Cliente[]>;
 
+  MetodosPago!: MetodoPago[];
   //** Variables para Forms  **//
-  firstFormGroup = this._formBuilder.group({
-    cantidad: [1, [Validators.required, Validators.min(1)]],
-  });
+  private costoTotal: number = 1;
   /*
   DetallesFactura = {
     cantidad: this.StoreStado[0].Compra.Detalles.cantidad,
@@ -53,7 +52,7 @@ export class ModalCarritoComponent implements OnInit{
     precioTotal: 0,
   }*/
 
-  secondFormGroup = this._formBuilder.group({
+  formStep2 = this._formBuilder.group({
     numDoc: [ '', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
     nombre: [ '', [Validators.required, Validators.maxLength(30)]],
     apellido: [ '', [Validators.required, Validators.maxLength(30)]],
@@ -63,10 +62,18 @@ export class ModalCarritoComponent implements OnInit{
   });
 
   thirdFormGroup = this._formBuilder.group({
+    numDoc: [ '', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
     nombre: ['', [Validators.required, Validators.maxLength(30)]],
-    direccion: ['', [Validators.required, Validators.maxLength(30)]],  
     telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-    correo: ['', Validators.email],
+  });
+
+
+  formStep3 = this._formBuilder.group({
+    MetodosPago: ['',[ Validators.required],],
+    Efectivo: [ 0, [ Validators.required, Validators.min(0), Validators.max(5)] ],
+    Debito: [ 0, [ Validators.required, Validators.min(0), Validators.max(5)] ],
+    Credito: [ 0, [ Validators.required, Validators.min(0), Validators.max(5)] ],
+    Cheque: [ 0, [ Validators.required, Validators.min(0), Validators.max(5)] ],
   });
 
   stepperOrientation: Observable<StepperOrientation>;
@@ -74,10 +81,33 @@ export class ModalCarritoComponent implements OnInit{
   CompraData: any = {
     Producto: this.StoreStado[0].Compra.Producto,
     Cantidad: this.compra,
-    user: this.secondFormGroup.value
+    user: this.formStep2.value
   }*/
   public StoreStado!: Objeto[];
   formStep1: FormGroup = this._formBuilder.group({});
+
+  tooltipcuenta = {
+    label: {
+     wait: 'Esperando Cambios en la Cuenta',
+     check: 'Pago Completo',
+     down: 'Excediste el Costo total',
+     up: 'Aun no completas el Costo total'
+    },
+    icon: {
+      wait: 'bi-dash-circle-fill',
+      check: 'bi-check-circle-fill',
+      down: 'bi-arrow-down-circle-fill',
+      up: 'bi-arrow-up-circle-fill'
+    }
+  }
+
+  toolTipState = {
+    label: this.tooltipcuenta.label['wait'],
+    icon: this.tooltipcuenta.icon['wait']
+  }
+  iconColorState:string = 'text-primary-emphasis'
+  cuantaPagos: number = 0;
+  cuentaReady: boolean = true;
 
   constructor(
     public dialogRef: MatDialogRef<ModalCarritoComponent>,
@@ -153,12 +183,21 @@ export class ModalCarritoComponent implements OnInit{
   }
 
   onStepChange(event: any): void {
-    //** Paso 2 **//
-    if (event.selectedIndex === 1) {
-      //** Llamar Clientes **//
-      this.Clients = this.TiendaService.getCliente();
+    switch (event.selectedIndex) {
+      case 1: //** Paso 2 **//
+        //** Llamar Clientes **//
+        this.Clients = this.TiendaService.getCliente();  
+        break;
+
+      case 2: //** Paso 3 **//
+        this.MetodosPago = this.TiendaService.getMetodPagos();
+        break;
+
+      default:
+        break;
     }
-    if(!this.secondFormGroup.valid || !this.thirdFormGroup.valid){
+
+    if(!this.formStep2.valid || !this.thirdFormGroup.valid){
       this.labelToolTip = 'Completa los pasos primero';
     } else {
       this.labelToolTip = 'Listo para comprar';
@@ -166,26 +205,14 @@ export class ModalCarritoComponent implements OnInit{
     
     // Establecer nuevos valores en el formulario
     this.thirdFormGroup.patchValue({
-      nombre: this.secondFormGroup.get('nombre')?.value+' '+this.secondFormGroup.get('apellido')?.value,
-      direccion: this.secondFormGroup.get('direccion')?.value,
-      telefono: this.secondFormGroup.get('telefono')?.value,
-      correo: this.secondFormGroup.get('correo')?.value
+      numDoc: this.formStep2.get('numDoc')?.value,
+      nombre: this.formStep2.get('nombre')?.value+' '+this.formStep2.get('apellido')?.value,
+      telefono: this.formStep2.get('telefono')?.value,
     });
-
-    this.thirdFormGroup.get('nombre')?.setValue(
-      this.secondFormGroup.get('nombre')?.value+' '+
-      this.secondFormGroup.get('apellido')?.value);
-    this.thirdFormGroup.get('direccion')?.setValue(
-      this.secondFormGroup.get('direccion')?.value);
-    this.thirdFormGroup.get('telefono')?.setValue(
-      this.secondFormGroup.get('telefono')?.value);
-    this.thirdFormGroup.get('correo')?.setValue(
-      this.secondFormGroup.get('correo')?.value);
-    
   }
   // Establecer nuevos valores del Cliente Seleccionado
   selecction(selection: Cliente): void{  
-    this.secondFormGroup.setValue({
+    this.formStep2.setValue({
       numDoc: selection.numDocumento ,
       nombre: selection.nombreCliente,
       apellido: selection.apellidosCliente,
@@ -194,7 +221,7 @@ export class ModalCarritoComponent implements OnInit{
       correo: selection.correo,
     });
     // Obtener todos los Datos  del Cliente
-    this.compraCliente = this.secondFormGroup.value;
+    this.compraCliente = this.formStep2.value;
   }
 
   aumentar({cantidad, subTotal, iva, valorIva ,precioTotal } : Detalles, {id, quantitys, price} : Product, i: number): void {
@@ -250,7 +277,7 @@ export class ModalCarritoComponent implements OnInit{
 
   Iva(): number{
     let ivaTotal:number = 0;  
-    this.StoreStado.forEach((Producto) => {
+    this.StoreStado?.forEach((Producto) => {
       ivaTotal += Producto.Compra.Detalles.valorIva;
     });
     ivaTotal = Math.round(ivaTotal * 100) / 100;
@@ -259,15 +286,122 @@ export class ModalCarritoComponent implements OnInit{
 
   Total(): number{
     let Total:number = 0;
-    this.StoreStado.forEach((Producto) => {
+    this.StoreStado?.forEach((Producto) => {
       Total += Producto.Compra.Detalles.precioTotal;
     });
     Total = Math.round(Total * 100) / 100;
+    this.costoTotal = Total;
     return Total;
   }
 
   borrarCarrito(id: number){
     this.store.dispatch(eliminarObjeto({ id }));
+  }
+
+  vista(){
+    let metodos = this.formStep3.get('MetodosPago')?.value;
+    this.changeMaxValue(this.Total(), metodos);
+    
+    this.logicaCuenta(metodos);
+
+  }
+
+  logicaCuenta(metodos: string[]): void{
+    this.cuantaPagos = 0;
+    metodos.forEach((metodo: string='') => {
+      const Nmetodo = this.obtenerMetodoPago(metodo);
+      switch (Nmetodo) {
+        case 'Efectivo':
+          const efect = parseFloat(this.formStep3.get('Efectivo')?.value);
+          this.cuantaPagos += efect;
+          break;
+        case "Debito":
+          const debit = parseFloat(this.formStep3.get('Debito')?.value);  
+          this.cuantaPagos += debit;
+          
+          break;
+        case "Credito":
+          const credit = parseFloat(this.formStep3.get('Credito')?.value);  
+          this.cuantaPagos += credit;
+          
+          break;
+        case "Cheque":
+          const cheque = parseFloat(this.formStep3.get('Cheque')?.value);  
+          this.cuantaPagos += cheque;
+          
+          break;
+
+        default:
+          break;
+      }
+    });
+    console.log("Total",this.cuantaPagos)
+  }
+
+  checkPagos(): void{
+    console.log('Calculando')
+    let state: string = 'wait';
+    
+    switch (true) {
+      case this.cuantaPagos === 0:
+        //TODO: Hacer la funcionalidad
+        state = 'wait';
+        this.iconColorState = 'text-primary-emphasis'
+        break;
+      case this.cuantaPagos === this.Total():
+        //TODO: Hacer la funcionalidad 
+        this.cuentaReady = false;
+        state = 'check';   
+        this.labelToolTip = 'Listo para Comprar'
+        this.iconColorState = 'text-success'
+        break;
+      case this.cuantaPagos >= this.Total():
+        //TODO: Hacer la funcionalidad
+        this.cuentaReady = true;
+        state = 'down';
+        this.iconColorState = 'text-danger'
+        break;
+      case this.cuantaPagos <= this.Total():
+        //TODO: Hacer la funcionalidad
+        state = 'up';
+        this.cuentaReady = true;
+        this.iconColorState = 'text-warning'
+        break;
+      default:
+        break;
+    }
+    const iLabel = Object.keys(this.tooltipcuenta.label).indexOf(state);
+    const iIcon = Object.keys(this.tooltipcuenta.icon).indexOf(state);
+    this.toolTipState.icon = Object.values(this.tooltipcuenta.icon)[iIcon];
+    this.toolTipState.label = Object.values(this.tooltipcuenta.label)[iLabel];
+
+  }
+
+  changeMaxValue(maxValue: number, Tipo: string[]) {
+    Tipo.forEach((item) => {
+      const pago = this.obtenerMetodoPago(item);
+      const cantidadControl = this.formStep3.get(pago);
+      if (cantidadControl?.validator) {
+        const newValidators = [Validators.required, Validators.min(1), Validators.max(maxValue)];
+        cantidadControl.setValidators(newValidators);
+        cantidadControl.updateValueAndValidity();
+      }
+    });
+  }
+  
+  obtenerMetodoPago(pago: string): string {
+    switch (pago) {
+      case "Efectivo":
+        return "Efectivo";
+      case "Tarjeta Debito":
+        return "Debito";
+      case "Tarjeta Credito":
+        return "Credito";
+      case "Cheque":
+        return "Cheque";
+      default:
+        return "Método de pago inválido";
+    }
   }
 
   private advertencia(){
@@ -278,19 +412,87 @@ export class ModalCarritoComponent implements OnInit{
       }, 3200);
   }
 
+  pagoCantidades(event: any){
+    console.log(event);
+    let metodos = this.formStep3.get('MetodosPago')?.value;
+    this.logicaCuenta(metodos);
+    this.checkPagos();
+  }
+
   message(): string {
     return this.label;
   }
 
   comprar(){
-    /*
-    if(this.CompraData?.Producto && this.CompraData?.Cantidad && this.CompraData?.user){
-      console.log(this.CompraData)
-      this.TiendaService.compraProducto(this.CompraData);
-    }else {
-      console.log('Falto un dato');
+    //Productos del Carrito
+    let Factura = {}
+    let FacturaDetalles: any[] = [];
+    this.StoreStado.forEach((Producto) => {
+      const FacturaDetalle = {
+        idFacturaDetalle: '001-001-000000000010345',
+        idFacturaCabecera: '1',
+        idProducto: Producto.Compra.Producto.id,
+        nombreProducto: Producto.Compra.Producto.name,
+        precioProducto: Producto.Compra.Producto.price,
+        cantidadProducto: Producto.Compra.Detalles.cantidad,
+        subtotalProducto: Producto.Compra.Detalles.subTotal,
+        totalProducto: Producto.Compra.Detalles.precioTotal
+      };
+      FacturaDetalles.push(FacturaDetalle);
+    });
+    
+    Factura = {
+      Detalles: FacturaDetalles
     }
-    */
+    //Datos del Usuario
+    const Client = {
+      numDoc: this.formStep2.get('numDoc')?.value,
+      nombre: this.formStep2.get('nombre')?.value,
+      apellido: this.formStep2.get('apellido')?.value,
+      telefono: this.formStep2.get('telefono')?.value,
+      direccion: this.formStep2.get('direccion')?.value,
+      correo: this.formStep2.get('correo')?.value,
+    }
+    
+    //Datos de Pago
+    
+    const DatosPago = {
+      MetodosPago: this.formStep3.get('MetodosPago')?.value,
+      Efectivo: this.formStep3.get('Efectivo')?.value,
+      Debito: this.formStep3.get('Debito')?.value,
+      Credito: this.formStep3.get('Credito')?.value,
+      Cheque: this.formStep3.get('Cheque')?.value
+    };
+
+    
+
+    const fechaActual = new Date();
+    const dia = fechaActual.getDate();
+    const mes = fechaActual.getMonth() + 1; // Los meses en JavaScript comienzan desde 0
+    const anio = fechaActual.getFullYear();
+
+    const FacturaCabecera = {
+      idFacturaCabecera: 1,
+      idEmpresa: 1,
+      idUsuario: 2,
+      numeroFactura: "001-001-000000000010345",
+      fechaFacturaCreacion: `${anio}-${mes}-${dia}`,
+      idCliente: Client.numDoc,
+      nombreCliente: Client.nombre +' '+Client.apellido,
+      numDocumentoCliente: Client.numDoc,
+      subtotalFactura: this.SubTotal(),
+      iva: this.Iva(),
+      totalFactura: this.Total(),
+      "estadoFacturaCabecera": "AP",
+      "observaciones": null
+    }
+
+    Factura = {
+      ...Factura,
+      Cabecera: FacturaCabecera
+    }
+    console.log(Factura);
+
   }
 
   reset(){
