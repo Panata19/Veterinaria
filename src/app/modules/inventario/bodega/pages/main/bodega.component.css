@@ -1,0 +1,48 @@
+td, th {
+  width: 25%;
+}
+
+.mat-column-select {
+  width: 32px;
+  border-right: 1px solid #DEE2E6;
+  padding-right: 24px;
+  text-align: center;
+}
+
+.mat-column-id {
+  width: 4vw;  
+  min-width: 4vw;
+  padding-left: 1.5vw;
+}
+
+.mat-column-image{
+  width: 11vw;
+  max-width: 15vw;
+  min-width: 11vw;
+  padding: 0 1.5vw;
+}
+
+.mat-column-category,
+.mat-column-name{
+  width: 12vw;
+  max-width: 15vw;
+  min-width: 12vw;
+  padding: 0 1.5vw;
+}
+
+.mat-column-price,
+.mat-column-quantitys{
+  width: 7vw;
+  max-width: 10vw;
+  min-width: 7vw;
+  padding: 0 1.5vw;
+  
+}
+
+.mat-column-status{
+  width: 7vw;
+  min-width: 8vw;
+  padding: 0 1.5vw; 
+}
+
+

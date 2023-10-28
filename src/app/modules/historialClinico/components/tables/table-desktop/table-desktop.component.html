@@ -1,0 +1,62 @@
+<div class="px-2">
+    <app-filtro-tabla (obtenerEntrada)="entradas = $event" 
+                     (obtenerFiltro)="inputSeleccionado = $event"
+                     (obtenerTextoFiltro)="textoFiltro = $event"
+                     (resetearPagina)="page = $event">
+    </app-filtro-tabla>
+    <section *ngIf="allHospitalizacion.length !== 0">
+        <div class="card container_card p-lg-4">
+            <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" *ngFor="let columna of tablaColumnas">{{ columna }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let hospitalizacion of allHospitalizacion | filtroHistorialClinico:textoFiltro:page:entradas:inputSeleccionado.tipo:inputSeleccionado.nombre">
+                        <td>{{ hospitalizacion.idHospitalizacion }}</td>
+                        <td>{{ hospitalizacion.paciente.nombrePaciente }}</td>
+                        <td>{{ hospitalizacion.paciente.tipoPaciente.tipoPaciente }}</td>
+                        <td>{{ hospitalizacion.motivo }}</td>
+                        <td>{{ hospitalizacion.fechaIngreso | date}}</td>
+                        <td class="container_buttons">
+                          <button (click)="abrirHistorialesClinicos()" class="btn btn-primary" type="button">
+                            <i class="bi bi-file-text"></i>
+                            ver Historiales
+                          </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="container_pagination">
+                <span *ngIf="+entradas > (allHospitalizacion | filtroHistorialClinico:textoFiltro:page:entradas:inputSeleccionado.tipo:inputSeleccionado.nombre).length;
+                      then mostrarEntradasImpares
+                      else mostrarEntradasPares">
+                </span>
+                <ng-template #mostrarEntradasPares>
+                  <div class="fs-6">
+                    Mostrando {{ page + 1 }} - {{ page + +entradas }} entradas de {{ allHospitalizacion.length }}
+                  </div>
+                </ng-template>
+                <ng-template #mostrarEntradasImpares>
+                  <div class="fs-6">
+                    Mostrando {{page + 1}} - {{ page + (allHospitalizacion | filtroHistorialClinico:textoFiltro:page:entradas:inputSeleccionado.tipo:inputSeleccionado.nombre).length }}
+                    de {{ dataHospitalizaciones.length }}
+                  </div>  
+                </ng-template>
+                <div class="container_buttons_navigation ">
+                  <button class="btn btn-outline-primary" 
+                          (click)="paginaAnterior()"
+                          [disabled]="page === 0">
+                          <i class="bi bi-arrow-left"></i> 
+                          Anterior </button>
+                  <button class="btn btn-outline-primary" 
+                          (click)="paginaSiguiente()"
+                          [disabled]="+entradas > (allHospitalizacion | filtroHistorialClinico:textoFiltro:page:entradas:inputSeleccionado.tipo:inputSeleccionado.nombre).length"> 
+                          Siguiente 
+                          <i class="bi bi-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

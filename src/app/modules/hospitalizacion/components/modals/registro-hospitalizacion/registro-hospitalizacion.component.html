@@ -1,0 +1,142 @@
+<!-- Botón para cerrar el modal-->
+<app-boton-cerrar-modal [dialogRef]="dialogRefRegistroHosp"></app-boton-cerrar-modal>
+<div class="row container_registro">
+    <!-- Contenedor del formulario -->
+    <form (ngSubmit)="registrarHospitalizacion()" autocomplete="off" [formGroup]="formularioRegistroHospitalizacion">
+        <div class="row mt-4">
+            <!-- Seccion datos Paciente -->
+            <div class="col-md-4 col-sm-12">
+                <h2>Datos Paciente</h2>
+                <!-- Campo Id paciente -->
+                <div class="form-group">
+                    <input type="hidden" 
+                           class="form-control form-control-user"
+                           formControlName="idPaciente"
+                           id="idPaciente"/>
+                </div>
+                <!-- Campo nombre paciente -->
+                <div class="form-group">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" 
+                           class="form-control form-control-user"
+                           placeholder="Nombre paciente" 
+                           formControlName="nombre"
+                           (change)="cargarCampos()"/>
+                    <span *ngIf="campoNoValido('nombre')" class="text-form text-danger">
+                        {{ validarCamposSoloLetras('nombre') }}
+                    </span>
+                </div>
+                <!-- Campo fecha nacimiento paciente -->
+                <div class="form-group">
+                    <label for="date" class="form-label">Fecha nacimiento</label>
+                    <input type="date" 
+                           class="form-control form-control-user"
+                           formControlName="fechaNac"
+                           id="date"
+                           (change)="cargarCampos()"/>
+                    <span *ngIf="campoNoValido('fechaNac')" class="text-form text-danger">
+                        {{validarFecha('fechaNac')}}
+                    </span>
+                </div>
+                <!-- Campo tipo de paciente (perro, gato, conejo etc)-->
+                <div class="form-group">
+                    <label for="tipo" class="form-label">Tipo</label>
+                    <input type="text" 
+                           class="form-control form-control-user"
+                           placeholder="Tipo" 
+                           formControlName="tipo"
+                           id="tipo"/>
+                    <span *ngIf="campoNoValido('tipo')" class="text-form text-danger">
+                        {{ validarCamposSoloLetras('tipo') }}
+                    </span>
+                </div>
+                <!-- Campo raza paciente -->
+                <div class="form-group">
+                    <label for="raza" class="form-label">Raza</label>
+                    <input type="text" 
+                           class="form-control form-control-user"
+                           placeholder="Raza"
+                           formControlName="raza"
+                           id="raza" />
+                    <span *ngIf="campoNoValido('raza')" class="text-form text-danger">
+                        {{ validarCamposSoloLetras('raza') }}
+                    </span>
+                </div>
+                <!-- Campo sexo paciente -->
+                <div class="form-group">
+                    <label for="sexo" class="form-label">Sexo</label>
+                    <input type="text" 
+                           class="form-control form-control-user"
+                           placeholder="Sexo" 
+                           formControlName="sexo"
+                           id="sexo"/>
+                    <span *ngIf="campoNoValido('sexo')" class="text-form text-danger">
+                        {{ validarCamposSoloLetras('sexo') }}
+                    </span>
+                </div>
+            </div>
+            <!-- Seccion datos Hospitalizacion -->
+            <div class="col-md-4 col-sm-12">
+                <h2>Datos hospitalizacion</h2>
+                <div class="form-group">
+                    <input type="hidden" class="form-control" formControlName="idHospitalizacion" />
+                </div>
+                <div class="form-group">
+                    <label for="motivo" class="form-label">Motivo</label>
+                    <input type="text" formControlName="motivo" class="form-control" id="motivo" placeholder="Motivo">
+                    <span *ngIf="campoNoValido('motivo')" class="text-form text-danger">
+                        {{ validarCamposSoloLetras('motivo') }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="fecha" class="form-label">Fecha Ingreso</label>
+                    <input type="date" class="form-control" formControlName="fechaIngreso" id="fechaIngreso" name="fechaIngreso">
+                    <span *ngIf="campoNoValido('fechaIngreso')" class="text-form text-danger">
+                        {{validarFecha('fechaIngreso')}}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="fecha" class="form-label">Fecha Salida</label>
+                    <input type="date" class="form-control" formControlName="fechaSalida" id="fechaSalida" name="fechaSalida">
+                    <span *ngIf="campoNoValido('fechaSalida')" class="text-form text-danger">
+                        {{validarFecha('fechaSalida')}}
+                    </span>
+                </div>
+            </div>
+            <!-- Seccion para programar la cirugia -->
+            <div class="col-md-4 col-sm-12">
+                <h2>Programar Cirugía</h2>
+                <div class="form-group">
+                    <label for="tipoCirugia" class="form-label">Tipo Cirugía</label>
+                    <select class="form-select" aria-label="Default select example" formControlName="tipoCirugia">
+                        <option value="" selected disabled>Seleccione</option>
+                        <option *ngFor="let tipoCirugia of tiposCirugia" [value]="tipoCirugia.idTipoCirugia">
+                            {{ tipoCirugia.tipoCirugia }}
+                        </option>
+                      </select>
+                    <span *ngIf="campoNoValido('tipoCirugia')" class="text-form text-danger">
+                        {{ ValidarOpcionSeleccionada('tipoCirugia') }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="nombreDoctor" class="form-label">Doctor encargado</label>
+                    <select class="form-select" aria-label="Default select example" formControlName="doctorEncargado">
+                        <option value="" selected disabled>Seleccione</option>
+                        <option *ngFor="let medico of medicos" [value]="medico.idMedico">{{ medico.nombre }}</option>
+                      </select>
+                    <span *ngIf="campoNoValido('doctorEncargado')" class="text-form text-danger">
+                        {{ ValidarOpcionSeleccionada('doctorEncargado') }}
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="fechaProgramada" class="form-label">Fecha programada</label>
+                    <input type="date" class="form-control" formControlName="fechaProgramada" id="fechaProgramada">
+                    <span *ngIf="campoNoValido('fechaProgramada')" class="text-form text-danger">
+                        {{validarFecha('fechaProgramada')}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success float-end">Registrar</button>
+    </form>
+</div>

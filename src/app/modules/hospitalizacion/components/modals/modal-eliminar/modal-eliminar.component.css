@@ -1,0 +1,19 @@
+.container_modal_eliminar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.container_modal_eliminar p{
+    margin: 0;
+    font-weight: bold;
+}
+
+.container_modal_buttons{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: .5rem;
+}

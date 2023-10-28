@@ -1,0 +1,92 @@
+    <!-- contenedor principal-->
+    <div class="px-2">
+        <!-- Contenerdor principal del filtro y el selector de vista -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+        <!-- Contenedor del selector de entradas -->
+        <div class="container_select">
+          <label class="col" for="selectView">Mostrar</label>
+          <select class="custom-select form-select-sm" 
+                  [(ngModel)]="entradas" 
+                  name="entradas">
+            <option value="5" selected>5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+          <label class="col" for="selectView">entradas</label>
+        </div> 
+        <!-- Contenedor del input buscar -->
+        <div class="container_filter">
+          <select class="form-select"
+                  [(ngModel)]="filtroSeleccionado"
+                  name="filtroSeleccionado"
+                  (change)="seleccionarFiltro()">
+            <option value="" selected>Todos</option>
+            <option *ngFor="let filtro of TIPOS_FILTROS" [value]="filtro.valor">{{ filtro.texto }}</option>
+          </select>
+          <input [type]= "inputSeleccionado.tipo" 
+                 class="form-control" 
+                 [(ngModel)]="textoFiltro" 
+                 (change)= "resetearPaginas()"
+                 [placeholder]="inputSeleccionado.placeholder"
+                 [disabled] = "inputSeleccionado.disable" 
+                 name="textoFiltro" />
+        </div>
+        </div>
+          <section *ngIf="allHospitalizacion.length !== 0">
+          <!-- contenedor de todas los cards -->
+          <div class="card container_card p-lg-4">
+            <!-- Contnedor de la card -->
+            <div *ngFor="let hospitalizacion of allHospitalizacion | filtroHospitalizacion:textoFiltro:page:entradas:inputSeleccionado.tipo:
+                          inputSeleccionado.nombre" 
+            class="card mb-3">   
+                <div class="card_body">
+                    <div class="card_body_icon">
+                        <i class="bi bi-file-text"></i>
+                    </div>
+                    <div class="card-body-text">
+                        <h2>Hospitalización # {{ hospitalizacion.idHospitalizacion}}</h2>
+                        <h4>Paciente: {{ hospitalizacion.paciente.nombrePaciente }}</h4>
+                        <h4>FechaIngreso: {{ hospitalizacion.fechaIngreso | date }}</h4> 
+                        <h4>Tipo mascota: {{ hospitalizacion.paciente.tipoPaciente.tipoPaciente }}</h4>
+                        <h4>Motivo: {{ hospitalizacion.motivo }}</h4>
+                    </div>
+                </div>
+                <div class="container-body-buttons">
+                  <button class="btn btn-primary" (click)="abrirDetallesHospitaliacion(hospitalizacion)">Ver Detalles</button>
+                  <button class="btn btn-danger" (click)="eliminarDetallesHospitalizacion()">Eliminar</button>
+                </div>
+            </div>               
+          </div>
+          <div class="container_pagination">
+            <span *ngIf="+entradas > (allHospitalizacion | filtroHospitalizacion:textoFiltro:page:entradas:inputSeleccionado.tipo).length;
+                  then mostrarEntradasImpares
+                  else mostrarEntradasPares">
+            </span>
+            <ng-template #mostrarEntradasPares>
+              <div class="fs-6">
+                Mostrando {{ page + 1 }} - {{ page + +entradas }} entradas de {{ allHospitalizacion.length }}
+              </div>
+            </ng-template>
+            <ng-template #mostrarEntradasImpares>
+              <div class="fs-6">
+                Mostrando {{page + 1}} - {{ page + (allHospitalizacion | filtroHospitalizacion:textoFiltro:page:entradas).length }}
+                de {{ dataHospitalizaciones.length }}
+              </div>  
+            </ng-template>
+            <div class="container_buttons_navigation ">
+              <button class="btn btn-outline-primary" 
+                      (click)="paginaAnterior()"
+                      [disabled]="page === 0">
+                      <i class="bi bi-arrow-left"></i> 
+                      Anterior </button>
+              <button class="btn btn-outline-primary" 
+                      (click)="paginaSiguiente()"
+                      [disabled]="+entradas > (allHospitalizacion | filtroHospitalizacion:textoFiltro:page:entradas:inputSeleccionado.tipo).length"> 
+                      Siguiente 
+                      <i class="bi bi-arrow-right"></i></button>
+            </div>
+          </div>
+        </section>
+  
+      </div>

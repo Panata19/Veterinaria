@@ -1,0 +1,125 @@
+<div class="w-100 mt-3 p-2 border-top border-gray row"><!-- Header Buttons -->
+  <div class="col">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (ngModelChange)="filterProducts()" placeholder="Buscar...">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="col text-end">
+    <mat-button-toggle-group aria-label="Font Style" >
+      <mat-button-toggle 
+        value="view_list" 
+        aria-label="List View"
+        [checked]="List"
+        (change)="viewList()"
+        [ngClass]="{'selected': List }"
+      >
+        <mat-icon
+          [ngClass]="{'text-white': List }"
+        >view_list</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle 
+        
+        value="view_grid" 
+        aria-label="Grid View"
+        (change)="viewGrid()"
+        [ngClass]="{'selected': Grid }"
+      >
+        <mat-icon
+          [ngClass]="{'text-white': Grid }"
+        >grid_view</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div> <!-- Header Buttons End-->
+<div class="w-100 p-3  border-top border-gray bg-white"> <!-- Container Para las Cards -->
+  <div class="row gap-2">
+    <div 
+      *ngFor="let item of filteredProducts | paginate: { itemsPerPage: pageSize, currentPage: pageIndex }"
+      class="card border border-gray"
+      [ngClass]="{'wdth-L': List, 'wdth-G': Grid }"
+    > <!-- Cards -->
+      <div class="row g-0">
+        <div 
+          class="col my-auto"
+          [ngClass]="{'col-4 col-sm-4 col-md-3 pe-0': List, 'col-12 m-auto': Grid }"
+        > 
+          <div *ngIf="Grid" class="text-center mt-4 mb-3">
+            <span class="me-3">
+              <i class="bi bi-tag tag align-middle"></i>{{item.category}}
+            </span>
+            <span [innerHTML]="item.status | badges"></span>
+          </div>
+          <img
+            class="img-fluid shade rounded my-2 m-0"
+            [src]="item.image.url"
+            alt="{{item.name}} - {{item.category}}"
+            (load)="item.image.loading = false"
+            onerror="this.src='../assets/img/Artboard.svg'"
+          >
+          <mat-progress-bar *ngIf="item.image.loading" mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div 
+          class="col overflow-auto"
+          [ngClass]="{'col-6 col-sm-6 col-md-7': List, 'col-12': Grid }"
+        >
+          <div class="card-body px-0 px-sm-auto py-auto" [ngClass]="{'py-0':Grid}">
+            <h2 class="card-title fs-4 fw-semibold"
+              [ngClass]="{'text-center':Grid}"
+            >{{ item.name }}</h2>
+            <p 
+              class="card-text text-body-secondary" [ngClass]="{'text-center':Grid}"
+            >
+              Existen: {{item.quantitys}}
+            </p>
+            <div *ngIf="List">
+              <span class="me-3">
+                <i class="bi bi-tag tag align-middle"></i>{{item.category}}
+              </span>
+              <span [innerHTML]="item.status | badges"></span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col m-auto "
+          [ngClass]="{'col-2 col-sm-2 col-md-2':List,'text-center': Grid}"
+        >
+          <div 
+            class="row gap-4 align-items-center"
+            [ngClass]="{'justify-content-between mb-3': Grid }"
+          >
+            <span class="col fs-5 text-secondary-emphasis price" [ngClass]="{'align-self-start': List}" > ${{item.price}} </span>
+            <div class="col price px-0 px-sm-auto" [ngClass]="{'align-self-end': List}" >
+              <button
+                type="button"
+                class="btn btn-primary rounded-circle shade p-auto"
+                [disabled]="item.quantitys <= 0"
+                (click)="procesoCompra(item)"
+              >
+                <i class="bi bi-cart"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--- Paginator --->
+    <mat-paginator #paginator
+               class="demo-paginator"
+               (page)="handlePageEvent($event)"
+               [length]="length"
+               [pageSize]="pageSize"
+               [disabled]="disabled"
+               [showFirstLastButtons]="showFirstLastButtons"
+               [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+               [hidePageSize]="hidePageSize"
+               [pageIndex]="pageIndex"
+               aria-label="Select page">
+      </mat-paginator>
+      <div class="demo-data">
+        <div> Output event: {{(pageEvent | json) || 'No events dispatched yet'}} </div>
+        <div> getNumberOfPages: {{paginator.getNumberOfPages()}} </div>
+      </div>
+  </div> 
+</div>

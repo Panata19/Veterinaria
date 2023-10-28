@@ -1,0 +1,18 @@
+*{ padding: 0; }
+
+.container_btn_cerrar_modal{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: .2rem;
+}
+
+.btn_close{  
+    border: none;
+    background-color: var(--white);
+}
+
+.bi-x-circle{
+    font-size: 1.9rem;
+    color: var(--blue);
+}

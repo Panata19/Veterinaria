@@ -1,0 +1,34 @@
+        <!-- Contenerdor principal del filtro y el selector de vista -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+            <!-- Contenedor del selector de entradas -->
+            <div class="container_select">
+              <label class="col" for="selectView">Mostrar</label>
+              <select class="custom-select form-select-sm" 
+                      [(ngModel)]="entradas"
+                      (change)="obtenerEntradas()" 
+                      name="entradas">
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+              <label class="col" for="selectView">entradas</label>
+            </div> 
+            <!-- Contenedor del input buscar -->
+            <div class="container_filter">
+              <select class="form-select"
+                      [(ngModel)]="filtroSeleccionado"
+                      name="filtroSeleccionado"
+                      (change)="seleccionarFiltro()">
+                <option value="" selected>Todos</option>
+                <option *ngFor="let filtro of TIPOS_FILTROS" [value]="filtro.valor">{{ filtro.texto }}</option>
+              </select>
+              <input [type]= "inputSeleccionado.tipo" 
+                     class="form-control" 
+                     [(ngModel)]="textoFiltro" 
+                     (ngModelChange)="getTextoFiltro()"
+                     [placeholder]="inputSeleccionado.placeholder"
+                     [disabled] = "inputSeleccionado.disable" 
+                     name="textoFiltro" />
+            </div>
+            </div>

@@ -1,0 +1,113 @@
+<div *ngIf="listcliente.length > 0">
+    <div class="card">
+        <div class="col-md-6 d-inline-flex justify-content-start margin">
+            <button matRipple type="button" class="btn btn-success btn-icon-split" (click)="abrirModalAgregar()">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Nuevo</span>
+            </button>
+        </div>
+    </div>
+
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8 Scroll">
+
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <!-- nombre -->
+            <ng-container matColumnDef="numDocumento">
+                <th mat-header-cell *matHeaderCellDef> Cedula o Ruc </th>
+                <td mat-cell *matCellDef="let element"> {{element.numDocumento}} </td>
+            </ng-container>
+
+            <!-- nombre -->
+            <ng-container matColumnDef="nombreCliente">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombreCliente}} </td>
+            </ng-container>
+
+            <!-- apellidos -->
+            <ng-container matColumnDef="apellidosCliente">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </th>
+                <td mat-cell *matCellDef="let element"> {{element.apellidosCliente}} </td>
+            </ng-container>
+
+            <!-- Direccion -->
+            <ng-container matColumnDef="direccion">
+                <th mat-header-cell *matHeaderCellDef> Direccion</th>
+                <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+            </ng-container>
+
+            <!-- Telefono -->
+            <ng-container matColumnDef="telefono">
+                <th mat-header-cell *matHeaderCellDef> Telefono</th>
+                <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+            </ng-container>
+
+            <!-- Correo-->
+            <ng-container matColumnDef="correo">
+                <th mat-header-cell *matHeaderCellDef> Correo</th>
+                <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+            </ng-container>
+
+            <!-- sexo -->
+            <ng-container matColumnDef="sexo">
+                <th mat-header-cell *matHeaderCellDef> Sexo </th>
+                <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
+            </ng-container>
+
+            <!-- edad -->
+            <ng-container matColumnDef="fechaNac">
+                <th mat-header-cell *matHeaderCellDef>Fecha de nacimiento </th>
+                <td mat-cell *matCellDef="let element"> {{element.fechaNac | date:'dd/MM/yyyy'}} </td>
+            </ng-container>
+
+            <!-- nacionalidad -->
+
+            <ng-container matColumnDef="nacionalidad">
+                <th mat-header-cell *matHeaderCellDef> Nacionalidad </th>
+                <td mat-cell *matCellDef="let element"> {{element.nacionalidad}} </td>
+            </ng-container>
+
+            <!-- Acciones -->
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef>
+
+                </th>
+                <td mat-cell *matCellDef="let element">
+
+                    <button (click)="abrirModalEditar(element)" class="btn btn-primary pointer" matTooltip="Editar">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+
+                    <button class="btn btn-danger pointer" (click)="eliminarCliente(element.id)" matTooltip="Eliminar">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No se encontraron clientes que concuerden con: "{{input.value}}"
+                </td>
+            </tr>
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+
+    </div>
+</div>
+
+<h2 *ngIf="listcliente.length == 0">No hay resultados de clientes para mostrar <br> <button
+        (click)="abrirModalAgregar()" mat-raised-button color="primary">Agregar</button> </h2>

@@ -1,0 +1,33 @@
+h2, h3, p{ margin: 0; }
+
+.container_datails > div{
+    background-color: #2F80ED;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.detail_title{
+    display: flex;
+    padding-bottom: .5rem;
+    gap: .5rem;
+    border-bottom: 1px solid #fff;
+}
+
+.detail_icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail_body{
+    margin-top: 1rem;
+}
+
+.detail_body .detail_text{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+}

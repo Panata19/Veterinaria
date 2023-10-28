@@ -1,0 +1,10 @@
+h2{
+    color: var(--dark);
+    border-bottom: 1px solid var(--blue);
+    padding-bottom: .5rem;
+}
+
+label{
+    font-size: 1rem;
+}
+
